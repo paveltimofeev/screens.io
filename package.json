@@ -1,0 +1,15 @@
+{
+  "name": "backstopjs-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "authorize.js",
+  "scripts": {
+    "test.yandex": "backstop test --config test-yandex.json --filter ya",
+    "approve.yandex": "backstop approve --config test-yandex.json --filter ya"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chromy": "^0.5.11"
+  }
+}

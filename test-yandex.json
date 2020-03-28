@@ -1,0 +1,40 @@
+{
+  "id": "yandex",
+  "viewports": [
+    {
+      "label": "Desktop",
+      "width": 1600,
+      "height": 900
+    }
+  ],
+  "onBeforeScript": "puppet/onBefore.js",
+  "onReadyScript": "puppet/onReady.js",
+  "scenarios": [
+    {
+      "label": "yablocks",
+      "url": "https://yandex.ru/",
+      "clickSelector": ".home-link[data-statlog=\"foot.hidden_blocks\"]",
+      "selectors": [ ".hidden-blocks-popup" ]
+    },
+    {
+      "label": "yamain",
+      "url": "https://yandex.ru/"
+    }
+  ],
+  "paths": {
+    "bitmaps_reference": "backstop_data/bitmaps_reference",
+    "bitmaps_test": "backstop_data/bitmaps_test",
+    "engine_scripts": "backstop_data/engine_scripts",
+    "html_report": "backstop_data/html_report",
+    "ci_report": "backstop_data/ci_report"
+  },
+  "report": ["browser"],
+  "engine": "puppeteer",
+  "engineOptions": {
+    "args": ["--no-sandbox"]
+  },
+  "asyncCaptureLimit": 5,
+  "asyncCompareLimit": 50,
+  "debug": false,
+  "debugWindow": false
+}

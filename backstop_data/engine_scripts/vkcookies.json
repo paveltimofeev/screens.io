@@ -1,0 +1,46 @@
+[
+  {
+    "domain": ".vk.com",
+    "path": "/",
+    "name": "remixsid",
+    "value": "a2786f6aaec0b0155056aba50206394fabd948570f467b45038a69178bd4c",
+    "expirationDate": 1798790400,
+    "hostOnly": false,
+    "httpOnly": true,
+    "secure": true,
+    "session": false,
+    "sameSite": "no_restriction"
+  },
+  {
+    "domain": ".vk.com",
+    "path": "/",
+    "name": "remixusid",
+    "value": "YmQ4YmVlZjE2OTcxYWVmMjRlNzVhNDY4",
+    "expirationDate": 1798790400,
+    "hostOnly": false,
+    "httpOnly": true,
+    "secure": true,
+    "session": false,
+    "sameSite": "no_restriction"
+  },
+  {
+    "name": "remixstid",
+    "value": "1225325034_Ez0mvp6pTkakNWrMgnSB5LFBLjsqbTTBeO1inp77BW4",
+    "domain": ".vk.com","path": "/","expirationDate": 1798790400,"hostOnly": false,"httpOnly": false,"secure": true,"session": false,"sameSite": "no_restriction"
+  },
+  {
+    "name": "remixua",
+    "value": "-1%7C-1%7C162%7C-2139515380",
+    "domain": ".vk.com","path": "/","expirationDate": 1798790400,"hostOnly": false,"httpOnly": false,"secure": true,"session": false,"sameSite": "no_restriction"
+  },
+  {
+    "name": "remixgp",
+    "value": "a32e0faf679b7e8b14edf7d2dd74617d",
+    "domain": ".vk.com","path": "/","expirationDate": 1798790400,"hostOnly": false,"httpOnly": false,"secure": true,"session": false,"sameSite": "no_restriction"
+  },
+  {
+    "name": "remixrefkey",
+    "value": "0039c2526d7b504be0",
+    "domain": ".vk.com","path": "/","expirationDate": 1798790400,"hostOnly": false,"httpOnly": false,"secure": true,"session": false,"sameSite": "no_restriction"
+  }
+]

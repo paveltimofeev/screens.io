@@ -17,6 +17,11 @@ class VRT {
         this._userId = userId;
         this._customConfig = customConfig;
         this._history = [];
+        this.refreshConfig();
+    }
+
+    refreshConfig () {
+
         this._config = this.getConfig();
     }
 
@@ -52,6 +57,27 @@ class VRT {
         })
     }
 
+    setBasicConfig (updData, cb) {
+
+        this.getBasicConfig( (err, config) => {
+
+            var data = { ...config, ...updData }
+
+            fs.writeFile(
+              `vrt_data/${this._tenantId}/vrtconfig.json`,
+              JSON.stringify(data),
+              'utf8',
+              (error) => {
+
+                  if (!error) {
+                      this.refreshConfig();
+                  }
+
+                  cb(error);
+              })
+        })
+    }
+
     getConfig () {
 
         var config = JSON.parse(
@@ -74,7 +100,12 @@ class VRT {
         return result;
     }
 
-    run (opts) {
+    getHistory (cb) {
+
+        fs.readdir( this._config.paths.bitmaps_test, cb )
+    }
+
+    run (opts, cb) {
 
         var uid = uuidv4()
 
@@ -88,14 +119,14 @@ class VRT {
             .then( ()  => { this.writeHistory(configCopy, 'success'); })
             .catch((e) => { this.writeHistory(configCopy, 'failed', e); });
 
-        return uid;
+        cb(null, uid);
     }
 
-    approve () {
+    approve (cb) {
 
         backstop('approve', { config: this._config} )
-            .then( (r) => { console.log('[VRT] approve done', r) })
-            .catch( (e) => { console.log('[VRT] approve failed', e)});
+            .then( (r) => { console.log('[VRT] approve done', r); cb(null, r); })
+            .catch( (e) => { console.log('[VRT] approve failed', e); cb(e);});
     }
 
     writeHistory (config, status, data) {
@@ -105,11 +136,6 @@ class VRT {
                 status,
                 data
             });
-    }
-
-    getHistory (cb) {
-
-        fs.readdir( this._config.paths.bitmaps_test, cb )
     }
 }
 

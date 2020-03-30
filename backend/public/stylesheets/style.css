@@ -7,6 +7,10 @@ a {
   color: #00B7FF;
 }
 
+.form h4  {
+  margin: 1.5em 0 0.5em 0;
+}
+
 .form {
   display: flex;
   flex-direction: column;

@@ -5,24 +5,30 @@ var vrt = require('../app_logic/vrt');
 /*
     API CALLS
 
-    /api/test/run           <-  { data: {jobId} }
-    /api/approve/:jobId     <-  { status: 'approved' }
-    /api/test/report/:jobId <-  { error, report }
-    /api/test/history       <-  { error, jobs }
-    /api/test/config        <-  { error, data }
+    [post] /api/test/run           <-  { error, data }
+    [post] /api/approve/:jobId     <-  { status: 'approved' }
+     [get] /api/test/report/:jobId <-  { error, report }
+     [get] /api/test/history       <-  { error, jobs }
+     [get] /api/test/config        <-  { error, data }
+     [put] /api/test/config        <-  { error, data }
 */
 
 router.post('/test/run', function(req, res, next) {
 
-    var opts = {...req.body}
-    let jobId = vrt.run(opts);
-    res.status(200).send( { data: {jobId} } );
+    var opts = { ...req.body }
+
+    vrt.run(opts, (error, data) => {
+        res.status(200).send( { error, data } )
+    })
 });
 
 router.post('/test/approve/:jobId', function(req, res, next) {
 
-    vrt.approve();
-    res.status(200).send( {status: 'approved'} );
+    // TODO: sanitize jobId
+
+    vrt.approve( (error, data) => {
+        res.status( !error ? 200 : 500).send( {status: error || data} );
+    });
 });
 
 router.get('/test/report/:jobId', function(req, res, next) {
@@ -44,6 +50,14 @@ router.get('/test/history', function(req, res, next) {
 router.get('/test/config', function(req, res, next) {
 
     vrt.getBasicConfig( (error, data) => {
+        res.status(200).send( {error, data} )
+    })
+});
+
+router.put('/test/config', function(req, res, next) {
+
+    // TODO: sanitize req.body
+    vrt.setBasicConfig(req.body, (error, data) => {
         res.status(200).send( {error, data} )
     })
 });

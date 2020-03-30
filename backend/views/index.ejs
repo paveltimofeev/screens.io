@@ -8,10 +8,10 @@
 
     <script>
 
-        async function run (filter, url) {
+        async function run (f, u) {
 
-          var filter = document.getElementById(filter).value;
-          var url = document.getElementById(url).value;
+          var filter = document.getElementById(f).value;
+          var url = document.getElementById(u).value;
 
           const response = await fetch(
             '/api/test/run',

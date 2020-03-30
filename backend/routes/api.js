@@ -26,7 +26,7 @@ router.post('/test/approve/:jobId', function(req, res, next) {
 
 router.get('/test/report/:jobId', function(req, res, next) {
 
-    const jobId = req.param('jobId'); // TODO: sanitize
+    const jobId = req.params.jobId; // TODO: sanitize
 
     vrt.getReport(jobId, (error, report) => {
         res.status(200).send( {error, report} );

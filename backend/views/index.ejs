@@ -8,12 +8,15 @@
 
     <script>
 
-        async function run (opts) {
+        async function run (filter, url) {
+
+          var filter = document.getElementById(filter).value;
+          var url = document.getElementById(url).value;
 
           const response = await fetch(
             '/api/test/run',
             {
-              body: JSON.stringify(opts),
+              body: JSON.stringify({filter, url}),
               method: 'POST',
               headers: { 'Content-Type': 'application/json' }
             })
@@ -68,28 +71,24 @@
     <p>Welcome</p>
 
     <div class="form">
-        <strong>Parameters</strong>
-
-        <input type="text" name="filter" placeholder="Tests filter">
-        <input type="text" name="url" placeholder="SUT url">
-
-        <button onclick="run()">Run</button>
-    </div>
-
-    <div class="form" action="/api/test/approve/1" method="post">
-        <button onclick="approve()">Approve</button>
+        <a class="btn" href="/configuration">Configuration</a>
     </div>
 
     <div class="form">
-        <button onclick="getHistory()">Refresh history</button>
-
-        <div id="history-container"></div>
-
+        <strong>Parameters</strong>
+        <input type="text" id="filter" name="filter" placeholder="Tests filter">
+        <input type="text" id="url" name="url" placeholder="SUT url">
+        <button class="btn" onclick="run('filter', 'url')">Run</button>
     </div>
 
-    <p>
-        <a href="/results">Results</a>
-    </p>
+    <div class="form">
+        <button class="btn" onclick="approve()">Approve</button>
+    </div>
+
+    <div class="form">
+        <button class="btn" onclick="getHistory()">Refresh history</button>
+        <div id="history-container"></div>
+    </div>
 
 </body>
 </html>

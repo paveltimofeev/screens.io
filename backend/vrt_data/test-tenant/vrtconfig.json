@@ -1,0 +1,25 @@
+{
+    "id": "yandex",
+    "viewports": [
+      {
+        "label": "Desktop",
+        "width": 1600,
+        "height": 900
+      }
+    ],
+    "onBeforeScript": "",
+    "onReadyScript": "",
+    "scenarios": [
+      {
+        "label": "yamain",
+        "url": "http://localhost:3000/"
+      }
+    ],
+    "report": ["CI", "json"],
+    "engine": "puppeteer",
+    "engineOptions": { "args": ["--no-sandbox"] },
+    "asyncCaptureLimit": 5,
+    "asyncCompareLimit": 50,
+    "debug": false,
+    "debugWindow": false
+  }

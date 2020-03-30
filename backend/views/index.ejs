@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+
+    <h1><%= title %></h1>
+    <p>Welcome</p>
+
+    <form action="/api/test/run" method="post">
+        
+        <strong>Parameters</strong>
+        
+        <input type="text" name="filter" placeholder="Tests filter">
+        <input type="text" name="url" placeholder="SUT url">
+        
+        <button type="submit">Run</button>
+    </form>
+
+    <form action="/api/test/approve/1" method="post">
+        <button type="submit">Approve</button>
+    </form>
+
+    <p>
+        <a href="/results">Results</a>
+    </p>
+    <p>
+        <ul class="results">
+            <% results.forEach(function(result){ %>
+            <li> <strong><%= result.status %></strong> <%= result.data %></li>
+            <% }) %>
+        </ul>
+    </p>
+
+</body>
+</html>

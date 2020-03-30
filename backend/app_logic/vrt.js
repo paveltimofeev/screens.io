@@ -43,6 +43,15 @@ class VRT {
           })
     }
 
+    getBasicConfig (cb) {
+
+      fs.readFile(
+        `vrt_data/${this._tenantId}/vrtconfig.json`,
+        'utf8', (error, file) => {
+            cb(error, JSON.parse(file))
+        })
+    }
+
     getConfig () {
 
         var config = JSON.parse(

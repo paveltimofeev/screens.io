@@ -6,9 +6,10 @@ var vrt = require('../app_logic/vrt');
     API CALLS
 
     /api/test/run           <-  { data: {jobId} }
-    /api/approve/:runid
-    /api/test/report
-    /api/test/history
+    /api/approve/:jobId     <-  { status: 'approved' }
+    /api/test/report/:jobId <-  { error, report }
+    /api/test/history       <-  { error, jobs }
+    /api/test/config        <-  { error, data }
 */
 
 router.post('/test/run', function(req, res, next) {
@@ -35,8 +36,15 @@ router.get('/test/report/:jobId', function(req, res, next) {
 
 router.get('/test/history', function(req, res, next) {
 
-    vrt.getHistory( (errors, jobs) => {
-        res.status(200).send( {errors, jobs} )
+    vrt.getHistory( (error, jobs) => {
+        res.status(200).send( {error, jobs} )
+    })
+});
+
+router.get('/test/config', function(req, res, next) {
+
+    vrt.getBasicConfig( (error, data) => {
+        res.status(200).send( {error, data} )
     })
 });
 

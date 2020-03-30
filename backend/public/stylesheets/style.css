@@ -7,19 +7,19 @@ a {
   color: #00B7FF;
 }
 
-form {
+.form {
   display: flex;
   flex-direction: column;
   width: 300px;
   margin-bottom: 0.5em;
 }
 
-form * + * {
+.form * + * {
   margin-top: 0.5em;
 }
 
-form button {
-  width: 100px;
+.form button {
+  width: 120px;
 }
 
 .results {
@@ -31,4 +31,8 @@ form button {
   border: 1px solid #fcfcfc;
   padding: 0.5em 1em;
   list-style: none;
+}
+
+button {
+  white-space: nowrap;
 }

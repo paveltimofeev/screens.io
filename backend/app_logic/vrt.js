@@ -2,32 +2,45 @@ var backstop = require('backstopjs');
 var fs = require('fs');
 var path = require('path');
 
+function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
 class VRT {
 
     constructor(tenantId, userId, customConfig) {
-        
+
         this._tenantId = tenantId;
         this._userId = userId;
         this._customConfig = customConfig;
         this._history = [];
+        this._config = this.getConfig();
     }
 
-    getReport (config) {
-    
-        var config = this.getConfig();
+    getReport (jobId, cb) {
 
-        var report = JSON.parse(
-                fs.readFileSync(
-                    path.join(config.paths.json_report, 'jsonReport.json'), 
-                    'utf8'
-                ));
+        fs.readFile(
+          path.join(this._config.paths.bitmaps_test, jobId, 'report.json'),
+          'utf8',
+          (err, file) => {
 
-        report.tests.forEach(t => {
-            t.pair.reference = path.join( config.paths.html_report, t.pair.reference)
-            t.pair.test = path.join( config.paths.html_report, t.pair.test)
-        });
+              var report = JSON.parse( file )
 
-        return report;
+              report.tests.forEach( t => {
+
+                  t.pair.reference = '\\' + path.join( this._config.paths.html_report, t.pair.reference )
+                  t.pair.test = '\\' + path.join( this._config.paths.html_report, t.pair.test )
+
+                  if (t.pair.diffImage) {
+                      t.pair.diffImage = '\\' + path.join( this._config.paths.html_report, t.pair.diffImage )
+                  }
+              })
+
+              cb( err, report )
+          })
     }
 
     getConfig () {
@@ -35,14 +48,14 @@ class VRT {
         var config = JSON.parse(
                 fs.readFileSync(`vrt_data/${this._tenantId}/vrtconfig.json`, 'utf8')
             );
-        
+
         var result = {...config, ...this._customConfig}
 
         result.paths = {
-            
+
             bitmaps_reference: `vrt_data/${this._tenantId}/bitmaps_reference`,
             engine_scripts: `vrt_data/${this._tenantId}/engine_scripts`,
-            
+
             bitmaps_test: `vrt_data/${this._tenantId}/${this._userId}/bitmaps_test`,
             html_report: `vrt_data/${this._tenantId}/${this._userId}/html_report`,
             ci_report: `vrt_data/${this._tenantId}/${this._userId}/ci_report`,
@@ -54,22 +67,24 @@ class VRT {
 
     run (opts) {
 
-        var config = this.getConfig();
-        
+        var uid = uuidv4()
+
+        var configCopy = JSON.parse(JSON.stringify(this._config));
+
         if (opts.url) {
-            config.scenarios.forEach( s => { s.url = opts.url } );
+            configCopy.scenarios.forEach( s => { s.url = opts.url } );
         }
 
-        backstop('test', { config: config} )
-            .then( ()  => { this.writeHistory(config, 'success'); })
-            .catch((e) => { this.writeHistory(config, 'failed', e); });
+        backstop('test', { config: configCopy} )
+            .then( ()  => { this.writeHistory(configCopy, 'success'); })
+            .catch((e) => { this.writeHistory(configCopy, 'failed', e); });
+
+        return uid;
     }
 
     approve () {
-                
-        var config = this.getConfig();
-        
-        backstop('approve', { config: config} )
+
+        backstop('approve', { config: this._config} )
             .then( (r) => { console.log('[VRT] approve done', r) })
             .catch( (e) => { console.log('[VRT] approve failed', e)});
     }
@@ -79,19 +94,13 @@ class VRT {
         this._history.push(
             {
                 status,
-                data, 
-                report: this.getReport( config )
+                data
             });
     }
 
-    history () {
+    getHistory (cb) {
 
-        fs.readdir('vrt_data\\test-tenant\\test-user\\bitmaps_test', (err, files) => {
-            console.log('[VRT] history', err);
-            console.log('[VRT] history', files);
-        })
-
-        return this._history;
+        fs.readdir( this._config.paths.bitmaps_test, cb )
     }
 }
 

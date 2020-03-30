@@ -5,6 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <script>
+
+        async function run (opts) {
+
+          const response = await fetch(
+            '/api/test/run',
+            {
+              body: JSON.stringify(opts),
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' }
+            })
+
+          return await response.json()
+        }
+
+        async function approve () {
+
+          const response = await fetch(
+            '/api/test/approve/123',
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' }
+            })
+
+          return await response.json()
+        }
+
+        async function getHistory () {
+
+          const response = await fetch('/api/test/history')
+          const records = await response.json()
+
+          var container = document.getElementById('history-container')
+          while (container.childElementCount > 0) {
+            container.removeChild( container.childNodes[ 0 ] );
+          }
+
+          var ul = document.createElement('ui')
+
+          records.jobs.reverse().forEach( j => {
+            var li = document.createElement('li')
+            var a = document.createElement('a')
+            a.href = '/results/' + j
+            a.innerText = j
+            li.appendChild(a)
+            ul.appendChild(li)
+          })
+
+          container.appendChild(ul)
+        }
+
+        getHistory ();
+
+    </script>
 </head>
 
 <body>
@@ -12,29 +67,28 @@
     <h1><%= title %></h1>
     <p>Welcome</p>
 
-    <form action="/api/test/run" method="post">
-        
+    <div class="form">
         <strong>Parameters</strong>
-        
+
         <input type="text" name="filter" placeholder="Tests filter">
         <input type="text" name="url" placeholder="SUT url">
-        
-        <button type="submit">Run</button>
-    </form>
 
-    <form action="/api/test/approve/1" method="post">
-        <button type="submit">Approve</button>
-    </form>
+        <button onclick="run()">Run</button>
+    </div>
+
+    <div class="form" action="/api/test/approve/1" method="post">
+        <button onclick="approve()">Approve</button>
+    </div>
+
+    <div class="form">
+        <button onclick="getHistory()">Refresh history</button>
+
+        <div id="history-container"></div>
+
+    </div>
 
     <p>
         <a href="/results">Results</a>
-    </p>
-    <p>
-        <ul class="results">
-            <% results.forEach(function(result){ %>
-            <li> <strong><%= result.status %></strong> <%= result.data %></li>
-            <% }) %>
-        </ul>
     </p>
 
 </body>

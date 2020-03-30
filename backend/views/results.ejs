@@ -17,14 +17,15 @@
 
     </div>
     <script type="text/javascript">
-      
-      fetch('/api/test/report').then( x => x.json() ).then( report )
 
-      function report (report) {
-        window.tests = report;
+      var jobId = document.URL.split('/')[4];
+      fetch('/api/test/report/'+jobId).then( x => x.json() ).then( report )
+
+      function report (response) {
+        window.tests = response.report;
 
         var s = document.createElement('script')
-        s.src = "vrt_data\\test-tenant\\test-user\\html_report\\index_bundle.js"
+        s.src = "\\vrt_data\\test-tenant\\test-user\\html_report\\index_bundle.js"
         document.head.append(s)
       }
     </script>

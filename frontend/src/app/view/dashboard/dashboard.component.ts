@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { of } from 'rxjs';
 import { ApiAdapterService } from '../../services/api-adapter.service';
 
 @Component({

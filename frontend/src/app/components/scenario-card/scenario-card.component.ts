@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-scenario-card',
@@ -6,6 +6,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./scenario-card.component.css']
 })
 export class ScenarioCardComponent implements OnInit {
+
+  @Input()
+  title:string;
+
+  @Input()
+  screenshot:string;
+
+  @Input()
+  isFailed:boolean = false;
+
+
+  @Output()
+  cardClick:any;
+
+  @Output()
+  runClick:any;
 
   constructor() { }
 

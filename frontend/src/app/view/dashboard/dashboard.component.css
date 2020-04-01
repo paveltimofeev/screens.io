@@ -8,3 +8,10 @@
   padding-top: 130px; /* TODO: TEMP */
   margin-left: 250px;
 }
+
+.scenarios-block {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 42px;
+  margin-left: -34px;
+}

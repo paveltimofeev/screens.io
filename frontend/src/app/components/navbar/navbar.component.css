@@ -1,0 +1,35 @@
+.navbar {
+  background-color: var(--schema-darkest);
+  display: flex;
+  flex-direction: column;
+
+  padding-top: 330px;
+  justify-content: flex-start;
+  align-items: center;
+
+  height: 100%;
+  width: 77px;
+}
+
+.navbar-item {
+  color: var(--menu-item-disabled);
+  padding: 16px;
+  line-height: 1.5;
+}
+
+.navbar-item i.material-icons {
+  line-height: 1;
+  height: auto;
+}
+
+.navbar-item--active {
+  color: var(--menu-item-enabled);
+}
+
+.navbar-item:active {
+  color: var(--menu-item-accent);
+}
+
+.navbar-item + .navbar-item {
+  margin-top: 10px;
+}

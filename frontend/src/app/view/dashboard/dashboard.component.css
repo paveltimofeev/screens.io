@@ -1,0 +1,10 @@
+:host {
+  flex: 1;
+  padding-left: 54px;
+  padding-right: 54px;
+}
+
+.header-block {
+  padding-top: 130px; /* TODO: TEMP */
+  margin-left: 250px;
+}

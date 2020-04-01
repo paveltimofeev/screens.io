@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-section-header',
@@ -6,6 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./section-header.component.css']
 })
 export class SectionHeaderComponent implements OnInit {
+
+  @Input()
+  icon:string;
+
+
+  @Input()
+  text:string;
 
   constructor() { }
 

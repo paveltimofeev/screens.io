@@ -1,0 +1,14 @@
+
+.header-container {
+
+  margin-top: 80px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #C9CBCF;
+}
+
+.material-icons {
+  padding-right: 12px;
+}

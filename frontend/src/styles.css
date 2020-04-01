@@ -1,1 +1,78 @@
-/* You can add global styles to this file, and also import other style files */
+
+:root {
+
+  --schema-darkest: #293962;
+  --schema-dark: #425072;
+  --schema-accent: #e87676 ;
+
+  --menu-item-accent: #606d8e;
+  --menu-item-disabled: #7788b0;
+  --menu-item-enabled: #ffffff;
+
+  --headers-main: #2c3145;
+  --headers-yellow: #deff82;
+  --headers-green: #35f180;
+
+  --control-label: #5c5c5c;
+  --control-placeholder: #cacaca;
+  --control-parameter-value: rgba(255,255,255, 0.75); /* #ffffff 75%*/
+
+  --accent-success: #5ed17f;
+  --accent-failed: #cd3636;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  font-size: 45px;
+  font-weight: 900;
+  line-height: .9;
+  letter-spacing: 1px; /*5%*/
+}
+h2 {
+  font-size: 36px;
+  font-weight: 700;
+}
+h3 {
+  font-size: 36px;
+  font-weight: 700;
+}
+h4 {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px; /*5%*/
+}
+h5 {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.main-action {
+  font-size: 14px;
+  font-weight: 300;
+}
+.page-action {
+  font-size: 12px;
+  font-weight: 500;
+}
+.control-text {
+  font-size: 12px;
+  font-weight: 400;
+}
+.parameter-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+.parameter-value {
+  font-size: 24px;
+  font-weight: 300;
+}
+

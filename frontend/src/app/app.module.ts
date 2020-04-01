@@ -18,6 +18,8 @@ import { ScenarioCardComponent } from './components/scenario-card/scenario-card.
 import { InputBoxComponent } from './components/input-box/input-box.component';
 import { SelectorsBoxComponent } from './components/selectors-box/selectors-box.component';
 import { AddScenarioButtonComponent } from './components/add-scenario-button/add-scenario-button.component';
+import { HistoryTableComponent } from './components/history-table/history-table.component';
+import { AgGridModule } from 'ag-grid-angular';
 
 const routes = [
   { path: '', component: DashboardComponent },
@@ -39,12 +41,14 @@ const routes = [
     ScenarioCardComponent,
     InputBoxComponent,
     SelectorsBoxComponent,
-    AddScenarioButtonComponent
+    AddScenarioButtonComponent,
+    HistoryTableComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    AgGridModule.withComponents([])
   ],
   providers: [],
   bootstrap: [AppComponent]

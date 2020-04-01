@@ -3,7 +3,8 @@
 
   --schema-darkest: #293962;
   --schema-dark: #425072;
-  --schema-accent: #e87676 ;
+  --schema-accent: #e87676;
+  --schema-white: #ffffff;
 
   --menu-item-accent: #606d8e;
   --menu-item-disabled: #7788b0;
@@ -40,6 +41,8 @@ h1 {
   font-weight: 900;
   line-height: .9;
   letter-spacing: 1px; /*5%*/
+  margin: 0;
+  padding: 0;
 }
 h2 {
   font-size: 36px;
@@ -60,8 +63,10 @@ h5 {
 }
 
 .main-action {
-  font-size: 14px;
+  font-style: normal;
   font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
 }
 .page-action {
   font-size: 12px;

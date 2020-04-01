@@ -15,6 +15,7 @@
   color: var(--menu-item-disabled);
   padding: 16px;
   line-height: 1.5;
+  transition: color .25s;
 }
 
 .navbar-item i.material-icons {

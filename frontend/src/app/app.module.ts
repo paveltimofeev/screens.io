@@ -17,6 +17,7 @@ import { TopMenuComponent } from './components/top-menu/top-menu.component';
 import { ScenarioCardComponent } from './components/scenario-card/scenario-card.component';
 import { InputBoxComponent } from './components/input-box/input-box.component';
 import { SelectorsBoxComponent } from './components/selectors-box/selectors-box.component';
+import { AddScenarioButtonComponent } from './components/add-scenario-button/add-scenario-button.component';
 
 const routes = [
   { path: '', component: DashboardComponent },
@@ -37,7 +38,8 @@ const routes = [
     TopMenuComponent,
     ScenarioCardComponent,
     InputBoxComponent,
-    SelectorsBoxComponent
+    SelectorsBoxComponent,
+    AddScenarioButtonComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,33 @@
+.add-scenario-container {
+
+  width: 250px;
+  height: 250px;
+  margin-top: 34px;
+  margin-left: 34px;
+  border-radius: 8px;
+
+  border: 2px dashed var(--control-placeholder);
+  color: var(--control-placeholder);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  transition: color .25s, border-color .35s;
+}
+
+.add-scenario {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+
+.add-scenario-container:hover {
+
+  border-color: var(--schema-dark);
+  color: var(--schema-dark);
+}

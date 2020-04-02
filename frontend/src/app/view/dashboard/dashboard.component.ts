@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiAdapterService } from '../../services/api-adapter.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,19 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
 
     this.config$ = this.api.getConfig();
-    this.history$ = this.api.getHistory();
+    this.history$ = this.api.getHistory().pipe(
+      map( x => {
+        return x.jobs.map( j => {
+
+          return {
+            date: j,
+            status: 'success',
+            scope: 'All scenarios',
+            user: 'by schedule'
+          }
+
+        });
+
+      }));
   }
 }

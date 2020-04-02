@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-history-table',
@@ -48,11 +48,8 @@ export class HistoryTableComponent implements OnInit {
     }
   ];
 
-  rowData = [
-    { status: 'success', date: '2020/03/31 00:33:07', scope: 'All Scenarios' },
-    { status: 'fail',    date: '2020/03/31 00:34:20', scope: 'Home Page, Login Page, Landing Page, Not Authorize Page, Configuration Page...', user: 'by John' },
-    { status: 'success', date: '2020/03/31 00:35:00', scope: '404 Page', user: 'by schedule' }
-  ];
+  @Input()
+  data:any[] = []
 
   onGridReady(params) {
 

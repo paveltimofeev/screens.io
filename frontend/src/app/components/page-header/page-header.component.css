@@ -38,3 +38,7 @@
 .action .main-action-btn:hover {
   fill: var(--schema-dark);
 }
+
+.action .main-action-btn:active {
+  fill: var(--headers-yellow);
+}

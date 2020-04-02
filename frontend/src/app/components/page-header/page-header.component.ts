@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiAdapterService } from '../../services/api-adapter.service';
 
 @Component({
   selector: 'app-page-header',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageHeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private api: ApiAdapterService) { }
 
   ngOnInit() {
+  }
+
+  onClickRun() {
+
+    console.log('run...');
+    this.api.run({}).subscribe( res => {
+
+      console.log('completed', res);
+    });
+
   }
 
 }

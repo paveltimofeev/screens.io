@@ -19,10 +19,7 @@
   border-bottom-color: #EFEFEF;
 }
 .ag-theme-alpine .ag-root-wrapper {
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-radius: 0;
+  border: none;
 }
 .ag-theme-alpine .ag-row {
   font-size: 16px;
@@ -32,6 +29,11 @@
   font-family: Roboto, sans-serif;
   border: none 1px #EFEFEF;
 }
+.ag-theme-alpine .ag-header {
+  border-bottom: none;
+}
+
+
 .ag-theme-alpine .ag-row-odd {
   background-color: #ffffff;
 }

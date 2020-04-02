@@ -43,7 +43,7 @@ export class HistoryTableComponent implements OnInit {
       headerName:'',
       field: 'action',
       cellRenderer: this.actionCellRenderer,
-      width: 50,
+      width: 60,
       suppressSizeToFit: true
     }
   ];
@@ -51,25 +51,6 @@ export class HistoryTableComponent implements OnInit {
   rowData = [
     { status: 'success', date: '2020/03/31 00:33:07', scope: 'All Scenarios' },
     { status: 'fail',    date: '2020/03/31 00:34:20', scope: 'Home Page, Login Page, Landing Page, Not Authorize Page, Configuration Page...', user: 'by John' },
-    { status: 'success', date: '2020/03/31 00:35:00', scope: '404 Page', user: 'by schedule' },
-    { status: 'success', date: '2020/03/31 00:33:07', scope: 'All Scenarios' },
-    { status: 'fail',    date: '2020/03/31 00:34:20', scope: 'Landing Page, Not Authorize Page, Configuration Page', user: 'by John' },
-    { status: 'success', date: '2020/03/31 00:35:00', scope: '404 Page', user: 'by schedule' },
-    { status: 'success', date: '2020/03/31 00:35:00', scope: 'Configuration Page', user: 'by schedule' },
-    { status: 'success', date: '2020/03/31 00:33:07', scope: 'All Scenarios' },
-    { status: 'success', date: '2020/03/31 00:33:07', scope: 'Not Authorize Page' },
-    { status: 'fail',    date: '2020/03/31 00:34:20', scope: 'Home Page, Login Page, Landing Page', user: 'by John' },
-    { status: 'success', date: '2020/03/31 00:35:00', scope: '404 Page', user: 'by schedule' },
-    { status: 'success', date: '2020/03/31 00:33:07', scope: 'All Scenarios' },
-    { status: 'fail',    date: '2020/03/31 00:34:20', scope: 'Home Page, Login Page, Landing Page, Not Authorize Page, Configuration Page...', user: 'by John' },
-    { status: 'success', date: '2020/03/31 00:35:00', scope: '404 Page', user: 'by schedule' },
-    { status: 'success', date: '2020/03/31 00:33:07', scope: 'All Scenarios' },
-    { status: 'fail',    date: '2020/03/31 00:34:20', scope: 'Landing Page, Not Authorize Page, Configuration Page', user: 'by John' },
-    { status: 'success', date: '2020/03/31 00:35:00', scope: '404 Page', user: 'by schedule' },
-    { status: 'success', date: '2020/03/31 00:35:00', scope: 'Configuration Page', user: 'by schedule' },
-    { status: 'success', date: '2020/03/31 00:33:07', scope: 'All Scenarios' },
-    { status: 'success', date: '2020/03/31 00:33:07', scope: 'Not Authorize Page' },
-    { status: 'fail',    date: '2020/03/31 00:34:20', scope: 'Home Page, Login Page, Landing Page', user: 'by John' },
     { status: 'success', date: '2020/03/31 00:35:00', scope: '404 Page', user: 'by schedule' }
   ];
 

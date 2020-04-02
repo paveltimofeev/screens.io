@@ -1,11 +1,14 @@
+<div class="table-container">
 
-<ag-grid-angular
-  style="width: 100%; height: 500px;"
-  class="ag-theme-alpine"
-  [domLayout]="autoHeight"
-  [rowHeight]="50"
-  [rowData]="rowData"
-  [columnDefs]="columnDefs"
-  (gridReady)="onGridReady($event)">
+  <ag-grid-angular
+    style="width: 100%; _height: 500px;"
+    class="ag-theme-alpine"
+    headerHeight="0"
+    [domLayout]="autoHeight"
+    [rowHeight]="50"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    (gridReady)="onGridReady($event)">
+  </ag-grid-angular>
 
-</ag-grid-angular>
+</div>

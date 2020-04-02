@@ -7,7 +7,7 @@
 }
 
 .config-section {
-  margin-top: 55px;
+  margin-top: 50px;
 }
 
 h4 {
@@ -23,7 +23,6 @@ h4 .material-icons {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 18px;
 }
 
 .action-button {
@@ -34,12 +33,13 @@ h4 .material-icons {
 
 
 .items {
+  margin-top: 10px;
   margin-left: 40px;
   color: var(--schema-white);
 }
 .item-value {
   padding: 4px 6px;
-  margin: 3px;
+  margin: 0px 3px;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;

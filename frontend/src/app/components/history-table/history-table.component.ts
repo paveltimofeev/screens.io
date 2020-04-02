@@ -1,5 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+export interface DataSource {
+
+  date?: 'string';
+  status?: 'string';
+  scope?: 'string';
+  user?: 'string';
+}
+
 @Component({
   selector: 'app-history-table',
   templateUrl: './history-table.component.html',
@@ -49,7 +57,7 @@ export class HistoryTableComponent implements OnInit {
   ];
 
   @Input()
-  data:any[] = []
+  data:DataSource[] = [];
 
   onGridReady(params) {
 

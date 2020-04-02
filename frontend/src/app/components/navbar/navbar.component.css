@@ -7,12 +7,12 @@
   display: flex;
   flex-direction: column;
 
-  padding-top: 330px;
+  padding-top: 310px;
   justify-content: flex-start;
   align-items: center;
 
   height: 100%;
-  width: 77px;
+  width: 74px;
 }
 
 .navbar-item {
@@ -25,6 +25,7 @@
 .navbar-item i.material-icons {
   line-height: 1;
   height: auto;
+  font-size: 32px;
 }
 
 .navbar-item--active {

@@ -39,7 +39,7 @@
 
       <div class="col l5 m12 s12">
         <app-input-box
-          label="Delay (miliseconds)"
+          label="Delay (milliseconds)"
           placeholder="3000"
           [value]="">
         </app-input-box>
@@ -121,6 +121,22 @@
 
   <div class="right-sidebar">
 
-    <app-section-subheader [text]="'History'"></app-section-subheader>
+    <div class="top-section">
+      <app-section-subheader [text]="'History'"></app-section-subheader>
+
+      <ul class="history">
+        <li class="history-record"><i class="material-icons status-success">check_circle</i><span>2020/03/31 00:34:16</span></li>
+        <li class="history-record"><i class="material-icons status-success">check_circle</i><span>2020/03/31 00:34:16</span></li>
+        <li class="history-record"><i class="material-icons status-success">check_circle</i><span>2020/03/31 00:34:16</span></li>
+        <li class="history-record"><i class="material-icons status-success">check_circle</i><span>2020/03/31 00:34:16</span></li>
+        <li class="history-record"><i class="material-icons status-failed">cancel</i><span>2020/03/31 00:34:16</span></li>
+        <li class="history-record"><i class="material-icons status-success">check_circle</i><span>2020/03/31 00:34:16</span></li>
+        <li class="history-record"><i class="material-icons status-success">check_circle</i><span>2020/03/31 00:34:16</span></li>
+      </ul>
+    </div>
+
+    <div class="bottom-section">
+      <img src="/assets/images/chart.png" alt="">
+    </div>
 
   </div>

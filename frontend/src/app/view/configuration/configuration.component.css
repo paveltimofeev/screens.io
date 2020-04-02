@@ -16,10 +16,21 @@
   width: 273px;
   background: #F9F9FB;
   padding: 36px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.right-sidebar .bottom-section {
+  display: flex;
+  justify-content: center;
 }
 
 
 app-section-subheader {
+  display: block;
+  margin-top: 40px;
   margin-bottom: 24px;
 }
 
@@ -37,4 +48,22 @@ app-section-subheader {
 
 .first-row {
   margin-top: 30px !important;
+}
+
+
+.history { }
+
+.history-record {
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+.history-record .material-icons {
+  margin-right: 12px;
+  font-size: 21px;
+}
+.history-record span {
+  font-weight: 400;
+  font-size: 14px;
+  color: #6A6A6A;
 }

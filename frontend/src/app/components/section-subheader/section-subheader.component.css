@@ -2,6 +2,7 @@ h3 {
   color: #393D4A;
   border-bottom: 1px solid #C9CBCF;
   padding-bottom: 7px;
-  margin-top: 45px;
+  _margin-top: 45px;
+  margin-top: 5px;
   margin-bottom: 21px;
 }

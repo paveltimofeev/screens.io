@@ -141,3 +141,9 @@ h5 {
   font-weight: 300;
 }
 
+.status-success {
+  color: var(--accent-success);
+}
+.status-failed {
+  color: var(--accent-failed);
+}

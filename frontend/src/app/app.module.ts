@@ -20,6 +20,7 @@ import { SelectorsBoxComponent } from './components/selectors-box/selectors-box.
 import { AddScenarioButtonComponent } from './components/add-scenario-button/add-scenario-button.component';
 import { HistoryTableComponent } from './components/history-table/history-table.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { StatsComponent } from './components/stats/stats.component';
 
 const routes = [
   { path: '', component: DashboardComponent },
@@ -42,7 +43,8 @@ const routes = [
     InputBoxComponent,
     SelectorsBoxComponent,
     AddScenarioButtonComponent,
-    HistoryTableComponent
+    HistoryTableComponent,
+    StatsComponent
   ],
   imports: [
     BrowserModule,

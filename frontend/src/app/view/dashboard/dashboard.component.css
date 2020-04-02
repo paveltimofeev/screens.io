@@ -5,14 +5,15 @@
 }
 
 .header-block {
-  padding-top: 130px; /* TODO: TEMP */
+  padding-top: 50px; /* TODO: TEMP */
   margin-left: 250px;
+  height: 254px;
 }
 
 .scenarios-block {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 42px;
+  margin-top: 15px;
   margin-left: -34px;
 }
 

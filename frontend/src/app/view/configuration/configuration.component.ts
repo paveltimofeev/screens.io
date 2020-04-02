@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfigurationComponent implements OnInit {
 
+  url:string = "http://localhost";
+
   constructor() { }
 
   ngOnInit() {

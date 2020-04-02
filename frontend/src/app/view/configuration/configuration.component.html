@@ -1,21 +1,123 @@
 
-
   <div class="left-sidebar">
     <app-sidebar></app-sidebar>
   </div>
 
   <div class="main-container">
-    <app-section-header icon="web" [text]="'Landing Page'" ></app-section-header>
 
-    <div class="container">
-      <div class="row">
-        <div class="col m5 s12"><app-input-box></app-input-box></div>
-        <div class="col m5 s12"><app-input-box></app-input-box></div>
+    <app-section-header icon="web" [text]="'Landing Page'" ></app-section-header>
+    <div class="row first-row">
+      <div class="col m5 s12">
+        <app-input-box
+          label="Full url of tested page"
+          placeholder="Url"
+          [value]="url">
+        </app-input-box>
+      </div>
+
+      <div class="col m5 s12">
+        <app-input-box
+          label="Mismatch Threshold"
+          placeholder="0.0 - 1.0"
+          [value]="">
+        </app-input-box>
+      </div>
+    </div>
+
+
+    <app-section-subheader [text]="'Waiting'"></app-section-subheader>
+    <div class="row">
+      <div class="col m5 s12">
+        <app-input-box
+          label="Ready Selector"
+          placeholder=".class | #id | tag"
+          [value]="">
+        </app-input-box>
+      </div>
+
+      <div class="col m5 s12">
+        <app-input-box
+          label="Delay (miliseconds)"
+          placeholder="3000"
+          [value]="">
+        </app-input-box>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col m5 s12">
+        <app-input-box
+          label="Ready Event"
+          placeholder=""
+          [value]="">
+        </app-input-box>
+      </div>
+    </div>
+
+
+
+    <app-section-subheader [text]="'Page Modifications'"></app-section-subheader>
+    <div class="row">
+      <div class="col m5 s12">
+        <app-input-box
+          label="Hide Selectors"
+          placeholder=".class | #id | tag"
+          [value]="">
+        </app-input-box>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col m5 s12">
+        <app-input-box
+          label="Remove Selectors"
+          placeholder=".class | #id | tag"
+          [value]="">
+        </app-input-box>
+      </div>
+    </div>
+
+
+    <app-section-subheader [text]="'Interaction'"></app-section-subheader>
+    <div class="row">
+      <div class="col m5 s12">
+        <app-input-box
+          label="Click Selectors"
+          placeholder=".class | #id | tag"
+          [value]="">
+        </app-input-box>
+      </div>
+
+      <div class="col m5 s12">
+        <app-input-box
+          label="Scroll to Selector"
+          placeholder=".class | #id | tag"
+          [value]="">
+        </app-input-box>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col m5 s12">
+        <app-input-box
+          label="Hover Selectors"
+          placeholder=".class | #id | tag"
+          [value]="">
+        </app-input-box>
+      </div>
+
+      <div class="col m5 s12">
+        <app-input-box
+          label="Post Interaction Wait"
+          placeholder="1000"
+          [value]="">
+        </app-input-box>
       </div>
     </div>
 
   </div>
 
   <div class="right-sidebar">
+
 
   </div>

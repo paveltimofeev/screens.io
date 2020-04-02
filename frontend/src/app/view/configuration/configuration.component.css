@@ -18,3 +18,15 @@
   background: #F9F9FB;
   padding: 36px;
 }
+
+
+app-section-subheader {
+  margin-bottom: 24px;
+}
+
+.row {
+  margin-left: -.75rem;
+}
+.first-row {
+  margin-top: 30px !important;
+}

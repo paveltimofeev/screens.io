@@ -8,6 +8,8 @@ label {
   color: var(--control-label);
   display: block;
   margin-bottom: 6px;
+
+  white-space: nowrap;
 }
 
 input[type=text]:not(.browser-default),
@@ -17,7 +19,8 @@ input {
   border: 1px solid #A2A2A2;
   border-radius: 2px;
 
-  padding-left: 8px;
+  padding: 4px 8px 4px 8px;
+  background-color: hsla(223, 27%, 98%, 1);
   font-size: 12px;
   font-weight: 400;
   margin: 0;

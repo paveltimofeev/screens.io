@@ -1,0 +1,28 @@
+.topmenu {
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  margin: 0;
+}
+
+.topmenu-item {
+  color: var(--menu-item-disabled);
+  cursor: pointer;
+  border-radius: 7px;
+  padding: 2px 9px;
+  transition: color 0.25s, background-color 0.25s;
+}
+
+.topmenu-item--main {
+  color: var(--schema-white);
+  background-color: var(--schema-dark);
+}
+
+.topmenu-item + .topmenu-item {
+  margin-left: 30px;
+}
+
+.topmenu-item:hover {
+  color: var(--schema-white);
+  background-color: var(--menu-item-disabled);
+}

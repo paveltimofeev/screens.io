@@ -9,7 +9,7 @@
 
 .main-container {
   flex: 1;
-  padding: 50px;
+  padding: 40px 50px 50px 50px;
 }
 
 .right-sidebar {
@@ -29,6 +29,7 @@ app-section-subheader {
 }
 
 @media only screen and (min-width: 601px) {
+  .row .col.l5,
   .row .col.m5 {
     margin-right: 22px;
   }

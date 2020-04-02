@@ -1,0 +1,61 @@
+:host {
+  --themeColor: var(--headers-green)
+}
+
+.theme-yellow {
+  --themeColor: var(--headers-yellow)
+}
+
+.config-section {
+  margin-top: 55px;
+}
+
+h4 {
+  display: flex;
+  align-items: center;
+}
+
+h4 .material-icons {
+  padding-right: 27px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.action-button {
+  color: #949CB1;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+
+.items {
+  margin-left: 40px;
+  color: var(--schema-white);
+}
+.item-value {
+  padding: 4px 6px;
+  margin: 3px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s;
+}
+
+
+h4 {
+  color: var(--themeColor);
+}
+.action-button:hover {
+  color: var(--themeColor);
+}
+.item-value:hover {
+  border-left: 3px solid var(--themeColor);
+  background: var(--menu-item-accent);
+}

@@ -1,0 +1,20 @@
+:host {
+  display: flex;
+  width: 100%;
+}
+
+.left-sidebar {
+  width: 321px;
+  _border: 1px dashed blue;
+}
+
+.main-container {
+  flex: 1;
+  padding: 50px;
+}
+
+.right-sidebar {
+  width: 273px;
+  background: #F9F9FB;
+  padding: 36px;
+}

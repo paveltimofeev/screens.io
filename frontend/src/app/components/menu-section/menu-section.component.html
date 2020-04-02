@@ -1,0 +1,21 @@
+<div
+  class="config-section"
+  [ngClass]="{
+    'theme-yellow': theme === 'yellow'
+  }"
+>
+
+  <div class="header">
+    <h4>
+      <i class="material-icons">{{ icon }}</i>
+      <span>{{ header }}</span>
+    </h4>
+    <i class="material-icons action-button" (click)="addClick()">add_circle_outline</i>
+  </div>
+
+  <ul class="items">
+    <li *ngFor="let i of items" class="item-value" (click)="itemClick.emit(i)">{{ i }}</li>
+  </ul>
+
+</div>
+

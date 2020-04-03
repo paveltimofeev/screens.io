@@ -9,10 +9,7 @@ export interface DashboardState {
 }
 
 export const initState = {
-  error: null,
-  scenarios: [],
-  jobs: [],
-  status: []
+  scenarios: []
 };
 
 const _reducer = createReducer(initState,

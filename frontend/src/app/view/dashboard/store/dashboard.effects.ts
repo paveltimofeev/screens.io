@@ -19,7 +19,7 @@ export class DashboardEffects {
 
       return this.api.getConfig().pipe(
         map( res => {
-          return { type: loaded.type, payload: res.data}
+          return { type: loaded.type, payload: { scenarios: res.data.scenarios }}
         })
       );
     })

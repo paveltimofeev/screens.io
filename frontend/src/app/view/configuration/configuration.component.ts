@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import {
   selectCurrentScenario,
-  selectCurrentScenarioLabel,
+  selectCurrentScenarioLabel, selectLoading,
   selectScenarios,
   selectViewports
 } from './store/configuration.selectors';
@@ -24,6 +24,7 @@ export class ConfigurationComponent implements OnInit {
 
   url:string = "http://localhost";
 
+  isLoading$;
   viewports$;
   scenarios$;
   selectedScenario$;
@@ -33,6 +34,7 @@ export class ConfigurationComponent implements OnInit {
 
   ngOnInit() {
 
+    this.isLoading$ = this.store.pipe(select(selectLoading));
     this.viewports$ = this.store.pipe(select(selectViewports));
     this.scenarios$ = this.store.pipe(select(selectScenarios));
     this.selectedScenario$ = this.store.pipe(select(selectCurrentScenario));

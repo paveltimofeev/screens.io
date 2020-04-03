@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ApiAdapterService, IConfig } from '../../../services/api-adapter.service';
 import { concatMap, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-import { refresh, loaded, updateScenario, updated, error, deleteCurrentScenario } from './configuration.actions';
+import { refresh, loaded, updateScenario, deleteCurrentScenario } from './configuration.actions';
 import { of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { selectCurrentScenarioLabel } from './configuration.selectors';

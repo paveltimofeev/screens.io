@@ -6,7 +6,7 @@ export interface ConfigurationState {
   scenariosList: string[];
   currentScenario: any;
   scenarios: any[];
-  savingChanges: boolean;
+  loading: boolean;
 }
 export interface AppState {
   configurationView: ConfigurationState
@@ -16,7 +16,7 @@ export const initState = {
   scenariosList: [],
   currentScenario: {},
   scenarios: [],
-  savingChanges: false
+  loading: false
 };
 
 const _reducer = createReducer(initState,
@@ -27,7 +27,8 @@ const _reducer = createReducer(initState,
       scenariosList: actions.payload.scenariosList,
       scenarios: actions.payload.scenarios,
       currentScenario: actions.payload.scenarios && actions.payload.scenarios.length > 0 ? actions.payload.scenarios[0] : {},
-      error: null
+      error: null,
+      loading: false
     }
   }),
 
@@ -35,7 +36,7 @@ const _reducer = createReducer(initState,
     return {
       ...state,
       error: actions.payload,
-      savingChanges: false
+      loading: false
     }
   }),
 
@@ -50,16 +51,10 @@ const _reducer = createReducer(initState,
   on(actions.updateScenario, (state, actions:any) => {
     return {
       ...state,
-      savingChanges: true
+      loading: true
     }
   }),
 
-  on(actions.updated, (state, actions:any) => {
-    return {
-      ...state,
-      savingChanges: false
-    }
-  })
 );
 
 export function configurationReducer (state, action) {

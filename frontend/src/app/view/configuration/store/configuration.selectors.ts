@@ -3,6 +3,11 @@ import { AppState, ConfigurationState } from './configuration.reducer';
 
 export const selectFeature = (state:AppState) => state.configurationView;
 
+export const selectLoading = createSelector(
+  selectFeature,
+  (state:ConfigurationState) => state.loading
+);
+
 export const selectViewports = createSelector(
   selectFeature,
   (state:ConfigurationState) => state.viewportsList

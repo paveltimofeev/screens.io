@@ -11,6 +11,9 @@
   flex: 1;
   padding: 40px 50px 50px 50px;
 }
+.main-container--loading {
+  filter: blur(5px);
+}
 
 .right-sidebar {
   width: 273px;

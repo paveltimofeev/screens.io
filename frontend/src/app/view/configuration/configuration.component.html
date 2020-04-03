@@ -9,7 +9,9 @@
     </app-sidebar>
   </div>
 
-  <div class="main-container">
+  <div class="main-container"
+       [ngClass]="{'main-container--loading': isLoading$ | async}"
+  >
 
     <form (ngSubmit)="saveHandler(formRef)" #formRef="ngForm">
 

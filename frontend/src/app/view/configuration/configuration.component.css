@@ -67,3 +67,32 @@ app-section-subheader {
   font-size: 14px;
   color: #6A6A6A;
 }
+
+/* CONTROLS */
+label {
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+
+  color: var(--control-label);
+  display: block;
+  margin-bottom: 6px;
+
+  white-space: nowrap;
+}
+
+input[type=text]:not(.browser-default),
+input {
+
+  height: 22px;
+  border: 1px solid #A2A2A2;
+  border-radius: 2px;
+
+  padding: 4px 8px 4px 8px;
+  background-color: hsla(223, 27%, 98%, 1);
+  font-size: 12px;
+  font-weight: 400;
+  margin: 0;
+}

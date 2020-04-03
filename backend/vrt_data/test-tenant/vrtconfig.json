@@ -16,6 +16,26 @@
   "onReadyScript": "",
   "scenarios": [
     {
+      "label": "BackstopJS Homepage",
+      "cookiePath": "backstop_data/engine_scripts/cookies.json",
+      "url": "https://garris.github.io/BackstopJS/",
+      "referenceUrl": "https://garris.github.io",
+      "readyEvent": "readyEvent",
+      "readySelector": ".container",
+      "delay": 0,
+      "hideSelectors": [".news-feed", ".notifications"],
+      "removeSelectors": [".avatar"],
+      "hoverSelectors": [".hoverSelector1"],
+      "clickSelectors": [".clickSelector1"],
+      "scrollToSelector": ".scrollToSelector",
+      "postInteractionWait": 0,
+      "selectors": [".selector1", ".selectors2"],
+      "selectorExpansion": true,
+      "expect": 0,
+      "misMatchThreshold" : 0.1,
+      "requireSameDimensions": true
+    },
+    {
       "label": "HomePage",
       "url": "http://localhost:4200/",
       "misMatchThreshold": "",

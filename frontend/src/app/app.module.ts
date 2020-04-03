@@ -36,6 +36,7 @@ import { SidebarEffects } from './components/sidebar/store/sidebar.effects';
 import { sidebarReducer } from './components/sidebar/store/sidebar.reducer';
 import { ConfigurationEffects } from './view/configuration/store/configuration.effects';
 import { configurationReducer } from './view/configuration/store/configuration.reducer';
+import { FormsModule } from '@angular/forms';
 
 const routes = [
   { path: '', component: DashboardComponent },
@@ -66,6 +67,7 @@ const routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     StoreModule.forRoot({
       app: appReducer,
       dashboard: dashboardReducer,

@@ -15,7 +15,4 @@ export class InputBoxComponent {
 
   @Input()
   value:any;
-
-  constructor() { }
-
 }

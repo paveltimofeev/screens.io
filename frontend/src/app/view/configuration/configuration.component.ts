@@ -7,6 +7,7 @@ import {
   selectViewports
 } from './store/configuration.selectors';
 import { changeCurrentScenario, refresh } from './store/configuration.actions';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-configuration',
@@ -37,5 +38,11 @@ export class ConfigurationComponent implements OnInit {
   selectScenario ($event: string) {
     console.log('>>>', $event);
     this.store.dispatch(changeCurrentScenario({label:$event}));
+  }
+
+  save (formRef: NgForm) {
+
+    console.log('save', formRef);
+    console.log('save form value:', formRef.value);
   }
 }

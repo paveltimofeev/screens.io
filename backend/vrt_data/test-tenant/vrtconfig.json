@@ -2,6 +2,11 @@
   "id": "yandex",
   "viewports": [
     {
+      "label": "Desktop HD",
+      "width": 1920,
+      "height": 1080
+    },
+    {
       "label": "Desktop",
       "width": 1600,
       "height": 900
@@ -11,17 +16,28 @@
   "onReadyScript": "",
   "scenarios": [
     {
-      "label": "Test1",
-      "url": "http://localhost:3000",
+      "label": "HomePage",
+      "url": "http://localhost:4200/",
       "misMatchThreshold": "",
       "hideSelectors": [
         "#history-container"
       ]
     },
     {
-      "label": "ya",
-      "url": "https://ya.ru",
-      "misMatchThreshold": ""
+      "label": "ConfigurationPage",
+      "url": "http://localhost:4200/config/1",
+      "misMatchThreshold": "",
+      "hideSelectors": [
+        "#history-container"
+      ]
+    },
+    {
+      "label": "404Page",
+      "url": "http://localhost:4200/unknown-route",
+      "misMatchThreshold": "",
+      "hideSelectors": [
+        "#history-container"
+      ]
     }
   ],
   "report": [

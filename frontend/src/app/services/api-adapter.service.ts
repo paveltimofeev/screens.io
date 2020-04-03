@@ -41,7 +41,14 @@ export class ApiAdapterService {
     return this.dataAccessService.get( environment.api + 'test/config');
   }
 
-  updateConfig (config: any): Observable<any> {
+  updateConfig (config: IConfig): Observable<any> {
     return this.dataAccessService.put( environment.api + 'test/config', config);
   }
+}
+
+
+export interface IConfig {
+  id:string,
+  viewports: any[],
+  scenarios: any[]
 }

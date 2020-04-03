@@ -32,8 +32,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { DashboardEffects } from './view/dashboard/store/dashboard.effects';
 import { HistoryTableEffects } from './components/history-table/store/history-table.effects';
 import { historyTableReducer } from './components/history-table/store/history-table.reducer';
-import { SidebarEffects } from './components/sidebar/store/sidebar.effects';
-import { sidebarReducer } from './components/sidebar/store/sidebar.reducer';
 import { ConfigurationEffects } from './view/configuration/store/configuration.effects';
 import { configurationReducer } from './view/configuration/store/configuration.reducer';
 import { FormsModule } from '@angular/forms';

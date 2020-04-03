@@ -1,8 +1,6 @@
 
 module.exports = (req, res, next) => {
 
-  console.log(req.headers.origin);
-
   let origin = req.headers.origin;
 
   if (

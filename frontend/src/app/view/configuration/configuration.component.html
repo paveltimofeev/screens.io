@@ -13,6 +13,10 @@
 
     <form (ngSubmit)="save(formRef)" #formRef="ngForm">
 
+      <input type="hidden"
+             [ngModel]="(selectedScenario$ | async).label"
+             name="label">
+
     <app-top-menu></app-top-menu>
 
     <app-section-header icon="web" [text]="selectedScenarioLabel$ | async" ></app-section-header>
@@ -20,12 +24,17 @@
 
       <div class="col l5 m12 s12">
         <label>Full url of tested page</label>
-        <input class="control-text" type="text" [ngModel]="(selectedScenario$ | async).url" name="url" required>
+        <input class="control-text" type="text"
+               [ngModel]="(selectedScenario$ | async).url"
+               name="url" required>
       </div>
 
       <div class="col l5 m12 s12">
         <label>Mismatch Threshold</label>
-        <input class="control-text" type="text" [ngModel]="(selectedScenario$ | async).misMatchThreshold" name="misMatchThreshold" placeholder="0.0 - 1.0">
+        <input class="control-text" type="text"
+               [ngModel]="(selectedScenario$ | async).misMatchThreshold"
+               name="misMatchThreshold"
+               placeholder="0.0 - 1.0">
       </div>
 
     </div>

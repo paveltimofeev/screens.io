@@ -39,13 +39,6 @@ export class ConfigurationComponent implements OnInit {
     this.store.dispatch(changeCurrentScenario({label:$event}));
   }
 
-  f(formRef, key) {
-
-    if (typeof(formRef.value[key] === "string")) {
-      formRef.value[key] = formRef.value[key].split(',')
-    }
-  }
-
   save (formRef: NgForm) {
 
     if (formRef.valid) {

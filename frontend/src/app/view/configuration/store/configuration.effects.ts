@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { ApiAdapterService } from '../../../services/api-adapter.service';
+import { ApiAdapterService, IConfig } from '../../../services/api-adapter.service';
 import { map, mergeMap } from 'rxjs/operators';
 import { refresh, loaded, updateScenario, updated, error } from './configuration.actions';
 
@@ -14,17 +14,29 @@ export class ConfigurationEffects {
 
   updateConfig$ = createEffect(() => this.actions$.pipe(
     ofType(updateScenario),
-    mergeMap((data) => {
+    mergeMap((data:any) => {
 
-      return this.api.updateConfig(data).pipe(
-        map( res => {
 
-          return {
-            type: !res.error ? updated.type : error.type,
-            payload: res.error
-          }
+
+      return this.api.getConfig().pipe(
+        mergeMap( (config:{data:IConfig}) => {
+
+          const idx = config.data.scenarios.findIndex( x => x.label === data.label );
+          config.data.scenarios[idx] = data;
+
+          return this.api.updateConfig(config.data).pipe(
+            map( res => {
+
+              return {
+                type: !res.error ? updated.type : error.type,
+                payload: res.error
+              }
+            })
+          );
+
         })
-      )
+      );
+
     })
   ));
 

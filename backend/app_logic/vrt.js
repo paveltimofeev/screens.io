@@ -32,7 +32,7 @@ class VRT {
           'utf8',
           (err, file) => {
 
-              var report = JSON.parse( file )
+              var report = JSON.parse( file );
 
               report.tests.forEach( t => {
 
@@ -42,7 +42,7 @@ class VRT {
                   if (t.pair.diffImage) {
                       t.pair.diffImage = '\\' + path.join( this._config.paths.html_report, t.pair.diffImage )
                   }
-              })
+              });
 
               cb( err, report )
           })
@@ -61,7 +61,7 @@ class VRT {
 
         this.getBasicConfig( (err, config) => {
 
-            var data = { ...config, ...updData }
+            var data = { ...config, ...updData };
 
             fs.writeFile(
               `vrt_data/${this._tenantId}/vrtconfig.json`,
@@ -107,7 +107,7 @@ class VRT {
 
     run (opts, cb) {
 
-        var uid = uuidv4()
+        var uid = uuidv4();
 
         var configCopy = JSON.parse(JSON.stringify(this._config));
 

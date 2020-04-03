@@ -5,11 +5,20 @@ export const selectFeature = (state:AppState) => state.configurationView;
 
 export const selectViewports = createSelector(
   selectFeature,
-  (state:ConfigurationState) => state.viewports
+  (state:ConfigurationState) => state.viewportsList
 );
 
 export const selectScenarios = createSelector(
   selectFeature,
-  (state:ConfigurationState) => state.scenarios
+  (state:ConfigurationState) => state.scenariosList
 );
 
+export const selectCurrentScenario = createSelector(
+  selectFeature,
+  (state:ConfigurationState) => state.currentScenario
+);
+
+export const selectCurrentScenarioLabel = createSelector(
+  selectFeature,
+  (state:ConfigurationState) => state.currentScenario ? state.currentScenario.label : undefined
+);

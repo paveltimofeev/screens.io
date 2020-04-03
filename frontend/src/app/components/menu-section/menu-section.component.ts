@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-
 @Component({
   selector: 'app-menu-section',
   templateUrl: './menu-section.component.html',
@@ -20,12 +19,12 @@ export class MenuSectionComponent {
   @Input()
   items:string[] = [];
 
+  @Input()
+  selected:string;
+
   @Output()
   itemClick:EventEmitter<string> = new EventEmitter();
 
   @Output()
   addClick:EventEmitter<string> = new EventEmitter();
-
-  constructor() { }
-
 }

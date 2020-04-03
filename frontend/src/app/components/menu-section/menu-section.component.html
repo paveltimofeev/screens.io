@@ -14,7 +14,11 @@
   </div>
 
   <ul class="items">
-    <li *ngFor="let i of items" class="item-value" (click)="itemClick.emit(i)">{{ i }}</li>
+    <li
+      *ngFor="let i of items" class="item-value"
+      (click)="itemClick.emit(i)"
+      [ngClass]="{'item-value--active': i === selected}"
+    >{{ i }}</li>
   </ul>
 
 </div>

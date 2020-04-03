@@ -1,6 +1,12 @@
 
   <div class="left-sidebar">
-    <app-sidebar [scenarios]="scenarios$ | async" [viewports]="viewports$ | async"></app-sidebar>
+    <app-sidebar
+      [scenarios]="scenarios$ | async"
+      [viewports]="viewports$ | async"
+      [selectedScenarioLabel]="selectedScenarioLabel$ | async"
+      (selectScenario)="selectScenario($event)"
+    >
+    </app-sidebar>
   </div>
 
   <div class="main-container">

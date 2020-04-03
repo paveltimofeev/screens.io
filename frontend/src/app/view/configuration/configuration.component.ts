@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { selectScenarios, selectViewports } from './store/configuration.selectors';
-import { refresh } from './store/configuration.actions';
+import {
+  selectCurrentScenario,
+  selectCurrentScenarioLabel,
+  selectScenarios,
+  selectViewports
+} from './store/configuration.selectors';
+import { changeCurrentScenario, refresh } from './store/configuration.actions';
 
 @Component({
   selector: 'app-configuration',
@@ -14,6 +19,8 @@ export class ConfigurationComponent implements OnInit {
 
   viewports$;
   scenarios$;
+  selectedScenario$;
+  selectedScenarioLabel$;
 
   constructor(private store: Store) { }
 
@@ -21,8 +28,14 @@ export class ConfigurationComponent implements OnInit {
 
     this.viewports$ = this.store.pipe(select(selectViewports));
     this.scenarios$ = this.store.pipe(select(selectScenarios));
+    this.selectedScenario$ = this.store.pipe(select(selectCurrentScenario));
+    this.selectedScenarioLabel$ = this.store.pipe(select(selectCurrentScenarioLabel));
 
     this.store.dispatch(refresh());
   }
 
+  selectScenario ($event: string) {
+    console.log('>>>', $event);
+    this.store.dispatch(changeCurrentScenario({label:$event}));
+  }
 }

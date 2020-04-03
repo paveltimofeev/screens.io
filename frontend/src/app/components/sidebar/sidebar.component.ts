@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,6 +13,17 @@ export class SidebarComponent {
   @Input()
   scenarios;
 
-  constructor() {
-  }
+  @Input()
+  selectedScenarioLabel: string;
+
+  @Output()
+  selectScenario:EventEmitter<string> = new EventEmitter();
+  @Output()
+  createScenario:EventEmitter<string> = new EventEmitter();
+
+  @Output()
+  selectViewport:EventEmitter<string> = new EventEmitter();
+  @Output()
+  createViewport:EventEmitter<string> = new EventEmitter();
+
 }

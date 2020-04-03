@@ -2,22 +2,28 @@ import { createReducer, on } from '@ngrx/store';
 import * as actions from './configuration.actions';
 
 export interface ConfigurationState {
-  viewports: any[];
+  viewportsList: string[];
+  scenariosList: string[];
+  currentScenario: any;
   scenarios: any[];
 }
 export interface AppState {
   configurationView: ConfigurationState
 }
 export const initState = {
-  viewports: [],
+  viewportsList: [],
+  scenariosList: [],
+  currentScenario: {},
   scenarios: []
-}
+};
 
 const _reducer = createReducer(initState,
   on(actions.loaded, (state, actions:any) => {
     return {
       ...state,
-      ...actions.payload,
+      viewportsList: actions.payload.viewportsList,
+      scenariosList: actions.payload.scenariosList,
+      scenarios: actions.payload.scenarios,
       error: null
     }
   }),
@@ -26,6 +32,14 @@ const _reducer = createReducer(initState,
     return {
       ...state,
       error: actions.payload
+    }
+  }),
+
+  on(actions.changeCurrentScenario, (state, actions:any) => {
+
+    return {
+      ...state,
+      currentScenario: state.scenarios.find(x => x.label === actions.label)
     }
   })
 );

@@ -56,6 +56,10 @@ h4 {
   color: var(--themeColor);
 }
 .item-value:hover {
+  __border-left: 3px solid var(--themeColor);
+  background: var(--menu-item-accent);
+}
+.item-value--active {
   border-left: 3px solid var(--themeColor);
   background: var(--menu-item-accent);
 }

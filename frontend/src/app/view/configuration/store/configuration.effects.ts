@@ -22,8 +22,9 @@ export class ConfigurationEffects {
           return {
             type: loaded.type,
             payload: {
-              viewports: res.data.viewports.map(x => `${x.width} × ${x.height}`),
-              scenarios: res.data.scenarios.map( x=> x.label )
+              viewportsList: res.data.viewports.map(x => `${x.width} × ${x.height}`),
+              scenariosList: res.data.scenarios.map( x=> x.label ),
+              scenarios: res.data.scenarios
             }
           }
         })

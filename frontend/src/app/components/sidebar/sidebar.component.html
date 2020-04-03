@@ -3,7 +3,10 @@
 <app-menu-section
   [icon]="'desktop_windows'"
   [header]="'Viewports'"
-  [items]="viewports">
+  [items]="viewports"
+  (itemClick)="selectViewport.emit($event)"
+  (addClick)="createViewport.emit($event)"
+>
 </app-menu-section>
 
 
@@ -11,5 +14,9 @@
   [icon]="'web'"
   [header]="'Scenarios'"
   [theme]="'yellow'"
-  [items]="scenarios">
+  [items]="scenarios"
+  [selected]="selectedScenarioLabel"
+  (itemClick)="selectScenario.emit($event)"
+  (addClick)="createScenario.emit($event)"
+>
 </app-menu-section>

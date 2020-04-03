@@ -1,6 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
 import * as actions from './history-table.actions';
 
+export interface AppState {
+  historyTable: HistoryTableState
+}
+export interface HistoryTableState {
+  jobs: []
+}
+
 export const initState = {
   jobs: []
 };

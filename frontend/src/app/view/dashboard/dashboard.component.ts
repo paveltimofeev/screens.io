@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiAdapterService } from '../../services/api-adapter.service';
-import { map } from 'rxjs/operators';
 
 import { refresh } from './store/dashboard.actions';
 import { select, Store } from '@ngrx/store';
@@ -17,7 +15,6 @@ export class DashboardComponent implements OnInit {
   history$: any;
 
   constructor(
-    private api: ApiAdapterService,
     private store: Store
   ) { }
 
@@ -25,20 +22,5 @@ export class DashboardComponent implements OnInit {
 
     this.scenarios$ = this.store.pipe( select(selectScenarios));
     this.store.dispatch(refresh());
-
-    // this.history$ = this.api.getHistory().pipe(
-    //   map( x => {
-    //     return x.jobs.map( j => {
-    //
-    //       return {
-    //         date: j,
-    //         status: 'success',
-    //         scope: 'All scenarios',
-    //         user: 'by schedule'
-    //       }
-    //
-    //     });
-    //
-    //   }));
   }
 }

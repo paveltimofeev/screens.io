@@ -1,12 +1,5 @@
 import { createSelector } from '@ngrx/store';
-
-export interface HistoryTableState {
-  jobs: []
-}
-
-export interface AppState {
-  historyTable: HistoryTableState
-}
+import { AppState, HistoryTableState } from './history-table.reducer';
 
 export const selectFeature = (state: AppState) => state.historyTable;
 

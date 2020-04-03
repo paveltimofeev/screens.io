@@ -1,12 +1,5 @@
 import { createSelector } from '@ngrx/store';
-
-export interface DashboardState {
-  scenarios: any[]
-}
-
-export interface AppState {
-  dashboard: DashboardState
-}
+import { AppState, DashboardState } from './dashboard.reducer';
 
 export const selectFeature = (state:AppState) => state.dashboard;
 

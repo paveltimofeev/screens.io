@@ -23,16 +23,28 @@
       "readyEvent": "readyEvent",
       "readySelector": ".container",
       "delay": 0,
-      "hideSelectors": [".news-feed", ".notifications"],
-      "removeSelectors": [".avatar"],
-      "hoverSelectors": [".hoverSelector1"],
-      "clickSelectors": [".clickSelector1"],
+      "hideSelectors": [
+        ".news-feed",
+        ".notifications"
+      ],
+      "removeSelectors": [
+        ".avatar"
+      ],
+      "hoverSelectors": [
+        ".hoverSelector1"
+      ],
+      "clickSelectors": [
+        ".clickSelector1"
+      ],
       "scrollToSelector": ".scrollToSelector",
       "postInteractionWait": 0,
-      "selectors": [".selector1", ".selectors2"],
+      "selectors": [
+        ".selector1",
+        ".selectors2"
+      ],
       "selectorExpansion": true,
       "expect": 0,
-      "misMatchThreshold" : 0.1,
+      "misMatchThreshold": 0.1,
       "requireSameDimensions": true
     },
     {

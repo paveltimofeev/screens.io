@@ -48,10 +48,7 @@ export class ConfigurationEffects {
           return this.api.updateConfig(config.data).pipe(
             map( res => {
 
-              return {
-                type: !res.error ? updated.type : error.type,
-                payload: res.error
-              }
+              return { type: refresh.type }
             })
           );
 

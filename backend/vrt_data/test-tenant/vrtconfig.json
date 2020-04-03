@@ -17,12 +17,11 @@
   "scenarios": [
     {
       "label": "BackstopJS Homepage",
-      "cookiePath": "backstop_data/engine_scripts/cookies.json",
       "url": "https://garris.github.io/BackstopJS/",
-      "referenceUrl": "https://garris.github.io",
-      "readyEvent": "readyEvent",
+      "misMatchThreshold": 0.1,
       "readySelector": ".container",
-      "delay": 0,
+      "delay": "0",
+      "readyEvent": "readyEvent",
       "hideSelectors": [
         ".news-feed",
         ".notifications"
@@ -30,25 +29,18 @@
       "removeSelectors": [
         ".avatar"
       ],
-      "hoverSelectors": [
-        ".hoverSelector1"
-      ],
       "clickSelectors": [
         ".clickSelector1"
       ],
       "scrollToSelector": ".scrollToSelector",
-      "postInteractionWait": 0,
-      "selectors": [
-        ".selector1",
-        ".selectors2"
+      "hoverSelectors": [
+        ".hoverSelector1"
       ],
-      "selectorExpansion": true,
-      "expect": 0,
-      "misMatchThreshold": 0.1,
-      "requireSameDimensions": true
+      "postInteractionWait": 0,
+      "type": "[Configuration] updateScenario"
     },
     {
-      "label": "HomePage",
+      "label": "Home Page",
       "url": "http://localhost:4200/",
       "misMatchThreshold": "",
       "hideSelectors": [
@@ -56,7 +48,7 @@
       ]
     },
     {
-      "label": "ConfigurationPage",
+      "label": "Configuration Page",
       "url": "http://localhost:4200/config/1",
       "misMatchThreshold": "",
       "hideSelectors": [
@@ -64,7 +56,7 @@
       ]
     },
     {
-      "label": "404Page",
+      "label": "404 Page",
       "url": "http://localhost:4200/unknown-route",
       "misMatchThreshold": "",
       "hideSelectors": [

@@ -32,6 +32,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { DashboardEffects } from './view/dashboard/store/dashboard.effects';
 import { HistoryTableEffects } from './components/history-table/store/history-table.effects';
 import { historyTableReducer } from './components/history-table/store/history-table.reducer';
+import { SidebarEffects } from './components/sidebar/store/sidebar.effects';
+import { sidebarReducer } from './components/sidebar/store/sidebar.reducer';
 
 const routes = [
   { path: '', component: DashboardComponent },
@@ -65,14 +67,19 @@ const routes = [
     StoreModule.forRoot({
       app: appReducer,
       dashboard: dashboardReducer,
-      historyTable: historyTableReducer
+      historyTable: historyTableReducer,
+      sidebar: sidebarReducer
     }),
     // StoreDevtoolsModule should be imported after StoreModule
     StoreDevtoolsModule.instrument({
       maxAge:25,
       logOnly: environment.production
     }),
-    EffectsModule.forRoot([DashboardEffects, HistoryTableEffects]),
+    EffectsModule.forRoot([
+      DashboardEffects,
+      HistoryTableEffects,
+      SidebarEffects
+    ]),
     RouterModule.forRoot(routes),
     AgGridModule.withComponents([])
   ],

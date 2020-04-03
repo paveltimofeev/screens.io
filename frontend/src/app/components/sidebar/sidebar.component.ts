@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { selectScenarios, selectViewports } from './store/sidebar.selectors';
+import { refresh } from './store/sidebar.actions';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  viewports$;
+  scenarios$;
+
+  constructor(
+    private store: Store
+  ){}
 
   ngOnInit() {
+
+    this.viewports$ = this.store.pipe(select(selectViewports));
+    this.scenarios$ = this.store.pipe(select(selectScenarios));
+
+    this.store.dispatch(refresh());
   }
 
 }

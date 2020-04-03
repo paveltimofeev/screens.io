@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, mergeMap } from 'rxjs/operators';
-import { of } from 'rxjs';
 import { refresh, loaded } from './dashboard.actions'
 import { ApiAdapterService } from '../../../services/api-adapter.service';
 

@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ApiAdapterService } from '../../../services/api-adapter.service';
 import { map, mergeMap } from 'rxjs/operators';
-import { refresh, loaded } from './sidebar.actions';
+import { refresh, loaded } from './configuration.actions';
 
 @Injectable()
-export class SidebarEffects {
+export class ConfigurationEffects {
 
   constructor(
     private actions$: Actions,

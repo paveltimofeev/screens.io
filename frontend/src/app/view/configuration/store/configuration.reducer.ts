@@ -1,12 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
-import * as actions from './sidebar.actions';
+import * as actions from './configuration.actions';
 
-export interface SidebarState {
+export interface ConfigurationState {
   viewports: any[];
   scenarios: any[];
 }
 export interface AppState {
-  sidebar: SidebarState
+  configurationView: ConfigurationState
 }
 export const initState = {
   viewports: [],
@@ -30,6 +30,6 @@ const _reducer = createReducer(initState,
   })
 );
 
-export function sidebarReducer (state, action) {
+export function configurationReducer (state, action) {
   return _reducer(state, action)
 }

@@ -23,10 +23,19 @@ import { AgGridModule } from 'ag-grid-angular';
 import { StatsComponent } from './components/stats/stats.component';
 import { MenuSectionComponent } from './components/menu-section/menu-section.component';
 
+import { StoreModule } from '@ngrx/store';
+import { appReducer } from './store/reducer';
+import { dashboardReducer } from './view/dashboard/store/dashboard.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { DashboardEffects } from './view/dashboard/store/dashboard.effects';
+
 const routes = [
   { path: '', component: DashboardComponent },
-  { path: 'config/:scenario', component:ConfigurationComponent }
-]
+  { path: 'config/:scenario', component:ConfigurationComponent },
+  { path: '**', component: DashboardComponent }
+];
 
 
 @NgModule({
@@ -51,6 +60,16 @@ const routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
+    StoreModule.forRoot({
+      app: appReducer,
+      dashboard: dashboardReducer
+    }),
+    // StoreDevtoolsModule should be imported after StoreModule
+    StoreDevtoolsModule.instrument({
+      maxAge:25,
+      logOnly: environment.production
+    }),
+    EffectsModule.forRoot([DashboardEffects]),
     RouterModule.forRoot(routes),
     AgGridModule.withComponents([])
   ],

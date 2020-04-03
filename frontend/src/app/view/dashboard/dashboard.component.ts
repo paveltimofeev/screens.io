@@ -12,7 +12,6 @@ import { selectScenarios } from './store/dashboard.selectors';
 export class DashboardComponent implements OnInit {
 
   scenarios$: any;
-  history$: any;
 
   constructor(
     private store: Store

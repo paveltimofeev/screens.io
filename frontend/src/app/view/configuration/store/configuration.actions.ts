@@ -22,3 +22,5 @@ export const updateScenario = createAction(
   '[Configuration] updateScenario',
   props<{data:any}>()
 );
+
+export const deleteCurrentScenario = createAction('[Configuration] deleteCurrentScenario');

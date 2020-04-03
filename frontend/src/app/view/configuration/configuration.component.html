@@ -4,20 +4,22 @@
       [scenarios]="scenarios$ | async"
       [viewports]="viewports$ | async"
       [selectedScenarioLabel]="selectedScenarioLabel$ | async"
-      (selectScenario)="selectScenario($event)"
+      (selectScenario)="selectScenarioHandler($event)"
     >
     </app-sidebar>
   </div>
 
   <div class="main-container">
 
-    <form (ngSubmit)="save(formRef)" #formRef="ngForm">
+    <form (ngSubmit)="saveHandler(formRef)" #formRef="ngForm">
 
       <input type="hidden"
              [ngModel]="(selectedScenario$ | async).label"
              name="label">
 
-    <app-top-menu></app-top-menu>
+    <app-top-menu
+      (onActionClick)="topMenuClickHandler($event)"
+    ></app-top-menu>
 
     <app-section-header icon="web" [text]="selectedScenarioLabel$ | async" ></app-section-header>
     <div class="row first-row">

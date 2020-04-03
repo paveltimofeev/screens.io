@@ -6,8 +6,14 @@ import {
   selectScenarios,
   selectViewports
 } from './store/configuration.selectors';
-import { changeCurrentScenario, refresh, updateScenario } from './store/configuration.actions';
+import {
+  changeCurrentScenario,
+  deleteCurrentScenario,
+  refresh,
+  updateScenario
+} from './store/configuration.actions';
 import { NgForm } from '@angular/forms';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-configuration',
@@ -35,11 +41,11 @@ export class ConfigurationComponent implements OnInit {
     this.store.dispatch(refresh());
   }
 
-  selectScenario ($event: string) {
+  selectScenarioHandler ($event: string) {
     this.store.dispatch(changeCurrentScenario({label:$event}));
   }
 
-  save (formRef: NgForm) {
+  saveHandler (formRef: NgForm) {
 
     if (formRef.valid) {
 
@@ -59,6 +65,14 @@ export class ConfigurationComponent implements OnInit {
     }
     else {
       // TODO: invalid form
+    }
+  }
+
+  topMenuClickHandler ($event: string) {
+
+    console.log($event);
+    if ($event === 'Delete') {
+      this.store.dispatch(deleteCurrentScenario());
     }
   }
 }

@@ -44,6 +44,10 @@ export class ApiAdapterService {
   updateConfig (config: IConfig): Observable<any> {
     return this.dataAccessService.put( environment.api + 'test/config', config);
   }
+
+  deleteScenario (label: string): Observable<any> {
+    return this.dataAccessService.put( environment.api + 'test/scenario', {label:label});
+  }
 }
 
 

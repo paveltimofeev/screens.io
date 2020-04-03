@@ -5,12 +5,13 @@ var vrt = require('../app_logic/vrt');
 /*
     API CALLS
 
-    [post] /api/test/run           <-  { error, data }
-    [post] /api/approve/:jobId     <-  { status: 'approved' }
-     [get] /api/test/report/:jobId <-  { error, report }
-     [get] /api/test/history       <-  { error, jobs }
-     [get] /api/test/config        <-  { error, data }
-     [put] /api/test/config        <-  { error, data }
+    [post] /api/test/run                        <-  { error, data }
+    [post] /api/approve/:jobId                  <-  { status: 'approved' }
+     [get] /api/test/report/:jobId              <-  { error, report }
+     [get] /api/test/history                    <-  { error, jobs }
+     [get] /api/test/config                     <-  { error, data }
+     [put] /api/test/config                     <-  { error, data }
+     [delete] /api/test/scenario {label}        <-  { error, data }
 */
 
 router.post('/test/run', function(req, res, next) {
@@ -58,6 +59,15 @@ router.put('/test/config', function(req, res, next) {
 
     // TODO: sanitize req.body
     vrt.setBasicConfig(req.body, (error, data) => {
+        res.status(200).send( {error, data} )
+    })
+});
+
+// Delete scenario
+router.put('/test/scenario', function(req, res, next) {
+
+    // TODO: sanitize req.body
+    vrt.deleteScenarioFromBasicConfig(req.body.label, (error, data) => {
         res.status(200).send( {error, data} )
     })
 });

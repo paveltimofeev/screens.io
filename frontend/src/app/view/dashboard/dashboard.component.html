@@ -1,5 +1,7 @@
 <div class="header-block-margin header-block">
-  <app-stats></app-stats>
+  <app-stats
+    [casesCount]="(scenarios$ | async).length"
+  ></app-stats>
 </div>
 
 <div class="header-block-margin">

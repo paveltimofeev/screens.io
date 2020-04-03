@@ -57,24 +57,22 @@ class VRT {
         })
     }
 
+    deleteScenarioFromBasicConfig(scenarioLabel, cb) {
+
+        this.getBasicConfig( (err, config) => {
+
+            let idx = config.scenarios.findIndex(x => x.label === scenarioLabel);
+            config.scenarios.splice(idx, 1);
+
+            this._writeDownConfig(config, cb);
+        });
+    }
+
     setBasicConfig (updData, cb) {
 
         this.getBasicConfig( (err, config) => {
 
-            var data = { ...config, ...updData };
-
-            fs.writeFile(
-              `vrt_data/${this._tenantId}/vrtconfig.json`,
-              JSON.stringify(data),
-              'utf8',
-              (error) => {
-
-                  if (!error) {
-                      this.refreshConfig();
-                  }
-
-                  cb(error);
-              })
+            this._writeDownConfig( {...config, ...updData}, cb);
         })
     }
 
@@ -136,6 +134,22 @@ class VRT {
                 status,
                 data
             });
+    }
+
+    _writeDownConfig(config, cb) {
+
+        fs.writeFile(
+          `vrt_data/${this._tenantId}/vrtconfig.json`,
+          JSON.stringify(config),
+          'utf8',
+          (error) => {
+
+              if (!error) {
+                  this.refreshConfig();
+              }
+
+              cb(error);
+          })
     }
 }
 

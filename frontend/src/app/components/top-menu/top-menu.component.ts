@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-top-menu',
@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
 })
 export class TopMenuComponent {
 
-  constructor() { }
+  @Output()
+  onActionClick:EventEmitter<string> = new EventEmitter();
 }

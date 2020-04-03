@@ -1,18 +1,39 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ApiAdapterService, IConfig } from '../../../services/api-adapter.service';
-import { map, mergeMap } from 'rxjs/operators';
-import { refresh, loaded, updateScenario, updated, error } from './configuration.actions';
+import { concatMap, map, mergeMap, withLatestFrom } from 'rxjs/operators';
+import { refresh, loaded, updateScenario, updated, error, deleteCurrentScenario } from './configuration.actions';
+import { of } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { selectCurrentScenarioLabel } from './configuration.selectors';
 
 @Injectable()
 export class ConfigurationEffects {
 
   constructor(
     private actions$: Actions,
-    private api: ApiAdapterService
+    private api: ApiAdapterService,
+    private store: Store
   ){}
 
-  updateConfig$ = createEffect(() => this.actions$.pipe(
+  deleteScenario$ = createEffect(() => this.actions$.pipe(
+    ofType(deleteCurrentScenario),
+    concatMap(action => {
+      return of(action).pipe(
+        withLatestFrom(this.store.pipe(select(selectCurrentScenarioLabel)))
+      );
+    }),
+    mergeMap(([action, label]) => {
+
+      return this.api.deleteScenario(label).pipe(
+        map( res => {
+          return { type: refresh.type }
+        })
+      );
+    })
+  ));
+
+  updateScenario$ = createEffect(() => this.actions$.pipe(
     ofType(updateScenario),
     mergeMap((data:any) => {
 

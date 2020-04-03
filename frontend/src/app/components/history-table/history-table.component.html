@@ -6,7 +6,7 @@
     headerHeight="0"
     [domLayout]="autoHeight"
     [rowHeight]="50"
-    [rowData]="data"
+    [rowData]="jobs$ | async"
     [columnDefs]="columnDefs"
     (gridReady)="onGridReady($event)">
   </ag-grid-angular>

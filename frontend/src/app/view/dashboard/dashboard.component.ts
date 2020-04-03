@@ -26,19 +26,19 @@ export class DashboardComponent implements OnInit {
     this.scenarios$ = this.store.pipe( select(selectScenarios));
     this.store.dispatch(refresh());
 
-    this.history$ = this.api.getHistory().pipe(
-      map( x => {
-        return x.jobs.map( j => {
-
-          return {
-            date: j,
-            status: 'success',
-            scope: 'All scenarios',
-            user: 'by schedule'
-          }
-
-        });
-
-      }));
+    // this.history$ = this.api.getHistory().pipe(
+    //   map( x => {
+    //     return x.jobs.map( j => {
+    //
+    //       return {
+    //         date: j,
+    //         status: 'success',
+    //         scope: 'All scenarios',
+    //         user: 'by schedule'
+    //       }
+    //
+    //     });
+    //
+    //   }));
   }
 }

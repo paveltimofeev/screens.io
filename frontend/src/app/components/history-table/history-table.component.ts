@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { refresh } from './store/history-table.actions';
+import { selectHistoryTable } from './store/history-table.selectors';
 
 export interface DataSource {
 
@@ -16,17 +19,16 @@ export interface DataSource {
 export class HistoryTableComponent implements OnInit {
 
   gridApi;
-  gridColumnApi;
 
   private statusCellRenderer(params) {
 
     if (params.value === 'success')
-      return '<i style="line-height: inherit; color: #5ed17f" class="material-icons">check_circle</i>'
+      return '<i style="line-height: inherit; color: #5ed17f" class="material-icons">check_circle</i>';
 
     if (params.value === 'fail')
-      return '<i style="line-height: inherit; color: #cd3636" class="material-icons">cancel</i>'
+      return '<i style="line-height: inherit; color: #cd3636" class="material-icons">cancel</i>';
 
-    return '<i style="line-height: inherit" class="material-icons">' + params.value + '</i>'
+    return '<i style="line-height: inherit" class="material-icons">' + params.value + '</i>';
   }
 
   private actionCellRenderer(params) {
@@ -59,6 +61,8 @@ export class HistoryTableComponent implements OnInit {
   @Input()
   data:DataSource[] = [];
 
+  jobs$;
+
   onGridReady(params) {
 
     // this.gridColumnApi = params.columnApi;
@@ -69,9 +73,12 @@ export class HistoryTableComponent implements OnInit {
     this.gridApi.setDomLayout('autoHeight');
   }
 
-  constructor() { }
+  constructor(private store: Store) { }
 
   ngOnInit() {
+
+    this.jobs$ = this.store.pipe( select(selectHistoryTable));
+    this.store.dispatch(refresh());
   }
 
 }

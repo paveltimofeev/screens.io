@@ -24,6 +24,7 @@ const _reducer = createReducer(initState,
       viewportsList: actions.payload.viewportsList,
       scenariosList: actions.payload.scenariosList,
       scenarios: actions.payload.scenarios,
+      currentScenario: actions.payload.scenarios && actions.payload.scenarios.length > 0 ? actions.payload.scenarios[0] : {},
       error: null
     }
   }),

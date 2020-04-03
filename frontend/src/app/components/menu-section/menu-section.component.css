@@ -39,7 +39,7 @@ h4 .material-icons {
 }
 .item-value {
   padding: 4px 6px;
-  margin: 0px 3px;
+  margin: 0 3px;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -48,7 +48,6 @@ h4 .material-icons {
   transition: background 0.25s, border-color 0.25s;
 }
 
-
 h4 {
   color: var(--themeColor);
 }
@@ -56,7 +55,6 @@ h4 {
   color: var(--themeColor);
 }
 .item-value:hover {
-  __border-left: 3px solid var(--themeColor);
   background: var(--menu-item-accent);
 }
 .item-value--active {

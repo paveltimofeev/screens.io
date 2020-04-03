@@ -6,7 +6,7 @@ import {
   selectScenarios,
   selectViewports
 } from './store/configuration.selectors';
-import { changeCurrentScenario, refresh } from './store/configuration.actions';
+import { changeCurrentScenario, refresh, updateScenario } from './store/configuration.actions';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -36,13 +36,36 @@ export class ConfigurationComponent implements OnInit {
   }
 
   selectScenario ($event: string) {
-    console.log('>>>', $event);
     this.store.dispatch(changeCurrentScenario({label:$event}));
+  }
+
+  f(formRef, key) {
+
+    if (typeof(formRef.value[key] === "string")) {
+      formRef.value[key] = formRef.value[key].split(',')
+    }
   }
 
   save (formRef: NgForm) {
 
-    console.log('save', formRef);
-    console.log('save form value:', formRef.value);
+    if (formRef.valid) {
+
+      const strToArray = (formRef, key) => {
+
+        if (typeof(formRef.value[key]) === "string") {
+          formRef.value[key] = formRef.value[key].split(',')
+        }
+      };
+
+      strToArray(formRef, 'hideSelectors');
+      strToArray(formRef, 'removeSelectors');
+      strToArray(formRef, 'clickSelectors');
+      strToArray(formRef, 'hoverSelectors');
+
+      this.store.dispatch(updateScenario(formRef.value))
+    }
+    else {
+      // TODO: invalid form
+    }
   }
 }

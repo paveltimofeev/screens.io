@@ -19,6 +19,6 @@ export class DataAccessService {
   }
 
   put (url:string, body:any = {}): Observable<any> {
-    return this.http.post(url, body);
+    return this.http.put(url, body);
   }
 }

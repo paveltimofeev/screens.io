@@ -1,6 +1,6 @@
 
   <div class="left-sidebar">
-    <app-sidebar></app-sidebar>
+    <app-sidebar [scenarios]="scenarios$ | async" [viewports]="viewports$ | async"></app-sidebar>
   </div>
 
   <div class="main-container">

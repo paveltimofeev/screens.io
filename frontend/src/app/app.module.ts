@@ -34,6 +34,8 @@ import { HistoryTableEffects } from './components/history-table/store/history-ta
 import { historyTableReducer } from './components/history-table/store/history-table.reducer';
 import { SidebarEffects } from './components/sidebar/store/sidebar.effects';
 import { sidebarReducer } from './components/sidebar/store/sidebar.reducer';
+import { ConfigurationEffects } from './view/configuration/store/configuration.effects';
+import { configurationReducer } from './view/configuration/store/configuration.reducer';
 
 const routes = [
   { path: '', component: DashboardComponent },
@@ -67,8 +69,8 @@ const routes = [
     StoreModule.forRoot({
       app: appReducer,
       dashboard: dashboardReducer,
-      historyTable: historyTableReducer,
-      sidebar: sidebarReducer
+      configurationView: configurationReducer,
+      historyTable: historyTableReducer
     }),
     // StoreDevtoolsModule should be imported after StoreModule
     StoreDevtoolsModule.instrument({
@@ -77,8 +79,8 @@ const routes = [
     }),
     EffectsModule.forRoot([
       DashboardEffects,
-      HistoryTableEffects,
-      SidebarEffects
+      ConfigurationEffects,
+      HistoryTableEffects
     ]),
     RouterModule.forRoot(routes),
     AgGridModule.withComponents([])

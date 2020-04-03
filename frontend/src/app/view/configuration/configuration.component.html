@@ -13,7 +13,7 @@
 
     <app-top-menu></app-top-menu>
 
-    <app-section-header icon="web" [text]="'Landing Page'" ></app-section-header>
+    <app-section-header icon="web" [text]="selectedScenarioLabel$ | async" ></app-section-header>
     <div class="row first-row">
       <div class="col l5 m12 s12">
         <app-input-box

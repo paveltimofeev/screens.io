@@ -29,6 +29,11 @@ export class ApiAdapterService {
     return this.dataAccessService.post( environment.api + 'test/approve/' + jobId);
   }
 
+  approveCase (pair:any): Observable<any> {
+
+    return this.dataAccessService.post( environment.api + 'test/approvecase/', pair);
+  }
+
   getReport (jobId:any): Observable<any> {
     return this.dataAccessService.get( environment.api + 'test/report/' + jobId);
   }

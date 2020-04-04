@@ -34,6 +34,24 @@ router.post('/test/approve/:jobId', function(req, res, next) {
     });
 });
 
+router.post('/test/approvecase', function(req, res, next) {
+
+    const pair = req.body; // TODO: sanitize body
+
+    vrt.approveCase( {reference: pair.reference, test: pair.test}, (err, data) => {
+
+        console.log('[VRT] approvecase err', err);
+        console.log('[VRT] approvecase data', data);
+
+        if (err) {
+            res.status(500).send( {message:'Cannot approve'} );
+        }
+        else {
+            res.status(200).send( data );
+        }
+    });
+});
+
 router.get('/test/report/:jobId', function(req, res, next) {
 
     const jobId = req.params.jobId; // TODO: sanitize

@@ -33,4 +33,12 @@ export class HistoryRecordComponent implements OnInit {
       map( x => x.report )
     );
   }
+
+  approveCase (pair: any) {
+
+    this.api.approveCase(pair).subscribe( x => {
+
+      console.log(x)
+    });
+  }
 }

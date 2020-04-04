@@ -56,12 +56,22 @@ export class ConfigurationComponent implements OnInit {
         if (typeof(formRef.value[key]) === "string") {
           formRef.value[key] = formRef.value[key].split(',')
         }
+
       };
+
+      const skipEmpty = (formRef, key) => {
+        formRef.value[key] = (formRef.value[key] || []).filter(x => x !== "")
+      }
 
       strToArray(formRef, 'hideSelectors');
       strToArray(formRef, 'removeSelectors');
       strToArray(formRef, 'clickSelectors');
       strToArray(formRef, 'hoverSelectors');
+
+      skipEmpty(formRef, 'hideSelectors');
+      skipEmpty(formRef, 'removeSelectors');
+      skipEmpty(formRef, 'clickSelectors');
+      skipEmpty(formRef, 'hoverSelectors');
 
       this.store.dispatch(updateScenario(formRef.value))
     }

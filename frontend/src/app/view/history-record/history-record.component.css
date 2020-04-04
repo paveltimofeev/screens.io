@@ -10,17 +10,24 @@
   padding-right: 54px;
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
 
-  margin-top: -10px;
-  margin-right: -10px;
+  margin-top: -20px;
+  margin-right: -20px;
 }
 
 .main-container > div {
   width: 300px;
-  margin-top: 10px;
-  margin-right: 10px;
+  margin-top: 20px;
+  margin-right: 20px;
 }
 
 em {
   word-break: break-word;
+}
+
+img {
+  object-fit: cover;
+  width: 300px;
+  height: 200px;
 }

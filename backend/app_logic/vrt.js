@@ -131,6 +131,59 @@ class VRT {
             .catch( (e) => { console.log('[VRT] approve failed', e); cb(e);});
     }
 
+    approveCase (pair, cb) {
+
+        console.log('[VRT] approve case refr', pair.reference);
+        console.log('[VRT] approve case test', pair.test);
+
+        const ref = path.join(__dirname, '..', pair.reference);
+        const test = path.join(__dirname, '..', pair.test);
+
+        fs.exists(ref, (exists) => {
+
+            if (!exists) {
+                console.log('ERR: Cannot find', ref);
+                cb(ref);
+                return;
+            }
+
+            fs.exists(test, (exists) => {
+
+                if (!exists) {
+                    console.log('ERR: Cannot find', test);
+                    cb(test);
+                    return;
+                }
+
+                fs.copyFile(test, ref, (data) => {
+                    console.log('success:', data);
+                    cb(null, {success:true})
+                });
+            })
+        });
+        //
+        // const re = fs.existsSync(ref);
+        // const te = fs.existsSync(test);
+        //
+        // console.log(ref, re);
+        // console.log(test, te);
+        //
+        // if (re && te) {
+        //
+        //     fs.copyFile(test, ref, cb);
+        // }
+        // else {
+        //     return cb('cannot find files');
+        // }
+    }
+
+    stop (cb) {
+
+        backstop( 'stop' )
+          .then( (r) => { console.log('[VRT] stop done', r); cb(null, r); })
+          .catch( (e) => { console.log('[VRT] stop failed', e); cb(e);});
+    }
+
     writeHistory (config, status, data) {
 
         this._history.push(

@@ -7,7 +7,7 @@ import {
   selectViewports
 } from './store/configuration.selectors';
 import {
-  changeCurrentScenario,
+  changeCurrentScenario, createScenario, createViewport,
   deleteCurrentScenario,
   refresh,
   updateScenario
@@ -51,7 +51,7 @@ export class ConfigurationComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
 
     let elems = document.querySelectorAll('.modal');
-    this.instances = M.Modal.init(elems, {});
+    this.instances = M.Modal.init(elems, {width: '500px'});
 
     for(let i = 0; i < elems.length; i++) {
      this.modals[elems[i].id] = M.Modal.getInstance(elems[i]);
@@ -64,6 +64,19 @@ export class ConfigurationComponent implements OnInit, AfterViewInit {
 
   addScenarioHandler () {
     this.modals.addScenarioModal.open();
+  }
+
+  createScenarioHandler (formRef: NgForm) {
+
+    if (formRef.valid) {
+      this.store.dispatch(createScenario(formRef.value))
+    }
+  }
+
+  createViewportHandler (formRef: NgForm) {
+    if (formRef.valid) {
+      this.store.dispatch(createViewport(formRef.value))
+    }
   }
 
   selectScenarioHandler ($event: string) {

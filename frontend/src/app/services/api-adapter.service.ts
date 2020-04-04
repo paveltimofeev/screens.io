@@ -58,6 +58,6 @@ export class ApiAdapterService {
 
 export interface IConfig {
   id:string,
-  viewports: any[],
+  viewports: {width:number, height:number, label?:string}[],
   scenarios: any[]
 }

@@ -186,26 +186,72 @@
 
 
   <!-- Add Scenario Modal Structure -->
+  <form (ngSubmit)="createScenarioHandler(addScenarioModal)" #addScenarioModal="ngForm">
   <div id="addScenarioModal" class="modal">
     <div class="modal-content">
-      <h4>Add New Scenario</h4>
-      <p>A bunch of text</p>
+
+      <h2>Add New Scenario</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi eligendi exercitationem illo, impedit ipsa minus officiis placeat quibusdam quos ratione.
+      </p>
+      <div class="row">
+        <div class="col s12">
+          <label>Scenario name</label>
+          <input class="control-text" type="text"
+                 ngModel
+                 name="label"
+                 placeholder="for ex. Testing Home Page"
+                 required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <label>Url</label>
+          <input class="control-text" type="text"
+                 ngModel
+                 name="url"
+                 placeholder="https://mywebsite/home"
+                 required>
+        </div>
+      </div>
+
     </div>
     <div class="modal-footer">
-      <a class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-      <a class="modal-close waves-effect waves-green btn-flat">Create</a>
+      <button class="modal-close waves-effect waves-green btn-flat" type="reset">Cancel</button>
+      <button *ngIf="addScenarioModal.valid" class="modal-close waves-effect waves-green btn-flat" type="submit">Create</button>
     </div>
   </div>
+  </form>
 
   <!-- Add Viewport Modal Structure -->
-  <div id="addViewportModal" class="modal">
-    <div class="modal-content">
-      <h4>Add Viewport</h4>
-      <p>A bunch of text</p>
+  <form (ngSubmit)="createViewportHandler(addViewportModal)" #addViewportModal="ngForm">
+    <div id="addViewportModal" class="modal">
+      <div class="modal-content">
+        <h2>Add Viewport</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum ipsum nam numquam</p>
+        <div class="row">
+          <div class="col m6 s12">
+            <label>Screen width</label>
+            <input class="control-text" type="number" min="100" max="10000"
+                   ngModel
+                   name="width"
+                   placeholder="for ex. 1920"
+                   required>
+          </div>
+          <div class="col m6 s12">
+            <label>Screen height</label>
+            <input class="control-text" type="number" min="100" max="10000"
+                   ngModel
+                   name="height"
+                   placeholder="for ex. 1080"
+                   required>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-close waves-effect waves-green btn-flat" type="reset">Cancel</button>
+        <button class="modal-close waves-effect waves-green btn-flat" type="submit">Add</button>
+      </div>
     </div>
-    <div class="modal-footer">
-      <a class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-      <a class="modal-close waves-effect waves-green btn-flat">Add</a>
-    </div>
-  </div>
+  </form>
 

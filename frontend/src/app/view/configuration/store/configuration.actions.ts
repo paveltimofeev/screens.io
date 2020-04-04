@@ -22,4 +22,13 @@ export const updateScenario = createAction(
   props<{data:any}>()
 );
 
+export const createScenario = createAction(
+  '[Configuration] createScenario',
+  props<{data:any}>()
+);
+export const createViewport = createAction(
+  '[Configuration] createViewport',
+  props<{data:{width:number, height:number}}>()
+);
+
 export const deleteCurrentScenario = createAction('[Configuration] deleteCurrentScenario');

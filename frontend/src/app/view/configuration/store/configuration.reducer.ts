@@ -1,5 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import * as actions from './configuration.actions';
+import { createScenario } from './configuration.actions';
+import { createViewport } from './configuration.actions';
 
 export interface ConfigurationState {
   viewportsList: string[];
@@ -54,6 +56,20 @@ const _reducer = createReducer(initState,
       loading: true
     }
   }),
+
+  on(actions.createScenario, (state, actions:any) => {
+    return {
+      ...state,
+      loading: true
+    }
+  }),
+
+  on(actions.createViewport, (state, actions:any) => {
+    return {
+      ...state,
+      loading: true
+    }
+  })
 
 );
 

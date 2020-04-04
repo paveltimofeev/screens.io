@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import {
   selectCurrentScenario,
@@ -13,14 +13,16 @@ import {
   updateScenario
 } from './store/configuration.actions';
 import { NgForm } from '@angular/forms';
-import { map, take } from 'rxjs/operators';
+
+/// Materalize global instance
+declare var M;
 
 @Component({
   selector: 'app-configuration',
   templateUrl: './configuration.component.html',
   styleUrls: ['./configuration.component.css']
 })
-export class ConfigurationComponent implements OnInit {
+export class ConfigurationComponent implements OnInit, AfterViewInit {
 
   url:string = "http://localhost";
 
@@ -29,6 +31,9 @@ export class ConfigurationComponent implements OnInit {
   scenarios$;
   selectedScenario$;
   selectedScenarioLabel$;
+
+  instances;
+  modals:any = {};
 
   constructor(private store: Store) { }
 
@@ -41,6 +46,24 @@ export class ConfigurationComponent implements OnInit {
     this.selectedScenarioLabel$ = this.store.pipe(select(selectCurrentScenarioLabel));
 
     this.store.dispatch(refresh());
+  }
+
+  ngAfterViewInit() {
+
+    let elems = document.querySelectorAll('.modal');
+    this.instances = M.Modal.init(elems, {});
+
+    for(let i = 0; i < elems.length; i++) {
+     this.modals[elems[i].id] = M.Modal.getInstance(elems[i]);
+    }
+  }
+
+  addViewportHandler () {
+    this.modals.addViewportModal.open();
+  }
+
+  addScenarioHandler () {
+    this.modals.addScenarioModal.open();
   }
 
   selectScenarioHandler ($event: string) {

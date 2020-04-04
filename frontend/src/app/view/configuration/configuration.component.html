@@ -6,6 +6,7 @@
         [icon]="'desktop_windows'"
         [header]="'Viewports'"
         [items]="viewports$ | async"
+        (headerActionClick)="addViewportHandler()"
       >
       </app-menu-section>
 
@@ -17,6 +18,7 @@
         [items]="scenarios$ | async"
         [selected]="selectedScenarioLabel$ | async"
         (itemClick)="selectScenarioHandler($event)"
+        (headerActionClick)="addScenarioHandler()"
       >
       </app-menu-section>
 
@@ -180,3 +182,30 @@
     </div>
 
   </div>
+
+
+
+  <!-- Add Scenario Modal Structure -->
+  <div id="addScenarioModal" class="modal">
+    <div class="modal-content">
+      <h4>Add New Scenario</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+      <a class="modal-close waves-effect waves-green btn-flat">Create</a>
+    </div>
+  </div>
+
+  <!-- Add Viewport Modal Structure -->
+  <div id="addViewportModal" class="modal">
+    <div class="modal-content">
+      <h4>Add Viewport</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+      <a class="modal-close waves-effect waves-green btn-flat">Add</a>
+    </div>
+  </div>
+

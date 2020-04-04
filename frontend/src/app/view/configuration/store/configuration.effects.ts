@@ -8,7 +8,7 @@ import {
   updateScenario,
   deleteCurrentScenario,
   createScenario,
-  createViewport
+  createViewport, deleteViewport
 } from './configuration.actions';
 import { of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
@@ -40,11 +40,31 @@ export class ConfigurationEffects {
     })
   ));
 
+  deleteViewport$ = createEffect(() => this.actions$.pipe(
+    ofType(deleteViewport),
+    mergeMap((action) => {
+
+      return this.api.getConfig().pipe(
+        mergeMap( (config:{data:IConfig}) => {
+
+          const idx = config.data.viewports.findIndex( x => x.label === action.label );
+          config.data.viewports.splice(idx, 1);
+
+          return this.api.updateConfig(config.data).pipe(
+            map( res => {
+
+              return { type: refresh.type }
+            })
+          );
+
+        })
+      );
+    })
+  ));
+
   updateScenario$ = createEffect(() => this.actions$.pipe(
     ofType(updateScenario),
     mergeMap((data:any) => {
-
-
 
       return this.api.getConfig().pipe(
         mergeMap( (config:{data:IConfig}) => {

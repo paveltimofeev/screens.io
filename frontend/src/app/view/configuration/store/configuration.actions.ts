@@ -30,5 +30,9 @@ export const createViewport = createAction(
   '[Configuration] createViewport',
   props<{data:{width:number, height:number}}>()
 );
+export const deleteViewport = createAction(
+  '[Configuration] deleteViewport',
+  props<{label:string}>()
+);
 
 export const deleteCurrentScenario = createAction('[Configuration] deleteCurrentScenario');

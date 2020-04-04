@@ -23,6 +23,9 @@ export class MenuSectionComponent {
   items:string[] = [];
 
   @Input()
+  itemActionIcon:string;
+
+  @Input()
   selected:string;
 
   @Output()
@@ -30,4 +33,8 @@ export class MenuSectionComponent {
 
   @Output()
   headerActionClick:EventEmitter<any> = new EventEmitter();
+
+  @Output()
+  itemActionClick:EventEmitter<string> = new EventEmitter();
+
 }

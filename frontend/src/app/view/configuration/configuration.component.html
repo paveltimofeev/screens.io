@@ -7,6 +7,8 @@
         [header]="'Viewports'"
         [items]="viewports$ | async"
         (headerActionClick)="addViewportHandler()"
+        [itemActionIcon]="'close'"
+        (itemActionClick)="removeViewportHandler($event)"
       >
       </app-menu-section>
 

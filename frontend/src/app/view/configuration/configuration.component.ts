@@ -8,7 +8,7 @@ import {
 } from './store/configuration.selectors';
 import {
   changeCurrentScenario, createScenario, createViewport,
-  deleteCurrentScenario,
+  deleteCurrentScenario, deleteViewport,
   refresh,
   updateScenario
 } from './store/configuration.actions';
@@ -60,6 +60,10 @@ export class ConfigurationComponent implements OnInit, AfterViewInit {
 
   addViewportHandler () {
     this.modals.addViewportModal.open();
+  }
+
+  removeViewportHandler($event) {
+    this.store.dispatch(deleteViewport({label:$event}))
   }
 
   addScenarioHandler () {

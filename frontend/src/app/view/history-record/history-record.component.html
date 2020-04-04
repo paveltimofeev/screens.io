@@ -24,9 +24,9 @@
       Screenshots:
       <a *ngIf="t.pair.reference" href="{{storageUrl}}{{ t.pair.reference }}" target="_blank" rel="nofollow noopener">Reference</a> |
       <a *ngIf="t.pair.test" href="{{storageUrl}}{{ t.pair.test }}" target="_blank" rel="nofollow noopener">Test</a> |
-      <a *ngIf="t.pair.difference" href="{{storageUrl}}{{ t.pair.difference }}" target="_blank" rel="nofollow noopener">Diff</a>
+      <a *ngIf="t.pair.diffImage" href="{{storageUrl}}{{ t.pair.diffImage }}" target="_blank" rel="nofollow noopener">Diff</a>
     </p>
-    <p>
+    <p *ngIf="t.pair.error">
       <em>Error: {{ t.pair.error }}</em>
     </p>
     <img width="300px" src="{{storageUrl}}{{ t.pair.test }}" alt="">

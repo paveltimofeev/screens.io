@@ -21,9 +21,18 @@ export class HistoryRecordComponent implements OnInit {
 
   ngOnInit() {
 
+    this.refreshHistory();
+  }
+
+  refreshHistory () {
+
     this.records$ = this.api.getHistory().pipe(
       map( x => x.jobs.reverse() )
     );
+  }
+
+  refreshHandler () {
+    this.refreshHistory();
   }
 
   selectRecordHandler ($event: string) {

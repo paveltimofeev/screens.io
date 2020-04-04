@@ -14,6 +14,9 @@ export class MenuSectionComponent {
   icon:string;
 
   @Input()
+  headerActionIcon:string;
+
+  @Input()
   header:string;
 
   @Input()
@@ -26,5 +29,5 @@ export class MenuSectionComponent {
   itemClick:EventEmitter<string> = new EventEmitter();
 
   @Output()
-  addClick:EventEmitter<string> = new EventEmitter();
+  headerActionClick:EventEmitter<any> = new EventEmitter();
 }

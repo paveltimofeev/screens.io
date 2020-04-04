@@ -5,9 +5,11 @@
   <app-menu-section
     [icon]="'ballot'"
     [header]="'Completed jobs'"
+    [headerActionIcon]="'refresh'"
     [items]="records$ | async"
     [selected]="selected"
     (itemClick)="selectRecordHandler($event)"
+    (headerActionClick)="refreshHandler()"
   >
   </app-menu-section>
 

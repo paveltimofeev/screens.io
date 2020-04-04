@@ -8,22 +8,5 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class SidebarComponent {
 
   @Input()
-  viewports;
-
-  @Input()
-  scenarios;
-
-  @Input()
-  selectedScenarioLabel: string;
-
-  @Output()
-  selectScenario:EventEmitter<string> = new EventEmitter();
-  @Output()
-  createScenario:EventEmitter<string> = new EventEmitter();
-
-  @Output()
-  selectViewport:EventEmitter<string> = new EventEmitter();
-  @Output()
-  createViewport:EventEmitter<string> = new EventEmitter();
-
+  title:string;
 }

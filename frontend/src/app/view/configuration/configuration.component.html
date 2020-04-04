@@ -1,11 +1,25 @@
 
   <div class="left-sidebar">
-    <app-sidebar
-      [scenarios]="scenarios$ | async"
-      [viewports]="viewports$ | async"
-      [selectedScenarioLabel]="selectedScenarioLabel$ | async"
-      (selectScenario)="selectScenarioHandler($event)"
-    >
+    <app-sidebar [title]="'Configuration'">
+
+      <app-menu-section
+        [icon]="'desktop_windows'"
+        [header]="'Viewports'"
+        [items]="viewports$ | async"
+      >
+      </app-menu-section>
+
+
+      <app-menu-section
+        [icon]="'web'"
+        [header]="'Scenarios'"
+        [theme]="'yellow'"
+        [items]="scenarios$ | async"
+        [selected]="selectedScenarioLabel$ | async"
+        (itemClick)="selectScenarioHandler($event)"
+      >
+      </app-menu-section>
+
     </app-sidebar>
   </div>
 

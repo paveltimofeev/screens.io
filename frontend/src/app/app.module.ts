@@ -35,10 +35,12 @@ import { historyTableReducer } from './components/history-table/store/history-ta
 import { ConfigurationEffects } from './view/configuration/store/configuration.effects';
 import { configurationReducer } from './view/configuration/store/configuration.reducer';
 import { FormsModule } from '@angular/forms';
+import { HistoryRecordComponent } from './view/history-record/history-record.component';
 
 const routes = [
   { path: '', component: DashboardComponent },
-  { path: 'config/:scenario', component:ConfigurationComponent },
+  { path: 'config/:scenario', component: ConfigurationComponent },
+  { path: 'history/:jobId', component: HistoryRecordComponent },
   { path: '**', component: DashboardComponent }
 ];
 
@@ -60,7 +62,8 @@ const routes = [
     AddScenarioButtonComponent,
     HistoryTableComponent,
     StatsComponent,
-    MenuSectionComponent
+    MenuSectionComponent,
+    HistoryRecordComponent
   ],
   imports: [
     BrowserModule,

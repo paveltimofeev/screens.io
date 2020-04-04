@@ -2,14 +2,14 @@
   "id": "yandex",
   "viewports": [
     {
-      "label": "Desktop HD",
+      "label": "DesktopHD 1920 x 1080",
       "width": 1920,
       "height": 1080
     },
     {
-      "label": "Desktop",
-      "width": 1600,
-      "height": 900
+      "label": "Desktop 1366 x 768",
+      "width": 1366,
+      "height": 768
     }
   ],
   "onBeforeScript": "",
@@ -19,9 +19,9 @@
       "label": "BackstopJS Homepage",
       "url": "https://garris.github.io/BackstopJS/",
       "misMatchThreshold": 0.1,
-      "readySelector": ".container",
+      "readySelector": "",
       "delay": "0",
-      "readyEvent": "readyEvent",
+      "readyEvent": "",
       "hideSelectors": [
         ".news-feed",
         ".notifications"

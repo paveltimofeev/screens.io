@@ -1,0 +1,35 @@
+<app-sidebar
+  [title]="'History'"
+>
+
+  <app-menu-section
+    [icon]="'ballot'"
+    [header]="'Completed jobs'"
+    [items]="records$ | async"
+    [selected]="selected"
+    (itemClick)="selectRecordHandler($event)"
+  >
+  </app-menu-section>
+
+</app-sidebar>
+
+<div class="main-container">
+
+  <div *ngFor="let t of (report$ | async)?.tests">
+    <p>
+      <a href="{{ t.pair.url }}" target="_blank" rel="nofollow noopener">{{ t.pair.label }}</a>
+      <br>
+      {{ t.status }} | {{ t.pair.viewportLabel }}
+      <br>
+      Screenshots:
+      <a *ngIf="t.pair.reference" href="{{storageUrl}}{{ t.pair.reference }}" target="_blank" rel="nofollow noopener">Reference</a> |
+      <a *ngIf="t.pair.test" href="{{storageUrl}}{{ t.pair.test }}" target="_blank" rel="nofollow noopener">Test</a> |
+      <a *ngIf="t.pair.difference" href="{{storageUrl}}{{ t.pair.difference }}" target="_blank" rel="nofollow noopener">Diff</a>
+    </p>
+    <p>
+      <em>Error: {{ t.pair.error }}</em>
+    </p>
+    <img width="300px" src="{{storageUrl}}{{ t.pair.test }}" alt="">
+  </div>
+
+</div>

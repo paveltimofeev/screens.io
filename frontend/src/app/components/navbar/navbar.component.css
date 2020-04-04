@@ -20,6 +20,7 @@
   padding: 16px;
   line-height: 1.5;
   transition: color .25s;
+  user-select: none;
 }
 
 .navbar-item i.material-icons {

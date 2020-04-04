@@ -113,7 +113,7 @@ class VRT {
             configCopy.scenarios.forEach( s => { s.url = opts.url } );
         }
 
-        backstop('test', { config: configCopy} )
+        backstop('test', { config: configCopy, filter: opts.filter } )
             .then( ()  => { this.writeHistory(configCopy, 'success'); })
             .catch((e) => { this.writeHistory(configCopy, 'failed', e); });
 

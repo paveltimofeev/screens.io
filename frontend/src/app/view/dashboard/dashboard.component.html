@@ -12,7 +12,8 @@
 
   <app-scenario-card *ngFor="let scenario of scenarios$ | async"
     [title]="scenario.label"
-    screenshot="/assets/images/stubs/screen1.png">
+    screenshot="/assets/images/stubs/screen1.png"
+    (runClick)="runOneScenarioHandler($event)">
   </app-scenario-card>
 
   <app-add-scenario-button></app-add-scenario-button>

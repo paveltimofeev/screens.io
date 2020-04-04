@@ -16,7 +16,9 @@ var vrt = require('../app_logic/vrt');
 
 router.post('/test/run', function(req, res, next) {
 
-    var opts = { ...req.body }
+    var opts = { ...req.body }; // TODO: sanitize body
+
+    console.log(opts);
 
     vrt.run(opts, (error, data) => {
         res.status(200).send( { error, data } )

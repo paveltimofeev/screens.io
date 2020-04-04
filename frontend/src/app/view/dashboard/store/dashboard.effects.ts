@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, mergeMap } from 'rxjs/operators';
-import { refresh, loaded } from './dashboard.actions'
+import { refresh, loaded, runOneScenario } from './dashboard.actions'
 import { ApiAdapterService } from '../../../services/api-adapter.service';
+import { of } from 'rxjs';
 
 @Injectable()
 export class DashboardEffects {
@@ -21,6 +22,22 @@ export class DashboardEffects {
           return { type: loaded.type, payload: { scenarios: res.data.scenarios }}
         })
       );
+    })
+  ));
+
+  runOneScenario$ = createEffect(() => this.actions$.pipe(
+    ofType(runOneScenario),
+    mergeMap((data) => {
+
+      console.log(data);
+
+      return this.api.run( {filter: data.label} ).pipe(
+        map( res => {
+
+          return {type:refresh.type};
+        })
+      );
+
     })
   ));
 

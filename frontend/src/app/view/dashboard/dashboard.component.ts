@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { refresh } from './store/dashboard.actions';
+import { refresh, runOneScenario } from './store/dashboard.actions';
 import { select, Store } from '@ngrx/store';
 import { selectScenarios } from './store/dashboard.selectors';
 
@@ -21,5 +21,10 @@ export class DashboardComponent implements OnInit {
 
     this.scenarios$ = this.store.pipe( select(selectScenarios));
     this.store.dispatch(refresh());
+  }
+
+  runOneScenarioHandler ($event: string) {
+
+    this.store.dispatch(runOneScenario( {label: $event}));
   }
 }

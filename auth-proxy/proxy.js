@@ -6,8 +6,8 @@ const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
-var MemoryStore = require('memorystore')(session)
-
+const MemoryStore = require('memorystore')(session)
+const cors = require('./cors');
 
 const port = 8888;
 const backend = 'http://localhost:3000';
@@ -18,6 +18,7 @@ const sessionCookieName = 'twghtf'
 const secureCookie = false                              // HTTPS needs for 'true'
 const maxAge = 1000 * 60 * 60 * 10                      // 10h (prune expired entries every 10h)
 const usersListPath = 'users.json'
+const allowedCORSHost = 'http://localhost:4200'
 
 process.env.NODE_ENV = 'production'; // Hide stacktrace on error
 
@@ -31,6 +32,7 @@ app.set('view engine', 'ejs')
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser(cookieSign))
+app.use(cors(allowedCORSHost));
 
 app.use((req, res, next) => {
   res.set('X-Powered-By', '');

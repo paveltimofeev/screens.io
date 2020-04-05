@@ -19,6 +19,8 @@ const secureCookie = false                              // HTTPS needs for 'true
 const maxAge = 1000 * 60 * 60 * 10                      // 10h (prune expired entries every 10h)
 const usersListPath = 'users.json'
 
+process.env.NODE_ENV = 'production'; // Hide stacktrace on error
+
 var app = express();
 app.use(logger('dev'))
 
@@ -30,6 +32,10 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser(cookieSign))
 
+app.use((req, res, next) => {
+  res.set('X-Powered-By', '');
+  next()
+})
 
 /// https://github.com/expressjs/session
 app.use(session({

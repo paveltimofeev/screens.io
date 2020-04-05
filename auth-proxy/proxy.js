@@ -37,6 +37,7 @@ app.use((req, res, next) => {
   next()
 })
 
+/// Configure session storage
 /// https://github.com/expressjs/session
 app.use(session({
   name: sessionCookieName,
@@ -52,7 +53,7 @@ app.use(session({
   }),
 }))
 
-
+/// Check authorized session
 app.use(proxyPath, function(req, res, next){
 
   if (!req.session.authorized) {
@@ -64,6 +65,8 @@ app.use(proxyPath, function(req, res, next){
     next();
   }
 })
+
+/// Proxy backend calls
 app.use(proxyPath, createProxyMiddleware({ target: backend, changeOrigin: true }));
 
 
@@ -71,12 +74,14 @@ app.get('/login', (req, res) => {
   var {user} = req.signedCookies;
   res.render('index', {user, loginResult:''})
 })
+// TODO: sanitize username & password
 app.post('/login', (req,res) => {
 
   const users = JSON.parse(fs.readFileSync(usersListPath, 'utf8')); // TODO: async?
-  const user = req.body.user;
+  const user = req.body.user;         // TODO: sanitize username
+  const password = req.body.password; // TODO: sanitize password
 
-  if (users[user] === req.body.password) {
+  if (users[user] === password) {
 
     console.log('Login success. user:', user);
 

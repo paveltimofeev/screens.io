@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const MemoryStore = require('memorystore')(session)
 const cors = require('./cors');
+const {clearHeaders, checkAuth} = require('./utils')
 
 const port = 8888;
 const backend = 'http://localhost:3000';
@@ -33,11 +34,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser(cookieSign))
 app.use(cors(allowedCORSHost));
-
-app.use((req, res, next) => {
-  res.set('X-Powered-By', '');
-  next()
-})
+app.use(clearHeaders(['X-Powered-By']))
 
 /// Configure session storage
 /// https://github.com/expressjs/session
@@ -56,26 +53,10 @@ app.use(session({
 }))
 
 /// Check authorized session
-app.use(proxyPath, function(req, res, next){
-
-  if (req.method === 'OPTIONS') {
-    console.log('Send back OPTIONS')
-    res.status(200).send()
-  }
-
-  if (!req.session.authorized && req.method !== 'OPTIONS') {
-    let err = new Error('Not authorized')
-    err.status = 401
-    next(err)
-  }
-  else {
-    next();
-  }
-})
+app.use(proxyPath, checkAuth)
 
 /// Proxy backend calls
 app.use(proxyPath, createProxyMiddleware({ target: backend, changeOrigin: true, logLevel:'debug' }));
-
 
 app.get('/login', (req, res) => {
   var {user} = req.signedCookies;

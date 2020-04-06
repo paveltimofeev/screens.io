@@ -58,7 +58,12 @@ app.use(session({
 /// Check authorized session
 app.use(proxyPath, function(req, res, next){
 
-  if (!req.session.authorized) {
+  if (req.method === 'OPTIONS') {
+    console.log('Send back OPTIONS')
+    res.status(200).send()
+  }
+
+  if (!req.session.authorized && req.method !== 'OPTIONS') {
     let err = new Error('Not authorized')
     err.status = 401
     next(err)
@@ -69,7 +74,7 @@ app.use(proxyPath, function(req, res, next){
 })
 
 /// Proxy backend calls
-app.use(proxyPath, createProxyMiddleware({ target: backend, changeOrigin: true }));
+app.use(proxyPath, createProxyMiddleware({ target: backend, changeOrigin: true, logLevel:'debug' }));
 
 
 app.get('/login', (req, res) => {

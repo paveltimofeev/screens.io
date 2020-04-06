@@ -18,7 +18,7 @@ router.post('/test/run', function(req, res, next) {
 
     var opts = { ...req.body }; // TODO: sanitize body
 
-    console.log(opts);
+    console.log('[POST] /test/run with', opts);
 
     vrt.run(opts, (error, data) => {
         res.status(200).send( { error, data } )

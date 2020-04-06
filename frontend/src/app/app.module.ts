@@ -36,11 +36,13 @@ import { ConfigurationEffects } from './view/configuration/store/configuration.e
 import { configurationReducer } from './view/configuration/store/configuration.reducer';
 import { FormsModule } from '@angular/forms';
 import { HistoryRecordComponent } from './view/history-record/history-record.component';
+import { LoginComponent } from './view/login/login.component';
 
 const routes = [
   { path: '', component: DashboardComponent },
   { path: 'config/:scenario', component: ConfigurationComponent },
   { path: 'history/:jobId', component: HistoryRecordComponent },
+  { path: 'login', component: LoginComponent },
   { path: '**', component: DashboardComponent }
 ];
 
@@ -63,7 +65,8 @@ const routes = [
     HistoryTableComponent,
     StatsComponent,
     MenuSectionComponent,
-    HistoryRecordComponent
+    HistoryRecordComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

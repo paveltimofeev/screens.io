@@ -11,14 +11,14 @@ export class DataAccessService {
   constructor(private http: HttpClient) { }
 
   get (url:string): Observable<any> {
-    return this.http.get(url);
+    return this.http.get(url, {withCredentials: true});
   }
 
   post (url:string, body:any = {}): Observable<any> {
-    return this.http.post(url, body);
+    return this.http.post(url, body, {withCredentials: true});
   }
 
   put (url:string, body:any = {}): Observable<any> {
-    return this.http.put(url, body);
+    return this.http.put(url, body, {withCredentials: true});
   }
 }

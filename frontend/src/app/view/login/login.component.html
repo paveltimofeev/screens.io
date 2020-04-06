@@ -1,0 +1,9 @@
+<div class="main-container">
+  <form (ngSubmit)="loginHandler(loginForm)" #loginForm="ngForm">
+    <input type="text" name="user" ngModel required><br>
+    <input type="password" name="password" ngModel required><br>
+    <button type="submit">Login</button>
+  </form>
+</div>
+
+

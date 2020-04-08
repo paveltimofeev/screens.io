@@ -1,29 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { DataAccessService } from '../../services/data-access.service';
-import { environment } from '../../../environments/environment';
+import { ApiAdapterService } from '../../services/api-adapter.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  constructor(private dataAccess: DataAccessService) { }
-
-  ngOnInit() {
-  }
+  constructor(private api: ApiAdapterService) { }
 
   loginHandler (loginForm: NgForm) {
 
     if (loginForm.valid) {
-      this.dataAccess.post(environment.auth + '/login', {
-        user: loginForm.value.user,
-        password: loginForm.value.password
-      }).subscribe( res => {
-        console.log(res)
-      })
+
+      this.api
+        .login(loginForm.value.user, loginForm.value.password)
+        .subscribe(() => console.log('login completed'));
     }
+  }
+
+  logoutHandler () {
+
+    this.api
+      .logout()
+      .subscribe( () => console.log('logout completed'));
   }
 }

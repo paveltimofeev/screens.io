@@ -2,6 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DataAccessService } from './data-access.service';
 import { environment } from '../../environments/environment';
+import { take } from 'rxjs/operators';
+
+export interface IConfig {
+  id:string,
+  viewports: {width:number, height:number, label?:string}[],
+  scenarios: any[]
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -53,11 +61,16 @@ export class ApiAdapterService {
   deleteScenario (label: string): Observable<any> {
     return this.dataAccessService.put( environment.api + 'test/scenario', {label:label});
   }
-}
 
+  login (user, password): Observable<any> {
 
-export interface IConfig {
-  id:string,
-  viewports: {width:number, height:number, label?:string}[],
-  scenarios: any[]
+    return this.dataAccessService
+      .post(environment.auth + '/login-client', {user, password});
+  }
+
+  logout (): Observable<any> {
+
+    return this.dataAccessService
+      .post(environment.auth + '/logout-client');
+  }
 }

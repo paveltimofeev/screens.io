@@ -31,42 +31,69 @@ const checkAuth = (req, res, next) => {
   }
 }
 
+
+const isValidUser = (val) => {
+
+  var illegalChars = /\W/; // allow letters, numbers, and underscores
+
+  return val !== null &&
+    val !== undefined &&
+    typeof(val) === 'string' &&
+    val.length > 3 &&
+    !illegalChars.test(val)
+};
+
+const isValidPassword = (val) => {
+
+  var illegalChars = /\W/; // allow letters, numbers, and underscores
+
+  return val !== null &&
+    val !== undefined &&
+    typeof(val) === 'string' &&
+    val.length > 3 &&
+    !illegalChars.test(val)
+};
+
 const login = (req, res, success, fail) => {
 
+  const user = req.body.user;
+  const password = req.body.password;
 
-  const users = JSON.parse(fs.readFileSync(usersListPath, 'utf8')); // TODO: async?
-  const user = req.body.user;         // TODO: sanitize username
-  const password = req.body.password; // TODO: sanitize password
+  const userCheck = isValidUser(user);
+  const passwordCheck = isValidPassword(password);
 
-  if (users[user] === password) {
+  if (!userCheck || !passwordCheck) {
+    console.log('Username check:', isValidUser(user));
+    console.log('Password check:', isValidUser(password));
+    logout(req, res, fail);
+    return;
+  }
+
+  const users = JSON.parse(fs.readFileSync(usersListPath, 'utf8')); // TODO: async, cache, error catch?
+
+  if (users && users[user] === password) {
 
     console.log('Login success. user:', user);
 
     req.session.authorized = true;
     req.session.user = user;
-
     res.cookie('user', user, {signed:true, sameSite:true, maxAge: maxAge});
 
-    success(user)
+    success(user);
   }
   else {
 
-    console.log('Login failed. user:', user);
-
-    req.session.authorized = false;
-    req.session.user = undefined;
-    req.session.destroy(function(err) {
-      fail()
-    });
+    console.log('Login failed. Bad password for user or user not found:', user);
+    logout(req, res, fail);
   }
-
-
 }
 
 const logout = (req, res, cb) => {
 
-  console.log('Logout. user:', req.session.user);
+  console.log('Logout. Destroy session of user:', req.session.user);
 
+  req.session.authorized = false;
+  req.session.user = undefined;
   req.session.destroy(function(err) {
 
     res

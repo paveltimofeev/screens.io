@@ -54,12 +54,17 @@ app.use(session({
 app.use(proxyPath, checkAuth)
 
 /// Proxy backend calls
+/// SHOULD BE USED BEFORE(!) express.json()! TO AVOID FREEZING ON POST/PUT REQUESTS
 app.use(proxyPath, createProxyMiddleware({
   target: backend,
   changeOrigin: true,
   logLevel:'debug'
 }));
 
+
+/// Needed to parse json body for login/logout
+/// SHOULD BE USED AFTER(!) PROXY! TO AVOID FREEZING ON POST/PUT REQUESTS
+app.use(express.json())
 
 app.get('/login', (req, res) => {
   var {user} = req.signedCookies;
@@ -84,7 +89,6 @@ app.post('/logout-client', (req,res) => {
     })
 });
 
-// TODO: sanitize username & password
 app.post('/login', (req,res) => {
 
   login(req, res,

@@ -12,7 +12,7 @@ const {clearHeaders, checkAuth, login, logout} = require('./utils')
 
 const port = 8888;
 const backend = 'http://localhost:3000';
-const proxyPath = '/api/*';
+const proxyPath = ['/api/', '/vrt_data/'];
 const cookieSign = 'secretKey'
 const sessionSecret = 'sessionSecret71R369C31V186C12BX'
 const sessionCookieName = 'twghtf'

@@ -1,24 +1,25 @@
 const http = require('http');
 const path = require('path');
-const fs = require('fs');
 const logger = require('morgan');
 const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
+const request = require('request')
+var proxy = require('express-http-proxy');
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const MemoryStore = require('memorystore')(session)
 const cors = require('./cors');
-const {clearHeaders, checkAuth} = require('./utils')
+const {clearHeaders, checkAuth, login, logout} = require('./utils')
+
 
 const port = 8888;
 const backend = 'http://localhost:3000';
-const proxyPath = '/api';
+const proxyPath = '/api/*';
 const cookieSign = 'secretKey'
 const sessionSecret = 'sessionSecret71R369C31V186C12BX'
 const sessionCookieName = 'twghtf'
 const secureCookie = false                              // HTTPS needs for 'true'
 const maxAge = 1000 * 60 * 60 * 10                      // 10h (prune expired entries every 10h)
-const usersListPath = 'users.json'
 const allowedCORSHost = 'http://localhost:4200'
 
 process.env.NODE_ENV = 'production'; // Hide stacktrace on error
@@ -56,52 +57,69 @@ app.use(session({
 app.use(proxyPath, checkAuth)
 
 /// Proxy backend calls
-app.use(proxyPath, createProxyMiddleware({ target: backend, changeOrigin: true, logLevel:'debug' }));
+app.use(proxyPath, createProxyMiddleware({
+  target: backend,
+  changeOrigin: true,
+  logLevel:'debug',
+  router: {
+    'localhost:4200': 'http://localhost:8888'
+  }
+}));
+
+// app.get(proxyPath, function (req, res) {
+//   var target = `${backend}${req.originalUrl}`;
+//   console.log('proxy GET', target)
+//   req.pipe(request.get(target)).pipe(res);
+// });
+// app.post(proxyPath, function (req, res) {
+//
+//   var target = `${backend}${req.originalUrl}`;
+//   var body = req.body;
+//   var headers = req.headers
+//   console.log('proxy POST', {target, body, headers})
+//   req.pipe(request.post(target, {body, headers })).pipe(res);
+// });
 
 app.get('/login', (req, res) => {
   var {user} = req.signedCookies;
   res.render('index', {user, loginResult:''})
 })
+
+app.post('/login-client', (req,res) => {
+
+  login(req, res,
+    (user) => {
+      res.status(200).send({user})
+    },
+    () => {
+      res.status(401).send()
+    })
+});
+
+app.post('/logout-client', (req,res) => {
+
+  logout(req, res, (err) => {
+      res.status(200).send(err)
+    })
+});
+
 // TODO: sanitize username & password
 app.post('/login', (req,res) => {
 
-  const users = JSON.parse(fs.readFileSync(usersListPath, 'utf8')); // TODO: async?
-  const user = req.body.user;         // TODO: sanitize username
-  const password = req.body.password; // TODO: sanitize password
-
-  if (users[user] === password) {
-
-    console.log('Login success. user:', user);
-
-    req.session.authorized = true;
-    req.session.user = user;
-
-    res.cookie('user', user, {signed:true, sameSite:true, maxAge: maxAge});
-    res.render('index', { loginResult: 'Logged in successfully', user})
-  }
-  else {
-
-    console.log('Login failed. user:', user);
-
-    req.session.authorized = false;
-    req.session.user = undefined;
-    req.session.destroy(function(err) {
-
+  login(req, res,
+    (user) => {
+      res.render('index', { loginResult: 'Logged in successfully', user})
+    },
+    () => {
       res.render( 'index', { loginResult : 'Login failed', user : '' } )
-    });
-  }
+    })
+
 });
 app.post('/logout', (req,res) => {
 
-  console.log('Logout. user:', req.session.user);
-
-  req.session.destroy(function(err) {
-
-    res
-      .clearCookie('user')
-      .clearCookie('session')
-      .render('index', { loginResult: 'Logged out', user: ''})
-  })
+  logout(req, res, (err) => {
+      res.render('index', { loginResult: 'Logged out', user: ''})
+    })
 });
 
 

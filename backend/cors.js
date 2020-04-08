@@ -9,12 +9,16 @@ module.exports = (req, res, next) => {
     origin === 'http://localhost:8888'
   ) {
 
-    console.log('allow CORS for', origin);
+    if (req.method === 'OPTIONS' ) {
 
-    res.append('Access-Control-Allow-Origin', origin);
-    res.append('Access-Control-Allow-Methods', 'GET, PUT, HEAD, OPTIONS, POST, PATCH, DELETE');
-    res.append('Access-Control-Allow-Headers', 'Content-Type');
-    res.append('Access-Control-Allow-Credentials', 'true');
+      console.log( 'allow CORS for', origin );
+
+      res.append( 'Access-Control-Allow-Origin', origin );
+      res.append( 'Access-Control-Allow-Methods', 'GET, PUT, HEAD, OPTIONS, POST, PATCH, DELETE' );
+      res.append( 'Access-Control-Allow-Headers', 'Content-Type' );
+      res.append( 'Access-Control-Allow-Credentials', 'true' );
+    }
+
   }
   next();
 }

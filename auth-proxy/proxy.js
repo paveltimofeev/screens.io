@@ -31,7 +31,6 @@ app.use(logger('dev'))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
-app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser(cookieSign))
 app.use(cors(allowedCORSHost));
@@ -60,25 +59,9 @@ app.use(proxyPath, checkAuth)
 app.use(proxyPath, createProxyMiddleware({
   target: backend,
   changeOrigin: true,
-  logLevel:'debug',
-  router: {
-    'localhost:4200': 'http://localhost:8888'
-  }
+  logLevel:'debug'
 }));
 
-// app.get(proxyPath, function (req, res) {
-//   var target = `${backend}${req.originalUrl}`;
-//   console.log('proxy GET', target)
-//   req.pipe(request.get(target)).pipe(res);
-// });
-// app.post(proxyPath, function (req, res) {
-//
-//   var target = `${backend}${req.originalUrl}`;
-//   var body = req.body;
-//   var headers = req.headers
-//   console.log('proxy POST', {target, body, headers})
-//   req.pipe(request.post(target, {body, headers })).pipe(res);
-// });
 
 app.get('/login', (req, res) => {
   var {user} = req.signedCookies;

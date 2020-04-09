@@ -1,0 +1,46 @@
+-- Run one scenario (by filter)
+-- Delete Scenario
+-- Update Store after Save config
+-- Loading state
+-- Show results/history
+-- сохранение конфига с пустыми селекторами пораждает масссивы пустых селекторов - [""]
+-- Approve failed results
+-- Add New Scenario
+-- Add viewports
+-- Remove viewports
+-- Auth proxy
+-- Auth proxy should not return html and StackTrace on 401
+-- Login page
+-- Logout button
+-- Proxying images
+-- Retry all requests exept 401/403/404
+
+- Redirect not-authorized users to Login Page
+- Remove history record
+- Clone Scenario
+
+- Polling running job
+- Run scenarios with overrode parameters
+- Add retries to any GET operations
+- Remove all history records
+- Move most of logic to backend (createScenario, createViewport, updateScenario,...)
+- Add New Scenario from dashboard
+- Layout for results/history
+- Displaying Errors on load and save
+- Display retry button for not-ready yet history record (screens)
+- Confirmation dialog for delete ops
+- Auth proxy parameters
+
+- Show scenario history (right sidebar)
+- Bind real job status
+- Bind real images to ScenarioCards
+- Show stats, chart and measure stability
+- Cookies callback, or before run script
+
+
+- AWS LAMBDA
+- AWS SQS
+- TELEBRAM BOT
+- SLACK BOT
+- MONGODB STORAGE
+- SCHEDULER

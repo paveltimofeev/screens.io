@@ -17,18 +17,14 @@ export const genericRetryStrategy = ({ maxRetryAttempts = 3, scalingDuration = 1
     mergeMap((error, i) => {
 
       const retryAttempt = i + 1;
-      // if maximum number of retries have been met
-      // or response is a status code we don't wish to retry, throw error
-      if (
-        retryAttempt > maxRetryAttempts ||
-        excludedStatusCodes.find(e => e === error.status)
-      ) {
+
+      if (retryAttempt > maxRetryAttempts || excludedStatusCodes.find(e => e === error.status)) {
         return throwError(error);
       }
 
       let delay = (retryAttempt + Math.random()) * scalingDuration;
       console.log(`Attempt ${retryAttempt}: retrying in ${delay}ms`);
-      // retry after 1s, 2s, etc...
+
       return timer(delay);
     }),
     finalize(() => {
@@ -46,7 +42,7 @@ export class DataAccessService {
   retryOpts = {
     maxRetryAttempts: 20,
     scalingDuration: 2000,
-    excludedStatusCodes: [401, 403, 404]
+    excludedStatusCodes: [401, 403, 404, 409, 500, 502, 503, 523, 525, 526]
   };
 
   constructor(private http: HttpClient) { }

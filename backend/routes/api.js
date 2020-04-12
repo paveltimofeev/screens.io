@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var vrt = require('../app_logic/vrt');
+const storage = new (require('../storage-adapter'))
 
 /*
     API CALLS
@@ -14,11 +15,19 @@ var vrt = require('../app_logic/vrt');
      [delete] /api/test/scenario {label}        <-  { error, data }
 */
 
-router.post('/test/run', function(req, res, next) {
+router.post('/test/run', async function(req, res, next) {
 
-    var opts = { ...req.body }; // TODO: sanitize body
+    const record = await storage.newHistoryRecord({state: 'Running'})
 
-    console.log('[POST] /test/run with', opts);
+    var opts = { 
+        ...req.body,  // TODO: sanitize body
+        onComplete: (err) => {
+
+            storage.updateHistoryRecord(record._id, {
+                state: !err ? 'Completed' : 'Failed'
+            })
+        }
+    };
 
     vrt.run(opts, (error, data) => {
         res.status(200).send( { error, data } )

@@ -2,6 +2,7 @@ var backstop = require('backstopjs');
 var fs = require('fs');
 var path = require('path');
 
+
 function uuidv4() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -118,8 +119,14 @@ class VRT {
         }
 
         backstop('test', { config: configCopy, filter: opts.filter } )
-            .then( ()  => { this.writeHistory(configCopy, 'success'); })
-            .catch((e) => { this.writeHistory(configCopy, 'failed', e); });
+            .then( ()  => { 
+                opts.onComplete()
+                this.writeHistory(configCopy, 'success'); 
+            })
+            .catch((e) => { 
+                opts.onComplete(e)
+                this.writeHistory(configCopy, 'failed', e); 
+            });
 
         cb(null, uid);
     }

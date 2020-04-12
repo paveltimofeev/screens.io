@@ -17,21 +17,18 @@ const storage = new (require('../storage-adapter'))
 
 router.post('/test/run', async function(req, res, next) {
 
-    const record = await storage.newHistoryRecord({state: 'Running'})
-
     var opts = { 
         ...req.body,  // TODO: sanitize body
-        onComplete: (err) => {
-
-            storage.updateHistoryRecord(record._id, {
-                state: !err ? 'Completed' : 'Failed'
-            })
-        }
     };
 
-    vrt.run(opts, (error, data) => {
-        res.status(200).send( { error, data } )
-    })
+    try {
+        const data = await vrt.run(opts)
+        res.status(200).send( { data } )
+    }
+    catch (error) {
+        console.error('[API] Error', error)
+        res.status(500).send( { error } )
+    }
 });
 
 router.post('/test/approve/:jobId', function(req, res, next) {

@@ -1,7 +1,7 @@
 var backstop = require('backstopjs');
 var fs = require('fs');
 var path = require('path');
-
+const storage = new (require('../storage-adapter'))
 
 function uuidv4() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -108,27 +108,32 @@ class VRT {
         fs.readdir( this._config.paths.bitmaps_test, cb )
     }
 
-    run (opts, cb) {
+    async run (opts) {
 
-        var uid = uuidv4();
-
-        var configCopy = JSON.parse(JSON.stringify(this._config));
+        const runId = uuidv4()
+        let configCopy = JSON.parse(JSON.stringify(this._config))
 
         if (opts.url) {
-            configCopy.scenarios.forEach( s => { s.url = opts.url } );
+            configCopy.scenarios.forEach( s => { s.url = opts.url } )
         }
 
-        backstop('test', { config: configCopy, filter: opts.filter } )
-            .then( ()  => { 
-                opts.onComplete()
-                this.writeHistory(configCopy, 'success'); 
-            })
-            .catch((e) => { 
-                opts.onComplete(e)
-                this.writeHistory(configCopy, 'failed', e); 
-            });
+        const record = await storage.newHistoryRecord({
+            state: 'Running',
+            startedAt: new Date(),
+            scenarios: configCopy.scenarios.map( x => x.label).filter( x => x === opts.filter || !opts.filter),
+            runId
+        })
 
-        cb(null, uid);
+        try {
+            const result = await backstop('test', { config: configCopy, filter: opts.filter } )
+            console.log('result', result)
+            await storage.updateHistoryRecord(record._id, { state: 'Completed' })
+            return runId
+        }
+        catch (err) {
+            console.error('[VRT] Error:', err)
+            await storage.updateHistoryRecord(record._id, { state: 'Failed' })
+        }
     }
 
     approve (cb) {

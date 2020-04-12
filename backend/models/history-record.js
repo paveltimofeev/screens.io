@@ -2,11 +2,10 @@ const { Schema, model } = require('mongoose')
 
 const schema = new Schema({
     
-    scenarios: Array,
-    completed: Boolean,
-    failed: Boolean,
+    runId: String,
     state: String, /// Running, Finished
-    timestamp: Date
+    startedAt: Date,
+    scenarios: Array
 })
 
 module.exports = model('Record', schema)

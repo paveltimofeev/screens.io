@@ -13,18 +13,19 @@
 -- Login page
 -- Logout button
 -- Proxying images
--- Retry all requests exept 401/403/404
+-- Retry all requests exept 401/403/404/...
 
 - Redirect not-authorized users to Login Page
 - Remove history record
 - Clone Scenario
 
+- Auth proxy should pass user/tenant info to backend
+- Run scenarios with overrode parameters (hostname/...)
 - Polling running job
-- Run scenarios with overrode parameters
-- Add retries to any GET operations
 - Remove all history records
 - Move most of logic to backend (createScenario, createViewport, updateScenario,...)
 - Add New Scenario from dashboard
+- Show Approved image for scenario
 - Layout for results/history
 - Displaying Errors on load and save
 - Display retry button for not-ready yet history record (screens)

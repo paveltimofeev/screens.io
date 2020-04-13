@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var vrt = require('../app_logic/vrt');
+const storage = new (require('../storage-adapter'))
 
 /*
     API CALLS
@@ -14,15 +15,20 @@ var vrt = require('../app_logic/vrt');
      [delete] /api/test/scenario {label}        <-  { error, data }
 */
 
-router.post('/test/run', function(req, res, next) {
+router.post('/test/run', async function(req, res, next) {
 
-    var opts = { ...req.body }; // TODO: sanitize body
+    var opts = { 
+        ...req.body,  // TODO: sanitize body
+    };
 
-    console.log('[POST] /test/run with', opts);
-
-    vrt.run(opts, (error, data) => {
-        res.status(200).send( { error, data } )
-    })
+    try {
+        const data = await vrt.run(opts)
+        res.status(200).send( { data } )
+    }
+    catch (error) {
+        console.error('[API] Error', error)
+        res.status(500).send( { error } )
+    }
 });
 
 router.post('/test/approve/:jobId', function(req, res, next) {

@@ -10,6 +10,30 @@ var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api');
 var resultsRouter = require('./routes/results');
 
+
+const mongoose = require('mongoose');
+
+async function connectToDb() {
+
+  try {
+
+    await mongoose.connect(
+      'mongodb://localhost:27017/TestDb', 
+      {
+        useNewUrlParser: true,
+        useFindAndModify: true,
+        useUnifiedTopology: true
+      })
+      console.log('Connected to MongoDb')
+  }
+  catch (e) {
+    console.log('ERROR: Cannot connect to MongoDb', e)
+  }
+}
+
+connectToDb()
+
+
 var app = express();
 
 // view engine setup

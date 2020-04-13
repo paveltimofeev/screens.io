@@ -1,6 +1,11 @@
 var backstop = require('backstopjs');
 var fs = require('fs');
+var { promisify } = require('util');
 var path = require('path');
+const storage = new (require('../storage-adapter'))
+const engine = new (require('../engine-adapter'))
+
+const readFile = promisify(fs.readFile)
 
 function uuidv4() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -107,21 +112,44 @@ class VRT {
         fs.readdir( this._config.paths.bitmaps_test, cb )
     }
 
-    run (opts, cb) {
+    async run (opts) {
 
-        var uid = uuidv4();
-
-        var configCopy = JSON.parse(JSON.stringify(this._config));
+        const runId = uuidv4()
+        let configCopy = JSON.parse(JSON.stringify(this._config))
 
         if (opts.url) {
-            configCopy.scenarios.forEach( s => { s.url = opts.url } );
+            configCopy.scenarios.forEach( s => { s.url = opts.url } )
         }
 
-        backstop('test', { config: configCopy, filter: opts.filter } )
-            .then( ()  => { this.writeHistory(configCopy, 'success'); })
-            .catch((e) => { this.writeHistory(configCopy, 'failed', e); });
+        configCopy.paths.json_report = path.join(
+            configCopy.paths.json_report,
+            runId
+        )
 
-        cb(null, uid);
+        console.log('>json_report', configCopy.paths.json_report)
+
+        const record = await storage.newHistoryRecord({
+            state: 'Running',
+            startedAt: new Date(),
+            scenarios: configCopy.scenarios.map( x => x.label).filter( x => x === opts.filter || !opts.filter),
+            runId
+        })
+
+        try {
+            
+            await backstop('test', { config: configCopy, filter: opts.filter } )
+            
+            const report = await engine.getReport(configCopy.paths.json_report)
+            await storage.updateHistoryRecord(record._id, { state: 'Passed' })
+            return runId
+        }
+        catch (err) {
+            
+            console.error('[VRT] Error:', err)
+            const report = await engine.getReport(configCopy.paths.json_report)
+            await storage.updateHistoryRecord(record._id, { state: 'Failed' })
+            return runId
+        }
     }
 
     approve (cb) {
@@ -156,15 +184,6 @@ class VRT {
         backstop( 'stop' )
           .then( (r) => { console.log('[VRT] stop done', r); cb(null, r); })
           .catch( (e) => { console.log('[VRT] stop failed', e); cb(e);});
-    }
-
-    writeHistory (config, status, data) {
-
-        this._history.push(
-            {
-                status,
-                data
-            });
     }
 
     _writeDownConfig(config, cb) {

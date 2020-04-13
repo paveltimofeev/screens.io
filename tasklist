@@ -15,6 +15,7 @@
 -- Proxying images
 -- Retry all requests exept 401/403/404/...
 
+- MONGODB STORAGE
 - Redirect not-authorized users to Login Page
 - Remove history record
 - Clone Scenario
@@ -43,5 +44,4 @@
 - AWS SQS
 - TELEBRAM BOT
 - SLACK BOT
-- MONGODB STORAGE
 - SCHEDULER

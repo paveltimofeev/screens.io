@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError, timer } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, finalize, mergeMap, retryWhen, take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 
 interface RetryOpts {
@@ -45,7 +46,7 @@ export class DataAccessService {
     excludedStatusCodes: [401, 403, 404, 409, 500, 502, 503, 523, 525, 526]
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   /// https://angular.io/guide/http#error-handling
   handleError (error: HttpErrorResponse) {
@@ -55,6 +56,11 @@ export class DataAccessService {
     }
     else {
       console.log(`Response error: StatusCode ${error.status}, ${error.message} `)
+
+      if (error.status === 401) {
+
+        this.router.navigate(['/login'])
+      }
     }
 
     return throwError('Network error');
@@ -64,7 +70,7 @@ export class DataAccessService {
     return this.http.get(url, {withCredentials: true}).pipe(
       take(1),
       retryWhen(genericRetryStrategy(this.retryOpts)),
-      catchError(this.handleError)
+      catchError(this.handleError.bind(this))
     );
   }
 
@@ -72,7 +78,7 @@ export class DataAccessService {
     return this.http.post(url, body, {withCredentials: true}).pipe(
       take(1),
       retryWhen(genericRetryStrategy(this.retryOpts)),
-      catchError(this.handleError)
+      catchError(this.handleError.bind(this))
     );
   }
 
@@ -80,7 +86,7 @@ export class DataAccessService {
     return this.http.put(url, body, {withCredentials: true}).pipe(
       take(1),
       retryWhen(genericRetryStrategy(this.retryOpts)),
-      catchError(this.handleError)
+      catchError(this.handleError.bind(this))
     );
   }
 
@@ -88,7 +94,7 @@ export class DataAccessService {
     return this.http.delete(url, {withCredentials: true}).pipe(
       take(1),
       retryWhen(genericRetryStrategy(this.retryOpts)),
-      catchError(this.handleError)
+      catchError(this.handleError.bind(this))
     );
   }
 }

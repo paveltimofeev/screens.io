@@ -20,8 +20,8 @@
 -- Auto refresh history list
 -- Remove history record
 -- Auth proxy parameters
+-- Redirect not-authorized users to Login Page
 
-- Redirect not-authorized users to Login Page
 - Clone Scenario
 
 - Use queue to separate api from vrt and return '/run' response as soon as possible

@@ -22,10 +22,13 @@ export class HistoryTableComponent implements OnInit {
 
   private statusCellRenderer(params) {
 
-    if (params.value === 'success')
+    if (params.value === 'Passed')
       return '<i style="line-height: inherit; color: #5ed17f" class="material-icons">check_circle</i>';
 
-    if (params.value === 'fail')
+    if (params.value === 'Running')
+      return '<i style="line-height: inherit; color: #ced16a" class="material-icons">loop</i>';
+
+    if (params.value === 'Failed')
       return '<i style="line-height: inherit; color: #cd3636" class="material-icons">cancel</i>';
 
     return '<i style="line-height: inherit" class="material-icons">' + params.value + '</i>';
@@ -34,6 +37,11 @@ export class HistoryTableComponent implements OnInit {
   private actionCellRenderer(params) {
 
     return '<i style="line-height: inherit" class="material-icons">clear</i>'
+  }
+
+  private dateCellRenderer(data) {
+
+    return data.value ? (new Date(data.value)).toLocaleString() : '';
   }
 
   columnDefs = [
@@ -46,7 +54,13 @@ export class HistoryTableComponent implements OnInit {
       cellRenderer: this.statusCellRenderer,
       suppressSizeToFit: true
     },
-    { headerName: 'Date of Run', field: 'date', sortable: true, suppressSizeToFit: true },
+    { headerName: 'Date of Run',
+      width: 250,
+      field: 'date',
+      sortable: true,
+      suppressSizeToFit: true,
+      cellRenderer: this.dateCellRenderer
+    },
     { field: 'scope', colId:'scope', filter: true },
     { headerName: 'Run by', field: 'user', sortable: true, filter: true, resizable: true },
     {

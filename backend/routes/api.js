@@ -17,7 +17,7 @@ const storage = new (require('../storage-adapter'))
 
 router.post('/test/run', async function(req, res, next) {
 
-    var opts = { 
+    var opts = {
         ...req.body,  // TODO: sanitize body
     };
 
@@ -67,11 +67,15 @@ router.get('/test/report/:jobId', function(req, res, next) {
     })
 });
 
-router.get('/test/history', function(req, res, next) {
+router.get('/test/history', async function(req, res, next) {
 
-    vrt.getHistory( (error, jobs) => {
-        res.status(200).send( {error, jobs} )
-    })
+    try {
+        const jobs = await storage.getAllHistoryRecords()
+        res.status(200).send( {jobs} )
+    }
+    catch (error) {
+        res.status(500).send( {error} )
+    }
 });
 
 router.get('/test/config', function(req, res, next) {

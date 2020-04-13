@@ -6,6 +6,7 @@ const storage = new (require('../storage-adapter'))
 const engine = new (require('../engine-adapter'))
 
 const readFile = promisify(fs.readFile)
+const readdir = promisify(fs.readdir)
 
 function uuidv4() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -107,9 +108,9 @@ class VRT {
         return result;
     }
 
-    getHistory (cb) {
+    async getHistory () {
 
-        fs.readdir( this._config.paths.bitmaps_test, cb )
+        return await readdir( this._config.paths.bitmaps_test )
     }
 
     async run (opts) {
@@ -136,17 +137,20 @@ class VRT {
         })
 
         try {
-            
+
             await backstop('test', { config: configCopy, filter: opts.filter } )
-            
+
             const report = await engine.getReport(configCopy.paths.json_report)
             await storage.updateHistoryRecord(record._id, { state: 'Passed' })
             return runId
         }
         catch (err) {
-            
+
             console.error('[VRT] Error:', err)
             const report = await engine.getReport(configCopy.paths.json_report)
+
+            //console.log(report)
+
             await storage.updateHistoryRecord(record._id, { state: 'Failed' })
             return runId
         }

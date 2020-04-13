@@ -1,30 +1,24 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var cors = require('./cors');
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var apiRouter = require('./routes/api');
-var resultsRouter = require('./routes/results');
-
-
+const cors = require('./cors');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const apiRouter = require('./routes/api');
+const resultsRouter = require('./routes/results');
 const mongoose = require('mongoose');
+
+const config = require('./config');
+
 
 async function connectToDb() {
 
   try {
-
-    await mongoose.connect(
-      'mongodb://localhost:27017/TestDb', 
-      {
-        useNewUrlParser: true,
-        useFindAndModify: true,
-        useUnifiedTopology: true
-      })
-      console.log('Connected to MongoDb')
+    await mongoose.connect(config.storageConnectionString, config.storageOptions);
+    console.log('Connected to MongoDb')
   }
   catch (e) {
     console.log('ERROR: Cannot connect to MongoDb', e)

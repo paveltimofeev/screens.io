@@ -21,9 +21,10 @@ export class HistoryTableEffects {
 
           let jobs = res.jobs.map( j => {
             return {
-              date: j,
-              status: 'success',
-              scope: 'All scenarios',
+              runId: j.runId,
+              date: j.startedAt,
+              status: j.state,
+              scope: (j.scenarios||[]).join(', '),
               user: 'by schedule'
             }
           });

@@ -1,0 +1,8 @@
+{
+  "storageConnectionString": "mongodb://localhost:27017/TestDb",
+  "storageOptions": {
+    "useNewUrlParser": true,
+    "useFindAndModify": true,
+    "useUnifiedTopology": true
+  }
+}

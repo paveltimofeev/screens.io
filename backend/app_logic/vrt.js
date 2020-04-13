@@ -34,14 +34,15 @@ class VRT {
     async getReport (runId) {
 
         const report = await storage.getReportByRunId(runId)
+        //const html_report = `vrt_data/${this._tenantId}/${this._userId}/html_report/${runId}`
 
         report.tests.forEach( t => {
 
-            t.pair.reference = '\\' + path.join( this._config.paths.html_report, t.pair.reference );
-            t.pair.test = '\\' + path.join( this._config.paths.html_report, t.pair.test );
+            t.pair.reference = '\\' + path.join( this._config.paths.html_report, runId, t.pair.reference );
+            t.pair.test = '\\' + path.join( this._config.paths.html_report, runId, t.pair.test );
 
             if (t.pair.diffImage) {
-                t.pair.diffImage = '\\' + path.join( this._config.paths.html_report, t.pair.diffImage )
+                t.pair.diffImage = '\\' + path.join( this._config.paths.html_report, runId, t.pair.diffImage )
             }
         });
 

@@ -58,7 +58,7 @@ router.post('/test/approvecase', function(req, res, next) {
     });
 });
 
-router.get('/test/report/:jobId', async function(req, res, next) {
+router.get('/test/report/:jobId', async function(req, res) {
 
     const jobId = req.params.jobId; // TODO: sanitize
 
@@ -72,7 +72,7 @@ router.get('/test/report/:jobId', async function(req, res, next) {
     }
 });
 
-router.get('/test/history', async function(req, res, next) {
+router.get('/test/history', async function(req, res) {
 
     try {
         const jobs = await vrt.getHistory()
@@ -110,7 +110,7 @@ router.put('/test/scenario', function(req, res, next) {
 
 
 // Get scenario by Id
-router.get('/test/scenario/:id', async function(req, res, next) {
+router.get('/test/scenario/:id', async function(req, res) {
 
     try {
 
@@ -124,7 +124,7 @@ router.get('/test/scenario/:id', async function(req, res, next) {
 });
 
 // Get scenarios
-router.get('/test/scenarios', async function(req, res, next) {
+router.get('/test/scenarios', async function(req, res) {
 
     try {
 
@@ -138,7 +138,7 @@ router.get('/test/scenarios', async function(req, res, next) {
 });
 
 // Create scenario
-router.post('/test/scenario', async function(req, res, next) {
+router.post('/test/scenario', async function(req, res) {
 
     try {
 
@@ -152,7 +152,7 @@ router.post('/test/scenario', async function(req, res, next) {
 });
 
 // Update scenario
-router.put('/test/scenario/:id', async function(req, res, next) {
+router.put('/test/scenario/:id', async function(req, res) {
 
     try {
 
@@ -166,7 +166,7 @@ router.put('/test/scenario/:id', async function(req, res, next) {
 });
 
 // Delete scenario
-router.delete('/test/scenario/:id', async function(req, res, next) {
+router.delete('/test/scenario/:id', async function(req, res) {
 
     try {
         const data = await vrt.deleteScenario(req.params.id)
@@ -180,7 +180,7 @@ router.delete('/test/scenario/:id', async function(req, res, next) {
 
 
 // Get scenario by Id
-router.get('/test/viewport/:id', async function(req, res, next) {
+router.get('/test/viewport/:id', async function(req, res) {
 
     try {
 
@@ -194,7 +194,7 @@ router.get('/test/viewport/:id', async function(req, res, next) {
 });
 
 // Get scenarios
-router.get('/test/viewports', async function(req, res, next) {
+router.get('/test/viewports', async function(req, res) {
 
     try {
 
@@ -208,7 +208,7 @@ router.get('/test/viewports', async function(req, res, next) {
 });
 
 // Create scenario
-router.post('/test/viewport', async function(req, res, next) {
+router.post('/test/viewport', async function(req, res) {
 
     try {
 
@@ -222,7 +222,7 @@ router.post('/test/viewport', async function(req, res, next) {
 });
 
 // Update scenario
-router.put('/test/viewport/:id', async function(req, res, next) {
+router.put('/test/viewport/:id', async function(req, res) {
 
     try {
 
@@ -236,7 +236,7 @@ router.put('/test/viewport/:id', async function(req, res, next) {
 });
 
 // Delete scenario
-router.delete('/test/viewport/:id', async function(req, res, next) {
+router.delete('/test/viewport/:id', async function(req, res) {
 
     try {
         const data = await vrt.deleteViewport(req.params.id)

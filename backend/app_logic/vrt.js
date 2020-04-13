@@ -22,81 +22,17 @@ class VRT {
         this._tenantId = tenantId;
         this._userId = userId;
         this._customConfig = customConfig;
-        this.refreshConfig();
     }
 
-    refreshConfig () {
-
-        this._config = this._getConfig();
-    }
 
     async getReportByRunId (runId) {
 
         const report = await storage.getReportByRunId(runId)
+        const config = await this.getConfig();
 
-        engine.convertReportPath(this._config.paths, runId, report)
-
-        // report.tests.forEach( t => {
-        //
-        //     t.pair.reference = '\\' + path.join( this._config.paths.html_report, runId, t.pair.reference );
-        //     t.pair.test = '\\' + path.join( this._config.paths.html_report, runId, t.pair.test );
-        //
-        //     if (t.pair.diffImage) {
-        //         t.pair.diffImage = '\\' + path.join( this._config.paths.html_report, runId, t.pair.diffImage )
-        //     }
-        // });
+        engine.convertReportPath(config.paths, runId, report)
 
         return report
-    }
-
-    getBasicConfig (cb) {
-
-      fs.readFile(
-        `vrt_data/${this._tenantId}/vrtconfig.json`,
-        'utf8', (error, file) => {
-            cb(error, JSON.parse(file))
-        })
-    }
-
-    deleteScenarioFromBasicConfig(scenarioLabel, cb) {
-
-        this.getBasicConfig( (err, config) => {
-
-            let idx = config.scenarios.findIndex(x => x.label === scenarioLabel);
-            config.scenarios.splice(idx, 1);
-
-            this._writeDownConfig(config, cb);
-        });
-    }
-
-    setBasicConfig (updData, cb) {
-
-        this.getBasicConfig( (err, config) => {
-
-            this._writeDownConfig( {...config, ...updData}, cb);
-        })
-    }
-
-    _getConfig () {
-
-        var config = JSON.parse(
-                fs.readFileSync(`vrt_data/${this._tenantId}/vrtconfig.json`, 'utf8')
-            );
-
-        var result = {...config, ...this._customConfig}
-
-        result.paths = {
-
-            bitmaps_reference: `vrt_data/${this._tenantId}/bitmaps_reference`,
-            engine_scripts: `vrt_data/${this._tenantId}/engine_scripts`,
-
-            bitmaps_test: `vrt_data/${this._tenantId}/${this._userId}/bitmaps_test`,
-            html_report: `vrt_data/${this._tenantId}/${this._userId}/html_report`,
-            ci_report: `vrt_data/${this._tenantId}/${this._userId}/ci_report`,
-            json_report: `vrt_data/${this._tenantId}/${this._userId}/json_report`
-          };
-
-        return result;
     }
 
     async getConfig( scenariosFilter ) {
@@ -188,23 +124,6 @@ class VRT {
           .then( (r) => { console.log('[VRT] stop done', r); cb(null, r); })
           .catch( (e) => { console.log('[VRT] stop failed', e); cb(e);});
     }
-
-    _writeDownConfig(config, cb) {
-
-        fs.writeFile(
-          `vrt_data/${this._tenantId}/vrtconfig.json`,
-          JSON.stringify(config),
-          'utf8',
-          (error) => {
-
-              if (!error) {
-                  this.refreshConfig();
-              }
-
-              cb(error);
-          })
-    }
-
 
 
     async getScenarioById (id) {

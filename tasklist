@@ -14,8 +14,10 @@
 -- Logout button
 -- Proxying images
 -- Retry all requests exept 401/403/404/...
+-- MONGODB STORAGE
+-- Move most of logic to backend (createScenario, createViewport, updateScenario,...)
+-- Bind real job status
 
-- MONGODB STORAGE
 - Redirect not-authorized users to Login Page
 - Remove history record
 - Clone Scenario
@@ -24,7 +26,6 @@
 - Run scenarios with overrode parameters (hostname/...)
 - Polling running job
 - Remove all history records
-- Move most of logic to backend (createScenario, createViewport, updateScenario,...)
 - Add New Scenario from dashboard
 - Show Approved image for scenario
 - Layout for results/history
@@ -34,7 +35,6 @@
 - Auth proxy parameters
 
 - Show scenario history (right sidebar)
-- Bind real job status
 - Bind real images to ScenarioCards
 - Show stats, chart and measure stability
 - Cookies callback, or before run script

@@ -1,19 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var vrt = require('../app_logic/vrt');
-const storage = new (require('../storage-adapter'))
 
-/*
-    API CALLS
-
-    [post] /api/test/run                        <-  { error, data }
-    [post] /api/approve/:jobId                  <-  { status: 'approved' }
-     [get] /api/test/report/:jobId              <-  { error, report }
-     [get] /api/test/history                    <-  { error, jobs }
-     [get] /api/test/config                     <-  { error, data }
-     [put] /api/test/config                     <-  { error, data }
-     [delete] /api/test/scenario {label}        <-  { error, data }
-*/
 
 router.post('/test/run', async function(req, res, next) {
 
@@ -30,15 +18,6 @@ router.post('/test/run', async function(req, res, next) {
         res.status(500).send( { error } )
     }
 });
-
-// router.post('/test/approve/:jobId', function(req, res, next) {
-//
-//     // TODO: sanitize jobId
-//
-//     vrt.approve( (error, data) => {
-//         res.status( !error ? 200 : 500).send( {status: error || data} );
-//     });
-// });
 
 router.post('/test/approvecase', function(req, res, next) {
 
@@ -82,32 +61,6 @@ router.get('/test/history', async function(req, res) {
         res.status(500).send( {error} )
     }
 });
-
-router.get('/test/config', function(req, res, next) {
-
-    vrt.getBasicConfig( (error, data) => {
-        res.status(200).send( {error, data} )
-    })
-});
-
-router.put('/test/config', function(req, res, next) {
-
-    // TODO: sanitize req.body
-    vrt.setBasicConfig(req.body, (error, data) => {
-        res.status(200).send( {error, data} )
-    })
-});
-
-// Delete scenario
-router.put('/test/scenario', function(req, res, next) {
-
-    // TODO: sanitize req.body
-    vrt.deleteScenarioFromBasicConfig(req.body.label, (error, data) => {
-        res.status(200).send( {error, data} )
-    })
-});
-
-
 
 // Get scenario by Id
 router.get('/test/scenario/:id', async function(req, res) {
@@ -178,8 +131,7 @@ router.delete('/test/scenario/:id', async function(req, res) {
     }
 });
 
-
-// Get scenario by Id
+// Get viewport by Id
 router.get('/test/viewport/:id', async function(req, res) {
 
     try {
@@ -193,7 +145,7 @@ router.get('/test/viewport/:id', async function(req, res) {
     }
 });
 
-// Get scenarios
+// Get viewport
 router.get('/test/viewports', async function(req, res) {
 
     try {
@@ -207,7 +159,7 @@ router.get('/test/viewports', async function(req, res) {
     }
 });
 
-// Create scenario
+// Create viewport
 router.post('/test/viewport', async function(req, res) {
 
     try {
@@ -221,7 +173,7 @@ router.post('/test/viewport', async function(req, res) {
     }
 });
 
-// Update scenario
+// Update viewport
 router.put('/test/viewport/:id', async function(req, res) {
 
     try {
@@ -235,7 +187,7 @@ router.put('/test/viewport/:id', async function(req, res) {
     }
 });
 
-// Delete scenario
+// Delete viewport
 router.delete('/test/viewport/:id', async function(req, res) {
 
     try {

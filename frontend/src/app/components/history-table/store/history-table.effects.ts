@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiAdapterService } from '../../../services/api-adapter.service';
 import { refresh, loaded, clearRecord } from './history-table.actions'
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, mergeMap } from 'rxjs/operators';
+import { debounceTime, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Injectable()
@@ -15,6 +15,7 @@ export class HistoryTableEffects {
 
   refresh$ = createEffect(() => this.actions$.pipe(
     ofType(refresh),
+    //debounceTime(1000),
     mergeMap(() => {
 
       return this.api.getHistory().pipe(

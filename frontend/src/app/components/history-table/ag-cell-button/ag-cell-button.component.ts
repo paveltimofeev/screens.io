@@ -30,11 +30,8 @@ export class AgCellButtonComponent {
     let rowData = this.params;
   }
 
-  actionClickHandler() {
-    console.log('> data', this.data)
-    console.log('> params', this.params)
+  actionClickHandler () {
 
     this.store.dispatch(clearRecord({payload:this.params.data}))
   }
-
 }

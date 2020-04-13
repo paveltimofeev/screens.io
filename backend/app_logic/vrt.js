@@ -22,7 +22,6 @@ class VRT {
         this._tenantId = tenantId;
         this._userId = userId;
         this._customConfig = customConfig;
-        this._history = [];
         this.refreshConfig();
     }
 
@@ -31,10 +30,9 @@ class VRT {
         this._config = this.getConfig();
     }
 
-    async getReport (runId) {
+    async getReportByRunId (runId) {
 
         const report = await storage.getReportByRunId(runId)
-        //const html_report = `vrt_data/${this._tenantId}/${this._userId}/html_report/${runId}`
 
         report.tests.forEach( t => {
 
@@ -235,10 +233,6 @@ class VRT {
         return await storage.deleteViewport(id)
     }
 
-
-    async getReportByRunId (runId) {
-        return await storage.getReportByRunId(runId)
-    }
     async createReport (runId, data) {
 
         data.runId = runId;

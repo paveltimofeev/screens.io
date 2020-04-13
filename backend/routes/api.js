@@ -3,7 +3,7 @@ var router = express.Router();
 var vrt = require('../app_logic/vrt');
 
 
-router.post('/test/run', async function(req, res, next) {
+router.post('/test/run', async function(req, res) {
 
     var opts = {
         ...req.body,  // TODO: sanitize body
@@ -19,7 +19,7 @@ router.post('/test/run', async function(req, res, next) {
     }
 });
 
-router.post('/test/approvecase', function(req, res, next) {
+router.post('/test/approvecase', function(req, res) {
 
     const pair = req.body; // TODO: sanitize body
 

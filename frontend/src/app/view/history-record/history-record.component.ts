@@ -44,7 +44,6 @@ export class HistoryRecordComponent implements OnInit {
 
   selectRecordHandler ($event: any) {
 
-    console.log($event)
     this.selected = $event;
 
     this.report$ = this.api.getReport($event.runId).pipe(

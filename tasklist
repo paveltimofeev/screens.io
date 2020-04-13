@@ -23,23 +23,24 @@
 -- Redirect not-authorized users to Login Page
 
 - Clone Scenario
+- User/tenant based storage
 
-- Use queue to separate api from vrt and return '/run' response as soon as possible
-- Show Approved image for scenario
 - Remove test result Files and Report after remove history record
 - Auth proxy should pass user/tenant info to backend
+- Show Approved image for scenario
+- Show real images of the latest run at ScenarioCards
+- Show scenario history (right sidebar)
 - Run scenarios with overrode parameters (hostname/...)
 - Remove all history records
-- Layout for results/history
+- Use queue to separate api from vrt and return '/run' response as soon as possible
 - Displaying Errors on load and save
 - Display retry button for not-ready yet history record (screens)
 - Confirmation dialog for delete ops
 - Add New Scenario from dashboard
 
-- Show scenario history (right sidebar)
-- Bind real images to ScenarioCards
+- Layout for results/history
 - Show stats, chart and measure stability
-- Cookies callback, or before run script
+- Cookies callback/field, or before run script
 
 
 - AWS LAMBDA

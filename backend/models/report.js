@@ -16,6 +16,16 @@ const schema = new Schema({
                     url: String,
                     expect: Number,
                     viewportLabel: String,
+                    diff: {
+                        isSameDimensions: Boolean,
+                        dimensionDifference: {
+                            width: Number,
+                            height: Number
+                        },
+                        misMatchPercentage: String,
+                        analysisTime: Number
+                    },
+                    diffImage: String,
                     error: String
                 },
                 status: String

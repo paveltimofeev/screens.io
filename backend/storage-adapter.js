@@ -6,6 +6,13 @@ const Report = require('./models/report')
 
 class Storage {
 
+    convertToObject (entry) {
+
+        delete entry._id;
+        delete entry.__v;
+        return JSON.parse(JSON.stringify(entry))
+    }
+
     async getAllHistoryRecords () {
 
         return await Record.find({})
@@ -28,8 +35,8 @@ class Storage {
     async getScenarioById (id) {
         return await Scenario.findById(id)
     }
-    async getScenarios () {
-        return await Scenario.find({})
+    async getScenarios (query) {
+        return await Scenario.find(query || {})
     }
     async createScenario (data) {
 

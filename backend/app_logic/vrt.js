@@ -27,7 +27,7 @@ class VRT {
 
     refreshConfig () {
 
-        this._config = this.getConfig();
+        this._config = this._getConfig();
     }
 
     async getReportByRunId (runId) {
@@ -77,7 +77,7 @@ class VRT {
         })
     }
 
-    getConfig () {
+    _getConfig () {
 
         var config = JSON.parse(
                 fs.readFileSync(`vrt_data/${this._tenantId}/vrtconfig.json`, 'utf8')
@@ -99,6 +99,18 @@ class VRT {
         return result;
     }
 
+    async getConfig( scenariosFilter ) {
+
+        const viewports = await storage.getViewports()
+        const scenarios = await storage.getScenarios( scenariosFilter )
+
+        let config = engine.buildConfig(this._tenantId, this._userId,
+          storage.convertToObject(viewports),
+          storage.convertToObject(scenarios));
+
+        return config
+    }
+
     async getHistory () {
 
         return await storage.getAllHistoryRecords()
@@ -107,29 +119,28 @@ class VRT {
     async run (opts) {
 
         const runId = uuidv4()
-        let configCopy = JSON.parse(JSON.stringify(this._config))
 
-        if (opts.url) {
-            configCopy.scenarios.forEach( s => { s.url = opts.url } )
-        }
+        let config = await this.getConfig( opts.filter ? {label: opts.filter } : undefined )
 
-        configCopy.paths.json_report = path.join(
-            configCopy.paths.json_report,
-            runId
+        config.paths.json_report = path.join(
+          config.paths.json_report,
+          runId
         )
 
         const record = await storage.newHistoryRecord({
             state: 'Running',
             startedAt: new Date(),
-            scenarios: configCopy.scenarios.map( x => x.label).filter( x => x === opts.filter || !opts.filter),
+            scenarios: config.scenarios.map( x => x.label),
             runId
         })
 
         try {
 
-            await backstop('test', { config: configCopy, filter: opts.filter } )
+            await backstop('test', { config: config } )
 
-            const report = await engine.getReport(configCopy.paths.json_report)
+            console.log('[VRT] `backstop test` command completed')
+
+            const report = await engine.getReport(config.paths.json_report)
             await this.createReport(runId, report)
             await storage.updateHistoryRecord(record._id, { state: 'Passed' })
             return runId
@@ -137,7 +148,7 @@ class VRT {
         catch (err) {
 
             console.error('[VRT] Error:', err)
-            const report = await engine.getReport(configCopy.paths.json_report)
+            const report = await engine.getReport(config.paths.json_report)
             await this.createReport(runId, report)
             await storage.updateHistoryRecord(record._id, { state: 'Failed' })
             return runId

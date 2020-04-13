@@ -32,6 +32,49 @@ class EngineAdapter {
 
         return report;
     }
+
+    buildConfig (tenantId, userId, viewports, scenarios, custom) {
+
+        var base = {
+            onBeforeScript: "",
+            onReadyScript: "",
+            report: [
+                "CI",
+                "json"
+            ],
+            engine: "puppeteer",
+            engineOptions: {
+                args: [
+                  "--no-sandbox"
+                ]
+            },
+            asyncCaptureLimit: 5,
+            asyncCompareLimit: 50,
+            debug: false,
+            debugWindow: false
+        }
+
+        var result = {
+            id: tenantId,
+            viewports: viewports,
+            scenarios: scenarios,
+            ...custom || {},
+            ...base
+        }
+
+        result.paths = {
+
+            bitmaps_reference: `vrt_data/${tenantId}/bitmaps_reference`,
+            engine_scripts:    `vrt_data/${tenantId}/engine_scripts`,
+
+            bitmaps_test: `vrt_data/${tenantId}/${userId}/bitmaps_test`,
+            html_report:  `vrt_data/${tenantId}/${userId}/html_report`,
+            ci_report:    `vrt_data/${tenantId}/${userId}/ci_report`,
+            json_report:  `vrt_data/${tenantId}/${userId}/json_report`
+        };
+
+        return result;
+    }
 }
 
 module.exports = EngineAdapter

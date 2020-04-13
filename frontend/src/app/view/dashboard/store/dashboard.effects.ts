@@ -17,11 +17,12 @@ export class DashboardEffects {
     ofType(refresh),
     mergeMap(() => {
 
-      return this.api.getConfig().pipe(
+      return this.api.getScenarios().pipe(
+
         map( res => {
-          return { type: loaded.type, payload: { scenarios: res.data.scenarios }}
+          return { type: loaded.type, payload: { scenarios: res.data }}
         })
-      );
+      )
     })
   ));
 

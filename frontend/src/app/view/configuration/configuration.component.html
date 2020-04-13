@@ -38,6 +38,10 @@
     <form (ngSubmit)="saveHandler(formRef)" #formRef="ngForm">
 
       <input type="hidden"
+             [ngModel]="(selectedScenario$ | async)._id"
+             name="_id">
+
+      <input type="hidden"
              [ngModel]="(selectedScenario$ | async).label"
              name="label">
 

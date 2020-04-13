@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DataAccessService } from './data-access.service';
 import { environment } from '../../environments/environment';
-import { take } from 'rxjs/operators';
 
 export interface IConfig {
   id:string,
@@ -30,29 +29,34 @@ export class ApiAdapterService {
   */
 
   run (opts:any): Observable<any> {
-    return this.dataAccessService.post( environment.api + 'test/run', opts);
+
+    return this.dataAccessService.post(
+      environment.api + 'test/run', opts);
   }
 
   approve (jobId:any): Observable<any> {
-    return this.dataAccessService.post( environment.api + 'test/approve/' + jobId);
+
+    return this.dataAccessService.post(
+      environment.api + 'test/approve/' + jobId);
   }
 
   approveCase (pair:any): Observable<any> {
 
-    return this.dataAccessService.post( environment.api + 'test/approvecase/', pair);
+    return this.dataAccessService.post(
+      environment.api + 'test/approvecase/',
+      pair);
   }
 
   getReport (jobId:any): Observable<any> {
-    return this.dataAccessService.get( environment.api + 'test/report/' + jobId);
+
+    return this.dataAccessService.get(
+      environment.api + 'test/report/' + jobId);
   }
 
   getHistory (): Observable<any> {
-    return this.dataAccessService.get( environment.api + 'test/history');
-  }
 
-  getConfig (): Observable<any> {
-
-    return this.dataAccessService.get( environment.api + 'test/config');
+    return this.dataAccessService.get(
+      environment.api + 'test/history');
   }
 
   createViewport(viewport:any): Observable<any> {
@@ -113,12 +117,10 @@ export class ApiAdapterService {
       throw new Error('Wrong scenario: No _id')
 
     return this.dataAccessService.put(
-      environment.api + 'test/scenario/' + scenario._id, scenario)
+      environment.api + 'test/scenario/' + scenario._id,
+      scenario)
   }
 
-  _deleteScenario (label: string): Observable<any> {
-    return this.dataAccessService.put( environment.api + 'test/scenario', {label:label});
-  }
   deleteScenario(scenario:any): Observable<any> {
 
     if (!scenario)
@@ -131,15 +133,11 @@ export class ApiAdapterService {
       environment.api + 'test/scenario/' + scenario._id)
   }
 
-  updateConfig (config: IConfig): Observable<any> {
-
-    return this.dataAccessService.put( environment.api + 'test/config', config);
-  }
-
   login (user, password): Observable<any> {
 
     return this.dataAccessService
-      .post(environment.auth + '/login-client', {user, password});
+      .post(environment.auth + '/login-client',
+        {user, password});
   }
 
   logout (): Observable<any> {

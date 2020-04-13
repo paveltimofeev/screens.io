@@ -19,12 +19,12 @@ export const changeCurrentScenario = createAction(
 
 export const updateScenario = createAction(
   '[Configuration] updateScenario',
-  props<{data:any}>()
+  props<{payload:any}>()
 );
 
 export const createScenario = createAction(
   '[Configuration] createScenario',
-  props<{data:any}>()
+  props<{payload:any}>()
 );
 export const createViewport = createAction(
   '[Configuration] createViewport',

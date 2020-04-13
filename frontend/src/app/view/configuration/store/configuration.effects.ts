@@ -12,7 +12,7 @@ import {
 } from './configuration.actions';
 import { forkJoin, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { selectCurrentScenarioLabel } from './configuration.selectors';
+import { selectCurrentScenario, selectCurrentScenarioLabel } from './configuration.selectors';
 
 @Injectable()
 export class ConfigurationEffects {
@@ -27,12 +27,12 @@ export class ConfigurationEffects {
     ofType(deleteCurrentScenario),
     concatMap(action => {
       return of(action).pipe(
-        withLatestFrom(this.store.pipe(select(selectCurrentScenarioLabel)))
+        withLatestFrom(this.store.pipe(select(selectCurrentScenario)))
       );
     }),
-    mergeMap(([action, label]) => {
+    mergeMap(([action, scenario]) => {
 
-      return this.api.deleteScenario(label).pipe(
+      return this.api.deleteScenario(scenario).pipe(
         map( res => {
           return { type: refresh.type }
         })
@@ -52,52 +52,28 @@ export class ConfigurationEffects {
 
   updateScenario$ = createEffect(() => this.actions$.pipe(
     ofType(updateScenario),
-    mergeMap((data:any) => {
+    mergeMap((action:any) => {
 
-      return this.api.getConfig().pipe(
-        mergeMap( (config:{data:IConfig}) => {
+      console.log('updateScenario$', action.payload)
 
-          const idx = config.data.scenarios.findIndex( x => x.label === data.label );
-          config.data.scenarios[idx] = data;
-
-          return this.api.updateConfig(config.data).pipe(
-            map( res => {
-
-              return { type: refresh.type }
-            })
-          );
-
+      return this.api.updateScenario(action.payload).pipe(
+        map( res => {
+          return { type: refresh.type }
         })
       );
-
     })
   ));
 
 
   createScenario$ = createEffect(() => this.actions$.pipe(
     ofType(createScenario),
-    mergeMap((data:any) => {
+    mergeMap((action:any) => {
 
-
-
-      return this.api.getConfig().pipe(
-        mergeMap( (config:{data:IConfig}) => {
-
-          const idx = config.data.scenarios.findIndex( x => x.label === data.label );
-          if (idx === -1) {
-            config.data.scenarios.push(data);
-          }
-
-          return this.api.updateConfig(config.data).pipe(
-            map( res => {
-
-              return { type: refresh.type }
-            })
-          );
-
+      return this.api.createScenario(action.payload).pipe(
+        map( res => {
+          return { type: refresh.type }
         })
       );
-
     })
   ));
 

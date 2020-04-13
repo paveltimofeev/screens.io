@@ -73,7 +73,7 @@ export class ConfigurationComponent implements OnInit, AfterViewInit {
   createScenarioHandler (formRef: NgForm) {
 
     if (formRef.valid) {
-      this.store.dispatch(createScenario(formRef.value))
+      this.store.dispatch(createScenario({payload:formRef.value}))
     }
   }
 
@@ -113,7 +113,7 @@ export class ConfigurationComponent implements OnInit, AfterViewInit {
       skipEmpty(formRef, 'clickSelectors');
       skipEmpty(formRef, 'hoverSelectors');
 
-      this.store.dispatch(updateScenario(formRef.value))
+      this.store.dispatch(updateScenario( {payload:formRef.value} ))
     }
     else {
       // TODO: invalid form

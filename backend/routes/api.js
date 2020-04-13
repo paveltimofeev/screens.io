@@ -31,14 +31,14 @@ router.post('/test/run', async function(req, res, next) {
     }
 });
 
-router.post('/test/approve/:jobId', function(req, res, next) {
-
-    // TODO: sanitize jobId
-
-    vrt.approve( (error, data) => {
-        res.status( !error ? 200 : 500).send( {status: error || data} );
-    });
-});
+// router.post('/test/approve/:jobId', function(req, res, next) {
+//
+//     // TODO: sanitize jobId
+//
+//     vrt.approve( (error, data) => {
+//         res.status( !error ? 200 : 500).send( {status: error || data} );
+//     });
+// });
 
 router.post('/test/approvecase', function(req, res, next) {
 
@@ -58,12 +58,12 @@ router.post('/test/approvecase', function(req, res, next) {
     });
 });
 
-router.get('/test/report/:jobId', async function(req, res) {
+router.get('/test/report/:runId', async function(req, res) {
 
-    const jobId = req.params.jobId; // TODO: sanitize
+    const runId = req.params.runId; // TODO: sanitize
 
     try {
-        const report = await vrt.getReport(jobId);
+        const report = await vrt.getReportByRunId(runId);
         res.status(200).send( {report} )
     }
     catch (error) {

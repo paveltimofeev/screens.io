@@ -18,9 +18,9 @@
 -- Move most of logic to backend (createScenario, createViewport, updateScenario,...)
 -- Bind real job status
 -- Auto refresh history list
+-- Remove history record
 
 - Redirect not-authorized users to Login Page
-- Remove history record
 - Clone Scenario
 
 - Auth proxy should pass user/tenant info to backend

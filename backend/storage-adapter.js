@@ -1,6 +1,7 @@
 const Record = require('./models/history-record')
 const Scenario = require('./models/scenario')
 const Viewport = require('./models/viewport')
+const Report = require('./models/report')
 
 
 class Storage {
@@ -67,6 +68,17 @@ class Storage {
 
         return await Viewport.deleteOne({_id: id})
     }
+
+    async getReportByRunId (runId) {
+        return await Report.findOne( {runId: runId} )
+    }
+    async createReport (data) {
+
+        console.log('createReport', data)
+        const newEntry = new Report(data)
+        return await newEntry.save()
+    }
+
 }
 
 

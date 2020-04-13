@@ -1,14 +1,24 @@
 const { Schema, model } = require('mongoose');
 
 const schema = new Schema({
-    testSuite: string,
+    runId: String,
+    testSuite: String,
     tests: {
         type: [
             {
-                status: String,
                 pair: {
-                    reference: String
-                }
+                    reference: String,
+                    test: String,
+                    selector: String,
+                    fileName: String,
+                    label: String,
+                    misMatchThreshold: String,
+                    url: String,
+                    expect: Number,
+                    viewportLabel: String,
+                    error: String
+                },
+                status: String
             }
         ]
     }

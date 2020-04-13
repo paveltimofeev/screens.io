@@ -8,7 +8,14 @@ class EngineAdapter {
 
     async getReport (reportFolder) {
 
-        return await readFile(path.join(reportFolder, 'jsonReport.json'), 'utf8')
+        try {
+            const data = await readFile(path.join(reportFolder, 'jsonReport.json'), 'utf8')
+            return JSON.parse(data)
+        }
+        catch (error ) {
+            console.error('[EngineAdapter] ERROR getReport', error)
+            throw error;
+        }
     }
 }
 

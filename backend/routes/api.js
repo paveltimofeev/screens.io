@@ -58,13 +58,18 @@ router.post('/test/approvecase', function(req, res, next) {
     });
 });
 
-router.get('/test/report/:jobId', function(req, res, next) {
+router.get('/test/report/:jobId', async function(req, res, next) {
 
     const jobId = req.params.jobId; // TODO: sanitize
 
-    vrt.getReport(jobId, (error, report) => {
-        res.status(200).send( {error, report} );
-    })
+    try {
+        const report = await vrt.getReport(jobId);
+        res.status(200).send( {report} )
+    }
+    catch (error) {
+        console.error('[API] ' + req.path, error)
+        res.status(200).send( {error: 'Cannot get report'} );
+    }
 });
 
 router.get('/test/history', async function(req, res, next) {

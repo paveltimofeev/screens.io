@@ -31,31 +31,21 @@ class VRT {
         this._config = this.getConfig();
     }
 
-    getReport (jobId, cb) {
+    async getReport (runId) {
 
-        const filePath = path.join(this._config.paths.bitmaps_test, jobId, 'report.json');
+        const report = await storage.getReportByRunId(runId)
 
-        fs.readFile( filePath, 'utf8', (err, file) => {
+        report.tests.forEach( t => {
 
-              if (err) {
-                  cb(err);
-                  return;
-              }
+            t.pair.reference = '\\' + path.join( this._config.paths.html_report, t.pair.reference );
+            t.pair.test = '\\' + path.join( this._config.paths.html_report, t.pair.test );
 
-              var report = JSON.parse( file );
+            if (t.pair.diffImage) {
+                t.pair.diffImage = '\\' + path.join( this._config.paths.html_report, t.pair.diffImage )
+            }
+        });
 
-              report.tests.forEach( t => {
-
-                  t.pair.reference = '\\' + path.join( this._config.paths.html_report, t.pair.reference );
-                  t.pair.test = '\\' + path.join( this._config.paths.html_report, t.pair.test );
-
-                  if (t.pair.diffImage) {
-                      t.pair.diffImage = '\\' + path.join( this._config.paths.html_report, t.pair.diffImage )
-                  }
-              });
-
-              cb( err, report )
-          })
+        return report
     }
 
     getBasicConfig (cb) {
@@ -141,6 +131,9 @@ class VRT {
             await backstop('test', { config: configCopy, filter: opts.filter } )
 
             const report = await engine.getReport(configCopy.paths.json_report)
+            console.log(report)
+            await this.createReport(runId, report)
+
             await storage.updateHistoryRecord(record._id, { state: 'Passed' })
             return runId
         }
@@ -148,8 +141,8 @@ class VRT {
 
             console.error('[VRT] Error:', err)
             const report = await engine.getReport(configCopy.paths.json_report)
-
-            //console.log(report)
+            console.log(report)
+            await this.createReport(runId, report)
 
             await storage.updateHistoryRecord(record._id, { state: 'Failed' })
             return runId
@@ -241,6 +234,15 @@ class VRT {
         return await storage.deleteViewport(id)
     }
 
+
+    async getReportByRunId (runId) {
+        return await storage.getReportByRunId(runId)
+    }
+    async createReport (runId, data) {
+
+        data.runId = runId;
+        return await storage.createReport( data )
+    }
 
 }
 

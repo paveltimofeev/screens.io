@@ -28,7 +28,7 @@ export class HistoryRecordComponent implements OnInit {
 
     const transformResponse = (record) => {
       return {
-        _id: record._id,
+        ...record,
         date: (new Date(record.startedAt)).toLocaleString()
       }
     }
@@ -42,12 +42,12 @@ export class HistoryRecordComponent implements OnInit {
     this.refreshHistory();
   }
 
-  selectRecordHandler ($event: string) {
+  selectRecordHandler ($event: any) {
 
     console.log($event)
     this.selected = $event;
 
-    this.report$ = this.api.getReport($event).pipe(
+    this.report$ = this.api.getReport($event.runId).pipe(
       map( x => x.report )
     );
   }

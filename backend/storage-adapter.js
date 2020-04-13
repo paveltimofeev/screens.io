@@ -15,7 +15,7 @@ class Storage {
 
     async getAllHistoryRecords () {
 
-        return await Record.find({})
+        return await Record.find({}).sort({ _id: 'desc'})
     }
 
     async newHistoryRecord (data) {

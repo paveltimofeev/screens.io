@@ -147,3 +147,10 @@ h5 {
 .status-failed {
   color: var(--accent-failed);
 }
+
+
+.rotate {
+  animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate { 100% { transform: rotate(360deg); } }

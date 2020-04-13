@@ -34,7 +34,7 @@ export class HistoryRecordComponent implements OnInit {
     }
 
     this.records$ = this.api.getHistory().pipe(
-      map( x => x.jobs.map( transformResponse ).reverse() )
+      map( x => x.jobs.map( transformResponse ) )
     );
   }
 

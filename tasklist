@@ -13,10 +13,11 @@
 -- Login page
 -- Logout button
 -- Proxying images
--- Retry all requests exept 401/403/404/...
+-- Retry all requests except 401/403/404/...
 -- MONGODB STORAGE
 -- Move most of logic to backend (createScenario, createViewport, updateScenario,...)
 -- Bind real job status
+-- Auto refresh history list
 
 - Redirect not-authorized users to Login Page
 - Remove history record
@@ -24,7 +25,6 @@
 
 - Auth proxy should pass user/tenant info to backend
 - Run scenarios with overrode parameters (hostname/...)
-- Polling running job
 - Remove all history records
 - Add New Scenario from dashboard
 - Show Approved image for scenario

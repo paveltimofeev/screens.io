@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { refresh } from './store/history-table.actions';
 import { selectHistoryTable } from './store/history-table.selectors';
+import { interval } from 'rxjs';
 
 export interface DataSource {
 
@@ -16,7 +17,9 @@ export interface DataSource {
   templateUrl: './history-table.component.html',
   styleUrls: ['./history-table.component.css']
 })
-export class HistoryTableComponent implements OnInit {
+export class HistoryTableComponent implements OnInit, OnDestroy {
+
+  refresher$: any;
 
   gridApi;
 
@@ -26,7 +29,7 @@ export class HistoryTableComponent implements OnInit {
       return '<i style="line-height: inherit; color: #5ed17f" class="material-icons">check_circle</i>';
 
     if (params.value === 'Running')
-      return '<i style="line-height: inherit; color: #ced16a" class="material-icons">loop</i>';
+      return '<i style="line-height: inherit; color: #ced16a" class="material-icons rotate">rotate_right</i>';
 
     if (params.value === 'Failed')
       return '<i style="line-height: inherit; color: #cd3636" class="material-icons">cancel</i>';
@@ -93,6 +96,14 @@ export class HistoryTableComponent implements OnInit {
 
     this.jobs$ = this.store.pipe( select(selectHistoryTable));
     this.store.dispatch(refresh());
+
+    this.refresher$ = interval(5000).subscribe( () => {
+      this.store.dispatch(refresh());
+    })
+  }
+
+  ngOnDestroy (): void {
+    this.refresher$.unsubscribe()
   }
 
 }

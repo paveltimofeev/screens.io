@@ -1,1 +1,90 @@
-{"id":"yandex","viewports":[{"label":"DesktopHD 1920 x 1080","width":1920,"height":1080},{"label":"Desktop 1366 x 768","width":1366,"height":768}],"onBeforeScript":"","onReadyScript":"","scenarios":[{"label":"BackstopJS Homepage","url":"https://garris.github.io/BackstopJS/","misMatchThreshold":0.1,"readySelector":"","delay":"","readyEvent":"","hideSelectors":[".news-feed",".notifications"],"removeSelectors":[".avatar"],"clickSelectors":[".clickSelector1"],"scrollToSelector":".scrollToSelector","hoverSelectors":[".hoverSelector1"],"postInteractionWait":0,"type":"[Configuration] updateScenario"},{"label":"Home Page","url":"http://localhost:4200/","misMatchThreshold":"","delay":"","hideSelectors":[],"removeSelectors":[".history-block"],"type":"[Configuration] updateScenario"},{"label":"Configuration Page","url":"http://localhost:4200/config/1","misMatchThreshold":"","hideSelectors":[],"removeSelectors":[],"clickSelectors":[],"hoverSelectors":[],"type":"[Configuration] updateScenario"},{"label":"404 Page","url":"http://localhost:4200/unknown-route","misMatchThreshold":"","hideSelectors":[],"removeSelectors":[".history-block"],"clickSelectors":[],"hoverSelectors":[],"type":"[Configuration] updateScenario"}],"report":["CI","json"],"engine":"puppeteer","engineOptions":{"args":["--no-sandbox"]},"asyncCaptureLimit":5,"asyncCompareLimit":50,"debug":false,"debugWindow":false}
+{
+    "id": "yandex",
+    "viewports": [
+        {
+            "label": "DesktopHD 1920 x 1080",
+            "width": 1920,
+            "height": 1080
+        },
+        {
+            "label": "Desktop 1366 x 768",
+            "width": 1366,
+            "height": 768
+        }
+    ],
+    "onBeforeScript": "",
+    "onReadyScript": "",
+    "scenarios": [
+        {
+            "label": "BackstopJS Homepage",
+            "url": "https://garris.github.io/BackstopJS/",
+            "misMatchThreshold": 0.1,
+            "readySelector": "",
+            "delay": "",
+            "readyEvent": "",
+            "hideSelectors": [
+                ".news-feed",
+                ".notifications"
+            ],
+            "removeSelectors": [
+                ".avatar"
+            ],
+            "clickSelectors": [
+                ".clickSelector1"
+            ],
+            "scrollToSelector": ".scrollToSelector",
+            "hoverSelectors": [
+                ".hoverSelector1"
+            ],
+            "postInteractionWait": 0,
+            "type": "[Configuration] updateScenario"
+        },
+        {
+            "label": "Home Page",
+            "url": "http://localhost:4200/",
+            "misMatchThreshold": "",
+            "delay": "",
+            "hideSelectors": [],
+            "removeSelectors": [
+                ".history-block"
+            ],
+            "type": "[Configuration] updateScenario"
+        },
+        {
+            "label": "Configuration Page",
+            "url": "http://localhost:4200/config/1",
+            "misMatchThreshold": "",
+            "hideSelectors": [],
+            "removeSelectors": [],
+            "clickSelectors": [],
+            "hoverSelectors": [],
+            "type": "[Configuration] updateScenario"
+        },
+        {
+            "label": "404 Page",
+            "url": "http://localhost:4200/unknown-route",
+            "misMatchThreshold": "",
+            "hideSelectors": [],
+            "removeSelectors": [
+                ".history-block"
+            ],
+            "clickSelectors": [],
+            "hoverSelectors": [],
+            "type": "[Configuration] updateScenario"
+        }
+    ],
+    "report": [
+        "CI",
+        "json"
+    ],
+    "engine": "puppeteer",
+    "engineOptions": {
+        "args": [
+            "--no-sandbox"
+        ]
+    },
+    "asyncCaptureLimit": 5,
+    "asyncCompareLimit": 50,
+    "debug": false,
+    "debugWindow": false
+}

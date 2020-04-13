@@ -22,21 +22,21 @@
 -- Auth proxy parameters
 -- Redirect not-authorized users to Login Page
 
-- Clone Scenario
+- Auth proxy should pass user/tenant info to backend
 - User/tenant based storage
 
 - Remove test result Files and Report after remove history record
-- Auth proxy should pass user/tenant info to backend
+- Remove all References and test Files on removing Scenarios or Viewports
 - Show Approved image for scenario
 - Show real images of the latest run at ScenarioCards
 - Show scenario history (right sidebar)
 - Run scenarios with overrode parameters (hostname/...)
+- Clone Scenario
 - Remove all history records
 - Use queue to separate api from vrt and return '/run' response as soon as possible
 - Displaying Errors on load and save
 - Display retry button for not-ready yet history record (screens)
 - Confirmation dialog for delete ops
-- Add New Scenario from dashboard
 
 - Layout for results/history
 - Show stats, chart and measure stability
@@ -45,6 +45,6 @@
 
 - AWS LAMBDA
 - AWS SQS
-- TELEBRAM BOT
+- TELEGRAM BOT
 - SLACK BOT
 - SCHEDULER

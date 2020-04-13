@@ -34,15 +34,17 @@ class VRT {
 
         const report = await storage.getReportByRunId(runId)
 
-        report.tests.forEach( t => {
+        engine.convertReportPath(this._config.paths, runId, report)
 
-            t.pair.reference = '\\' + path.join( this._config.paths.html_report, runId, t.pair.reference );
-            t.pair.test = '\\' + path.join( this._config.paths.html_report, runId, t.pair.test );
-
-            if (t.pair.diffImage) {
-                t.pair.diffImage = '\\' + path.join( this._config.paths.html_report, runId, t.pair.diffImage )
-            }
-        });
+        // report.tests.forEach( t => {
+        //
+        //     t.pair.reference = '\\' + path.join( this._config.paths.html_report, runId, t.pair.reference );
+        //     t.pair.test = '\\' + path.join( this._config.paths.html_report, runId, t.pair.test );
+        //
+        //     if (t.pair.diffImage) {
+        //         t.pair.diffImage = '\\' + path.join( this._config.paths.html_report, runId, t.pair.diffImage )
+        //     }
+        // });
 
         return report
     }
@@ -116,8 +118,6 @@ class VRT {
             runId
         )
 
-        console.log('>json_report', configCopy.paths.json_report)
-
         const record = await storage.newHistoryRecord({
             state: 'Running',
             startedAt: new Date(),
@@ -130,9 +130,7 @@ class VRT {
             await backstop('test', { config: configCopy, filter: opts.filter } )
 
             const report = await engine.getReport(configCopy.paths.json_report)
-            console.log(report)
             await this.createReport(runId, report)
-
             await storage.updateHistoryRecord(record._id, { state: 'Passed' })
             return runId
         }
@@ -140,9 +138,7 @@ class VRT {
 
             console.error('[VRT] Error:', err)
             const report = await engine.getReport(configCopy.paths.json_report)
-            console.log(report)
             await this.createReport(runId, report)
-
             await storage.updateHistoryRecord(record._id, { state: 'Failed' })
             return runId
         }

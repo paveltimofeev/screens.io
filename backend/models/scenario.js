@@ -14,7 +14,9 @@ const schema = new Schema({
     clickSelectors: Array,        /// String array
     scrollToSelector: String,
     hoverSelectors: Array,        /// String array
-    postInteractionWait: Number
+    postInteractionWait: Number,
+
+    latestScreenshot: String
 });
 
 module.exports = model('Scenario', schema);

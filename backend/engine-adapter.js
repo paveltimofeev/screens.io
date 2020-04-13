@@ -17,6 +17,21 @@ class EngineAdapter {
             throw error;
         }
     }
+
+    convertReportPath (configPaths, runId, report) {
+
+        report.tests.forEach( t => {
+
+            t.pair.reference = '\\' + path.join( configPaths.html_report, runId, t.pair.reference );
+            t.pair.test = '\\' + path.join( configPaths.html_report, runId, t.pair.test );
+
+            if (t.pair.diffImage) {
+                t.pair.diffImage = '\\' + path.join( configPaths.html_report, runId, t.pair.diffImage )
+            }
+        });
+
+        return report;
+    }
 }
 
 module.exports = EngineAdapter

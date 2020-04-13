@@ -19,20 +19,22 @@
 -- Bind real job status
 -- Auto refresh history list
 -- Remove history record
+-- Auth proxy parameters
 
 - Redirect not-authorized users to Login Page
 - Clone Scenario
 
+- Use queue to separate api from vrt and return '/run' response as soon as possible
+- Show Approved image for scenario
+- Remove test result Files and Report after remove history record
 - Auth proxy should pass user/tenant info to backend
 - Run scenarios with overrode parameters (hostname/...)
 - Remove all history records
-- Add New Scenario from dashboard
-- Show Approved image for scenario
 - Layout for results/history
 - Displaying Errors on load and save
 - Display retry button for not-ready yet history record (screens)
 - Confirmation dialog for delete ops
-- Auth proxy parameters
+- Add New Scenario from dashboard
 
 - Show scenario history (right sidebar)
 - Bind real images to ScenarioCards

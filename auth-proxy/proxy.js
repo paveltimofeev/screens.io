@@ -8,17 +8,17 @@ const session = require('express-session')
 const MemoryStore = require('memorystore')(session)
 const cors = require('./cors');
 const {clearHeaders, checkAuth, login, logout} = require('./utils')
+const config = require('./config')
 
-
-const port = 8888;
-const backend = 'http://localhost:3000';
-const proxyPath = ['/api/', '/vrt_data/'];
-const cookieSign = 'secretKey'
-const sessionSecret = 'sessionSecret71R369C31V186C12BX'
-const sessionCookieName = 'twghtf'
-const secureCookie = false                              // HTTPS needs for 'true'
-const maxAge = 1000 * 60 * 60 * 10                      // 10h (prune expired entries every 10h)
-const allowedCORSHost = 'http://localhost:4200'
+// const port = 8888;
+// const backend = 'http://localhost:3000';
+// const proxyPath = ['/api/', '/vrt_data/'];
+// const cookieSign = 'secretKey'
+// const sessionSecret = 'sessionSecret71R369C31V186C12BX'
+// const sessionCookieName = 'twghtf'
+// const secureCookie = false                              // HTTPS needs for 'true'
+// const maxAge = 1000 * 60 * 60 * 10                      // 10h (prune expired entries every 10h)
+// const allowedCORSHost = 'http://localhost:4200'
 
 process.env.NODE_ENV = 'production'; // Hide stacktrace on error
 
@@ -30,33 +30,33 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
 app.use(express.urlencoded({ extended: false }))
-app.use(cookieParser(cookieSign))
-app.use(cors(allowedCORSHost));
+app.use(cookieParser(config.cookieSign))
+app.use(cors(config.allowedCORSHost));
 app.use(clearHeaders(['X-Powered-By']))
 
 /// Configure session storage
 /// https://github.com/expressjs/session
 app.use(session({
-  name: sessionCookieName,
-  secret: sessionSecret,
+  name: config.sessionCookieName,
+  secret: config.sessionSecret,
   resave: false,
   saveUninitialized: true,
   cookie: {
-    secure: secureCookie,
-    maxAge: maxAge
+    secure: config.secureCookie,
+    maxAge: config.maxAge
   },
   store: new MemoryStore({
-    checkPeriod: maxAge
+    checkPeriod: config.maxAge
   }),
 }))
 
 /// Check authorized session
-app.use(proxyPath, checkAuth)
+app.use(config.proxyPath, checkAuth)
 
 /// Proxy backend calls
 /// SHOULD BE USED BEFORE(!) express.json()! TO AVOID FREEZING ON POST/PUT REQUESTS
-app.use(proxyPath, createProxyMiddleware({
-  target: backend,
+app.use(config.proxyPath, createProxyMiddleware({
+  target: config.backend,
   changeOrigin: true,
   logLevel:'debug'
 }));
@@ -109,6 +109,6 @@ app.post('/logout', (req,res) => {
 
 
 
-app.set('port', port);
+app.set('port', config.port);
 var server = http.createServer(app);
-server.listen(port);
+server.listen(config.port);

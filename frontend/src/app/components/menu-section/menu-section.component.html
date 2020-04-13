@@ -17,8 +17,8 @@
     <li
       *ngFor="let item of items" class="item-value"
       (click)="itemClick.emit(item)"
-      [ngClass]="{'item-value--active': item === selected}"
-    ><span>{{ item }}</span><i *ngIf="itemActionIcon" class="material-icons tiny" (click)="itemActionClick.emit(item)">{{ itemActionIcon }}</i></li>
+      [ngClass]="{'item-value--active': item[itemValue] === selected}"
+    ><span>{{ item[itemValue] }}</span><i *ngIf="itemActionIcon" class="material-icons tiny" (click)="itemActionClick.emit(item)">{{ itemActionIcon }}</i></li>
   </ul>
 
 </div>

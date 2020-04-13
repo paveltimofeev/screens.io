@@ -205,6 +205,43 @@ class VRT {
               cb(error);
           })
     }
+
+
+
+    async getScenarioById (id) {
+        return await storage.getScenarioById(id)
+    }
+    async getScenarios () {
+        return await storage.getScenarios()
+    }
+    async createScenario (data) {
+        return await storage.createScenario(data)
+    }
+    async updateScenario (id, data) {
+        return await storage.updateScenario(id, data)
+    }
+    async deleteScenario (id) {
+        return await storage.deleteScenario(id)
+    }
+
+
+    async getViewportById (id) {
+        return await storage.getViewportById(id)
+    }
+    async getViewports () {
+        return await storage.getViewports()
+    }
+    async createViewport (data) {
+        return await storage.createViewport(data)
+    }
+    async updateViewport (id, data) {
+        return await storage.updateViewport(id, data)
+    }
+    async deleteViewport (id) {
+        return await storage.deleteViewport(id)
+    }
+
+
 }
 
 module.exports = new VRT('test-tenant', 'test-user', {});

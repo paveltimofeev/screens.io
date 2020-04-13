@@ -23,6 +23,12 @@ export class MenuSectionComponent {
   items:string[] = [];
 
   @Input()
+  itemKey:string = '';
+
+  @Input()
+  itemValue:string = '';
+
+  @Input()
   itemActionIcon:string;
 
   @Input()

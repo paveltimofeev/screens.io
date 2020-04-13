@@ -1,7 +1,7 @@
-const {Schema, model} = require('mongoose');
+const {Schema, model, Mixed} = require('mongoose');
 
 const schema = new Schema({
-    
+
     /// BackstopJS fields
     label: String,
     url: String,

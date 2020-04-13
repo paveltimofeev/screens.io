@@ -14,7 +14,7 @@ export const loaded = createAction(
 
 export const changeCurrentScenario = createAction(
   '[Configuration] changeCurrentScenario',
-  props<{label:string}>()
+  props<{scenario:any}>()
 );
 
 export const updateScenario = createAction(

@@ -46,7 +46,7 @@ const _reducer = createReducer(initState,
 
     return {
       ...state,
-      currentScenario: state.scenarios.find(x => x.label === actions.label)
+      currentScenario: state.scenarios.find(x => x.label === actions.scenario.label)
     }
   }),
 

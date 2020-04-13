@@ -51,15 +51,89 @@ export class ApiAdapterService {
   }
 
   getConfig (): Observable<any> {
+
     return this.dataAccessService.get( environment.api + 'test/config');
   }
 
-  updateConfig (config: IConfig): Observable<any> {
-    return this.dataAccessService.put( environment.api + 'test/config', config);
+  createViewport(viewport:any): Observable<any> {
+
+    if (!viewport)
+      throw new Error('Wrong viewport: empty data')
+
+    return this.dataAccessService.post(
+      environment.api + 'test/viewport', viewport)
   }
 
-  deleteScenario (label: string): Observable<any> {
+  getViewports(): Observable<any> {
+
+    return this.dataAccessService.get(
+      environment.api + 'test/viewports')
+  }
+
+  deleteViewport(viewport:any): Observable<any> {
+
+    if (!viewport)
+      throw new Error('Wrong scenario: empty data')
+
+    if (!viewport._id)
+      throw new Error('Wrong scenario: No _id')
+
+
+    return this.dataAccessService.delete(
+      environment.api + 'test/viewport/' + viewport._id)
+  }
+
+  getScenarios(): Observable<any> {
+
+    return this.dataAccessService.get(
+      environment.api + 'test/scenarios')
+  }
+
+  getScenario(id:string): Observable<any> {
+
+    return this.dataAccessService.get(
+      environment.api + 'test/scenario/' + id)
+  }
+
+  createScenario(scenario:any): Observable<any> {
+
+    if (!scenario)
+      throw new Error('Wrong scenario: empty data')
+
+    return this.dataAccessService.post(
+      environment.api + 'test/scenario', scenario)
+  }
+
+  updateScenario(scenario:any): Observable<any> {
+
+    if (!scenario)
+      throw new Error('Wrong scenario: empty data')
+
+    if (!scenario._id)
+      throw new Error('Wrong scenario: No _id')
+
+    return this.dataAccessService.put(
+      environment.api + 'test/scenario/' + scenario._id, scenario)
+  }
+
+  _deleteScenario (label: string): Observable<any> {
     return this.dataAccessService.put( environment.api + 'test/scenario', {label:label});
+  }
+  deleteScenario(scenario:any): Observable<any> {
+
+    if (!scenario)
+      throw new Error('Wrong scenario: empty data')
+
+    if (!scenario._id)
+      throw new Error('Wrong scenario: No _id')
+
+    return this.dataAccessService.delete(
+      environment.api + 'test/scenario/' + scenario._id)
+  }
+
+  updateConfig (config: IConfig): Observable<any> {
+
+    return this.dataAccessService.put( environment.api + 'test/config', config);
   }
 
   login (user, password): Observable<any> {

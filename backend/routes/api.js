@@ -103,4 +103,146 @@ router.put('/test/scenario', function(req, res, next) {
 });
 
 
+
+// Get scenario by Id
+router.get('/test/scenario/:id', async function(req, res, next) {
+
+    try {
+
+        const data = await vrt.getScenarioById(req.params.id)
+        res.status(200).send( {data} )
+    }
+    catch (error) {
+        console.error('[API] Error: ' + req.path, error)
+        res.status(500).send( {error: 'Error occurs at ' + req.path} )
+    }
+});
+
+// Get scenarios
+router.get('/test/scenarios', async function(req, res, next) {
+
+    try {
+
+        const data = await vrt.getScenarios()
+        res.status(200).send( {data} )
+    }
+    catch (error) {
+        console.error('[API] Error: ' + req.path, error)
+        res.status(500).send( {error: 'Error occurs at ' + req.path} )
+    }
+});
+
+// Create scenario
+router.post('/test/scenario', async function(req, res, next) {
+
+    try {
+
+        const data = await vrt.createScenario(req.body)
+        res.status(200).send( {data} )
+    }
+    catch (error) {
+        console.error('[API] Error: ' + req.path, error)
+        res.status(500).send( {error: 'Error occurs at ' + req.path} )
+    }
+});
+
+// Update scenario
+router.put('/test/scenario/:id', async function(req, res, next) {
+
+    try {
+
+        const data = await vrt.updateScenario(req.params.id, req.body)
+        res.status(200).send( {data} )
+    }
+    catch (error) {
+        console.error('[API] Error: ' + req.path, error)
+        res.status(500).send( {error: 'Error occurs at ' + req.path} )
+    }
+});
+
+// Delete scenario
+router.delete('/test/scenario/:id', async function(req, res, next) {
+
+    try {
+        const data = await vrt.deleteScenario(req.params.id)
+        res.status(200).send( {data} )
+    }
+    catch (error) {
+        console.error('[API] Error: ' + req.path, error)
+        res.status(500).send( {error: 'Error occurs at ' + req.path} )
+    }
+});
+
+
+// Get scenario by Id
+router.get('/test/viewport/:id', async function(req, res, next) {
+
+    try {
+
+        const data = await vrt.getViewportById(req.params.id)
+        res.status(200).send( {data} )
+    }
+    catch (error) {
+        console.error('[API] Error: ' + req.path, error)
+        res.status(500).send( {error: 'Error occurs at ' + req.path} )
+    }
+});
+
+// Get scenarios
+router.get('/test/viewports', async function(req, res, next) {
+
+    try {
+
+        const data = await vrt.getViewports()
+        res.status(200).send( {data} )
+    }
+    catch (error) {
+        console.error('[API] Error: ' + req.path, error)
+        res.status(500).send( {error: 'Error occurs at ' + req.path} )
+    }
+});
+
+// Create scenario
+router.post('/test/viewport', async function(req, res, next) {
+
+    try {
+
+        const data = await vrt.createViewport(req.body)
+        res.status(200).send( {data} )
+    }
+    catch (error) {
+        console.error('[API] Error: ' + req.path, error)
+        res.status(500).send( {error: 'Error occurs at ' + req.path} )
+    }
+});
+
+// Update scenario
+router.put('/test/viewport/:id', async function(req, res, next) {
+
+    try {
+
+        const data = await vrt.updateViewport(req.params.id, req.body)
+        res.status(200).send( {data} )
+    }
+    catch (error) {
+        console.error('[API] Error: ' + req.path, error)
+        res.status(500).send( {error: 'Error occurs at ' + req.path} )
+    }
+});
+
+// Delete scenario
+router.delete('/test/viewport/:id', async function(req, res, next) {
+
+    try {
+        const data = await vrt.deleteViewport(req.params.id)
+        res.status(200).send( {data} )
+    }
+    catch (error) {
+        console.error('[API] Error: ' + req.path, error)
+        res.status(500).send( {error: 'Error occurs at ' + req.path} )
+    }
+});
+
+
+
 module.exports = router;

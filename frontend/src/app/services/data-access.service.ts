@@ -83,4 +83,12 @@ export class DataAccessService {
       catchError(this.handleError)
     );
   }
+
+  delete (url:string): Observable<any> {
+    return this.http.delete(url, {withCredentials: true}).pipe(
+      take(1),
+      retryWhen(genericRetryStrategy(this.retryOpts)),
+      catchError(this.handleError)
+    );
+  }
 }

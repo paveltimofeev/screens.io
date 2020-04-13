@@ -84,7 +84,7 @@ export class ConfigurationComponent implements OnInit, AfterViewInit {
   }
 
   selectScenarioHandler ($event: string) {
-    this.store.dispatch(changeCurrentScenario({label:$event}));
+    this.store.dispatch(changeCurrentScenario({scenario:$event}));
   }
 
   saveHandler (formRef: NgForm) {

@@ -7,6 +7,8 @@
     [header]="'Completed jobs'"
     [headerActionIcon]="'refresh'"
     [items]="records$ | async"
+    [itemKey]="'_id'"
+    [itemValue]="'date'"
     [selected]="selected"
     (itemClick)="selectRecordHandler($event)"
     (headerActionClick)="refreshHandler()"

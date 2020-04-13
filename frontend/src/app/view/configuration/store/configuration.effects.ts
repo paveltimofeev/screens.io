@@ -10,7 +10,7 @@ import {
   createScenario,
   createViewport, deleteViewport
 } from './configuration.actions';
-import { of } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { selectCurrentScenarioLabel } from './configuration.selectors';
 
@@ -44,21 +44,9 @@ export class ConfigurationEffects {
     ofType(deleteViewport),
     mergeMap((action) => {
 
-      return this.api.getConfig().pipe(
-        mergeMap( (config:{data:IConfig}) => {
-
-          const idx = config.data.viewports.findIndex( x => x.label === action.label );
-          config.data.viewports.splice(idx, 1);
-
-          return this.api.updateConfig(config.data).pipe(
-            map( res => {
-
-              return { type: refresh.type }
-            })
-          );
-
-        })
-      );
+      return this.api.deleteViewport(action.label).pipe(
+        map( res => { return { type: refresh.type } })
+      )
     })
   ));
 
@@ -117,49 +105,39 @@ export class ConfigurationEffects {
     ofType(createViewport),
     mergeMap((data:any) => {
 
-      return this.api.getConfig().pipe(
-        mergeMap( (config:{data:IConfig}) => {
+      const width = parseInt(data.width);
+      const height = parseInt(data.height);
 
-          const width = parseInt(data.width);
-          const height = parseInt(data.height);
+      if (height > 100 && height < 10000 && width > 100 && width < 10000) {
 
-          const idx = config.data.viewports.findIndex( x => x.width === width && x.height === height );
-
-          if (idx === -1 && !isNaN(height) && !isNaN(width) && height > 100 && height < 10000 && width > 100 && width < 10000) {
-
-            config.data.viewports.push({
-              width,
-              height,
-              label: `${data.width} × ${data.height}`
-            });
-          }
-
-          return this.api.updateConfig(config.data).pipe(
-            map( res => {
-
-              return { type: refresh.type }
-            })
-          );
-
-        })
-      );
-
-    })
-  ));
+        return this.api
+          .createViewport({width, height, label: `${data.width} × ${data.height}`})
+          .pipe(
+            map( (res) => {return {type: refresh.type}})
+          )
+      }
+      else {
+        return of({type: refresh.type})
+      }
+    }
+  )));
 
   refresh$ = createEffect( () => this.actions$.pipe(
     ofType(refresh),
     mergeMap(() => {
 
-      return this.api.getConfig().pipe(
-        map( res => {
+      return forkJoin(
+        this.api.getScenarios(),
+        this.api.getViewports()
+      ).pipe(
+        map(res => {
 
           return {
             type: loaded.type,
             payload: {
-              viewportsList: res.data.viewports.map(x => `${x.width} × ${x.height}`),
-              scenariosList: res.data.scenarios.map( x=> x.label ),
-              scenarios: res.data.scenarios
+              scenarios: res[0].data,
+              scenariosList: res[0].data,
+              viewportsList: res[1].data
             }
           }
         })

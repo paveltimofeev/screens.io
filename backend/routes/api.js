@@ -70,7 +70,7 @@ router.get('/test/report/:jobId', function(req, res, next) {
 router.get('/test/history', async function(req, res, next) {
 
     try {
-        const jobs = await storage.getAllHistoryRecords()
+        const jobs = await vrt.getHistory()
         res.status(200).send( {jobs} )
     }
     catch (error) {

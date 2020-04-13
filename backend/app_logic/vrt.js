@@ -110,7 +110,7 @@ class VRT {
 
     async getHistory () {
 
-        return await readdir( this._config.paths.bitmaps_test )
+        return await storage.getAllHistoryRecords()
     }
 
     async run (opts) {

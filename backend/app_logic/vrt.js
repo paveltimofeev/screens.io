@@ -165,6 +165,10 @@ class VRT {
         return await storage.createReport( data )
     }
 
+    async deleteHistoryRecord (id) {
+        return await storage.deleteHistoryRecord(id)
+    }
+
 }
 
 module.exports = new VRT('test-tenant', 'test-user', {});

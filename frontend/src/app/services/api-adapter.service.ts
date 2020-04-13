@@ -59,6 +59,16 @@ export class ApiAdapterService {
       environment.api + 'test/history');
   }
 
+  deleteHistoryRecord(recordId:string): Observable<any> {
+
+    if (!recordId)
+      throw new Error('Cannot delete history record: No recordId')
+
+
+    return this.dataAccessService.delete(
+      environment.api + 'test/history/' + recordId)
+  }
+
   createViewport(viewport:any): Observable<any> {
 
     if (!viewport)

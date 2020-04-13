@@ -17,12 +17,16 @@ class Storage {
 
         return await Record.find({}).sort({ _id: 'desc'})
     }
-
     async newHistoryRecord (data) {
 
         const record = new Record({state: 'New', ...data})
         return await record.save()
     }
+    async deleteHistoryRecord (id) {
+
+        return await Record.deleteOne({_id: id})
+    }
+
 
     async updateHistoryRecord (id, data) {
 

@@ -3,6 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { refresh } from './store/history-table.actions';
 import { selectHistoryTable } from './store/history-table.selectors';
 import { interval } from 'rxjs';
+import { AgCellButtonComponent } from './ag-cell-button/ag-cell-button.component';
 
 export interface DataSource {
 
@@ -39,7 +40,7 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
 
   private actionCellRenderer(params) {
 
-    return '<i style="line-height: inherit" class="material-icons">clear</i>'
+    return '<i style="line-height: inherit" class="material-icons" (click)="actionClickHandler()">clear</i>'
   }
 
   private dateCellRenderer(data) {
@@ -69,7 +70,8 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
     {
       headerName:'',
       field: 'action',
-      cellRenderer: this.actionCellRenderer,
+      cellRendererFramework: AgCellButtonComponent,
+      //cellRenderer: this.actionCellRenderer,
       width: 60,
       suppressSizeToFit: true
     }
@@ -91,6 +93,11 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
   }
 
   constructor(private store: Store) { }
+
+  actionClickHandler (event) {
+
+    console.log('actionClickHandler', event)
+  }
 
   ngOnInit() {
 

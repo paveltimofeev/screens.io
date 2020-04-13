@@ -37,6 +37,7 @@ import { configurationReducer } from './view/configuration/store/configuration.r
 import { FormsModule } from '@angular/forms';
 import { HistoryRecordComponent } from './view/history-record/history-record.component';
 import { LoginComponent } from './view/login/login.component';
+import { AgCellButtonComponent } from './components/history-table/ag-cell-button/ag-cell-button.component';
 
 const routes = [
   { path: '', component: DashboardComponent },
@@ -66,7 +67,8 @@ const routes = [
     StatsComponent,
     MenuSectionComponent,
     HistoryRecordComponent,
-    LoginComponent
+    LoginComponent,
+    AgCellButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -90,6 +92,9 @@ const routes = [
     ]),
     RouterModule.forRoot(routes),
     AgGridModule.withComponents([])
+  ],
+  entryComponents: [
+    AgCellButtonComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

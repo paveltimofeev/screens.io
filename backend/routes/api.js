@@ -62,6 +62,20 @@ router.get('/test/history', async function(req, res) {
     }
 });
 
+// Delete history record
+router.delete('/test/history/:id', async function(req, res) {
+
+    try {
+        const data = await vrt.deleteHistoryRecord(req.params.id)
+        res.status(200).send( {data} )
+    }
+    catch (error) {
+        console.error('[API] Error: ' + req.path, error)
+        res.status(500).send( {error: 'Error occurs at ' + req.path} )
+    }
+});
+
+
 // Get scenario by Id
 router.get('/test/scenario/:id', async function(req, res) {
 

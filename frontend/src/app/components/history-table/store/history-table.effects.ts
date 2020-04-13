@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ApiAdapterService } from '../../../services/api-adapter.service';
-import { refresh, loaded } from './history-table.actions'
+import { refresh, loaded, clearRecord } from './history-table.actions'
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, mergeMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable()
 export class HistoryTableEffects {
@@ -12,7 +13,7 @@ export class HistoryTableEffects {
     private actions$: Actions
   ) {}
 
-  $refresh = createEffect(() => this.actions$.pipe(
+  refresh$ = createEffect(() => this.actions$.pipe(
     ofType(refresh),
     mergeMap(() => {
 
@@ -21,6 +22,7 @@ export class HistoryTableEffects {
 
           let jobs = res.jobs.map( j => {
             return {
+              _id: j._id,
               runId: j.runId,
               date: j.startedAt,
               status: j.state,
@@ -31,6 +33,19 @@ export class HistoryTableEffects {
 
           return { type: loaded.type, payload: jobs}
         }))
+    })
+  ));
+
+  clearRecord$ = createEffect(() => this.actions$.pipe(
+    ofType(clearRecord),
+    mergeMap( (actions:any) => {
+
+      return this.api.deleteHistoryRecord(actions.payload._id).pipe(
+        map( res => {
+
+          return { type: refresh.type }
+        })
+      )
     })
   ));
 

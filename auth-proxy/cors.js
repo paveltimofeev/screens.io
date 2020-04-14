@@ -6,8 +6,6 @@ module.exports = (allowedHost) => {
 
     if ( origin === allowedHost) {
 
-      console.log(' > Add CORS headers')
-
       res.append('Access-Control-Allow-Origin', origin);
       res.append('Access-Control-Allow-Methods', 'GET, PUT, HEAD, OPTIONS, POST, PATCH, DELETE');
       res.append('Access-Control-Allow-Headers', 'Content-Type');

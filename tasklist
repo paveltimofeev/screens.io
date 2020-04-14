@@ -21,8 +21,8 @@
 -- Remove history record
 -- Auth proxy parameters
 -- Redirect not-authorized users to Login Page
+-- Auth proxy should pass user/tenant info to backend
 
-- Auth proxy should pass user/tenant info to backend
 - User/tenant based storage
 
 - Remove test result Files and Report after remove history record

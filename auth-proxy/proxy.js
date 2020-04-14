@@ -10,16 +10,6 @@ const cors = require('./cors');
 const {clearHeaders, checkAuth, login, logout} = require('./utils')
 const config = require('./config')
 
-// const port = 8888;
-// const backend = 'http://localhost:3000';
-// const proxyPath = ['/api/', '/vrt_data/'];
-// const cookieSign = 'secretKey'
-// const sessionSecret = 'sessionSecret71R369C31V186C12BX'
-// const sessionCookieName = 'twghtf'
-// const secureCookie = false                              // HTTPS needs for 'true'
-// const maxAge = 1000 * 60 * 60 * 10                      // 10h (prune expired entries every 10h)
-// const allowedCORSHost = 'http://localhost:4200'
-
 process.env.NODE_ENV = 'production'; // Hide stacktrace on error
 
 var app = express();
@@ -58,7 +48,10 @@ app.use(config.proxyPath, checkAuth)
 app.use(config.proxyPath, createProxyMiddleware({
   target: config.backend,
   changeOrigin: true,
-  logLevel:'debug'
+  logLevel:'debug',
+  onProxyReq: (proxyReq, req, res) => {
+    proxyReq.setHeader('x-auth-proxy-user', req.session.user);
+  }
 }));
 
 
@@ -81,7 +74,6 @@ app.post('/login-client', (req,res) => {
       res.status(401).send()
     })
 });
-
 app.post('/logout-client', (req,res) => {
 
   logout(req, res, (err) => {

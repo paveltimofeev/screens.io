@@ -1,4 +1,5 @@
 {
   "admin": "qwerty",
-  "user": "12345"
+  "user": "12345",
+  "TestDb": "TestDb"
 }

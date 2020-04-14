@@ -1,7 +1,15 @@
-var express = require('express');
-var router = express.Router();
-var vrt = require('../app_logic/vrt');
+const express = require('express');
+const router = express.Router();
+const VRT = require('../app_logic/vrt');
 
+const vrt = new VRT('test-tenant', 'test-user');
+
+const createContext = (req) => {
+
+    return {
+        user: req.header('x-auth-proxy-user')
+    }
+}
 
 router.post('/test/run', async function(req, res) {
 
@@ -10,7 +18,7 @@ router.post('/test/run', async function(req, res) {
     };
 
     try {
-        const data = await vrt.run(opts)
+        const data = await VRT.create(req.context).run(opts)
         res.status(200).send( { data } )
     }
     catch (error) {
@@ -42,7 +50,7 @@ router.get('/test/report/:runId', async function(req, res) {
     const runId = req.params.runId; // TODO: sanitize
 
     try {
-        const report = await vrt.getReportByRunId(runId);
+        const report = await VRT.create(req.context).getReportByRunId(runId);
         res.status(200).send( {report} )
     }
     catch (error) {
@@ -54,7 +62,7 @@ router.get('/test/report/:runId', async function(req, res) {
 router.get('/test/history', async function(req, res) {
 
     try {
-        const jobs = await vrt.getHistory()
+        const jobs = await VRT.create(req.context).getHistory()
         res.status(200).send( {jobs} )
     }
     catch (error) {
@@ -66,7 +74,7 @@ router.get('/test/history', async function(req, res) {
 router.delete('/test/history/:id', async function(req, res) {
 
     try {
-        const data = await vrt.deleteHistoryRecord(req.params.id)
+        const data = await VRT.create(req.context).deleteHistoryRecord(req.params.id)
         res.status(200).send( {data} )
     }
     catch (error) {
@@ -81,7 +89,7 @@ router.get('/test/scenario/:id', async function(req, res) {
 
     try {
 
-        const data = await vrt.getScenarioById(req.params.id)
+        const data = await VRT.create(req.context).getScenarioById(req.params.id)
         res.status(200).send( {data} )
     }
     catch (error) {
@@ -95,7 +103,9 @@ router.get('/test/scenarios', async function(req, res) {
 
     try {
 
-        const data = await vrt.getScenarios()
+        const ctx = createContext(req);
+
+        const data = await VRT.create(req.context).getScenarios()
         res.status(200).send( {data} )
     }
     catch (error) {
@@ -109,7 +119,7 @@ router.post('/test/scenario', async function(req, res) {
 
     try {
 
-        const data = await vrt.createScenario(req.body)
+        const data = await VRT.create(req.context).createScenario(req.body)
         res.status(200).send( {data} )
     }
     catch (error) {
@@ -123,7 +133,7 @@ router.put('/test/scenario/:id', async function(req, res) {
 
     try {
 
-        const data = await vrt.updateScenario(req.params.id, req.body)
+        const data = await VRT.create(req.context).updateScenario(req.params.id, req.body)
         res.status(200).send( {data} )
     }
     catch (error) {
@@ -136,7 +146,7 @@ router.put('/test/scenario/:id', async function(req, res) {
 router.delete('/test/scenario/:id', async function(req, res) {
 
     try {
-        const data = await vrt.deleteScenario(req.params.id)
+        const data = await VRT.create(req.context).deleteScenario(req.params.id)
         res.status(200).send( {data} )
     }
     catch (error) {
@@ -150,7 +160,7 @@ router.get('/test/viewport/:id', async function(req, res) {
 
     try {
 
-        const data = await vrt.getViewportById(req.params.id)
+        const data = await VRT.create(req.context).getViewportById(req.params.id)
         res.status(200).send( {data} )
     }
     catch (error) {
@@ -164,7 +174,7 @@ router.get('/test/viewports', async function(req, res) {
 
     try {
 
-        const data = await vrt.getViewports()
+        const data = await VRT.create(req.context).getViewports()
         res.status(200).send( {data} )
     }
     catch (error) {
@@ -178,7 +188,7 @@ router.post('/test/viewport', async function(req, res) {
 
     try {
 
-        const data = await vrt.createViewport(req.body)
+        const data = await VRT.create(req.context).createViewport(req.body)
         res.status(200).send( {data} )
     }
     catch (error) {
@@ -192,7 +202,7 @@ router.put('/test/viewport/:id', async function(req, res) {
 
     try {
 
-        const data = await vrt.updateViewport(req.params.id, req.body)
+        const data = await VRT.create(req.context).updateViewport(req.params.id, req.body)
         res.status(200).send( {data} )
     }
     catch (error) {
@@ -205,7 +215,7 @@ router.put('/test/viewport/:id', async function(req, res) {
 router.delete('/test/viewport/:id', async function(req, res) {
 
     try {
-        const data = await vrt.deleteViewport(req.params.id)
+        const data = await VRT.create(req.context).deleteViewport(req.params.id)
         res.status(200).send( {data} )
     }
     catch (error) {

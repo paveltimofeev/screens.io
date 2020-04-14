@@ -1,6 +1,6 @@
-const {Schema, model, Mixed} = require('mongoose');
+const {Schema, model} = require('mongoose');
 
-const schema = new Schema({
+const scenarioSchema = new Schema({
 
     /// BackstopJS fields
     label: String,
@@ -19,4 +19,7 @@ const schema = new Schema({
     latestScreenshot: String
 });
 
-module.exports = model('Scenario', schema);
+module.exports = {
+    scenarioSchema,
+    Scenario: model('Scenario', scenarioSchema)
+}

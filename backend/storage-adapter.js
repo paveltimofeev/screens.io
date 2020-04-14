@@ -1,8 +1,8 @@
-const Record = require('./models/history-record')
-const Scenario = require('./models/scenario')
-const Viewport = require('./models/viewport')
-const Report = require('./models/report')
-
+const mongoose = require('mongoose')
+const { Record, recordSchema } = require('./models/history-record')
+const { Scenario, scenarioSchema } = require('./models/scenario')
+const { Viewport, viewportSchema } = require('./models/viewport')
+const { Report, reportSchema } = require('./models/report')
 
 class Storage {
 
@@ -13,80 +13,122 @@ class Storage {
         return JSON.parse(JSON.stringify(entry))
     }
 
-    async getAllHistoryRecords () {
+    _createEntity (database, collection, schema) {
 
-        return await Record.find({}).sort({ _id: 'desc'})
+        if (!database || database.trim() === '') {
+            throw new Error('No database name')
+        }
+
+        if (!collection || collection.trim() === '') {
+            throw new Error('No collection name')
+        }
+
+        if (!schema) {
+            throw new Error('No schema')
+        }
+
+        const connection = mongoose.createConnection(
+          `mongodb://localhost:27017/user_${database}`,
+          {
+              useNewUrlParser: true,
+              useFindAndModify: true,
+              useUnifiedTopology: true
+          });
+
+        return connection.model(collection, schema);
     }
-    async newHistoryRecord (data) {
 
-        const record = new Record({state: 'New', ...data})
+
+    async getAllHistoryRecords (database) {
+
+        let entity = this._createEntity(database, 'Record', recordSchema)
+        return await entity.find({}).sort({ _id: 'desc'})
+    }
+    async newHistoryRecord (database, data) {
+
+        let entity = this._createEntity(database, 'Record', recordSchema)
+        const record = new entity({state: 'New', ...data})
         return await record.save()
     }
-    async deleteHistoryRecord (id) {
+    async deleteHistoryRecord (database, id) {
 
-        return await Record.deleteOne({_id: id})
+        let entity = this._createEntity(database, 'Record', recordSchema)
+        return await entity.deleteOne({_id: id})
     }
+    async updateHistoryRecord (database, id, data) {
 
-
-    async updateHistoryRecord (id, data) {
-
-        let record = await Record.findById(id)
+        let entity = this._createEntity(database, 'Record', recordSchema)
+        let record = await entity.findById(id)
         Object.keys(data).forEach(x => record[x] = data[x])
         return await record.save()
     }
 
 
-    async getScenarioById (id) {
-        return await Scenario.findById(id)
-    }
-    async getScenarios (query) {
-        return await Scenario.find(query || {})
-    }
-    async createScenario (data) {
+    async getScenarioById (database, id) {
 
-        const newEntry = new Scenario({...data})
+        let entity = this._createEntity(database, 'Scenario', scenarioSchema)
+        return await entity.findById(id)
+    }
+    async getScenarios (database, query) {
+
+        let entity = this._createEntity(database, 'Scenario', scenarioSchema)
+        return await entity.find(query || {})
+    }
+    async createScenario (database, data) {
+
+        let entity = this._createEntity(database, 'Scenario', scenarioSchema)
+        const newEntry = new entity({...data})
         return await newEntry.save()
     }
-    async updateScenario (id, data) {
+    async updateScenario (database, id, data) {
 
-        let entry = await Scenario.findById(id)
+        let entity = this._createEntity(database, 'Scenario', scenarioSchema)
+        let entry = await entity.findById(id)
         Object.keys(data).forEach(x => entry[x] = data[x])
         return await entry.save()
     }
-    async deleteScenario (id) {
+    async deleteScenario (database, id) {
 
-        return await Scenario.deleteOne({_id: id})
+        let entity = this._createEntity(database, 'Scenario', scenarioSchema)
+        return await entity.deleteOne({_id: id})
     }
 
-    async getViewportById (id) {
-        return await Viewport.findById(id)
+    async getViewportById (database, id) {
+        let entity = this._createEntity(database, 'Viewport', viewportSchema)
+        return await entity.findById(id)
     }
-    async getViewports () {
-        return await Viewport.find({})
+    async getViewports (database) {
+        let entity = this._createEntity(database, 'Viewport', viewportSchema)
+        return await entity.find({})
     }
-    async createViewport (data) {
+    async createViewport (database, data) {
 
-        const newEntry = new Viewport({...data})
+        let entity = this._createEntity(database, 'Viewport', viewportSchema)
+        const newEntry = new entity({...data})
         return await newEntry.save()
     }
-    async updateViewport (id, data) {
+    async updateViewport (database, id, data) {
 
-        let entry = await Viewport.findById(id)
+        let entity = this._createEntity(database, 'Viewport', viewportSchema)
+        let entry = await entity.findById(id)
         Object.keys(data).forEach(x => entry[x] = data[x])
         return await entry.save()
     }
-    async deleteViewport (id) {
+    async deleteViewport (database, id) {
 
-        return await Viewport.deleteOne({_id: id})
+        let entity = this._createEntity(database, 'Viewport', viewportSchema)
+        return await entity.deleteOne({_id: id})
     }
 
-    async getReportByRunId (runId) {
-        return await Report.findOne( {runId: runId} )
-    }
-    async createReport (data) {
+    async getReportByRunId (database, runId) {
 
-        console.log('createReport', data)
-        const newEntry = new Report(data)
+        let entity = this._createEntity(database, 'Report', reportSchema)
+        return await entity.findOne( {runId: runId} )
+    }
+    async createReport (database, data) {
+
+        let entity = this._createEntity(database, 'Report', reportSchema)
+        const newEntry = new entity(data)
         return await newEntry.save()
     }
 

@@ -42,6 +42,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/vrt_data', express.static(path.join(__dirname, 'vrt_data')));
 
 app.use(cors);
+app.use((req, res, next) => {
+
+  req.context = {
+    user: req.header('x-auth-proxy-user')
+  }
+
+  next()
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api', apiRouter);

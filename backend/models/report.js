@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const schema = new Schema({
+const reportSchema = new Schema({
     runId: String,
     testSuite: String,
     tests: {
@@ -34,4 +34,7 @@ const schema = new Schema({
     }
 })
 
-module.exports = model('Report', schema)
+module.exports = {
+    reportSchema,
+    Report: model('Report', reportSchema)
+}

@@ -1,9 +1,12 @@
 const {Schema, model} = require('mongoose')
 
-const schema = new Schema({
+const viewportSchema = new Schema({
     label: String,
     width: Number,
     height: Number
 })
 
-module.exports = model('Viewport', schema)
+module.exports = {
+    viewportSchema,
+    Viewport: model('Viewport', viewportSchema)
+}

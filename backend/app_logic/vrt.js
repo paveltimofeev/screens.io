@@ -17,17 +17,27 @@ function uuidv4() {
 
 class VRT {
 
-    constructor(tenantId, userId, customConfig) {
+    constructor(tenantId, userId) {
 
         this._tenantId = tenantId;
         this._userId = userId;
-        this._customConfig = customConfig;
     }
 
+    static create (ctx) {
+
+        if (!ctx.user) {
+            console.error('No user in request context')
+            var err = new Error('Bad request')
+            err.status = 400
+            throw err;
+        }
+
+        return new VRT('test-tenant', ctx.user)
+    }
 
     async getReportByRunId (runId) {
 
-        const report = await storage.getReportByRunId(runId)
+        const report = await storage.getReportByRunId(this._userId, runId)
         const config = await this.getConfig();
 
         engine.convertReportPath(config.paths, runId, report)
@@ -37,8 +47,8 @@ class VRT {
 
     async getConfig( scenariosFilter ) {
 
-        const viewports = await storage.getViewports()
-        const scenarios = await storage.getScenarios( scenariosFilter )
+        const viewports = await storage.getViewports(this._userId)
+        const scenarios = await storage.getScenarios(this._userId, scenariosFilter )
 
         let config = engine.buildConfig(this._tenantId, this._userId,
           storage.convertToObject(viewports),
@@ -49,7 +59,7 @@ class VRT {
 
     async getHistory () {
 
-        return await storage.getAllHistoryRecords()
+        return await storage.getAllHistoryRecords(this._userId, this._userId)
     }
 
     async run (opts) {
@@ -63,7 +73,7 @@ class VRT {
           runId
         )
 
-        const record = await storage.newHistoryRecord({
+        const record = await storage.newHistoryRecord(this._userId, {
             state: 'Running',
             startedAt: new Date(),
             scenarios: config.scenarios.map( x => x.label),
@@ -78,7 +88,7 @@ class VRT {
 
             const report = await engine.getReport(config.paths.json_report)
             await this.createReport(runId, report)
-            await storage.updateHistoryRecord(record._id, { state: 'Passed' })
+            await storage.updateHistoryRecord(this._userId, record._id, { state: 'Passed' })
             return runId
         }
         catch (err) {
@@ -86,7 +96,7 @@ class VRT {
             console.error('[VRT] Error:', err)
             const report = await engine.getReport(config.paths.json_report)
             await this.createReport(runId, report)
-            await storage.updateHistoryRecord(record._id, { state: 'Failed' })
+            await storage.updateHistoryRecord(this._userId, record._id, { state: 'Failed' })
             return runId
         }
     }
@@ -127,48 +137,48 @@ class VRT {
 
 
     async getScenarioById (id) {
-        return await storage.getScenarioById(id)
+        return await storage.getScenarioById(this._userId, id)
     }
     async getScenarios () {
-        return await storage.getScenarios()
+        return await storage.getScenarios(this._userId)
     }
     async createScenario (data) {
-        return await storage.createScenario(data)
+        return await storage.createScenario(this._userId, data)
     }
     async updateScenario (id, data) {
-        return await storage.updateScenario(id, data)
+        return await storage.updateScenario(this._userId, id, data)
     }
     async deleteScenario (id) {
-        return await storage.deleteScenario(id)
+        return await storage.deleteScenario(this._userId, id)
     }
 
 
     async getViewportById (id) {
-        return await storage.getViewportById(id)
+        return await storage.getViewportById(this._userId, id)
     }
     async getViewports () {
-        return await storage.getViewports()
+        return await storage.getViewports(this._userId)
     }
     async createViewport (data) {
-        return await storage.createViewport(data)
+        return await storage.createViewport(this._userId, data)
     }
     async updateViewport (id, data) {
-        return await storage.updateViewport(id, data)
+        return await storage.updateViewport(this._userId, id, data)
     }
     async deleteViewport (id) {
-        return await storage.deleteViewport(id)
+        return await storage.deleteViewport(this._userId, id)
     }
 
     async createReport (runId, data) {
 
         data.runId = runId;
-        return await storage.createReport( data )
+        return await storage.createReport(this._userId, data )
     }
 
     async deleteHistoryRecord (id) {
-        return await storage.deleteHistoryRecord(id)
+        return await storage.deleteHistoryRecord(this._userId, id)
     }
 
 }
 
-module.exports = new VRT('test-tenant', 'test-user', {});
+module.exports = VRT;

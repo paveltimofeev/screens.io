@@ -22,8 +22,9 @@
 -- Auth proxy parameters
 -- Redirect not-authorized users to Login Page
 -- Auth proxy should pass user/tenant info to backend
+-- User/tenant based storage
 
-- User/tenant based storage
+- split bitmaps_reference by user/tenant
 
 - Remove test result Files and Report after remove history record
 - Remove all References and test Files on removing Scenarios or Viewports

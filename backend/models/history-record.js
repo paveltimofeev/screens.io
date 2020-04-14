@@ -1,11 +1,14 @@
 const { Schema, model } = require('mongoose')
 
-const schema = new Schema({
-    
+const recordSchema = new Schema({
+
     runId: String,
     state: String, /// Running, Finished
     startedAt: Date,
     scenarios: Array
 })
 
-module.exports = model('Record', schema)
+module.exports = {
+    recordSchema,
+    Record: model('Record', recordSchema)
+}

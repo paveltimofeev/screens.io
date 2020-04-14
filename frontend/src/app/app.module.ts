@@ -38,12 +38,14 @@ import { FormsModule } from '@angular/forms';
 import { HistoryRecordComponent } from './view/history-record/history-record.component';
 import { LoginComponent } from './view/login/login.component';
 import { AgCellButtonComponent } from './components/history-table/ag-cell-button/ag-cell-button.component';
+import { ReportComponent } from './view/report/report.component';
 
 const routes = [
   { path: '', component: DashboardComponent },
   { path: 'config/:scenario', component: ConfigurationComponent },
   { path: 'history/:jobId', component: HistoryRecordComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'report', component: ReportComponent },
   { path: '**', component: DashboardComponent }
 ];
 
@@ -68,7 +70,8 @@ const routes = [
     MenuSectionComponent,
     HistoryRecordComponent,
     LoginComponent,
-    AgCellButtonComponent
+    AgCellButtonComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,

@@ -28,8 +28,9 @@
 
 - Auth proxy sometimes got unauthorized requests when RUN tests in parallel from 2 different accounts in normal and incognito mode
 
-- Run scenarios with overrode parameters (hostname/resolution/...)
+- Do not store passwords in plain text
 - Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
+- Run scenarios with overrode parameters (hostname/resolution/...)
 - Show Approved image for scenario
 - Show scenario's history (right sidebar)
 - Cookies callback/field, or before run script

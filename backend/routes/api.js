@@ -62,7 +62,7 @@ router.get('/test/report/:runId', async function(req, res) {
 router.get('/test/history', async function(req, res) {
 
     try {
-        const jobs = await VRT.create(req.context).getHistory()
+        const jobs = await VRT.create(req.context).getHistoryRecords()
         res.status(200).send( {jobs} )
     }
     catch (error) {

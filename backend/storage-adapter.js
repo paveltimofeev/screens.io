@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
-const { Record, recordSchema } = require('./models/history-record')
-const { Scenario, scenarioSchema } = require('./models/scenario')
-const { Viewport, viewportSchema } = require('./models/viewport')
-const { Report, reportSchema } = require('./models/report')
+const { recordSchema } = require('./models/history-record')
+const { scenarioSchema } = require('./models/scenario')
+const { viewportSchema } = require('./models/viewport')
+const { reportSchema } = require('./models/report')
 
 class Storage {
 
@@ -39,12 +39,12 @@ class Storage {
     }
 
 
-    async getAllHistoryRecords (database) {
+    async getHistoryRecords (database) {
 
         let entity = this._createEntity(database, 'Record', recordSchema)
         return await entity.find({}).sort({ _id: 'desc'})
     }
-    async newHistoryRecord (database, data) {
+    async createHistoryRecord (database, data) {
 
         let entity = this._createEntity(database, 'Record', recordSchema)
         const record = new entity({state: 'New', ...data})
@@ -93,6 +93,7 @@ class Storage {
         return await entity.deleteOne({_id: id})
     }
 
+
     async getViewportById (database, id) {
         let entity = this._createEntity(database, 'Viewport', viewportSchema)
         return await entity.findById(id)
@@ -120,6 +121,7 @@ class Storage {
         return await entity.deleteOne({_id: id})
     }
 
+
     async getReportByRunId (database, runId) {
 
         let entity = this._createEntity(database, 'Report', reportSchema)
@@ -131,7 +133,6 @@ class Storage {
         const newEntry = new entity(data)
         return await newEntry.save()
     }
-
 }
 
 

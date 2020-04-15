@@ -35,32 +35,8 @@ class VRT {
         return new VRT('test-tenant', ctx.user)
     }
 
-    async getReportByRunId (runId) {
 
-        const report = await storage.getReportByRunId(this._userId, runId)
-        const config = await this.getConfig();
-
-        engine.convertReportPath(config.paths, runId, report)
-
-        return report
-    }
-
-    async getConfig( scenariosFilter ) {
-
-        const viewports = await storage.getViewports(this._userId)
-        const scenarios = await storage.getScenarios(this._userId, scenariosFilter )
-
-        let config = engine.buildConfig(this._tenantId, this._userId,
-          storage.convertToObject(viewports),
-          storage.convertToObject(scenarios));
-
-        return config
-    }
-
-    async getHistory () {
-
-        return await storage.getAllHistoryRecords(this._userId, this._userId)
-    }
+    /// LAMBDA
 
     async run (opts) {
 
@@ -73,7 +49,7 @@ class VRT {
           runId
         )
 
-        const record = await storage.newHistoryRecord(this._userId, {
+        const record = await storage.createHistoryRecord(this._userId, {
             state: 'Running',
             startedAt: new Date(),
             scenarios: config.scenarios.map( x => x.label),
@@ -101,12 +77,12 @@ class VRT {
         }
     }
 
-    approve (cb) {
-
-        backstop('approve', { config: this._config} )
-            .then( (r) => { console.log('[VRT] approve done', r); cb(null, r); })
-            .catch( (e) => { console.log('[VRT] approve failed', e); cb(e);});
-    }
+    // approve (cb) {
+    //
+    //     backstop('approve', { config: this._config} )
+    //         .then( (r) => { console.log('[VRT] approve done', r); cb(null, r); })
+    //         .catch( (e) => { console.log('[VRT] approve failed', e); cb(e);});
+    // }
 
     approveCase (pair, cb) {
 
@@ -135,6 +111,42 @@ class VRT {
           .catch( (e) => { console.log('[VRT] stop failed', e); cb(e);});
     }
 
+
+    /// shared
+    async getConfig( scenariosFilter ) {
+
+        const viewports = await storage.getViewports(this._userId)
+        const scenarios = await storage.getScenarios(this._userId, scenariosFilter )
+
+        return engine.buildConfig(this._tenantId, this._userId,
+          storage.convertToObject(viewports),
+          storage.convertToObject(scenarios));
+    }
+
+
+    /// API
+
+    async createReport (runId, data) {
+
+        data.runId = runId;
+        return await storage.createReport(this._userId, data )
+    }
+    async getReportByRunId (runId) {
+
+        const report = await storage.getReportByRunId(this._userId, runId)
+        const config = await this.getConfig();
+
+        engine.convertReportPath(config.paths, runId, report)
+
+        return report
+    }
+
+    async getHistoryRecords () {
+        return await storage.getHistoryRecords(this._userId, this._userId)
+    }
+    async deleteHistoryRecord (id) {
+        return await storage.deleteHistoryRecord(this._userId, id)
+    }
 
     async getScenarioById (id) {
         return await storage.getScenarioById(this._userId, id)
@@ -169,15 +181,7 @@ class VRT {
         return await storage.deleteViewport(this._userId, id)
     }
 
-    async createReport (runId, data) {
 
-        data.runId = runId;
-        return await storage.createReport(this._userId, data )
-    }
-
-    async deleteHistoryRecord (id) {
-        return await storage.deleteHistoryRecord(this._userId, id)
-    }
 
 }
 

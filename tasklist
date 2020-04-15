@@ -26,26 +26,30 @@
 
 - split bitmaps_reference by user/tenant
 
-- Remove test result Files and Report after remove history record
-- Remove all References and test Files on removing Scenarios or Viewports
+- Auth proxy should store users in Storage
+- Run scenarios with overrode parameters (hostname/resolution/...)
+- Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
 - Show Approved image for scenario
-- Show real images of the latest run at ScenarioCards
-- Show scenario history (right sidebar)
-- Run scenarios with overrode parameters (hostname/...)
+- Show scenario's history (right sidebar)
+- Cookies callback/field, or before run script
 - Clone Scenario
 - Remove all history records
-- Use queue to separate api from vrt and return '/run' response as soon as possible
-- Displaying Errors on load and save
+- Remove all References and test Files on removing Scenarios or Viewports
+- Remove test result Files and Report after remove history record
+- Use Queue to separate api from vrt and return '/run' response as soon as possible
+- Auth proxy should be able to register a New User
+
 - Display retry button for not-ready yet history record (screens)
 - Confirmation dialog for delete ops
-
 - Layout for results/history
 - Show stats, chart and measure stability
-- Cookies callback/field, or before run script
+- Displaying Errors on load and save
 
 
 - AWS LAMBDA
 - AWS SQS
 - TELEGRAM BOT
 - SLACK BOT
-- SCHEDULER
+- SCHEDULER FOR RUNS
+- LANDING PAGE (WP)
+- PAYMENT & TRIAL-ACCOUNTS

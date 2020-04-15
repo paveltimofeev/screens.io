@@ -8,8 +8,8 @@ const session = require('express-session')
 const MemoryStore = require('memorystore')(session)
 const cors = require('./cors');
 const {clearHeaders, checkAuth, login, logout} = require('./utils')
-const mongoose = require('mongoose')
 const config = require('./config')
+const { connectToDb } = require('./storage-adapter')
 
 process.env.NODE_ENV = 'production'; // Hide stacktrace on error
 
@@ -41,8 +41,10 @@ app.use(session({
   }),
 }))
 
+
 /// Check authorized session
 app.use(config.proxyPath, checkAuth)
+
 
 /// Proxy backend calls
 /// SHOULD BE USED BEFORE(!) express.json()! TO AVOID FREEZING ON POST/PUT REQUESTS
@@ -104,19 +106,12 @@ app.post('/logout', (req,res) => {
     })
 });
 
+
 async function start() {
 
   try {
 
-    console.log('[Start proxy] Connecting to db...')
-
-    await mongoose.connect(
-      config.dbConnectionString,
-      {
-        useNewUrlParser: true,
-        useFindAndModify: true,
-        useUnifiedTopology: true
-      });
+    await connectToDb( config.dbConnectionString )
 
     console.log('[Start proxy] Listening port', config.port)
 
@@ -125,7 +120,6 @@ async function start() {
     server.listen(config.port);
   }
   catch (error) {
-
     console.error('[Start proxy] Error', error)
   }
 }

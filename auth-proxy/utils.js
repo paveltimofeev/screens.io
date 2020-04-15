@@ -1,9 +1,7 @@
-const fs = require('fs');
 const config = require('./config')
-const { model, Schema} = require('mongoose')
+const { createStorageAdapter } = require('./storage-adapter')
 
-const usersListPath = 'users.json'
-const maxAge = 1000 * 60 * 60 * 10                      // 10h (prune expired entries every 10h)
+const storage = createStorageAdapter(config.dbUsersCollection)
 
 const clearHeaders = (headers) => {
 
@@ -51,7 +49,7 @@ const login = async (req, res, success, fail) => {
 
   try {
 
-    const userData = await getUser(user, password)
+    const userData = await storage.getUser(user, password)
 
     if (!userData) {
       let error = new Error('Wrong username or password');
@@ -130,39 +128,6 @@ const _isValidPassword = (val) => {
     val.length > 3 &&
     !illegalChars.test(val)
 };
-
-
-const UserModel = new model(config.dbUsersCollection, new Schema({
-  user: String,
-  password: String,
-  enabled: Boolean,
-  tenant: String
-}));
-
-const convertToObject = (entry) => {
-
-  delete entry._id;
-  delete entry.__v;
-  return JSON.parse(JSON.stringify(entry))
-}
-
-const getUser = async (user, password) => {
-
-  try {
-
-    const record = await UserModel.findOne( {user, password, enabled: true} );
-
-    if (record) {
-      return convertToObject( record );
-    }
-    else {
-      return undefined;
-    }
-  }
-  catch (error) {
-    console.error('[Utils] ERROR getUser', error)
-  }
-}
 
 
 module.exports = {

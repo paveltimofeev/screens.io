@@ -27,7 +27,7 @@
 -- Auth proxy should get users from Storage
 -- [Not an issue - Unauthorized requests produces by testing engine, when it opens a page to test] Auth proxy sometimes got unauthorized requests when RUN tests in parallel from 2 different accounts in normal and incognito mode.
 
-- Do not store passwords in plain text
+- Do not store passwords and emails in plain text
 - Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
 
 - Run scenarios with overrode parameters (hostname/resolution/...)

@@ -64,8 +64,8 @@ class EngineAdapter {
 
         result.paths = {
 
-            bitmaps_reference: `vrt_data/${tenantId}/bitmaps_reference`,
-            engine_scripts:    `vrt_data/${tenantId}/engine_scripts`,
+            bitmaps_reference: `vrt_data/${tenantId}/${userId}/bitmaps_reference`,
+            engine_scripts:    `vrt_data/${tenantId}/${userId}/engine_scripts`,
 
             bitmaps_test: `vrt_data/${tenantId}/${userId}/bitmaps_test`,
             html_report:  `vrt_data/${tenantId}/${userId}/html_report`,

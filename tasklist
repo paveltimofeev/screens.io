@@ -23,10 +23,10 @@
 -- Redirect not-authorized users to Login Page
 -- Auth proxy should pass user/tenant info to backend
 -- User/tenant based storage
-
-- split bitmaps_reference by user/tenant
+-- split bitmaps_reference by user/tenant
 
 - Auth proxy should store users in Storage
+
 - Run scenarios with overrode parameters (hostname/resolution/...)
 - Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
 - Show Approved image for scenario

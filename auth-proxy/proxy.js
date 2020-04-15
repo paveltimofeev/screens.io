@@ -8,6 +8,7 @@ const session = require('express-session')
 const MemoryStore = require('memorystore')(session)
 const cors = require('./cors');
 const {clearHeaders, checkAuth, login, logout} = require('./utils')
+const mongoose = require('mongoose')
 const config = require('./config')
 
 process.env.NODE_ENV = 'production'; // Hide stacktrace on error
@@ -64,15 +65,19 @@ app.get('/login', (req, res) => {
   res.render('index', {user, loginResult:''})
 })
 
-app.post('/login-client', (req,res) => {
+app.post('/login-client', async (req,res) => {
 
-  login(req, res,
-    (user) => {
-      res.status(200).send({user})
-    },
-    () => {
-      res.status(401).send()
-    })
+  try {
+
+    const userData = await login(req, res)
+    res.status(200).send({userData})
+  }
+  catch(error) {
+
+    console.log('ERROR /login-client', error)
+    res.status(401).send( { message: 'Login failed' })
+  }
+
 });
 app.post('/logout-client', (req,res) => {
 
@@ -81,15 +86,15 @@ app.post('/logout-client', (req,res) => {
     })
 });
 
-app.post('/login', (req,res) => {
+app.post('/login', async (req,res) => {
 
-  login(req, res,
-    (user) => {
-      res.render('index', { loginResult: 'Logged in successfully', user})
-    },
-    () => {
-      res.render( 'index', { loginResult : 'Login failed', user : '' } )
-    })
+  try {
+    const userData = await login(req, res)
+    res.render('index', { message: 'Logged in successfully', user: userData})
+  }
+  catch ( error ) {
+    res.render( 'index', { message : 'Login failed', user : '' } )
+  }
 
 });
 app.post('/logout', (req,res) => {
@@ -99,8 +104,30 @@ app.post('/logout', (req,res) => {
     })
 });
 
+async function start() {
 
+  try {
 
-app.set('port', config.port);
-var server = http.createServer(app);
-server.listen(config.port);
+    console.log('[Start proxy] Connecting to db...')
+
+    await mongoose.connect(
+      config.dbConnectionString,
+      {
+        useNewUrlParser: true,
+        useFindAndModify: true,
+        useUnifiedTopology: true
+      });
+
+    console.log('[Start proxy] Listening port', config.port)
+
+    app.set('port', config.port);
+    var server = http.createServer(app);
+    server.listen(config.port);
+  }
+  catch (error) {
+
+    console.error('[Start proxy] Error', error)
+  }
+}
+
+start();

@@ -24,8 +24,9 @@
 -- Auth proxy should pass user/tenant info to backend
 -- User/tenant based storage
 -- split bitmaps_reference by user/tenant
+-- Auth proxy should get users from Storage
 
-- Auth proxy should store users in Storage
+- Auth proxy sometimes got unauthorized requests when RUN tests in parallel from 2 different accounts in normal and incognito mode
 
 - Run scenarios with overrode parameters (hostname/resolution/...)
 - Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario

@@ -1,4 +1,7 @@
 const fs = require('fs');
+const config = require('./config')
+const { model, Schema} = require('mongoose')
+
 const usersListPath = 'users.json'
 const maxAge = 1000 * 60 * 60 * 10                      // 10h (prune expired entries every 10h)
 
@@ -28,60 +31,61 @@ const checkAuth = (req, res, next) => {
   }
 }
 
-
-const isValidUser = (val) => {
-
-  var illegalChars = /\W/; // allow letters, numbers, and underscores
-
-  return val !== null &&
-    val !== undefined &&
-    typeof(val) === 'string' &&
-    val.length > 3 &&
-    !illegalChars.test(val)
-};
-
-const isValidPassword = (val) => {
-
-  var illegalChars = /\W/; // allow letters, numbers, and underscores
-
-  return val !== null &&
-    val !== undefined &&
-    typeof(val) === 'string' &&
-    val.length > 3 &&
-    !illegalChars.test(val)
-};
-
-const login = (req, res, success, fail) => {
+const login = async (req, res, success, fail) => {
 
   const user = req.body.user;
   const password = req.body.password;
 
-  const userCheck = isValidUser(user);
-  const passwordCheck = isValidPassword(password);
+  const userCheck = _isValidUser(user);
+  const passwordCheck = _isValidPassword(password);
 
   if (!userCheck || !passwordCheck) {
-    console.log('Username check:', isValidUser(user));
-    console.log('Password check:', isValidUser(password));
+    console.log('Username check:', _isValidUser(user));
+    console.log('Password check:', _isValidUser(password));
     logout(req, res, fail);
-    return;
+
+    let error = new Error('Invalid username or password');
+    error.status = 403;
+    throw error;
   }
 
-  const users = JSON.parse(fs.readFileSync(usersListPath, 'utf8')); // TODO: async, cache, error catch?
+  try {
 
-  if (users && users[user] === password) {
+    const userData = await getUser(user, password)
 
-    console.log('Login success. user:', user);
+    if (!userData) {
+      let error = new Error('Wrong username or password');
+      error.status = 403;
+      throw error;
+    }
 
-    req.session.authorized = true;
-    req.session.user = user;
-    res.cookie('user', user, {signed:true, sameSite:true, maxAge: maxAge});
+    if (userData.user === user && userData.password === password) {
 
-    success(user);
+      console.log('Login success ', `${userData.tenant}/${userData.user}`);
+
+      req.session.authorized = true;
+      req.session.user = userData.user;
+      req.session.tenant = userData.tenant;
+
+      res.cookie('user', user, {signed:true, sameSite:true, maxAge: config.maxAge});
+
+      return {
+        user: userData.user,
+        tenant: userData.tenant
+      };
+
+    } else {
+
+      let error = new Error('Stored user/password does not match provided!');
+      error.status = 403;
+      throw error;
+    }
+
   }
-  else {
+  catch ( error ) {
 
-    console.log('Login failed. Bad password for user or user not found:', user);
-    logout(req, res, fail);
+    console.error('[Utils] ERROR getUser', error)
+    throw error;
   }
 }
 
@@ -91,14 +95,79 @@ const logout = (req, res, cb) => {
 
   req.session.authorized = false;
   req.session.user = undefined;
+  res.clearCookie('user').clearCookie('session');
+
   req.session.destroy(function(err) {
 
-    res
-      .clearCookie('user')
-      .clearCookie('session');
+    if (err) {
+      console.error('[Utils.logout] ERROR session destroy', err)
+    }
 
-    cb(err);
+    if (cb) {
+      cb( err );
+    }
   })
 }
 
-module.exports = { clearHeaders, checkAuth, login, logout }
+const _isValidUser = (val) => {
+
+  var illegalChars = /\W/; // allow letters, numbers, and underscores
+
+  return val !== null &&
+    val !== undefined &&
+    typeof(val) === 'string' &&
+    val.length > 3 &&
+    !illegalChars.test(val)
+};
+
+const _isValidPassword = (val) => {
+
+  var illegalChars = /\W/; // allow letters, numbers, and underscores
+
+  return val !== null &&
+    val !== undefined &&
+    typeof(val) === 'string' &&
+    val.length > 3 &&
+    !illegalChars.test(val)
+};
+
+
+const UserModel = new model(config.dbUsersCollection, new Schema({
+  user: String,
+  password: String,
+  enabled: Boolean,
+  tenant: String
+}));
+
+const convertToObject = (entry) => {
+
+  delete entry._id;
+  delete entry.__v;
+  return JSON.parse(JSON.stringify(entry))
+}
+
+const getUser = async (user, password) => {
+
+  try {
+
+    const record = await UserModel.findOne( {user, password, enabled: true} );
+
+    if (record) {
+      return convertToObject( record );
+    }
+    else {
+      return undefined;
+    }
+  }
+  catch (error) {
+    console.error('[Utils] ERROR getUser', error)
+  }
+}
+
+
+module.exports = {
+  clearHeaders,
+  checkAuth,
+  login,
+  logout
+}

@@ -7,6 +7,9 @@ const engine = new (require('../engine-adapter'))
 
 const readFile = promisify(fs.readFile)
 const readdir = promisify(fs.readdir)
+const exists = promisify(fs.exists)
+const copyFile = promisify(fs.copyFile)
+const mkdir = promisify(fs.mkdir)
 
 function uuidv4() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -77,31 +80,22 @@ class VRT {
         }
     }
 
-    // approve (cb) {
-    //
-    //     backstop('approve', { config: this._config} )
-    //         .then( (r) => { console.log('[VRT] approve done', r); cb(null, r); })
-    //         .catch( (e) => { console.log('[VRT] approve failed', e); cb(e);});
-    // }
+    async approveCase (pair, cb) {
 
-    approveCase (pair, cb) {
-
-        const ref = path.join(__dirname, '..', pair.reference);
+        const reference = path.join(__dirname, '..', pair.reference);
         const test = path.join(__dirname, '..', pair.test);
 
-        fs.exists(test, (exists) => {
+        const testFileExits = await exists(test)
 
-            if (!exists) {
-                console.log('ERR: Cannot find TEST result', test);
-                cb(test);
-                return;
-            }
+        if (!testFileExits) {
+            console.error('ERR: Cannot find TEST result', test);
+            return {success:false, reason: 'Cannot find TEST result'};
+        }
 
-            fs.copyFile(test, ref, (data) => {
-                console.log('success:', data);
-                cb(null, {success:true})
-            });
-        })
+        await mkdir(path.dirname(reference), {recursive:true})
+        const result = await copyFile(test, reference)
+        console.log('success:', result);
+        return {success:true}
     }
 
     stop (cb) {
@@ -109,6 +103,12 @@ class VRT {
         backstop( 'stop' )
           .then( (r) => { console.log('[VRT] stop done', r); cb(null, r); })
           .catch( (e) => { console.log('[VRT] stop failed', e); cb(e);});
+    }
+
+    async createReport (runId, data) {
+
+        data.runId = runId;
+        return await storage.createReport(this._userId, data )
     }
 
 
@@ -126,11 +126,6 @@ class VRT {
 
     /// API
 
-    async createReport (runId, data) {
-
-        data.runId = runId;
-        return await storage.createReport(this._userId, data )
-    }
     async getReportByRunId (runId) {
 
         const report = await storage.getReportByRunId(this._userId, runId)
@@ -164,7 +159,6 @@ class VRT {
         return await storage.deleteScenario(this._userId, id)
     }
 
-
     async getViewportById (id) {
         return await storage.getViewportById(this._userId, id)
     }
@@ -180,9 +174,6 @@ class VRT {
     async deleteViewport (id) {
         return await storage.deleteViewport(this._userId, id)
     }
-
-
-
 }
 
 module.exports = VRT;

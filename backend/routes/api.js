@@ -27,22 +27,35 @@ router.post('/test/run', async function(req, res) {
     }
 });
 
-router.post('/test/approvecase', function(req, res) {
+router.post('/test/approvecase', async function(req, res) {
 
     const pair = req.body; // TODO: sanitize body
 
-    vrt.approveCase( {reference: pair.reference, test: pair.test}, (err, data) => {
+    try {
 
-        console.log('[VRT] approvecase err', err);
-        console.log('[VRT] approvecase data', data);
+        const result = await vrt.approveCase({
+            reference: pair.reference,
+            test: pair.test
+        })
 
-        if (err) {
-            res.status(500).send( {message:'Cannot approve'} );
+        console.log('[VRT] approvecase result', result);
+
+        if (result.success) {
+
+            res.status(200)
+              .send( { message:'Successfully approved'} )
         }
         else {
-            res.status(200).send( data );
+            res.status(500)
+              .send( {message:'Cannot approve'} );
         }
-    });
+    }
+    catch (error) {
+        console.error('[VRT] Error approvecase', error)
+        res.status(500)
+          .send( {message:'Cannot approve. Error occurs'} )
+    }
+
 });
 
 router.get('/test/report/:runId', async function(req, res) {

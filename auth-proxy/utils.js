@@ -56,7 +56,7 @@ const signup = async (req, res) => {
   }
 }
 
-const login = async (req, res, success, fail) => {
+const signin = async (req, res, success, fail) => {
 
   const user = req.body.user;
   const password = req.body.password;
@@ -114,7 +114,7 @@ const login = async (req, res, success, fail) => {
   }
 }
 
-const logout = (req, res, cb) => {
+const signout = (req, res, cb) => {
 
   console.log('Logout. Destroy session of user:', req.session.user);
 
@@ -160,7 +160,7 @@ const _isValidPassword = (val) => {
 module.exports = {
   clearHeaders,
   checkAuth,
-  login,
-  logout,
-  signup
+  signup,
+  signin,
+  signout
 }

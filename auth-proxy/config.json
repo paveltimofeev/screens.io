@@ -10,5 +10,6 @@
   "maxAge": 36000000,
   "allowedCORSHost": "http://localhost:4200",
   "dbConnectionString": "mongodb://localhost:27017/manage_users",
-  "dbUsersCollection": "user"
+  "dbUsersCollection": "user",
+  "showWebUI": false
 }

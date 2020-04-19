@@ -31,6 +31,7 @@
 -- Auth proxy should be able to register a New User
 
 - Use Queues for /run, /approve to separate api from vrt and return '/run' response as soon as possible
+- Refactor Auth proxy
 
 - Run scenarios with overrode parameters (hostname/resolutions/...)
 - User Profile: Favorive scenarios / Add to fav / Remove fav

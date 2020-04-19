@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const MemoryStore = require('memorystore')(session)
 const cors = require('./cors');
-const {clearHeaders, checkAuth, login, logout, signup} = require('./utils')
+const {clearHeaders, checkAuth, signup, signin, signout} = require('./utils')
 const config = require('./config')
 const { connectToDb } = require('./storage-adapter')
 
@@ -62,72 +62,75 @@ app.use(config.proxyPath, createProxyMiddleware({
 /// SHOULD BE USED AFTER(!) PROXY! TO AVOID FREEZING ON POST/PUT REQUESTS
 app.use(express.json())
 
-app.get('/login', (req, res) => {
-  var {user} = req.signedCookies;
-  res.render('index', {user, message:''})
-})
+if (config.showWebUI) {
 
-app.post('/signup-client', async (req,res) => {
+  app.get('/login', (req, res) => {
+    var {user} = req.signedCookies;
+    res.render('index', {user, message:''})
+  })
 
-  try {
+  app.post('/signup-client', async (req,res) => {
 
-    const userData = await signup(req, res)
-    res.status(200).send({userData})
-  }
-  catch(error) {
+    try {
 
-    console.log('ERROR /signup-client', error)
-    res.status(401).send( { message: 'Login failed' })
-  }
-});
-app.post('/login-client', async (req,res) => {
+      const userData = await signup(req, res)
+      res.status(200).send({userData})
+    }
+    catch(error) {
 
-  try {
+      console.log('ERROR /signup-client', error)
+      res.status(401).send( { message: 'Login failed' })
+    }
+  });
+  app.post('/login-client', async (req,res) => {
 
-    const userData = await login(req, res)
-    res.status(200).send({userData})
-  }
-  catch(error) {
+    try {
 
-    console.log('ERROR /login-client', error)
-    res.status(401).send( { message: 'Login failed' })
-  }
-});
-app.post('/logout-client', (req,res) => {
+      const userData = await signin(req, res)
+      res.status(200).send({userData})
+    }
+    catch(error) {
 
-  logout(req, res, (err) => {
-      res.status(200).send(err)
-    })
-});
+      console.log('ERROR /login-client', error)
+      res.status(401).send( { message: 'Login failed' })
+    }
+  });
+  app.post('/logout-client', (req,res) => {
 
-app.post('/signup', async (req,res) => {
+    signout(req, res, (err) => {
+        res.status(200).send(err)
+      })
+  });
 
-  try {
-    const userData = await signup(req, res)
-    res.render('index', { message: 'Signed up successfully', user: userData})    
-  }
-  catch ( error ) {
-    res.render( 'index', { message : 'Sign-Up failed', user : '' } )
-  }
-})
-app.post('/login', async (req,res) => {
+  app.post('/signup', async (req,res) => {
 
-  try {
-    const userData = await login(req, res)
-    res.render('index', { message: 'Logged in successfully', user: userData})
-  }
-  catch ( error ) {
-    res.render( 'index', { message : 'Login failed', user : '' } )
-  }
+    try {
+      const userData = await signup(req, res)
+      res.render('index', { message: 'Signed up successfully', user: userData.user})    
+    }
+    catch ( error ) {
+      res.render( 'index', { message : 'Sign-Up failed', user : '' } )
+    }
+  })
+  app.post('/signin', async (req,res) => {
 
-});
-app.post('/logout', (req,res) => {
+    try {
+      const userData = await signin(req, res)
+      res.render('index', { message: 'Logged in successfully', user: userData.user})
+    }
+    catch ( error ) {
+      res.render( 'index', { message : 'Login failed', user : '' } )
+    }
 
-  logout(req, res, (err) => {
-      res.render('index', { loginResult: 'Logged out', user: ''})
-    })
-});
+  });
+  app.post('/signout', (req,res) => {
 
+    signout(req, res, (err) => {
+        res.render('index', { message: 'Logged out', user: ''})
+      })
+  });
+
+}
 
 async function start() {
 

@@ -3,16 +3,11 @@ const { connect, model, Schema} = require('mongoose')
 
 class StorageAdapter {
 
-  constructor (usersCollection) {
+  constructor (usersCollectionName, usersCollectionSchema) {
 
     this.userModel = new model(
-      usersCollection,
-      new Schema({
-        tenant: String,
-        user: String,
-        password: String,
-        enabled: Boolean
-      })
+      usersCollectionName,
+      new Schema(usersCollectionSchema)
     );
   }
 

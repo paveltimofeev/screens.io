@@ -1,7 +1,7 @@
 const config = require('./config')
 const { createStorageAdapter } = require('./storage-adapter')
 
-const storage = createStorageAdapter(config.dbUsersCollection)
+const storage = createStorageAdapter(config.dbUsersCollection, config.dbUsersCollectionSchema)
 
 const clearHeaders = (headers) => {
 

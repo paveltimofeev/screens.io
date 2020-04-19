@@ -16,6 +16,7 @@ const scenarioSchema = new Schema({
     hoverSelectors: Array,        /// String array
     postInteractionWait: Number,
 
+    approvedScreenshot: String,
     latestScreenshot: String
 });
 

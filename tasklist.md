@@ -26,20 +26,21 @@
 -- split bitmaps_reference by user/tenant
 -- Auth proxy should get users from Storage
 -- [Not an issue - Unauthorized requests produces by testing engine, when it opens a page to test] Auth proxy sometimes got unauthorized requests when RUN tests in parallel from 2 different accounts in normal and incognito mode.
+-- Throw error if config is invalid (for ex. no viewports)
 
-- Add ScenarioHistory collection [scenarioRef/Name, date, status, historyRecordRef, successRate(calc) ]
-
-- User Profile: Favorive scenarios / Add to fav / Remove fav
-- Run scenarios with overrode parameters (hostname/resolution/...)
-- Cookies callback/field, or before run script
+- Use Queues for /run, /approve to separate api from vrt and return '/run' response as soon as possible
 - Clone Scenario
+
+- Run scenarios with overrode parameters (hostname/resolutions/...)
+- User Profile: Favorive scenarios / Add to fav / Remove fav
+- Cookies callback/field, or before run script
 - Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
 - Show Approved image for scenario
 - Show scenario's history (right sidebar)
+- Add ScenarioHistory collection [scenarioRef/Name, date, status, historyRecordRef, successRate(calc) ]
 - Remove all References and test Files on removing Scenarios or Viewports
 - Remove all history records
 - Remove test result Files and Report after remove history record
-- Use Queue to separate api from vrt and return '/run' response as soon as possible
 - Auth proxy should be able to register a New User
 - Auth proxy should not store passwords in plain text
 

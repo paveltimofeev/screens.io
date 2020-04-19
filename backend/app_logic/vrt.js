@@ -5,8 +5,6 @@ var path = require('path');
 const storage = new (require('../storage-adapter'))
 const engine = new (require('../engine-adapter'))
 
-const readFile = promisify(fs.readFile)
-const readdir = promisify(fs.readdir)
 const exists = promisify(fs.exists)
 const copyFile = promisify(fs.copyFile)
 const mkdir = promisify(fs.mkdir)
@@ -151,6 +149,9 @@ class VRT {
     }
     async createScenario (data) {
         return await storage.createScenario(this._userId, data)
+    }
+    async cloneScenario (id, data) {
+        return await storage.cloneScenario(this._userId, id, data)
     }
     async updateScenario (id, data) {
         return await storage.updateScenario(this._userId, id, data)

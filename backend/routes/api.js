@@ -4,12 +4,6 @@ const VRT = require('../app_logic/vrt');
 
 const vrt = new VRT('test-tenant', 'test-user');
 
-const createContext = (req) => {
-
-    return {
-        user: req.header('x-auth-proxy-user')
-    }
-}
 
 router.post('/test/run', async function(req, res) {
 
@@ -23,7 +17,7 @@ router.post('/test/run', async function(req, res) {
     }
     catch (error) {
         console.error('[API] Error', error)
-        res.status(500).send( { error } )
+        res.status(500).send( { error: error.uiError || 'Error occurs' } )
     }
 });
 
@@ -57,6 +51,8 @@ router.post('/test/approvecase', async function(req, res) {
     }
 
 });
+
+
 
 router.get('/test/report/:runId', async function(req, res) {
 
@@ -115,10 +111,21 @@ router.get('/test/scenario/:id', async function(req, res) {
 router.get('/test/scenarios', async function(req, res) {
 
     try {
-
-        const ctx = createContext(req);
-
         const data = await VRT.create(req.context).getScenarios()
+        res.status(200).send( {data} )
+    }
+    catch (error) {
+        console.error('[API] Error: ' + req.path, error)
+        res.status(500).send( {error: 'Error occurs at ' + req.path} )
+    }
+});
+
+// Clone scenario
+router.post('/test/scenario/:id/clone', async function(req, res) {
+
+    try {
+
+        const data = await VRT.create(req.context).cloneScenario(req.params.id, req.body)
         res.status(200).send( {data} )
     }
     catch (error) {

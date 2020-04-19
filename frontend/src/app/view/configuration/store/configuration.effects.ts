@@ -7,6 +7,7 @@ import {
   loaded,
   updateScenario,
   deleteCurrentScenario,
+  cloneCurrentScenario,
   createScenario,
   createViewport, deleteViewport
 } from './configuration.actions';
@@ -57,6 +58,25 @@ export class ConfigurationEffects {
       console.log('updateScenario$', action.payload)
 
       return this.api.updateScenario(action.payload).pipe(
+        map( res => {
+          return { type: refresh.type }
+        })
+      );
+    })
+  ));
+
+  cloneScenario$ = createEffect(() => this.actions$.pipe(
+    ofType(cloneCurrentScenario),
+    concatMap(action => {
+      return of(action).pipe(
+        withLatestFrom(this.store.pipe(select(selectCurrentScenario)))
+      );
+    }),
+    mergeMap(([action, scenario]) => {
+
+      console.log('cloneScenario$', action)
+
+      return this.api.cloneScenario(scenario).pipe(
         map( res => {
           return { type: refresh.type }
         })

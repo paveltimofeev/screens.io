@@ -22,6 +22,10 @@ export const updateScenario = createAction(
   props<{payload:any}>()
 );
 
+export const cloneCurrentScenario = createAction(
+  '[Configuration] cloneCurrentScenario'
+);
+
 export const createScenario = createAction(
   '[Configuration] createScenario',
   props<{payload:any}>()

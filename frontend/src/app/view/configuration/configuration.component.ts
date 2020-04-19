@@ -10,7 +10,8 @@ import {
   changeCurrentScenario, createScenario, createViewport,
   deleteCurrentScenario, deleteViewport,
   refresh,
-  updateScenario
+  updateScenario,
+  cloneCurrentScenario
 } from './store/configuration.actions';
 import { NgForm } from '@angular/forms';
 
@@ -125,6 +126,9 @@ export class ConfigurationComponent implements OnInit, AfterViewInit {
     console.log($event);
     if ($event === 'Delete') {
       this.store.dispatch(deleteCurrentScenario());
+    }
+    else if($event === 'Clone') {
+      this.store.dispatch(cloneCurrentScenario())
     }
   }
 }

@@ -27,9 +27,10 @@
 -- Auth proxy should get users from Storage
 -- [Not an issue - Unauthorized requests produces by testing engine, when it opens a page to test] Auth proxy sometimes got unauthorized requests when RUN tests in parallel from 2 different accounts in normal and incognito mode.
 -- Throw error if config is invalid (for ex. no viewports)
+-- Clone Scenario
 
 - Use Queues for /run, /approve to separate api from vrt and return '/run' response as soon as possible
-- Clone Scenario
+- Auth proxy should be able to register a New User
 
 - Run scenarios with overrode parameters (hostname/resolutions/...)
 - User Profile: Favorive scenarios / Add to fav / Remove fav
@@ -41,7 +42,6 @@
 - Remove all References and test Files on removing Scenarios or Viewports
 - Remove all history records
 - Remove test result Files and Report after remove history record
-- Auth proxy should be able to register a New User
 - Auth proxy should not store passwords in plain text
 
 - Display retry button for not-ready yet history record (screens)

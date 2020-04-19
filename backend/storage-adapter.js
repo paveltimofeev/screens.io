@@ -82,9 +82,11 @@ class Storage {
     }
     async cloneScenario (database, originalScenarioId, data) {
 
-        let scenario = await this.getScenarioById(originalScenarioId)
-
+        let scenario = await this.getScenarioById(database, originalScenarioId)
+        
         let newScenario = this.convertToObject(scenario)
+        delete newScenario._id
+ 
         let entity = this._createEntity(database, 'Scenario', scenarioSchema)
         const newEntry = new entity({
             ...newScenario,

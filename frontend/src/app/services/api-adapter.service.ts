@@ -158,16 +158,23 @@ export class ApiAdapterService {
       environment.api + 'test/scenario/' + scenario._id)
   }
 
-  login (user, password): Observable<any> {
+  signup (user, password): Observable<any> {
 
     return this.dataAccessService
-      .post(environment.auth + '/login-client',
+      .post(environment.auth + '/signup-client',
         {user, password});
   }
 
-  logout (): Observable<any> {
+  signin (user, password): Observable<any> {
 
     return this.dataAccessService
-      .post(environment.auth + '/logout-client');
+      .post(environment.auth + '/signin-client',
+        {user, password});
+  }
+
+  signout (): Observable<any> {
+
+    return this.dataAccessService
+      .post(environment.auth + '/signout-client');
   }
 }

@@ -12,12 +12,27 @@ export class LoginComponent {
 
   constructor(private api: ApiAdapterService, private router: Router) { }
 
-  loginHandler (loginForm: NgForm) {
+  signupHandler (form: NgForm) {
 
-    if (loginForm.valid) {
+    if (form.valid) {
 
+      if (form.value.password === form.value.passwordRepeat) {
+
+        this.api
+          .signup(form.value.user, form.value.password)
+          .subscribe(() => {
+
+            this.router.navigate(['/']);
+          });
+      }
+    }
+  }
+
+  signinHandler (form: NgForm) {
+
+    if (form.valid) {      
       this.api
-        .login(loginForm.value.user, loginForm.value.password)
+        .signin(form.value.user, form.value.password)
         .subscribe(() => {
 
           this.router.navigate(['/']);
@@ -25,10 +40,13 @@ export class LoginComponent {
     }
   }
 
-  logoutHandler () {
+  signoutHandler () {
 
     this.api
-      .logout()
-      .subscribe( () => console.log('logout completed'));
+      .signout()
+      .subscribe( () => {
+        console.log('singout completed')
+        this.router.navigate(['/login']);
+      });
   }
 }

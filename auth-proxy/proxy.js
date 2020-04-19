@@ -62,46 +62,48 @@ app.use(config.proxyPath, createProxyMiddleware({
 /// SHOULD BE USED AFTER(!) PROXY! TO AVOID FREEZING ON POST/PUT REQUESTS
 app.use(express.json())
 
+
+app.post('/signup-client', async (req,res) => {
+
+  try {
+
+    const userData = await signup(req, res)
+    res.status(200).send({userData})
+  }
+  catch(error) {
+
+    console.log('ERROR /signup-client', error)
+    res.status(401).send( { message: 'Login failed' })
+  }
+});
+app.post('/signin-client', async (req,res) => {
+
+  try {
+
+    const userData = await signin(req, res)
+    res.status(200).send({userData})
+  }
+  catch(error) {
+
+    console.log('ERROR /signin-client', error)
+    res.status(401).send( { message: 'Login failed' })
+  }
+});
+app.post('/signout-client', (req,res) => {
+
+  signout(req, res, (err) => {
+      res.status(200).send(err)
+    })
+});
+
+
 if (config.showWebUI) {
 
   app.get('/login', (req, res) => {
     var {user} = req.signedCookies;
     res.render('index', {user, message:''})
   })
-
-  app.post('/signup-client', async (req,res) => {
-
-    try {
-
-      const userData = await signup(req, res)
-      res.status(200).send({userData})
-    }
-    catch(error) {
-
-      console.log('ERROR /signup-client', error)
-      res.status(401).send( { message: 'Login failed' })
-    }
-  });
-  app.post('/login-client', async (req,res) => {
-
-    try {
-
-      const userData = await signin(req, res)
-      res.status(200).send({userData})
-    }
-    catch(error) {
-
-      console.log('ERROR /login-client', error)
-      res.status(401).send( { message: 'Login failed' })
-    }
-  });
-  app.post('/logout-client', (req,res) => {
-
-    signout(req, res, (err) => {
-        res.status(200).send(err)
-      })
-  });
-
+  
   app.post('/signup', async (req,res) => {
 
     try {
@@ -131,6 +133,7 @@ if (config.showWebUI) {
   });
 
 }
+
 
 async function start() {
 

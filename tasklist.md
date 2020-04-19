@@ -28,10 +28,10 @@
 -- [Not an issue - Unauthorized requests produces by testing engine, when it opens a page to test] Auth proxy sometimes got unauthorized requests when RUN tests in parallel from 2 different accounts in normal and incognito mode.
 -- Throw error if config is invalid (for ex. no viewports)
 -- Clone Scenario
--- Auth proxy should be able to register a New User
+-- Auth proxy should be able to Register a New User
+-- Refactor Auth proxy
 
 - Use Queues for /run, /approve to separate api from vrt and return '/run' response as soon as possible
-- Refactor Auth proxy
 
 - Run scenarios with overrode parameters (hostname/resolutions/...)
 - User Profile: Favorive scenarios / Add to fav / Remove fav
@@ -44,6 +44,7 @@
 - Remove all history records
 - Remove test result Files and Report after remove history record
 - Auth proxy should not store passwords in plain text
+- Sanitize body and params in Auth proxy & Backend
 
 - Display retry button for not-ready yet history record (screens)
 - Confirmation dialog for delete ops

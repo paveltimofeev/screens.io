@@ -1,4 +1,4 @@
-- DASHBOARD/OVERVIEW
+### DASHBOARD/OVERVIEW
 
     - All tests scenarios Passed/Failed
     - Last all of tests run 12h:36min ago
@@ -8,7 +8,7 @@
         - All Viewports
     - Latest Jobs/Runs (112), View All/Passed/Failed, 
         - 3 min ago, at 12:34, Yesterday 23:12, 4/15/2020 11:27:10 PM, 12/31/2019 11:27:10 PM
-        - Stability [ ][x][x][ ][ ], In progress.../Passed/Failed, by schedule, by admin,   
+        - Stability `[ ][x][x][ ][ ]`, In progress.../Passed/Failed, by schedule, by admin,   
         - All scenarios, News Block, Login Form +2 scenarios
     - Run All Test Scenarios
     - Run Against Stage, 
@@ -18,7 +18,7 @@
         Run
 
 
-- SCENARIOS LIST
+### SCENARIOS LIST
     
     - Test Scenarios
     - 14 scenarios
@@ -36,7 +36,7 @@
     - Approve All, Approve Failed, Approve Filtered
     - Run All, Run Failed, Run Filtered    
 
-- SCENARIO PAGE
+### SCENARIO PAGE
 
     - History
         - Passed
@@ -72,13 +72,13 @@
 
 
 
-- HISTORY OF RUNS
-- RUN REVIEW
+### HISTORY OF RUNS
+### RUN REVIEW
     - Add Hide Selectors / Remove Selectors
     
-- SETTINGS
+### SETTINGS
     - Scheduler
     - Notifications: Email, Telegram, Slack, Webhooks
-- LOGINPAGE
-- REGISTER PAGE
-- 404
+### LOGINPAGE
+### REGISTER PAGE
+### 404

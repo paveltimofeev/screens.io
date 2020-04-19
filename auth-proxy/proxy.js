@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const MemoryStore = require('memorystore')(session)
 const cors = require('./cors');
-const {clearHeaders, checkAuth, login, logout} = require('./utils')
+const {clearHeaders, checkAuth, login, logout, signup} = require('./utils')
 const config = require('./config')
 const { connectToDb } = require('./storage-adapter')
 
@@ -64,9 +64,22 @@ app.use(express.json())
 
 app.get('/login', (req, res) => {
   var {user} = req.signedCookies;
-  res.render('index', {user, loginResult:''})
+  res.render('index', {user, message:''})
 })
 
+app.post('/signup-client', async (req,res) => {
+
+  try {
+
+    const userData = await signup(req, res)
+    res.status(200).send({userData})
+  }
+  catch(error) {
+
+    console.log('ERROR /signup-client', error)
+    res.status(401).send( { message: 'Login failed' })
+  }
+});
 app.post('/login-client', async (req,res) => {
 
   try {
@@ -79,7 +92,6 @@ app.post('/login-client', async (req,res) => {
     console.log('ERROR /login-client', error)
     res.status(401).send( { message: 'Login failed' })
   }
-
 });
 app.post('/logout-client', (req,res) => {
 
@@ -88,6 +100,16 @@ app.post('/logout-client', (req,res) => {
     })
 });
 
+app.post('/signup', async (req,res) => {
+
+  try {
+    const userData = await signup(req, res)
+    res.render('index', { message: 'Signed up successfully', user: userData})    
+  }
+  catch ( error ) {
+    res.render( 'index', { message : 'Sign-Up failed', user : '' } )
+  }
+})
 app.post('/login', async (req,res) => {
 
   try {

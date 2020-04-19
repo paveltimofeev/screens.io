@@ -29,6 +29,33 @@ const checkAuth = (req, res, next) => {
   }
 }
 
+const signup = async (req, res) => {
+
+  console.log('signup', req.body)
+  const user = req.body.user;
+  const password = req.body.password;
+
+  const userCheck = _isValidUser(user);
+  const passwordCheck = _isValidPassword(password);
+  
+  if (!userCheck || !passwordCheck) {
+    console.log('Username check:', _isValidUser(user));
+    console.log('Password check:', _isValidUser(password));
+
+    let error = new Error('Wrong username or password')
+    throw error;
+  }
+  else {
+
+    const userData = await storage.createUser(user, password)
+
+    return {
+      user: userData.user,
+      tenant: userData.tenant
+    }
+  }
+}
+
 const login = async (req, res, success, fail) => {
 
   const user = req.body.user;
@@ -134,5 +161,6 @@ module.exports = {
   clearHeaders,
   checkAuth,
   login,
-  logout
+  logout,
+  signup
 }

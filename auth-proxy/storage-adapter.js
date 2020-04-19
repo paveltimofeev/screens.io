@@ -7,8 +7,25 @@ class StorageAdapter {
 
     this.userModel = new model(
       usersCollectionName,
-      new Schema(usersCollectionSchema)
+      new Schema({
+        "tenant": String,
+        "user":     { "type": String, "required": true, "unique": true },
+        "password": { "type": String, "required": true },
+        "enabled": Boolean
+      })
     );
+  }
+
+  async createUser (user, password) {
+
+    const account = new this.userModel({
+      user,
+      password,
+      tenant: 'test-tenant',
+      enabled: true
+    })
+
+    return await account.save()
   }
 
   async getUser (user, password) {

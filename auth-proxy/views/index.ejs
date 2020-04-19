@@ -16,14 +16,22 @@
 
     <p>Welcome <%= user %></p>
 
+    <form action="/signup" method="post">
+        <input type="text" name="user" placeholder="user"><br>
+        <input type="text" name="password" placeholder="password"><br>
+        <button type="submit">Sign-Up</button>
+    </form>
+
+    <hr>
+
     <form action="/login" method="post">
         <input type="text" name="user" placeholder="user"><br>
         <input type="text" name="password" placeholder="password"><br>
-        <button type="submit">Login</button>
+        <button type="submit">Sign-Ip</button>
     </form>
 
     <form action="/logout" method="post">
-        <button type="submit">Logout</button>
+        <button type="submit">Sign-Out</button>
     </form>
 
     <em><%= message || '' %></em>

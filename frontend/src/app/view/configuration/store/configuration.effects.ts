@@ -9,7 +9,7 @@ import {
   deleteCurrentScenario,
   cloneCurrentScenario,
   createScenario,
-  createViewport, deleteViewport
+  createViewport, deleteViewport, favoriteCurrentScenario, setFavoriteResult
 } from './configuration.actions';
 import { forkJoin, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
@@ -81,6 +81,32 @@ export class ConfigurationEffects {
           return { type: refresh.type }
         })
       );
+    })
+  ));
+
+  favoriteCurrentScenario$ = createEffect(() => this.actions$.pipe(
+    ofType(favoriteCurrentScenario),
+    concatMap(action => {
+      return of(action).pipe(
+        withLatestFrom(this.store.pipe(select(selectCurrentScenario)))
+      );
+    }),
+    mergeMap(([action, scenario]) => {
+
+      console.log('favoriteCurrentScenario$', action)
+
+      if (scenario.meta_isFavorite) {
+
+        return this.api.removeScenarioToFavorites(scenario).pipe(
+          map(res => { return {type: setFavoriteResult.type, payload: false} })
+        );
+      }
+      else {
+
+        return this.api.addScenarioToFavorite(scenario).pipe(
+          map(res => { return {type: setFavoriteResult.type, payload: true} })
+        );
+      }
     })
   ));
 

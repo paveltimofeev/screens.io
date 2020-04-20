@@ -69,6 +69,16 @@ const _reducer = createReducer(initState,
       ...state,
       loading: true
     }
+  }),
+
+  on(actions.setFavoriteResult, (state, actions:any) => {
+    return {
+      ...state,
+      currentScenario: {
+        ...state.currentScenario,
+        meta_isFavorite: actions.payload
+      }
+    }
   })
 
 );

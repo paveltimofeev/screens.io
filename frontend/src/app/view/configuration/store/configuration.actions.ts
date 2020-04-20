@@ -26,6 +26,15 @@ export const cloneCurrentScenario = createAction(
   '[Configuration] cloneCurrentScenario'
 );
 
+export const favoriteCurrentScenario = createAction(
+  '[Configuration] favoriteCurrentScenario'
+);
+export const setFavoriteResult = createAction(
+  '[Configuration] setFavoriteResult',
+  props<{payload:boolean}>()
+);
+
+
 export const createScenario = createAction(
   '[Configuration] createScenario',
   props<{payload:any}>()

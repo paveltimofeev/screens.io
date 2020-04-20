@@ -74,7 +74,24 @@
 
 ### HISTORY OF RUNS
 ### RUN REVIEW
-    - Add Hide Selectors / Remove Selectors
+    - Add HideSelectors / RemoveSelectors
+    - Link to scenario page
+    - Overriden parameters (stages)
+    - Filter Cases by 
+        Result State
+        Viewport Size
+    - Approve case, Approve All Failed Cases
+    - Show Refference/Test/Difference, Switch On MouseOver
+    - 3 of 5 are Failed / All Passed
+    - Job still running. Refresh
+    - Passed / Failed. Mismatch errors found / Failed. No refference yet. Approve?
+    - Home Page, Dashboard, Login Form, News Block, Footer Component (title-link)
+    - 1920 × 1080   1600 × 900   800 × 600
+
+### SCREEN COMPARER
+    - Show Refference/Test/Difference, Fit/Full
+    - Approve, APPROVE FOR STAGE?, Go back
+    - Open History, Open Scenario, Open link, Switch to `1920 × 1080, 1600 × 900, 800 × 600`
     
 ### SETTINGS
     - Scheduler

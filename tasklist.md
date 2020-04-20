@@ -32,7 +32,9 @@
 -- Refactor Auth proxy
 
 - Use Queues for /run, /approve to separate api from vrt and return '/run' response as soon as possible
+- DESIGN UI PAGES
 
+- DESIGN UI PAGES FOR MOBILE
 - Run scenarios with overrode parameters (hostname/resolutions/...)
 - User Profile: Favorive scenarios / Add to fav / Remove fav
 - Cookies callback/field, or before run script
@@ -65,15 +67,3 @@
 - COMPARE WITH COMPETITORS: diffy.website, screenster.io, percy.io
     - ON DEMAND AGENT (MANAGED BY SERVER) TO MAKE SCREENSHOTS (WITHOUT AUTH/OF LOCALHOST) AND SEND THEM TO THE BACKEND
     - GITHUB/CIRCLECI INTEGRATION like DIFFY, AutoSearch links to other pages
-
-- DESIGN UI PAGES FOR MOBILE
-- DESIGN UI PAGES
-  - Dashboard/Overview
-  - Scenarios List
-  - Scenario Page
-  - History of Runs
-  - Run Review
-  - Settings
-  - LoginPage
-  - Register Page
-  - 404

@@ -48,7 +48,7 @@
 - Auth proxy should not store passwords in plain text
 - Sanitize body and params in Auth proxy & Backend
 - Angular: MultiLanguage support
-- Rextrict number of viewports
+- Restrict number of viewports
 
 - Display retry button for not-ready yet history record (screens)
 - Confirmation dialog for delete ops

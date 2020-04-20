@@ -140,10 +140,34 @@ export class ApiAdapterService {
       throw new Error('Wrong scenario: No _id')
 
     return this.dataAccessService.post(
-      environment.api + 'test/scenario/' + scenario._id + '/clone', 
+      environment.api + 'test/scenario/' + scenario._id + '/clone',
       {
         label: scenario.label + ' ' + (new Date()).toLocaleString()
       })
+  }
+
+  addScenarioToFavorite(scenario:any): Observable<any> {
+
+    if (!scenario)
+      throw new Error('Wrong scenario: empty data')
+
+    if (!scenario._id)
+      throw new Error('Wrong scenario: No _id')
+
+    return this.dataAccessService.post(
+      environment.api + 'test/scenario/' + scenario._id + '/favorite')
+  }
+
+  removeScenarioToFavorites(scenario:any): Observable<any> {
+
+    if (!scenario)
+      throw new Error('Wrong scenario: empty data')
+
+    if (!scenario._id)
+      throw new Error('Wrong scenario: No _id')
+
+    return this.dataAccessService.delete(
+      environment.api + 'test/scenario/' + scenario._id + '/favorite')
   }
 
   deleteScenario(scenario:any): Observable<any> {

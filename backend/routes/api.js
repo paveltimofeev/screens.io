@@ -134,6 +134,34 @@ router.post('/test/scenario/:id/clone', async function(req, res) {
     }
 });
 
+// Add scenario to favorite
+router.post('/test/scenario/:id/favorite', async function(req, res) {
+
+    try {
+
+        const data = await VRT.create(req.context).addScenarioToFavorites(req.params.id)
+        res.status(200).send( {data} )
+    }
+    catch (error) {
+        console.error('[API] Error: ' + req.path, error)
+        res.status(500).send( {error: 'Error occurs at ' + req.path} )
+    }
+});
+
+// Delete scenario from favorites
+router.delete('/test/scenario/:id/favorite', async function(req, res) {
+
+    try {
+
+        const data = await VRT.create(req.context).removeScenarioFromFavorites(req.params.id)
+        res.status(200).send( {data} )
+    }
+    catch (error) {
+        console.error('[API] Error: ' + req.path, error)
+        res.status(500).send( {error: 'Error occurs at ' + req.path} )
+    }
+});
+
 // Create scenario
 router.post('/test/scenario', async function(req, res) {
 

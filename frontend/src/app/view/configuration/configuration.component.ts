@@ -11,7 +11,7 @@ import {
   deleteCurrentScenario, deleteViewport,
   refresh,
   updateScenario,
-  cloneCurrentScenario
+  cloneCurrentScenario, favoriteCurrentScenario
 } from './store/configuration.actions';
 import { NgForm } from '@angular/forms';
 
@@ -129,6 +129,9 @@ export class ConfigurationComponent implements OnInit, AfterViewInit {
     }
     else if($event === 'Clone') {
       this.store.dispatch(cloneCurrentScenario())
+    }
+    else if($event === 'Add to Fav' || $event === 'Remove Fav') {
+      this.store.dispatch(favoriteCurrentScenario())
     }
   }
 }

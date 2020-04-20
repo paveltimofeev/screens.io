@@ -73,22 +73,27 @@
 
 
 ### HISTORY OF RUNS
+
 ### RUN REVIEW
-    - Add HideSelectors / RemoveSelectors
-    - Link to scenario page
+    
+    - Success, 3 min Ago / 12/31/2019 11:27:10 PM, All scenarios, All Viewports, by admin
+    - 3 of 5 are Failed / All Passed
     - Overriden parameters (stages)
+    - Cards:
+        - Home Page, Dashboard, Login Form, News Block, Footer Component (title-link)
+        - Passed / Failed. Mismatch errors found / Failed. No refference yet. Approve?
+        - 1920 × 1080   1600 × 900   800 × 600
+        - Link to scenario page
+    - Show Refference | Test | Difference, Switch On MouseOver
+    - Add HideSelectors / RemoveSelectors
     - Filter Cases by 
         Result State
         Viewport Size
     - Approve case, Approve All Failed Cases
-    - Show Refference/Test/Difference, Switch On MouseOver
-    - 3 of 5 are Failed / All Passed
     - Job still running. Refresh
-    - Passed / Failed. Mismatch errors found / Failed. No refference yet. Approve?
-    - Home Page, Dashboard, Login Form, News Block, Footer Component (title-link)
-    - 1920 × 1080   1600 × 900   800 × 600
 
 ### SCREEN COMPARER
+    see https://www.enginethemes.com
     - Show Refference/Test/Difference, Fit/Full
     - Approve, APPROVE FOR STAGE?, Go back
     - Open History, Open Scenario, Open link, Switch to `1920 × 1080, 1600 × 900, 800 × 600`
@@ -96,6 +101,17 @@
 ### SETTINGS
     - Scheduler
     - Notifications: Email, Telegram, Slack, Webhooks
-### LOGINPAGE
-### REGISTER PAGE
+
+### SIGN-IN / SIGN-UP PAGE
+    - Email address / Password / Remember me for a week
+    - Name / Email address / Password / Confirm Password
+    - I forget my password
+    - Logo/ Welcome back / Create Account (Get inside / Become more confident in dev / Become an expert / Become a master / Start testing / Become brave / Become a master / Join us / Join Now / Join the Club / Join the Team / Get rid of mess / Get all ducks in row )
+    - Sign in / Register 
+    - Sign in with Google / Sign up with Google
+    
 ### 404
+
+### LANDING PAGE
+    see https://www.enginethemes.com
+    

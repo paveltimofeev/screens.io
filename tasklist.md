@@ -30,13 +30,13 @@
 -- Clone Scenario
 -- Auth proxy should be able to Register a New User
 -- Refactor Auth proxy
+-- Favorite scenarios / Add to fav / Remove fav
 
 - Use Queues for /run, /approve to separate api from vrt and return '/run' response as soon as possible
 - DESIGN UI PAGES
 
 - DESIGN UI PAGES FOR MOBILE
 - Run scenarios with overrode parameters (hostname/resolutions/...)
-- User Profile: Favorive scenarios / Add to fav / Remove fav
 - Cookies callback/field, or before run script
 - Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
 - Show Approved image for scenario
@@ -47,6 +47,8 @@
 - Remove test result Files and Report after remove history record
 - Auth proxy should not store passwords in plain text
 - Sanitize body and params in Auth proxy & Backend
+- Angular: MultiLanguage support
+- Rextrict number of viewports
 
 - Display retry button for not-ready yet history record (screens)
 - Confirmation dialog for delete ops

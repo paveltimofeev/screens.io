@@ -153,6 +153,12 @@ class VRT {
     async cloneScenario (id, data) {
         return await storage.cloneScenario(this._userId, id, data)
     }
+    async addScenarioToFavorites (id) {
+        await storage.updateScenario(this._userId, id, {meta_isFavorite: true})
+    }
+    async removeScenarioFromFavorites (id) {
+        await storage.updateScenario(this._userId, id, {meta_isFavorite: false})
+    }
     async updateScenario (id, data) {
         return await storage.updateScenario(this._userId, id, data)
     }

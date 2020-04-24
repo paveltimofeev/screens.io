@@ -156,7 +156,8 @@ class Storage {
 
     async getReportByRunId (database, runId) {
 
-        return await this._getByQuery(database, 'Report', reportSchema, {runId: runId})
+        let entity = this._createEntity(database, 'Report', reportSchema)
+        return await entity.findOne( {runId: runId} )
     }
     async createReport (database, data) {
 

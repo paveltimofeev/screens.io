@@ -16,8 +16,10 @@ export class PageHeaderComponent implements OnInit {
   onClickRun() {
 
     console.log('run...');
+    console.time('run all scenarios')
     this.api.run({}).subscribe( res => {
 
+      console.timeEnd('run all scenarios')
       console.log('completed', res);
     });
 

@@ -37,6 +37,7 @@
 - Use Queues for /run, /approve to separate api from vrt and return '/run' response as soon as possible
 - DESIGN UI PAGES FOR MOBILE
 
+- Do not use Login as userId, because it uses in path building and could allow user chang directories, use user UID instead
 - Run scenarios with overrode parameters (hostname/resolutions/...)
 - Cookies callback/field, or before run script
 - Get scenario's history

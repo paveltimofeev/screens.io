@@ -17,7 +17,7 @@ export class PageHeaderComponent implements OnInit {
 
     console.log('run...');
 
-    const label = `run all scenarios ${parseInt((Math.random()*90+10).toString())}`
+    const label = `${parseInt((Math.random()*90+10).toString())} run all scenarios `
     console.time(label)
 
     this.api.run({}).subscribe( res => {

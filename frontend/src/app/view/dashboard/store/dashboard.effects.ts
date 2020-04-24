@@ -32,7 +32,7 @@ export class DashboardEffects {
 
       console.log(data);
 
-      const label = `runOneScenario ${parseInt((Math.random()*90+10).toString())}`
+      const label = `${parseInt((Math.random()*90+10).toString())} runOneScenario`
       console.time(label)
       return this.api.run( {filter: data.label} ).pipe(
         map( res => {

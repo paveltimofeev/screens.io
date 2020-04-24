@@ -52,7 +52,13 @@ export class HistoryRecordComponent implements OnInit {
   }
 
   approveCase (pair: any) {
-    this.api.approveCase(pair).subscribe(console.log);
+
+    const label = `${parseInt((Math.random()*90+10).toString())} approveCase`
+    console.time(label)
+
+    this.api.approveCase(pair).subscribe( () => {
+      console.timeEnd(label)
+    });
   }
 
   deleteAllRecords () {

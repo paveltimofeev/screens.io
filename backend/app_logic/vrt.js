@@ -4,10 +4,12 @@ var { promisify } = require('util');
 var path = require('path');
 const storage = new (require('../storage-adapter'))
 const engine = new (require('../engine-adapter'))
+const { QueueWrapper } = require('./queue-wrappers')
 
 const exists = promisify(fs.exists)
 const copyFile = promisify(fs.copyFile)
 const mkdir = promisify(fs.mkdir)
+
 
 function uuidv4() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -16,33 +18,14 @@ function uuidv4() {
     });
 }
 
-class RunQueueWrapper {
+const runQueue = new QueueWrapper(async (opts) => {
 
-    constructor () {
+    const {runId, config, tenantId, userId} = opts
+    await VRT
+      .create({ tenantId:tenantId, user: userId })
+      .processRun(runId, config)
+})
 
-        this.runQueue = []
-
-        setInterval(async () => {
-
-            while(this.runQueue.length > 0) {
-
-                console.log( 'Process Run Queue. Length', this.runQueue.length )
-
-                const {runId, config, tenantId, userId} = this.runQueue.pop()
-                const vrt = new VRT(tenantId, userId)
-                await vrt.processRun(runId, config)
-            }
-
-        }, 500);
-    }
-
-    push (obj) {
-
-        this.runQueue.push(obj)
-    }
-}
-
-const runQueue = new RunQueueWrapper()
 
 class VRT {
 

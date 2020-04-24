@@ -23,7 +23,7 @@ router.post('/test/run', async function(req, res) {
 
     tryWrapper(req, res, async () => {
 
-        const data = await VRT.create(req.context).run(opts)
+        const data = await VRT.create(req.context).enqueueRun(opts)
         res.status(200).send( { data } )
     })
 });

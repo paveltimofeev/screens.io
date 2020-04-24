@@ -16,6 +16,34 @@ function uuidv4() {
     });
 }
 
+class RunQueueWrapper {
+
+    constructor () {
+
+        this.runQueue = []
+
+        setInterval(async () => {
+
+            while(this.runQueue.length > 0) {
+
+                console.log( 'Process Run Queue. Length', this.runQueue.length )
+
+                const {runId, config, tenantId, userId} = this.runQueue.pop()
+                const vrt = new VRT(tenantId, userId)
+                await vrt.processRun(runId, config)
+            }
+
+        }, 500);
+    }
+
+    push (obj) {
+
+        this.runQueue.push(obj)
+    }
+}
+
+const runQueue = new RunQueueWrapper()
+
 class VRT {
 
     constructor(tenantId, userId) {
@@ -39,7 +67,7 @@ class VRT {
 
     /// LAMBDA
 
-    async run (opts) {
+    async enqueueRun (opts) {
 
         const runId = uuidv4()
 
@@ -49,6 +77,16 @@ class VRT {
           config.paths.json_report,
           runId
         )
+
+        runQueue.push({
+            runId,
+            config,
+            tenantId: this._tenantId,
+            userId: this._userId
+        })
+    }
+
+    async processRun (runId, config) {
 
         const record = await storage.createHistoryRecord(this._userId, {
             state: 'Running',

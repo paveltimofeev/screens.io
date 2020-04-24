@@ -16,10 +16,13 @@ export class PageHeaderComponent implements OnInit {
   onClickRun() {
 
     console.log('run...');
-    console.time('run all scenarios')
+
+    const label = `run all scenarios ${parseInt((Math.random()*90+10).toString())}`
+    console.time(label)
+
     this.api.run({}).subscribe( res => {
 
-      console.timeEnd('run all scenarios')
+      console.timeEnd(label)
       console.log('completed', res);
     });
 

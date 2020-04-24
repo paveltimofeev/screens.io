@@ -52,10 +52,10 @@ export class HistoryRecordComponent implements OnInit {
   }
 
   approveCase (pair: any) {
+    this.api.approveCase(pair).subscribe(console.log);
+  }
 
-    this.api.approveCase(pair).subscribe( x => {
-
-      console.log(x)
-    });
+  deleteAllRecords () {
+    this.api.deleteAllHistoryRecords().subscribe(console.log)
   }
 }

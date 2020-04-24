@@ -140,6 +140,9 @@ class VRT {
     async deleteHistoryRecord (id) {
         return await storage.deleteHistoryRecord(this._userId, id)
     }
+    async deleteAllHistoryRecords () {
+        return await storage.deleteAllHistoryRecords(this._userId)
+    }
 
     async getScenarioById (id) {
         return await storage.getScenarioById(this._userId, id)

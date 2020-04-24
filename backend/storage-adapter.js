@@ -55,6 +55,11 @@ class Storage {
         let entity = this._createEntity(database, 'Record', recordSchema)
         return await entity.deleteOne({_id: id})
     }
+    async deleteAllHistoryRecords (database) {
+
+        let entity = this._createEntity(database, 'Record', recordSchema)
+        return await entity.remove({})
+    }
     async updateHistoryRecord (database, id, data) {
 
         let entity = this._createEntity(database, 'Record', recordSchema)
@@ -83,10 +88,10 @@ class Storage {
     async cloneScenario (database, originalScenarioId, data) {
 
         let scenario = await this.getScenarioById(database, originalScenarioId)
-        
+
         let newScenario = this.convertToObject(scenario)
         delete newScenario._id
- 
+
         let entity = this._createEntity(database, 'Scenario', scenarioSchema)
         const newEntry = new entity({
             ...newScenario,

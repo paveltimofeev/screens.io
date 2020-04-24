@@ -31,24 +31,27 @@
 -- Auth proxy should be able to Register a New User
 -- Refactor Auth proxy
 -- Favorite scenarios / Add to fav / Remove fav
+-- DESIGN UI PAGES
+-- Remove all history records
 
 - Use Queues for /run, /approve to separate api from vrt and return '/run' response as soon as possible
-- DESIGN UI PAGES
-
 - DESIGN UI PAGES FOR MOBILE
+
 - Run scenarios with overrode parameters (hostname/resolutions/...)
 - Cookies callback/field, or before run script
+- Get scenario's history
+- Get scenario approved images
+- Collect analitycs: % of passed this day/week, passed % by week
 - Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
-- Show Approved image for scenario
-- Show scenario's history (right sidebar)
 - Add ScenarioHistory collection [scenarioRef/Name, date, status, historyRecordRef, successRate(calc) ]
+- AuthGuard to redirect unauthorized users to login page ASAP
 - Remove all References and test Files on removing Scenarios or Viewports
-- Remove all history records
 - Remove test result Files and Report after remove history record
 - Auth proxy should not store passwords in plain text
 - Sanitize body and params in Auth proxy & Backend
 - Angular: MultiLanguage support
 - Restrict number of viewports
+- Bulk add scenrios (urls)
 
 - Display retry button for not-ready yet history record (screens)
 - Confirmation dialog for delete ops
@@ -64,8 +67,15 @@
 - TELEGRAM BOT
 - SLACK BOT
 - SCHEDULER FOR RUNS
-- LANDING PAGE (WP)
+- LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
 - PAYMENT & TRIAL-ACCOUNTS
 - COMPARE WITH COMPETITORS: diffy.website, screenster.io, percy.io
     - ON DEMAND AGENT (MANAGED BY SERVER) TO MAKE SCREENSHOTS (WITHOUT AUTH/OF LOCALHOST) AND SEND THEM TO THE BACKEND
     - GITHUB/CIRCLECI INTEGRATION like DIFFY, AutoSearch links to other pages
+- Tenant support (Tenant > Users + Scenarios + Results + Jobs)
+- Project support (Tenant > Projects > Users + Scenarios + Results + Jobs). One project is a buch of scenarios.
+- (?) Refactoring Mode: Make change > Test > Approve Differences to Stage if no side-effects > Repeat > Ehe all done, Approve to Master
+
+
+
+

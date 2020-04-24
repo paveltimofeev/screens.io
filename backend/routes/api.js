@@ -85,6 +85,16 @@ router.delete('/test/history/:id', async function(req, res) {
     })
 });
 
+// Delete all history records
+router.delete('/test/histories', async function(req, res) {
+
+    tryWrapper(req, res, async () => {
+
+        const data = await VRT.create(req.context).deleteAllHistoryRecords()
+        res.status(200).send( {data} )
+    })
+});
+
 
 // Get scenario by Id
 router.get('/test/scenario/:id', async function(req, res) {

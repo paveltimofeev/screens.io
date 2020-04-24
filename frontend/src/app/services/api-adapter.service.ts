@@ -69,6 +69,11 @@ export class ApiAdapterService {
       environment.api + 'test/history/' + recordId)
   }
 
+  deleteAllHistoryRecords(): Observable<any> {
+    return this.dataAccessService.delete(
+      environment.api + 'test/histories')
+  }
+
   createViewport(viewport:any): Observable<any> {
 
     if (!viewport)

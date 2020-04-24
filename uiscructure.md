@@ -94,9 +94,9 @@
 
 ### SCREEN COMPARER
     see https://www.enginethemes.com
-    - Show Refference/Test/Difference, Fit/Full
+    - Show Refference/Test/Difference/MagicLine, Fit/Full
     - Approve, APPROVE FOR STAGE?, Go back
-    - Open History, Open Scenario, Open link, Switch to `1920 × 1080, 1600 × 900, 800 × 600`
+    - Home Page, History, Scenario, Url, Switch to `1920 × 1080, 1600 × 900, 800 × 600`
     
 ### SETTINGS
     - Scheduler
@@ -106,7 +106,7 @@
     - Email address / Password / Remember me for a week
     - Name / Email address / Password / Confirm Password
     - I forget my password
-    - Logo/ Welcome back / Create Account (Get inside / Become more confident in dev / Become an expert / Become a master / Start testing / Become brave / Become a master / Join us / Join Now / Join the Club / Join the Team / Get rid of mess / Get all ducks in row )
+    - Logo/ Welcome back / Create Account (Get inside / Become more confident in dev / Become an expert / Become a master / Start testing / Become brave / Join us / Join Now / Join the Club / Join the Team / Get rid of mess / Get all ducks in row )
     - Sign in / Register 
     - Sign in with Google / Sign up with Google
     
@@ -114,4 +114,15 @@
 
 ### LANDING PAGE
     see https://www.enginethemes.com
+    
+    https://www.templatemonster.com/templates.php
+    free templates:
+        https://preview.cruip.com/switch/
+        https://grayic.com/demos/shade/s03/index.html
+        https://grayic.com/demos/shade/s02/index.html
+        https://www.bootstrapdash.com/demo/simple/
+        https://grayic.com/demos/shade/s04/index.html
+    interactive shapes
+
+
     

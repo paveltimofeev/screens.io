@@ -33,8 +33,8 @@
 -- Favorite scenarios / Add to fav / Remove fav
 -- DESIGN UI PAGES
 -- Remove all history records
+-- Use Queues for /run, /approve to separate api from vrt and return '/run' response as soon as possible
 
-- Use Queues for /run, /approve to separate api from vrt and return '/run' response as soon as possible
 - DESIGN UI PAGES FOR MOBILE
 
 - Store Viewports, UserName, WorkTime in history
@@ -48,6 +48,7 @@
 - Get scenario approved images
 - Collect analitycs: % of passed this day/week, passed % by week
 - Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
+- Retry Policy for backend-db, backend-queue
 - Add ScenarioHistory collection [scenarioRef/Name, date, status, historyRecordRef, successRate(calc) ]
 - AuthGuard to redirect unauthorized users to login page ASAP
 - Remove all References and test Files on removing Scenarios or Viewports
@@ -59,6 +60,7 @@
 - Bulk add scenrios (urls)
 - Page Modification/Disable Animation option for scenario
 - API for run-with-parameters by config from body + APIKEY
+- Unapprove: Review and turn back any previously approved results. 
 
 - Display retry button for not-ready yet history record (screens)
 - Confirmation dialog for delete ops

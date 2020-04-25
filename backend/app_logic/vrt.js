@@ -26,6 +26,14 @@ const runQueue = new QueueWrapper(async (opts) => {
       .processRun(runId, config)
 })
 
+const approveQueue = new QueueWrapper(async (opts) => {
+
+    const {pair, tenantId, userId} = opts
+    await VRT
+      .create({ tenantId:tenantId, user: userId })
+      .processApproveCase(pair)
+})
+
 
 class VRT {
 
@@ -49,25 +57,6 @@ class VRT {
 
 
     /// LAMBDA
-
-    async enqueueRun (opts) {
-
-        const runId = uuidv4()
-
-        let config = await this.getConfig( opts.filter ? {label: opts.filter } : undefined )
-
-        config.paths.json_report = path.join(
-          config.paths.json_report,
-          runId
-        )
-
-        runQueue.push({
-            runId,
-            config,
-            tenantId: this._tenantId,
-            userId: this._userId
-        })
-    }
 
     async processRun (runId, config) {
 
@@ -99,7 +88,7 @@ class VRT {
         }
     }
 
-    async approveCase (pair, cb) {
+    async processApproveCase (pair, cb) {
 
         const reference = path.join(__dirname, '..', pair.reference);
         const test = path.join(__dirname, '..', pair.test);
@@ -112,9 +101,9 @@ class VRT {
         }
 
         await mkdir(path.dirname(reference), {recursive:true})
-        const result = await copyFile(test, reference)
-        console.log('success:', result);
-        return {success:true}
+        await copyFile(test, reference)
+
+        return { success: true }
     }
 
     stop (cb) {
@@ -144,6 +133,35 @@ class VRT {
 
 
     /// API
+
+    async enqueueRun (opts) {
+
+        const runId = uuidv4()
+
+        let config = await this.getConfig( opts.filter ? {label: opts.filter } : undefined )
+
+        config.paths.json_report = path.join(
+          config.paths.json_report,
+          runId
+        )
+
+        await runQueue.push({
+            runId,
+            config,
+            tenantId: this._tenantId,
+            userId: this._userId
+        })
+    }
+    async enqueueApproveCase (pair) {
+
+        await approveQueue.push({
+            pair,
+            tenantId: this._tenantId,
+            userId: this._userId
+        })
+
+        return { success: true }
+    }
 
     async getReportByRunId (runId) {
 

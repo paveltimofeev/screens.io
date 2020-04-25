@@ -34,7 +34,7 @@ router.post('/test/approvecase', async function(req, res) {
 
     tryWrapper(req, res, async () => {
 
-        const result = await vrt.approveCase({
+        const result = await vrt.enqueueApproveCase({
             reference: pair.reference,
             test: pair.test
         })

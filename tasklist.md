@@ -35,18 +35,18 @@
 -- Remove all history records
 -- Use Queues for /run, /approve to separate api from vrt and return '/run' response as soon as possible
 -- Store Viewports, UserName, WorkTime in history
+-- Check selectors/selectorExpansion/expect config options to test one/few elements
 
 - DESIGN UI PAGES FOR MOBILE
-
 - ClickSelector, HoverSelector does not work
-- Check selectors/selectorExpansion config options to test one/few elements
-- Loading a lot of images throught AuthProxy is hard? Need to return signed link to S3 instead
+
+- Loading a lot of images through AuthProxy is hard? Need to return signed link to S3 instead
 - Do not use Login as userId, because it uses in path building and could allow user chang directories, use user UID instead
 - Run scenarios with overrode parameters (hostname/resolutions/...)
 - Cookies callback/field, or before run script
 - Get scenario's history
 - Get scenario approved images
-- Collect analitycs: % of passed this day/week, passed % by week
+- Collect analytics: % of passed this day/week, passed % by week
 - Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
 - Retry Policy for backend-db, backend-queue
 - Add ScenarioHistory collection [scenarioRef/Name, date, status, historyRecordRef, successRate(calc) ]
@@ -61,6 +61,7 @@
 - Page Modification/Disable Animation option for scenario
 - API for run-with-parameters by config from body + APIKEY
 - Unapprove: Review and turn back any previously approved results.
+- Locate tiny changes, and mark them more noticably
 - Use userfrienfly dates (by moment)
 
 - Display retry button for not-ready yet history record (screens)

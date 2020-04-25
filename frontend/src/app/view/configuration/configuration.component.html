@@ -69,11 +69,25 @@
     </div>
 
     <div class="row">
-      <div class="col l5 m12 s12">
+      <div class="col l4 m12 s12">
         <label>Elements selectors</label>
         <input class="control-text" type="text"
                [ngModel]="(selectedScenario$ | async).selectors"
                name="selectors">
+      </div>
+      <div class="col l4 m12 s12">
+        <label>
+          <input type="checkbox"
+                 [ngModel]="(selectedScenario$ | async).selectorExpansion"
+                 name="selectorExpansion">
+          <span>Check all matching selectors</span>
+        </label>
+      </div>
+      <div class="col l4 m12 s12">
+        <label>Expect Elements</label>
+        <input class="control-text" type="text"
+               [ngModel]="(selectedScenario$ | async).expect"
+               name="expect">
       </div>
     </div>
 

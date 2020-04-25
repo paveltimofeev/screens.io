@@ -66,6 +66,8 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
       cellRenderer: this.dateCellRenderer
     },
     { field: 'scope', colId:'scope', filter: true },
+    { field: 'viewports', colId:'viewports', filter: true },
+    { field: 'duration', colId:'duration', filter: true },
     { headerName: 'Run by', field: 'user', sortable: true, filter: true, resizable: true },
     {
       headerName:'',

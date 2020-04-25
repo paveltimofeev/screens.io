@@ -63,7 +63,9 @@ class VRT {
         const record = await storage.createHistoryRecord(this._userId, {
             state: 'Running',
             startedAt: new Date(),
+            startedBy: this._userId,
             scenarios: config.scenarios.map( x => x.label),
+            viewports: config.viewports.map( x => x.label),
             runId
         })
 
@@ -75,7 +77,10 @@ class VRT {
 
             const report = await engine.getReport(config.paths.json_report)
             await this.createReport(runId, report)
-            await storage.updateHistoryRecord(this._userId, record._id, { state: 'Passed' })
+            await storage.updateHistoryRecord(this._userId, record._id, {
+                state: 'Passed',
+                finishedAt: new Date()
+            })
             return runId
         }
         catch (err) {
@@ -83,7 +88,10 @@ class VRT {
             console.error('[VRT] Error:', err)
             const report = await engine.getReport(config.paths.json_report)
             await this.createReport(runId, report)
-            await storage.updateHistoryRecord(this._userId, record._id, { state: 'Failed' })
+            await storage.updateHistoryRecord(this._userId, record._id, {
+                state: 'Failed',
+                finishedAt: new Date()
+            })
             return runId
         }
     }

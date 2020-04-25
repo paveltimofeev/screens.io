@@ -34,13 +34,13 @@
 -- DESIGN UI PAGES
 -- Remove all history records
 -- Use Queues for /run, /approve to separate api from vrt and return '/run' response as soon as possible
+-- Store Viewports, UserName, WorkTime in history
 
 - DESIGN UI PAGES FOR MOBILE
 
-- Store Viewports, UserName, WorkTime in history
 - ClickSelector, HoverSelector does not work
 - Check selectors/selectorExpansion config options to test one/few elements
-- Loading a lot of images throught AuthProxy is hard?
+- Loading a lot of images throught AuthProxy is hard? Need to return signed link to S3 instead
 - Do not use Login as userId, because it uses in path building and could allow user chang directories, use user UID instead
 - Run scenarios with overrode parameters (hostname/resolutions/...)
 - Cookies callback/field, or before run script
@@ -60,7 +60,8 @@
 - Bulk add scenrios (urls)
 - Page Modification/Disable Animation option for scenario
 - API for run-with-parameters by config from body + APIKEY
-- Unapprove: Review and turn back any previously approved results. 
+- Unapprove: Review and turn back any previously approved results.
+- Use userfrienfly dates (by moment)
 
 - Display retry button for not-ready yet history record (screens)
 - Confirmation dialog for delete ops

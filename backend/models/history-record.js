@@ -5,7 +5,10 @@ const recordSchema = new Schema({
     runId: String,
     state: String, /// Running, Finished
     startedAt: Date,
-    scenarios: Array
+    finishedAt: Date,
+    startedBy: String,
+    scenarios: Array,
+    viewports: Array
 })
 
 module.exports = {

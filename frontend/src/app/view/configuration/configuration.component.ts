@@ -104,11 +104,13 @@ export class ConfigurationComponent implements OnInit, AfterViewInit {
         formRef.value[key] = (formRef.value[key] || []).filter(x => x !== "")
       }
 
+      strToArray(formRef, 'selectors');
       strToArray(formRef, 'hideSelectors');
       strToArray(formRef, 'removeSelectors');
       strToArray(formRef, 'clickSelectors');
       strToArray(formRef, 'hoverSelectors');
 
+      skipEmpty(formRef, 'selectors');
       skipEmpty(formRef, 'hideSelectors');
       skipEmpty(formRef, 'removeSelectors');
       skipEmpty(formRef, 'clickSelectors');

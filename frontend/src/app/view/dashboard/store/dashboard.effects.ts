@@ -30,14 +30,8 @@ export class DashboardEffects {
     ofType(runOneScenario),
     mergeMap((data) => {
 
-      console.log(data);
-
-      const label = `${parseInt((Math.random()*90+10).toString())} runOneScenario`
-      console.time(label)
       return this.api.run( {filter: data.label} ).pipe(
         map( res => {
-
-          console.timeEnd(label)
           return {type:refresh.type};
         })
       );

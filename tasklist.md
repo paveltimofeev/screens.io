@@ -57,12 +57,12 @@
 - Sanitize body and params in Auth proxy & Backend
 - Angular: MultiLanguage support
 - Restrict number of viewports
-- Bulk add scenrios (urls)
+- Bulk add scenarios (urls)
 - Page Modification/Disable Animation option for scenario
 - API for run-with-parameters by config from body + APIKEY
 - Unapprove: Review and turn back any previously approved results.
 - Locate tiny changes, and mark them more noticably
-- Use userfrienfly dates (by moment)
+- Use user-friendly dates (by moment)
 
 - Display retry button for not-ready yet history record (screens)
 - Confirmation dialog for delete ops

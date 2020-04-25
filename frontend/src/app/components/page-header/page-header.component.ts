@@ -10,22 +10,10 @@ export class PageHeaderComponent implements OnInit {
 
   constructor(private api: ApiAdapterService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onClickRun() {
-
-    console.log('run...');
-
-    const label = `${parseInt((Math.random()*90+10).toString())} run all scenarios `
-    console.time(label)
-
-    this.api.run({}).subscribe( res => {
-
-      console.timeEnd(label)
-      console.log('completed', res);
-    });
-
+    this.api.run({}).subscribe( console.log);
   }
 
 }

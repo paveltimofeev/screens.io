@@ -26,7 +26,7 @@ export class HistoryTableEffects {
               _id: j._id,
               runId: j.runId,
               date: j.startedAt,
-              duration: j.finishedAt && j.startedAt ? `${(new Date(j.finishedAt) - new Date(j.startedAt)) / 1000} sec` : 'running...',
+              duration: j.finishedAt && j.startedAt ? `${((new Date(j.finishedAt) as any) - (new Date(j.startedAt) as any)) / 1000} sec` : 'running...',
               status: j.state,
               scope: (j.scenarios||[]).join(', '),
               viewports: (j.viewports||[]).join(', '),

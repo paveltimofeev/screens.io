@@ -7,8 +7,8 @@ const recordSchema = new Schema({
     startedAt: Date,
     finishedAt: Date,
     startedBy: String,
-    scenarios: Array,
-    viewports: Array
+    scenarios: [String],
+    viewports: [String]
 })
 
 module.exports = {

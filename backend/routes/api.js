@@ -66,6 +66,17 @@ router.get('/test/report/:runId', async function(req, res) {
     })
 });
 
+router.get('/test/history/:scenarioId', async function(req, res) {
+
+    const scenarioId = req.params.scenarioId; // TODO: sanitize
+
+    tryWrapper(req, res, async () => {
+
+        const jobs = await VRT.create(req.context).getHistoryRecordsOfScenario(scenarioId)
+        res.status(200).send( {jobs} )
+    })
+});
+
 router.get('/test/history', async function(req, res) {
 
     tryWrapper(req, res, async () => {

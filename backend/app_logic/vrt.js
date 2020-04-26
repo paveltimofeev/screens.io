@@ -185,7 +185,13 @@ class VRT {
     }
 
     async getHistoryRecords () {
-        return await storage.getHistoryRecords(this._userId, this._userId)
+        return await storage.getHistoryRecords(this._userId)
+    }
+    async getHistoryRecordsOfScenario (scenarioName) {
+        const query = { 
+            scenarios: scenarioName 
+        }
+        return await storage.getHistoryRecords(this._userId, query)
     }
     async deleteHistoryRecord (id) {
         return await storage.deleteHistoryRecord(this._userId, id)

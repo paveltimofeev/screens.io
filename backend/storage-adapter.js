@@ -77,10 +77,10 @@ class Storage {
     }
 
 
-    async getHistoryRecords (database) {
+    async getHistoryRecords (database, query) {
 
         let entity = this._createEntity(database, 'Record', recordSchema)
-        return await entity.find({}).sort({ _id: 'desc'})
+        return await entity.find(query||{}).sort({ _id: 'desc'})
     }
     async createHistoryRecord (database, data) {
 

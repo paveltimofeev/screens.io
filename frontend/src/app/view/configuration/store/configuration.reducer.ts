@@ -7,6 +7,7 @@ export interface ConfigurationState {
   viewportsList: string[];
   scenariosList: string[];
   currentScenario: any;
+  currentScenarioHistory: any[];
   scenarios: any[];
   loading: boolean;
 }
@@ -17,18 +18,27 @@ export const initState = {
   viewportsList: [],
   scenariosList: [],
   currentScenario: {},
+  currentScenarioHistory: [],
   scenarios: [],
   loading: false
 };
 
 const _reducer = createReducer(initState,
   on(actions.loaded, (state, actions:any) => {
+    
+    // let cur = {}
+
+    // if (actions.payload.scenarios) {
+    //   currentScenario: actions.payload.scenarios && actions.payload.scenarios.length > 0 ? actions.payload.scenarios[0] : {}
+    // }
+
     return {
       ...state,
-      viewportsList: actions.payload.viewportsList,
-      scenariosList: actions.payload.scenariosList,
-      scenarios: actions.payload.scenarios,
-      currentScenario: actions.payload.scenarios && actions.payload.scenarios.length > 0 ? actions.payload.scenarios[0] : {},
+      ...actions.payload,
+      // viewportsList: actions.payload.viewportsList,
+      // scenariosList: actions.payload.scenariosList,
+      // scenarios: actions.payload.scenarios,
+      // ...cur,
       error: null,
       loading: false
     }

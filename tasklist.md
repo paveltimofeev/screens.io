@@ -38,13 +38,17 @@
 -- Check selectors/selectorExpansion/expect config options to test one/few elements
 -- ClickSelector, HoverSelector does not work
 
+-- Get scenario's history
 - DESIGN UI PAGES FOR MOBILE
 
+- replace currentScenario with config/:scenarioId route, and get scenario history for other then 'Test' value
+- store scenario Id as well as scenarioName in runs history
+- store approves in history
+- Think out different using scenarios for different persons: The Developer, The TeamLead, The Indie
 - Loading a lot of images through AuthProxy is hard? Need to return signed link to S3 instead
 - Do not use Login as userId, because it uses in path building and could allow user chang directories, use user UID instead
 - Run scenarios with overrode parameters (hostname/resolutions/...)
 - Cookies callback/field, or before run script
-- Get scenario's history
 - Get scenario approved images
 - Collect analytics: % of passed this day/week, passed % by week
 - Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
@@ -58,13 +62,15 @@
 - Sanitize body and params in Auth proxy & Backend
 - Angular: MultiLanguage support
 - Restrict number of viewports
-- Show Difference value, to get user knowledge to tune test sensivity 
+- Show Difference value, to get user knowledge for tuning test sensivity 
 - Bulk add scenarios (urls)
 - Page Modification/Disable Animation option for scenario
 - API for run-with-parameters by config from body + APIKEY
 - Unapprove: Review and turn back any previously approved results.
 - Locate tiny changes, and mark them more noticably
 - Use user-friendly dates (by moment)
+- Think out understanding of costs (weight of s3/lambdas/queues/vm in total cost of user) to work out correct pricing strategy
+
 
 - Display retry button for not-ready yet history record (screens)
 - Confirmation dialog for delete ops

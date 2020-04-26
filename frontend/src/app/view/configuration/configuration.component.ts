@@ -2,7 +2,9 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import {
   selectCurrentScenario,
-  selectCurrentScenarioLabel, selectLoading,
+  selectCurrentScenarioLabel, 
+  selectCurrentScenarioHistory,
+  selectLoading,
   selectScenarios,
   selectViewports
 } from './store/configuration.selectors';
@@ -32,6 +34,7 @@ export class ConfigurationComponent implements OnInit, AfterViewInit {
   scenarios$;
   selectedScenario$;
   selectedScenarioLabel$;
+  currentScenarioHistory$;
 
   instances;
   modals:any = {};
@@ -45,6 +48,7 @@ export class ConfigurationComponent implements OnInit, AfterViewInit {
     this.scenarios$ = this.store.pipe(select(selectScenarios));
     this.selectedScenario$ = this.store.pipe(select(selectCurrentScenario));
     this.selectedScenarioLabel$ = this.store.pipe(select(selectCurrentScenarioLabel));
+    this.currentScenarioHistory$ = this.store.pipe(select(selectCurrentScenarioHistory));
 
     this.store.dispatch(refresh());
   }

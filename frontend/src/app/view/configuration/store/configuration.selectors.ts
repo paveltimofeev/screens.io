@@ -27,3 +27,8 @@ export const selectCurrentScenarioLabel = createSelector(
   selectFeature,
   (state:ConfigurationState) => state.currentScenario ? state.currentScenario.label : undefined
 );
+
+export const selectCurrentScenarioHistory = createSelector(
+  selectFeature,
+  (state:ConfigurationState) => state.currentScenarioHistory
+);

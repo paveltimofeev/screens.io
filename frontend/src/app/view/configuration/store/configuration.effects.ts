@@ -144,6 +144,29 @@ export class ConfigurationEffects {
     }
   )));
 
+  refreshScenarioHistory$ = createEffect( () => this.actions$.pipe(
+    ofType(refresh),
+    concatMap(action => {
+      return of(action).pipe(
+        withLatestFrom(this.store.pipe(select(selectCurrentScenario)))
+      );
+    }),
+    mergeMap( ([action, scenario]) => {
+
+      return this.api.getHistoryOfScenario({_id: 'Test'}).pipe(
+        map( res => {
+
+          return {
+            type: loaded.type,
+            payload: {
+              currentScenarioHistory: res.jobs
+            }
+          }
+        })
+      )
+    } )
+  ))
+
   refresh$ = createEffect( () => this.actions$.pipe(
     ofType(refresh),
     mergeMap(() => {

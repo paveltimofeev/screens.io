@@ -59,6 +59,19 @@ export class ApiAdapterService {
       environment.api + 'test/history');
   }
 
+  getHistoryOfScenario (scenario): Observable<any> {
+
+    if (!scenario)
+      throw new Error('Wrong scenario: empty data')
+
+    if (!scenario._id)
+      throw new Error('Wrong scenario: No _id')
+
+
+    return this.dataAccessService.get(
+      environment.api + 'test/history/' + scenario._id);
+  }
+
   deleteHistoryRecord(recordId:string): Observable<any> {
 
     if (!recordId)
@@ -92,10 +105,10 @@ export class ApiAdapterService {
   deleteViewport(viewport:any): Observable<any> {
 
     if (!viewport)
-      throw new Error('Wrong scenario: empty data')
+      throw new Error('Wrong viewport: empty data')
 
     if (!viewport._id)
-      throw new Error('Wrong scenario: No _id')
+      throw new Error('Wrong viewport: No _id')
 
 
     return this.dataAccessService.delete(

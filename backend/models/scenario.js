@@ -11,7 +11,8 @@ const scenarioSchema = new Schema({
     readyEvent: String,
     hideSelectors: Array,         /// String array
     removeSelectors: Array,       /// String array
-    clickSelectors: Array,        /// String array
+    clickSelector: String,        /// String
+    clickSelectors: Array,        /// String array (puppeteer only)
     scrollToSelector: String,
     hoverSelectors: Array,        /// String array
     postInteractionWait: Number,

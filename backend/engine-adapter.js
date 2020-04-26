@@ -56,9 +56,29 @@ class EngineAdapter {
         validateArray('viewports', viewports)
         validateArray('scenarios', scenarios)
 
+        const removeEmptyArraysInObject = (obj, propName) => {
+                
+            if (obj[propName] && obj[propName].length === 0) {
+                delete obj[propName]
+            }                
+        }
+
+        scenarios = scenarios.map(s => {
+
+            let scenario = JSON.parse(JSON.stringify(s))
+            delete scenario._id;
+            delete scenario.__v;
+
+            removeEmptyArraysInObject(scenario, 'clickSelectors')
+            removeEmptyArraysInObject(scenario, 'hoverSelectors')
+            removeEmptyArraysInObject(scenario, 'keyPressSelectors')
+
+            return scenario
+        })
+
         var base = {
-            onBeforeScript: "",
-            onReadyScript: "",
+            onBeforeScript: "puppet/onBefore.js",
+            onReadyScript: "puppet/onReady.js",
             report: [
                 "CI",
                 "json"
@@ -86,7 +106,7 @@ class EngineAdapter {
         result.paths = {
 
             bitmaps_reference: `vrt_data/${tenantId}/${userId}/bitmaps_reference`,
-            engine_scripts:    `vrt_data/${tenantId}/${userId}/engine_scripts`,
+            engine_scripts:    `app_logic/engine_scripts`,
 
             bitmaps_test: `vrt_data/${tenantId}/${userId}/bitmaps_test`,
             html_report:  `vrt_data/${tenantId}/${userId}/html_report`,

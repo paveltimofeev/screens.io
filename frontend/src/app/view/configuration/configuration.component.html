@@ -161,13 +161,12 @@
 
       <div class="col l5 m12 s12">
 
-        <label>Scroll to Selector</label>
+        <label>Click Selector</label>
         <input class="control-text" type="text"
-               [ngModel]="(selectedScenario$ | async).scrollToSelector"
-               name="scrollToSelector"
+               [ngModel]="(selectedScenario$ | async).clickSelector"
+               name="clickSelector"
                placeholder=".class | #id | tag">
       </div>
-
     </div>
     <div class="row">
       <div class="col l5 m12 s12">
@@ -179,6 +178,17 @@
                placeholder=".class | #id | tag">
       </div>
 
+      <div class="col l5 m12 s12">
+
+        <label>Scroll to Selector</label>
+        <input class="control-text" type="text"
+               [ngModel]="(selectedScenario$ | async).scrollToSelector"
+               name="scrollToSelector"
+               placeholder=".class | #id | tag">
+      </div>
+    </div>
+    
+    <div class="row">
       <div class="col l5 m12 s12">
 
         <label>Post Interaction Wait (milliseconds)</label>

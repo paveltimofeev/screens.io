@@ -8,6 +8,7 @@ const { QueueWrapper } = require('./queue-wrappers')
 
 const exists = promisify(fs.exists)
 const copyFile = promisify(fs.copyFile)
+const writeFile = promisify(fs.writeFile)
 const mkdir = promisify(fs.mkdir)
 
 
@@ -71,6 +72,8 @@ class VRT {
 
         try {
 
+
+            await writeFile('./processRunConfig.json', JSON.stringify(config), 'utf-8')
             await backstop('test', { config: config } )
 
             console.log('[VRT] `backstop test` command completed')
@@ -135,8 +138,8 @@ class VRT {
         const scenarios = await storage.getScenarios(this._userId, scenariosFilter )
 
         return engine.buildConfig(this._tenantId, this._userId,
-          storage.convertToObject(viewports),
-          storage.convertToObject(scenarios));
+          (viewports||[]).map(storage.convertToObject),
+          (scenarios||[]).map(storage.convertToObject));
     }
 
 

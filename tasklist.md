@@ -36,9 +36,9 @@
 -- Use Queues for /run, /approve to separate api from vrt and return '/run' response as soon as possible
 -- Store Viewports, UserName, WorkTime in history
 -- Check selectors/selectorExpansion/expect config options to test one/few elements
+-- ClickSelector, HoverSelector does not work
 
 - DESIGN UI PAGES FOR MOBILE
-- ClickSelector, HoverSelector does not work
 
 - Loading a lot of images through AuthProxy is hard? Need to return signed link to S3 instead
 - Do not use Login as userId, because it uses in path building and could allow user chang directories, use user UID instead
@@ -54,9 +54,11 @@
 - Remove all References and test Files on removing Scenarios or Viewports
 - Remove test result Files and Report after remove history record
 - Auth proxy should not store passwords in plain text
+- Auth proxy - change password
 - Sanitize body and params in Auth proxy & Backend
 - Angular: MultiLanguage support
 - Restrict number of viewports
+- Show Difference value, to get user knowledge to tune test sensivity 
 - Bulk add scenarios (urls)
 - Page Modification/Disable Animation option for scenario
 - API for run-with-parameters by config from body + APIKEY

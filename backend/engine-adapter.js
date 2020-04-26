@@ -66,7 +66,6 @@ class EngineAdapter {
         scenarios = scenarios.map(s => {
 
             let scenario = JSON.parse(JSON.stringify(s))
-            delete scenario._id;
             delete scenario.__v;
 
             removeEmptyArraysInObject(scenario, 'clickSelectors')

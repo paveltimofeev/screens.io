@@ -7,7 +7,10 @@ const recordSchema = new Schema({
     startedAt: Date,
     finishedAt: Date,
     startedBy: String,
-    scenarios: [String],
+    scenarios: [{ 
+        scenarioId: String,
+        label: String 
+    }],
     viewports: [String]
 })
 

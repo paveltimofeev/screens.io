@@ -28,7 +28,7 @@ export class HistoryTableEffects {
               date: j.startedAt,
               duration: j.finishedAt && j.startedAt ? `${((new Date(j.finishedAt) as any) - (new Date(j.startedAt) as any)) / 1000} sec` : 'running...',
               status: j.state,
-              scope: (j.scenarios||[]).join(', '),
+              scope: (j.scenarios||[]).map( (x:any) => x.label).join(', '),
               viewports: (j.viewports||[]).join(', '),
               user: `by ${j.startedBy}`
             }

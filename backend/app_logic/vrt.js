@@ -65,8 +65,13 @@ class VRT {
             state: 'Running',
             startedAt: new Date(),
             startedBy: this._userId,
-            scenarios: config.scenarios.map( x => x.label),
             viewports: config.viewports.map( x => x.label),
+            scenarios: config.scenarios.map( x => {
+                return {
+                    id: x._id.toString(),
+                    label: x.label
+                }
+            }),
             runId
         })
 
@@ -139,7 +144,7 @@ class VRT {
 
         return engine.buildConfig(this._tenantId, this._userId,
           (viewports||[]).map(storage.convertToObject),
-          (scenarios||[]).map(storage.convertToObject));
+          scenarios);
     }
 
 
@@ -189,7 +194,7 @@ class VRT {
     }
     async getHistoryRecordsOfScenario (scenarioName) {
         const query = { 
-            scenarios: scenarioName 
+            "scenarios.label" : scenarioName 
         }
         return await storage.getHistoryRecords(this._userId, query)
     }

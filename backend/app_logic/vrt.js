@@ -73,7 +73,7 @@ class VRT {
         try {
 
 
-            await writeFile('./processRunConfig.json', JSON.stringify(config), 'utf-8')
+            //await writeFile('./backstop-config.debug.json', JSON.stringify(config), 'utf-8')
             await backstop('test', { config: config } )
 
             console.log('[VRT] `backstop test` command completed')

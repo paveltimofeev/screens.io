@@ -187,7 +187,7 @@
                placeholder=".class | #id | tag">
       </div>
     </div>
-    
+
     <div class="row">
       <div class="col l5 m12 s12">
 
@@ -210,8 +210,8 @@
 
       <ul class="history">
         <li class="history-record" *ngFor="let h of currentScenarioHistory$ | async">
-          <i *ngIf="h.state === 'Passed'" class="material-icons status-success">check_circle</i>
-          <i *ngIf="h.state === 'Failed'" class="material-icons status-failed">cancel</i>
+          <i *ngIf="h.state === 'pass'" class="material-icons status-success">check_circle</i>
+          <i *ngIf="h.state === 'fail'" class="material-icons status-failed">cancel</i>
           <span>{{h.startedAt | date}}</span>
         </li>
       </ul>

@@ -40,9 +40,13 @@
 -- Get scenario's history
 -- store scenario Id as well as scenarioName in runs history
 -- replace currentScenario with config/:scenarioId route, and get scenario history for other then 'Test' value
+-- show test case results in test case history instead of results of test run
 
 - DESIGN UI PAGES FOR MOBILE
 
+- refactoring
+- support search and filters on backend (state=, status=, starter=, today=true, viewports=[])
+- support groupby=scenario for jobs history
 - store approves in history
 - Think out different using scenarios for different persons: The Developer, The TeamLead, The Indie
 - Loading a lot of images through AuthProxy is hard? Need to return signed link to S3 instead

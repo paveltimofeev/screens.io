@@ -168,7 +168,16 @@ export class ConfigurationEffects {
               scenariosList: res[0].data,
               viewportsList: res[1].data,
               currentScenario: res.length > 2 ? res[2].data : res[0].data[0],
-              currentScenarioHistory: res.length > 3 ? res[3].jobs : [],
+              currentScenarioHistory: res.length > 3 ? res[3].jobs.map(j => {
+                j.scenarios = j.scenarios.filter( s => s.id === action.payload.id)
+                return j
+              }).map(j => {
+                return {
+                  runId: j.runId,
+                  startedAt: j.startedAt,
+                  state: j.scenarios[0].status
+                }
+              }) : [],
             }
           }
         })

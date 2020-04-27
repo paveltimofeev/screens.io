@@ -3,7 +3,8 @@ const {Schema, model} = require('mongoose');
 const scenarioSchema = new Schema({
 
     /// BackstopJS fields
-    label: String,
+    //label: String,
+    label: { "type": String, "required": true, "unique": true },
     url: String,
     misMatchThreshold: Number, /// Decimal 0-100. Test sensitivity, tolerance to difference
     readySelector: String,

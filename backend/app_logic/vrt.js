@@ -85,10 +85,26 @@ class VRT {
 
             const report = await engine.getReport(config.paths.json_report)
             await this.createReport(runId, report)
-            await storage.updateHistoryRecord(this._userId, record._id, {
-                state: 'Passed',
-                finishedAt: new Date()
-            })
+
+            record.state = 'Passed';
+            record.finishedAt = new Date();
+            record.scenarios = record.scenarios.map( s => {
+
+                let test = report.tests.find( t => t.pair.label === s.label)
+                if (test) {
+                    s.status = test.status;
+                }
+                else {
+                    console.warn('Cannot find rest result for "'+s.label + '" in', report)
+                }
+                return s;
+            });
+
+            await storage.updateHistoryRecord(
+              this._userId,
+              record._id,
+              storage.convertToObject(record))
+
             return runId
         }
         catch (err) {
@@ -96,10 +112,27 @@ class VRT {
             console.error('[VRT] Error:', err)
             const report = await engine.getReport(config.paths.json_report)
             await this.createReport(runId, report)
-            await storage.updateHistoryRecord(this._userId, record._id, {
-                state: 'Failed',
-                finishedAt: new Date()
-            })
+
+            record.state = 'Failed';
+            record.finishedAt = new Date();
+            record.scenarios = record.scenarios.map( s => {
+
+                let test = report.tests.find( t => t.pair.label === s.label)
+                if (test) {
+                    s.status = test.status;
+                }
+                else {
+                    console.warn('Cannot find rest result for "'+s.label + '" in', report)
+                }
+                return s;
+            });
+
+
+            await storage.updateHistoryRecord(
+              this._userId,
+              record._id,
+              storage.convertToObject(record))
+
             return runId
         }
     }

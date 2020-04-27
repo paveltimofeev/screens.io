@@ -175,6 +175,7 @@ export class ConfigurationEffects {
                 return {
                   runId: j.runId,
                   startedAt: j.startedAt,
+                  startedBy: j.startedBy,
                   state: j.scenarios[0].status
                 }
               }) : [],

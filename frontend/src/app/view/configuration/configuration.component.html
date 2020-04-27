@@ -212,7 +212,7 @@
         <li class="history-record" *ngFor="let h of currentScenarioHistory$ | async">
           <i *ngIf="h.state === 'pass'" class="material-icons status-success">check_circle</i>
           <i *ngIf="h.state === 'fail'" class="material-icons status-failed">cancel</i>
-          <span>{{h.startedAt | date}}</span>
+          <span>{{h.startedAt | date}} by {{ h.startedBy }}</span>
         </li>
       </ul>
     </div>

@@ -9,7 +9,7 @@ import {
   deleteCurrentScenario,
   cloneCurrentScenario,
   createScenario,
-  createViewport, deleteViewport, favoriteCurrentScenario, setFavoriteResult
+  createViewport, deleteViewport, favoriteCurrentScenario, setFavoriteResult, redirect
 } from './configuration.actions';
 import { forkJoin, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
@@ -59,7 +59,7 @@ export class ConfigurationEffects {
 
       return this.api.updateScenario(action.payload).pipe(
         map( res => {
-          return { type: refresh.type }
+          return { type: refresh.type, payload: { id: action.payload._id} }
         })
       );
     })
@@ -144,37 +144,21 @@ export class ConfigurationEffects {
     }
   )));
 
-  refreshScenarioHistory$ = createEffect( () => this.actions$.pipe(
-    ofType(refresh),
-    concatMap(action => {
-      return of(action).pipe(
-        withLatestFrom(this.store.pipe(select(selectCurrentScenario)))
-      );
-    }),
-    mergeMap( ([action, scenario]) => {
-
-      return this.api.getHistoryOfScenario({_id: 'Test'}).pipe(
-        map( res => {
-
-          return {
-            type: loaded.type,
-            payload: {
-              currentScenarioHistory: res.jobs
-            }
-          }
-        })
-      )
-    } )
-  ))
-
   refresh$ = createEffect( () => this.actions$.pipe(
     ofType(refresh),
-    mergeMap(() => {
+    mergeMap((action) => {
 
-      return forkJoin(
+      let requests = [
         this.api.getScenarios(),
         this.api.getViewports()
-      ).pipe(
+      ];
+
+      if (action.payload.id != undefined) {
+        requests.push( this.api.getScenario(action.payload.id) )
+        requests.push( this.api.getHistoryOfScenario(action.payload.id) )
+      }
+
+      return forkJoin( requests ).pipe(
         map(res => {
 
           return {
@@ -182,11 +166,14 @@ export class ConfigurationEffects {
             payload: {
               scenarios: res[0].data,
               scenariosList: res[0].data,
-              viewportsList: res[1].data
+              viewportsList: res[1].data,
+              currentScenario: res.length > 2 ? res[2].data : res[0].data[0],
+              currentScenarioHistory: res.length > 3 ? res[3].jobs : [],
             }
           }
         })
-      )
+      );
+
     })
     )
   );

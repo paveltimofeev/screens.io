@@ -59,17 +59,13 @@ export class ApiAdapterService {
       environment.api + 'test/history');
   }
 
-  getHistoryOfScenario (scenario): Observable<any> {
+  getHistoryOfScenario (scenarioId:string): Observable<any> {
 
-    if (!scenario)
-      throw new Error('Wrong scenario: empty data')
-
-    if (!scenario._id)
-      throw new Error('Wrong scenario: No _id')
-
+    if (!scenarioId)
+      throw new Error('No scenarioId')
 
     return this.dataAccessService.get(
-      environment.api + 'test/history/' + scenario._id);
+      environment.api + 'test/history/' + scenarioId);
   }
 
   deleteHistoryRecord(recordId:string): Observable<any> {

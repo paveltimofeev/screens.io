@@ -79,6 +79,7 @@ class Storage {
 
     async getHistoryRecords (database, query) {
 
+        console.log('getHistoryRecords from '+database, query)
         let entity = this._createEntity(database, 'Record', recordSchema)
         return await entity.find(query||{}).sort({ _id: 'desc'})
     }

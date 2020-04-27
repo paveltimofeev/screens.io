@@ -192,9 +192,9 @@ class VRT {
     async getHistoryRecords () {
         return await storage.getHistoryRecords(this._userId)
     }
-    async getHistoryRecordsOfScenario (scenarioName) {
-        const query = { 
-            "scenarios.label" : scenarioName 
+    async getHistoryRecordsOfScenario (scenarioId) {
+        const query = {
+            "scenarios.id" : scenarioId
         }
         return await storage.getHistoryRecords(this._userId, query)
     }

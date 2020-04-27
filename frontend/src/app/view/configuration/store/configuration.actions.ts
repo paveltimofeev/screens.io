@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 
-export const refresh = createAction('[Configuration] refresh');
+export const refresh = createAction('[Configuration] refresh', props<{payload:{id:string}}>());
+export const redirect = createAction('[Configuration] redirect', props<{payload:{scenarioId:string}}>());
 export const error = createAction('[Configuration] error');
 
 export const loaded = createAction(
@@ -10,11 +11,6 @@ export const loaded = createAction(
     scenariosList: string[];
     scenarios: any[];
   }>()
-);
-
-export const changeCurrentScenario = createAction(
-  '[Configuration] changeCurrentScenario',
-  props<{scenario:any}>()
 );
 
 export const updateScenario = createAction(

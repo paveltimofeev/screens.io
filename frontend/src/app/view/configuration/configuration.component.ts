@@ -2,20 +2,22 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import {
   selectCurrentScenario,
-  selectCurrentScenarioLabel, 
+  selectCurrentScenarioLabel,
   selectCurrentScenarioHistory,
   selectLoading,
   selectScenarios,
   selectViewports
 } from './store/configuration.selectors';
 import {
-  changeCurrentScenario, createScenario, createViewport,
+  createScenario, createViewport,
   deleteCurrentScenario, deleteViewport,
   refresh,
   updateScenario,
   cloneCurrentScenario, favoriteCurrentScenario
 } from './store/configuration.actions';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { NavigationService } from '../../services/navigation.service';
 
 /// Materalize global instance
 declare var M;
@@ -39,7 +41,11 @@ export class ConfigurationComponent implements OnInit, AfterViewInit {
   instances;
   modals:any = {};
 
-  constructor(private store: Store) { }
+  constructor(
+    private store: Store,
+    private route: ActivatedRoute,
+    private navigation: NavigationService)
+  {}
 
   ngOnInit() {
 
@@ -50,7 +56,9 @@ export class ConfigurationComponent implements OnInit, AfterViewInit {
     this.selectedScenarioLabel$ = this.store.pipe(select(selectCurrentScenarioLabel));
     this.currentScenarioHistory$ = this.store.pipe(select(selectCurrentScenarioHistory));
 
-    this.store.dispatch(refresh());
+    this.route.params.subscribe( params => {
+      this.store.dispatch(refresh({payload: {id: params.id}}));
+    })
   }
 
   ngAfterViewInit() {
@@ -88,8 +96,11 @@ export class ConfigurationComponent implements OnInit, AfterViewInit {
     }
   }
 
-  selectScenarioHandler ($event: string) {
-    this.store.dispatch(changeCurrentScenario({scenario:$event}));
+  selectScenarioHandler ($event: {_id:string}) {
+
+    this.navigation.openScenario($event._id);
+
+    // this.store.dispatch(changeCurrentScenario({scenario:$event}));
   }
 
   saveHandler (formRef: NgForm) {

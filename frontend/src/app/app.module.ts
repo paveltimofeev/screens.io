@@ -39,15 +39,7 @@ import { HistoryRecordComponent } from './view/history-record/history-record.com
 import { LoginComponent } from './view/login/login.component';
 import { AgCellButtonComponent } from './components/history-table/ag-cell-button/ag-cell-button.component';
 import { ReportComponent } from './view/report/report.component';
-
-const routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'config/:scenario', component: ConfigurationComponent },
-  { path: 'history/:jobId', component: HistoryRecordComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'report', component: ReportComponent },
-  { path: '**', component: DashboardComponent }
-];
+import { routes } from './app.routes';
 
 
 @NgModule({

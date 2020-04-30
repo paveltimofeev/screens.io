@@ -53,21 +53,20 @@ export class DashboardComponent implements OnInit {
     }
     else {
 
-      const that = this;
       Object.keys(this.filters).forEach(k => {
         if (this.filters[k].indexOf($event) >= 0) {
 
           let filter = {}
 
-          let getterFunc = that.filterGetters[k]
+          let getterFunc = this.filterGetters[k]
           if (getterFunc) {
             $event = getterFunc($event)
           }
 
-          filter[k] = that.currentHistoryFilter[k] === $event ? null : $event;
+          filter[k] = this.currentHistoryFilter[k] === $event ? null : $event;
 
-          that.currentHistoryFilter = {
-            ...that.currentHistoryFilter,
+          this.currentHistoryFilter = {
+            ...this.currentHistoryFilter,
             ...filter
           }
 

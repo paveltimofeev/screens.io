@@ -241,6 +241,7 @@ class VRT {
           .map(cleanOtherScenarios)
           .filter( j => j.scenarios.length > 0 )
           .map(j => ({
+                        id: j._id,
                         runId: j.runId,
                         startedAt: j.startedAt,
                         startedBy: j.startedBy,

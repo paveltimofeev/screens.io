@@ -11,11 +11,21 @@
         - Stability `[ ][x][x][ ][ ]`, In progress.../Passed/Failed, by schedule, by admin,   
         - All scenarios, News Block, Login Form +2 scenarios
     - Run All Test Scenarios
-    - Run Against Stage, 
+    - Run Against Stage (Compare with...), 
         Host name 
         Scenarios Filter
         1920×1080 1600×900 1270×720 360×640 414×763 1024×1366 768×1024 1024×768
         Run
+        
+    ~ Widgets
+        - Today: Nothing broken / 7 Cases Failed
+        - This week: 52% Passed (37 cases of 72), +7% to previouse week
+        - Passed/Failed Chart
+        - Rerun latest failed test case
+        - Next scheduled run at 12:34 PM
+        - Most Fragile Case of week/month/today
+        - 72 Cases 
+        - Already 32 days without fails / 112 runs without fails till now
 
 
 ### SCENARIOS LIST
@@ -123,6 +133,25 @@
         https://www.bootstrapdash.com/demo/simple/
         https://grayic.com/demos/shade/s04/index.html
     interactive shapes
+    Images for storytelling and avatars:
+        - https://ui8.net/wowdesign/products/moiety-illustrations
+        - https://ui8.net/wowdesign/products/placid-illustrations
+        - https://ui8.net/foxy-vector/products/sticker-pack (make it right before tonight)
+        - https://ui8.net/sunethrt/products/fun-startup-illustrations
+        - https://ui8.net/visual-generation/products/technology-vector-illustration-kit
+        - https://ui8.net/paperpillar/products/teamwork-illustration-kit
+        
+        (with) UI layout examples
+        - https://ui8.net/ui-files/products/wireframer-web-kit
+        - https://ui8.net/coursademy/products/wiresketch-ui-kit (free)
+        - https://ui8.net/designtech/products/startupio---saas-web-landing-page-ui-kit (free)
+        - https://ui8.net/elawulansari/products/seo-and-development
+        - https://ui8.net/portocraft/products/crafted-unique-illustration-startup-team
+        - https://ui8.net/robert-licau/products/carina-illustration-library-and-creator
+        - https://ui8.net/karthik-s/products/tech-illustrations
+        - https://ui8.net/hoangpts/products/zopney---illustration-pack
+        - https://ui8.net/tanahair-studio/products/computer-programming-illustration-vol-2
+        - https://ui8.net/tanahair-studio/products/computer-programming-illustration-vol-1
 
 
     

@@ -42,9 +42,9 @@
 -- replace currentScenario with config/:scenarioId route, and get scenario history for other then 'Test' value
 -- show test case results in test case history instead of results of test run
 
+- refactoring - replace getHistoryRecordsOfScenario with getTestCaseHistory(scenarioId)
 - DESIGN UI PAGES FOR MOBILE
 
-- refactoring
 - support search and filters on backend (state=, status=, starter=, today=true, viewports=[])
 - support groupby=scenario for jobs history
 - store approves in history
@@ -69,11 +69,13 @@
 - Show Difference value, to get user knowledge for tuning test sensivity 
 - Bulk add scenarios (urls)
 - Page Modification/Disable Animation option for scenario
-- API for run-with-parameters by config from body + APIKEY
+- API+APIKEY for runnung-with-parameters by posted config from body (Usecase: developer stores backstopjs-tests near the component, and post them to API to test against his host/params)
+- API+APIKEY for comparing any posted screenshot agaings stored in DB (Usecase: dev team has environment for taking screenshots and uses API to validate them againgst approved, team also uses WenUI to approve cases, to monitor stability, and team uses notificatons at Slack/Telegram)
 - Unapprove: Review and turn back any previously approved results.
-- Locate tiny changes, and mark them more noticably
+- Locate tiny changes, and mark them more noticably. Add "Scroll to next diff" button.
 - Use user-friendly dates (by moment)
 - Think out understanding of costs (weight of s3/lambdas/queues/vm in total cost of user) to work out correct pricing strategy
+- Frontend: Read proof
 
 
 - Display retry button for not-ready yet history record (screens)

@@ -53,10 +53,16 @@ export class ApiAdapterService {
       environment.api + 'test/report/' + jobId);
   }
 
-  getHistory (): Observable<any> {
+  getHistory (filter: {key:string, value:string}): Observable<any> {
+
+    let query:string = '';
+
+    if ( filter && filter.key && filter.value) {
+      query = `?${filter.key}=${filter.value}`
+    }
 
     return this.dataAccessService.get(
-      environment.api + 'test/history');
+      environment.api + 'test/history' + query);
   }
 
   getTestCaseHistory (scenarioId:string): Observable<any> {

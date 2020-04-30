@@ -70,7 +70,9 @@ router.get('/test/history', async function(req, res) {
 
     tryWrapper(req, res, async () => {
 
-        const jobs = await VRT.create(req.context).getHistoryRecords()
+        const state = req.query.state; // TODO: sanitize
+
+        const jobs = await VRT.create(req.context).getHistoryRecords({state})
         res.status(200).send( {jobs} )
     })
 });

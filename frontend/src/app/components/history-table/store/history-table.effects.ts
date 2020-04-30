@@ -16,9 +16,11 @@ export class HistoryTableEffects {
   refresh$ = createEffect(() => this.actions$.pipe(
     ofType(refresh),
     //debounceTime(1000),
-    mergeMap(() => {
+    mergeMap((action) => {
 
-      return this.api.getHistory().pipe(
+      console.log('refresh filter', action.payload.filter)
+
+      return this.api.getHistory( action.payload.filter ).pipe(
         map( res => {
 
           let jobs = res.jobs.map( j => {

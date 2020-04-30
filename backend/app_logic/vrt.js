@@ -222,10 +222,22 @@ class VRT {
         return report
     }
 
-    async getHistoryRecords () {
-        return await storage.getHistoryRecords(this._userId)
+    async getHistoryRecords (filter) {
+
+        let query = {}
+
+        if (filter) {
+
+            if ( filter.state === 'Passed'
+              || filter.state === 'Failed') {
+                query.state = filter.state;
+            }
+        }
+
+        return await storage.getHistoryRecords(this._userId, query)
     }
     async getHistoryRecordsOfScenario (scenarioId) {
+
         const query = {
             "scenarios.id" : scenarioId
         }
@@ -239,7 +251,7 @@ class VRT {
 
         let history = jobs
           .map(cleanOtherScenarios)
-          .filter( j => j.scenarios.length > 0 )
+          .filter(j => j.scenarios.length > 0)
           .map(j => ({
                         id: j._id,
                         runId: j.runId,

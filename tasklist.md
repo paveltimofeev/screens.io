@@ -44,12 +44,12 @@
 -- refactoring - replace getHistoryRecordsOfScenario with getTestCaseHistory(scenarioId)
 
 - DESIGN UI PAGES FOR MOBILE
+- support search and filters on backend (state=, status=, starter=, today=true, viewports=[])
 
 - refactoring - Split configuration and configuration/:id components and effects
-- support search and filters on backend (state=, status=, starter=, today=true, viewports=[])
 - support groupby=scenario for jobs history
 - store approves in history
-- Think out different using scenarios for different persons: The Developer, The TeamLead, The Indie
+- Think out different UseScenarios for different Persons: The Developer, The TeamLead, The Indie
 - Loading a lot of images through AuthProxy is hard? Need to return signed link to S3 instead
 - Do not use Login as userId, because it uses in path building and could allow user chang directories, use user UID instead
 - Run scenarios with overrode parameters (hostname/resolutions/...)
@@ -87,6 +87,7 @@
 
 
 - DOCKERIZE AUTH-PROXY & BACKEND AND RUN THEM IN AWS
+- STORE IMAGES AT AWS S3
 - AWS LAMBDA
 - AWS SQS
 - CLOUD MONGODB

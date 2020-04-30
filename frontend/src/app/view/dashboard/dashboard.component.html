@@ -21,10 +21,16 @@
 </div>
 
 
-<app-section-header text="Job History" icon="ballot"></app-section-header>
+<app-section-header
+  text="Job History"
+  icon="ballot"
+  [actions]="historyFilters"
+  (actionClick)="applyFilterHandler($event)"
+>
+</app-section-header>
 
 <div class="history-block">
 
-  <app-history-table [data]="history$ | async"></app-history-table>
+  <app-history-table [filter]="currentHistoryFilter"></app-history-table>
 
 </div>

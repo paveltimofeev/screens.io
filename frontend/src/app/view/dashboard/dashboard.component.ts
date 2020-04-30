@@ -12,6 +12,8 @@ import { selectScenarios } from './store/dashboard.selectors';
 export class DashboardComponent implements OnInit {
 
   scenarios$: any;
+  historyFilters: string[] = ['Show All', 'Failed', 'Passed'];
+  currentHistoryFilter:any = null;
 
   constructor(
     private store: Store
@@ -24,7 +26,16 @@ export class DashboardComponent implements OnInit {
   }
 
   runOneScenarioHandler ($event: string) {
-
     this.store.dispatch(runOneScenario( {label: $event}));
+  }
+
+  applyFilterHandler($event:string) {
+
+    if ($event === this.historyFilters[0]) {
+      this.currentHistoryFilter = null;
+    }
+    else {
+      this.currentHistoryFilter = {key: 'state', value: $event};
+    }
   }
 }

@@ -5,20 +5,25 @@ import { selectHistoryTable } from './store/history-table.selectors';
 import { interval } from 'rxjs';
 import { AgCellButtonComponent } from './ag-cell-button/ag-cell-button.component';
 
-export interface DataSource {
-
-  date?: 'string';
-  status?: 'string';
-  scope?: 'string';
-  user?: 'string';
-}
-
 @Component({
   selector: 'app-history-table',
   templateUrl: './history-table.component.html',
   styleUrls: ['./history-table.component.css']
 })
 export class HistoryTableComponent implements OnInit, OnDestroy {
+
+  _filter:{key:string, value:string};
+
+  get filter(): {key:string, value:string} {
+    return this._filter;
+  }
+
+  @Input()
+  set filter (value:{key:string, value:string}) {
+
+    this._filter = value;
+    this.refresh();
+  }
 
   refresher$: any;
 
@@ -79,9 +84,6 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
     }
   ];
 
-  @Input()
-  data:DataSource[] = [];
-
   jobs$;
 
   onGridReady(params) {
@@ -104,11 +106,20 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.jobs$ = this.store.pipe( select(selectHistoryTable));
-    this.store.dispatch(refresh());
+    this.refresh();
 
     this.refresher$ = interval(5000).subscribe( () => {
-      this.store.dispatch(refresh());
+      this.refresh();
     })
+  }
+
+  refresh() {
+
+    const payload = {
+      filter: this._filter
+    };
+
+    this.store.dispatch( refresh({payload}) );
   }
 
   ngOnDestroy (): void {

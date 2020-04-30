@@ -21,6 +21,11 @@ export class DashboardComponent implements OnInit {
     startedBy: ['Run by me'],
     startedSince: ['Today']
   }
+  filterGetters:any = {
+    startedSince: (value) => {
+      return (new Date()).toISOString().split('T')[0]
+    }
+  }
 
   constructor (private store: Store) {
 
@@ -53,6 +58,12 @@ export class DashboardComponent implements OnInit {
         if (this.filters[k].indexOf($event) >= 0) {
 
           let filter = {}
+
+          let getterFunc = that.filterGetters[k]
+          if (getterFunc) {
+            $event = getterFunc($event)
+          }
+
           filter[k] = that.currentHistoryFilter[k] === $event ? null : $event;
 
           that.currentHistoryFilter = {

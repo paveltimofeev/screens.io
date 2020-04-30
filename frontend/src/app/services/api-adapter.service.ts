@@ -58,21 +58,13 @@ export class ApiAdapterService {
     let queryParts:string[] = [];
 
     const buildQueryPart = (key, value) => {
-
-      if (key === 'startedSince') {
-        if(value === 'Today') {
-          value = (new Date()).toISOString().split('T')[0]
-        }
-        else {
-          return ''
-        }
-      }
-
       return `${key}=${value}`
     }
 
     Object.keys(filter).forEach(k => {
-      queryParts.push(buildQueryPart(k, filter[k]))
+      if (filter[k] !== null) {
+        queryParts.push(buildQueryPart(k, filter[k]))
+      }
     })
 
     const buildQuery = (queryPartsArray) => {

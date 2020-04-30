@@ -41,10 +41,11 @@
 -- store scenario Id as well as scenarioName in runs history
 -- replace currentScenario with config/:scenarioId route, and get scenario history for other then 'Test' value
 -- show test case results in test case history instead of results of test run
+-- refactoring - replace getHistoryRecordsOfScenario with getTestCaseHistory(scenarioId)
 
-- refactoring - replace getHistoryRecordsOfScenario with getTestCaseHistory(scenarioId)
 - DESIGN UI PAGES FOR MOBILE
 
+- refactoring - Split configuration and configuration/:id components and effects
 - support search and filters on backend (state=, status=, starter=, today=true, viewports=[])
 - support groupby=scenario for jobs history
 - store approves in history
@@ -64,7 +65,7 @@
 - Auth proxy should not store passwords in plain text
 - Auth proxy - change password
 - Sanitize body and params in Auth proxy & Backend
-- Angular: MultiLanguage support
+- Frontend: Angular MultiLanguage support (i18n, l8n)
 - Restrict number of viewports
 - Show Difference value, to get user knowledge for tuning test sensivity 
 - Bulk add scenarios (urls)

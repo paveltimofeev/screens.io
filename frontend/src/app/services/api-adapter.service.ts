@@ -59,13 +59,13 @@ export class ApiAdapterService {
       environment.api + 'test/history');
   }
 
-  getHistoryOfScenario (scenarioId:string): Observable<any> {
+  getTestCaseHistory (scenarioId:string): Observable<any> {
 
     if (!scenarioId)
       throw new Error('No scenarioId')
 
     return this.dataAccessService.get(
-      environment.api + 'test/history/' + scenarioId);
+      environment.api + '/test/scenario/' + scenarioId + '/runs');
   }
 
   deleteHistoryRecord(recordId:string): Observable<any> {

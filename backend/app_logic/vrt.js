@@ -229,7 +229,26 @@ class VRT {
         const query = {
             "scenarios.id" : scenarioId
         }
-        return await storage.getHistoryRecords(this._userId, query)
+
+        let jobs = await storage.getHistoryRecords(this._userId, query)
+
+        const cleanOtherScenarios = (job) => {
+            job.scenarios = job.scenarios.filter( s => s.id === scenarioId);
+            return job
+        }
+
+        let history = jobs
+          .map(cleanOtherScenarios)
+          .filter( j => j.scenarios.length > 0 )
+          .map(j => ({
+                        runId: j.runId,
+                        startedAt: j.startedAt,
+                        startedBy: j.startedBy,
+                        state: j.scenarios[0].status
+                    })
+          )
+
+        return history;
     }
     async deleteHistoryRecord (id) {
         return await storage.deleteHistoryRecord(this._userId, id)

@@ -155,11 +155,22 @@ export class ConfigurationEffects {
 
       if (action.payload.id != undefined) {
         requests.push( this.api.getScenario(action.payload.id) )
-        requests.push( this.api.getHistoryOfScenario(action.payload.id) )
+        requests.push( this.api.getTestCaseHistory(action.payload.id) )
       }
 
       return forkJoin( requests ).pipe(
         map(res => {
+
+          const currentScenarioAdapter = (res) => {
+
+            if (res.length > 2) {
+              return res[2].data;
+            }
+            else {
+              // first item in scenariosList
+              return res[0].data && res[0].data.length > 0 ? res[0].data[0] : null
+            }
+          }
 
           return {
             type: loaded.type,
@@ -167,18 +178,8 @@ export class ConfigurationEffects {
               scenarios: res[0].data,
               scenariosList: res[0].data,
               viewportsList: res[1].data,
-              currentScenario: res.length > 2 ? res[2].data : res[0].data[0],
-              currentScenarioHistory: res.length > 3 ? res[3].jobs.map(j => {
-                j.scenarios = j.scenarios.filter( s => s.id === action.payload.id)
-                return j
-              }).map(j => {
-                return {
-                  runId: j.runId,
-                  startedAt: j.startedAt,
-                  startedBy: j.startedBy,
-                  state: j.scenarios[0].status
-                }
-              }) : [],
+              currentScenario: currentScenarioAdapter(res),
+              currentScenarioHistory: res.length > 3 ? res[3].jobs : []
             }
           }
         })

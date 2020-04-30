@@ -12,12 +12,24 @@ import { selectScenarios } from './store/dashboard.selectors';
 export class DashboardComponent implements OnInit {
 
   scenarios$: any;
-  historyFilters: string[] = ['Show All', 'Failed', 'Passed'];
-  currentHistoryFilter:any = null;
 
-  constructor(
-    private store: Store
-  ) { }
+  currentHistoryFilter:any = {};
+
+  historyFilters: string[] = ['Show All'];
+  filters:any = {
+    state: ['Failed', 'Passed'],
+    startedBy: ['Run by me'],
+    startedSince: ['Today']
+  }
+
+  constructor (private store: Store) {
+
+    Object.keys(this.filters).forEach(k => {
+      this.historyFilters = this.historyFilters.concat(
+        this.filters[k]
+      )
+    })
+  }
 
   ngOnInit() {
 
@@ -32,10 +44,25 @@ export class DashboardComponent implements OnInit {
   applyFilterHandler($event:string) {
 
     if ($event === this.historyFilters[0]) {
-      this.currentHistoryFilter = null;
+      this.currentHistoryFilter = {};
     }
     else {
-      this.currentHistoryFilter = {key: 'state', value: $event};
+
+      const that = this;
+      Object.keys(this.filters).forEach(k => {
+        if (this.filters[k].indexOf($event) >= 0) {
+
+          let filter = {}
+          filter[k] = that.currentHistoryFilter[k] === $event ? null : $event;
+
+          that.currentHistoryFilter = {
+            ...that.currentHistoryFilter,
+            ...filter
+          }
+
+          return;
+        }
+      });
     }
   }
 }

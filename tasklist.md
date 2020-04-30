@@ -42,10 +42,14 @@
 -- replace currentScenario with config/:scenarioId route, and get scenario history for other then 'Test' value
 -- show test case results in test case history instead of results of test run
 -- refactoring - replace getHistoryRecordsOfScenario with getTestCaseHistory(scenarioId)
+-- support search and filters on backend (status=, startedBy=, startedSince=)
 
 - DESIGN UI PAGES FOR MOBILE
-- support search and filters on backend (state=, status=, starter=, today=true, viewports=[])
+- support multiple filters on backend (viewports=[])
+- support search on backend)
+- refactor filters funcs, make it easier to reuse
 
+- Dates should store in UTC but display in Local timezone (the same according to Tody filter)
 - refactoring - Split configuration and configuration/:id components and effects
 - support groupby=scenario for jobs history
 - store approves in history

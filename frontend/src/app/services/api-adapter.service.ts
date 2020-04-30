@@ -53,16 +53,35 @@ export class ApiAdapterService {
       environment.api + 'test/report/' + jobId);
   }
 
-  getHistory (filter: {key:string, value:string}): Observable<any> {
+  getHistory (filter: any): Observable<any> {
 
-    let query:string = '';
+    let queryParts:string[] = [];
 
-    if ( filter && filter.key && filter.value) {
-      query = `?${filter.key}=${filter.value}`
+    const buildQueryPart = (key, value) => {
+
+      if (key === 'startedSince') {
+        if(value === 'Today') {
+          value = (new Date()).toISOString().split('T')[0]
+        }
+        else {
+          return ''
+        }
+      }
+
+      return `${key}=${value}`
     }
 
+    Object.keys(filter).forEach(k => {
+      queryParts.push(buildQueryPart(k, filter[k]))
+    })
+
+    const buildQuery = (queryPartsArray) => {
+      return queryPartsArray.length > 0 ? '?' + queryPartsArray.join('&') : ''
+    }
+
+
     return this.dataAccessService.get(
-      environment.api + 'test/history' + query);
+      environment.api + 'test/history' + buildQuery(queryParts));
   }
 
   getTestCaseHistory (scenarioId:string): Observable<any> {

@@ -222,6 +222,7 @@ class VRT {
         return report
     }
 
+    /// filter: {state, startedBy, startedSince}
     async getHistoryRecords (filter) {
 
         let query = {}
@@ -231,6 +232,12 @@ class VRT {
             if ( filter.state === 'Passed'
               || filter.state === 'Failed') {
                 query.state = filter.state;
+            }
+            if ( filter.startedBy === 'Run by me') {
+                query.startedBy = this._userId;
+            }
+            if ( typeof(filter.startedSince) === 'string' && /\d\d\d\d-\d\d-\d\d/.test(filter.startedSince)) {
+                query.startedAt = { $gte: filter.startedSince };
             }
         }
 

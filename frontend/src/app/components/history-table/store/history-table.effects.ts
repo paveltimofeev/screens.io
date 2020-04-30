@@ -18,8 +18,6 @@ export class HistoryTableEffects {
     //debounceTime(1000),
     mergeMap((action) => {
 
-      console.log('refresh filter', action.payload.filter)
-
       return this.api.getHistory( action.payload.filter ).pipe(
         map( res => {
 

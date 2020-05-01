@@ -73,8 +73,9 @@ router.get('/test/history', async function(req, res) {
         const state = req.query.state; // TODO: sanitize
         const startedBy = req.query.startedBy; // TODO: sanitize
         const startedSince = req.query.startedSince; // TODO: sanitize
+        const viewports = req.query.viewports; // TODO: sanitize
 
-        const jobs = await VRT.create(req.context).getHistoryRecords({state, startedBy, startedSince})
+        const jobs = await VRT.create(req.context).getHistoryRecords({state, startedBy, startedSince, viewports})
         res.status(200).send( {jobs} )
     })
 });

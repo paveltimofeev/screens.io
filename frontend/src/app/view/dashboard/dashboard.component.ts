@@ -19,11 +19,31 @@ export class DashboardComponent implements OnInit {
   filters:any = {
     state: ['Failed', 'Passed'],
     startedBy: ['Run by me'],
-    startedSince: ['Today']
+    startedSince: ['Today'],
+    viewports: ['1600 × 900', '800 × 600']
   }
   filterGetters:any = {
-    startedSince: (value) => {
+    startedSince: (value, currentValue) => {
       return (new Date()).toISOString().split('T')[0]
+    },
+    viewports: (value, currentValue) => {
+
+      if (currentValue && currentValue.indexOf(','+value) >= 0) {
+        return currentValue.replace(','+value, '')
+      }
+      if (currentValue && currentValue.indexOf(value+',') >= 0) {
+        return currentValue.replace(value+',', '')
+      }
+
+      if (currentValue === value) {
+        return null
+      }
+      else if (currentValue) {
+        return [currentValue, value].join(',')
+      }
+      else {
+        return value;
+      }
     }
   }
 
@@ -60,7 +80,7 @@ export class DashboardComponent implements OnInit {
 
           let getterFunc = this.filterGetters[k]
           if (getterFunc) {
-            $event = getterFunc($event)
+            $event = getterFunc($event, this.currentHistoryFilter[k])
           }
 
           filter[k] = this.currentHistoryFilter[k] === $event ? null : $event;

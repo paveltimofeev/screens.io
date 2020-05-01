@@ -225,7 +225,7 @@ class VRT {
     /// filter: {state, startedBy, startedSince}
     async getHistoryRecords (filter) {
 
-        let query = {}
+      let query = {}
 
         if (filter) {
 
@@ -235,6 +235,9 @@ class VRT {
             }
             if ( filter.startedBy === 'Run by me') {
                 query.startedBy = this._userId;
+            }
+            if ( typeof(filter.viewports) === 'string') {
+              query.viewports = { $in: filter.viewports.split(',') }
             }
             if ( typeof(filter.startedSince) === 'string' && /\d\d\d\d-\d\d-\d\d/.test(filter.startedSince)) {
                 query.startedAt = { $gte: filter.startedSince };

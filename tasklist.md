@@ -43,10 +43,10 @@
 -- show test case results in test case history instead of results of test run
 -- refactoring - replace getHistoryRecordsOfScenario with getTestCaseHistory(scenarioId)
 -- support search and filters on backend (status=, startedBy=, startedSince=)
+-- support multiple filters on backend (viewports=[])
 
 - DESIGN UI PAGES FOR MOBILE
-- support multiple filters on backend (viewports=[])
-- support search on backend)
+- support search on backend
 - refactor filters funcs, make it easier to reuse
 
 - Dates should store in UTC but display in Local timezone (the same according to Tody filter)

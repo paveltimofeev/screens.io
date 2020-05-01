@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 
 export interface IFilter {
 
@@ -79,33 +80,39 @@ export class MultiOptionFilter extends BaseFilter {
 }
 
 
-export const getValues = (filters:IFilter[]):string[] => {
+@Injectable({
+  providedIn: 'root'
+})
+export class FiltersService {
 
-  let results:string[] = []
+  getValues (filters:IFilter[]):string[] {
 
-  filters.forEach( (f:IFilter) => {
-    results = results.concat(f.values)
-  })
+    let results:string[] = []
 
-  return results;
-}
+    filters.forEach( (f:IFilter) => {
+      results = results.concat(f.values)
+    })
 
-export const setFilter = (filters:IFilter[], value:string) => {
+    return results;
+  }
 
-  filters.forEach( (filter:IFilter) => {
+  setFilter (filters:IFilter[], value:string) {
 
-    if (filter.values.indexOf(value) >= 0 ) {
+    filters.forEach( (filter:IFilter) => {
 
-      filter.setValue(value);
-      console.log(filter.key, filter.toQuery())
-      return;
-    }
-  })
-}
+      if (filter.values.indexOf(value) >= 0 ) {
 
-export const clearFilters = (filters:IFilter[]) => {
+        filter.setValue(value);
+        console.log(filter.key, filter.toQuery())
+        return;
+      }
+    })
+  }
 
-  filters.forEach( (filter:IFilter) => {
-    filter.clear()
-  })
+  clearFilters (filters:IFilter[]) {
+
+    filters.forEach( (filter:IFilter) => {
+      filter.clear()
+    })
+  }
 }

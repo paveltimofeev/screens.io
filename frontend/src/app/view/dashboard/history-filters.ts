@@ -1,4 +1,4 @@
-import { BaseFilter, IFilter, MultiOptionFilter, SinceDateFilter } from '../../services/filters';
+import { IFilter, BaseFilter, MultiOptionFilter, SinceDateFilter } from '../../services/filters';
 
 export let HistoryFilters:IFilter[] = [
 

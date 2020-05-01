@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DataAccessService } from './data-access.service';
 import { environment } from '../../environments/environment';
+import { IFilter } from './filters';
 
 export interface IConfig {
   id:string,
@@ -53,27 +54,20 @@ export class ApiAdapterService {
       environment.api + 'test/report/' + jobId);
   }
 
-  getHistory (filter: any): Observable<any> {
+  getHistory (filters?: IFilter[]): Observable<any> {
 
-    let queryParts:string[] = [];
+    let query = '';
 
-    const buildQueryPart = (key, value) => {
-      return `${key}=${value}`
+    if (filters && filters.length > 0) {
+
+      query = '?' + filters
+        .map((filter: IFilter) => { return filter.toQuery() })
+        .filter(Boolean)
+        .join('&');
     }
-
-    Object.keys(filter).forEach(k => {
-      if (filter[k] !== null) {
-        queryParts.push(buildQueryPart(k, filter[k]))
-      }
-    })
-
-    const buildQuery = (queryPartsArray) => {
-      return queryPartsArray.length > 0 ? '?' + queryPartsArray.join('&') : ''
-    }
-
 
     return this.dataAccessService.get(
-      environment.api + 'test/history' + buildQuery(queryParts));
+      environment.api + 'test/history' + query);
   }
 
   getTestCaseHistory (scenarioId:string): Observable<any> {

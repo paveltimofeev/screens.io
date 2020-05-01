@@ -18,7 +18,7 @@ export class HistoryTableEffects {
     //debounceTime(1000),
     mergeMap((action) => {
 
-      return this.api.getHistory( action.payload.filter ).pipe(
+      return this.api.getHistory( action.payload.filters ).pipe(
         map( res => {
 
           let jobs = res.jobs.map( j => {

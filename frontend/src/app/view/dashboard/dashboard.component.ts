@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { refresh, runOneScenario } from './store/dashboard.actions';
 import { select, Store } from '@ngrx/store';
 import { selectScenarios } from './store/dashboard.selectors';
+import { getValues, setFilter, clearFilters, IFilter } from '../../services/filters';
+import { HistoryFilters } from './history-filters';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,47 +15,12 @@ export class DashboardComponent implements OnInit {
 
   scenarios$: any;
 
-  currentHistoryFilter:any = {};
-
+  currentHistoryFilters:IFilter[] = [];
   historyFilters: string[] = ['Show All'];
-  filters:any = {
-    state: ['Failed', 'Passed'],
-    startedBy: ['Run by me'],
-    startedSince: ['Today'],
-    viewports: ['1600 × 900', '800 × 600']
-  }
-  filterGetters:any = {
-    startedSince: (value, currentValue) => {
-      return (new Date()).toISOString().split('T')[0]
-    },
-    viewports: (value, currentValue) => {
-
-      if (currentValue && currentValue.indexOf(','+value) >= 0) {
-        return currentValue.replace(','+value, '')
-      }
-      if (currentValue && currentValue.indexOf(value+',') >= 0) {
-        return currentValue.replace(value+',', '')
-      }
-
-      if (currentValue === value) {
-        return null
-      }
-      else if (currentValue) {
-        return [currentValue, value].join(',')
-      }
-      else {
-        return value;
-      }
-    }
-  }
 
   constructor (private store: Store) {
 
-    Object.keys(this.filters).forEach(k => {
-      this.historyFilters = this.historyFilters.concat(
-        this.filters[k]
-      )
-    })
+    this.historyFilters = ['Show All', ...getValues(HistoryFilters)]
   }
 
   ngOnInit() {
@@ -68,31 +35,13 @@ export class DashboardComponent implements OnInit {
 
   applyFilterHandler($event:string) {
 
-    if ($event === this.historyFilters[0]) {
-      this.currentHistoryFilter = {};
+    if ($event === 'Show All') {
+      clearFilters(HistoryFilters)
     }
     else {
-
-      Object.keys(this.filters).forEach(k => {
-        if (this.filters[k].indexOf($event) >= 0) {
-
-          let filter = {}
-
-          let getterFunc = this.filterGetters[k]
-          if (getterFunc) {
-            $event = getterFunc($event, this.currentHistoryFilter[k])
-          }
-
-          filter[k] = this.currentHistoryFilter[k] === $event ? null : $event;
-
-          this.currentHistoryFilter = {
-            ...this.currentHistoryFilter,
-            ...filter
-          }
-
-          return;
-        }
-      });
+      setFilter(HistoryFilters, $event)
     }
+
+    this.currentHistoryFilters = HistoryFilters
   }
 }

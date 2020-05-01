@@ -46,9 +46,10 @@
 -- support multiple filters on backend (viewports=[])
 
 - DESIGN UI PAGES FOR MOBILE
-- support search on backend
 - refactor filters funcs, make it easier to reuse
 
+- run scenarios filtered by ids[]*viewports[]
+- remove scenarios filtered by ids[]*viewports[]
 - Dates should store in UTC but display in Local timezone (the same according to Tody filter)
 - refactoring - Split configuration and configuration/:id components and effects
 - support groupby=scenario for jobs history
@@ -81,6 +82,7 @@
 - Use user-friendly dates (by moment)
 - Think out understanding of costs (weight of s3/lambdas/queues/vm in total cost of user) to work out correct pricing strategy
 - Frontend: Read proof
+- Frontend: Think out onboarding process, layout and empty state views.
 
 
 - Display retry button for not-ready yet history record (screens)

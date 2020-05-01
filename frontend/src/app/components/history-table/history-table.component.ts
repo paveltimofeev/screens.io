@@ -4,6 +4,7 @@ import { refresh } from './store/history-table.actions';
 import { selectHistoryTable } from './store/history-table.selectors';
 import { interval } from 'rxjs';
 import { AgCellButtonComponent } from './ag-cell-button/ag-cell-button.component';
+import { IFilter } from '../../services/filters';
 
 @Component({
   selector: 'app-history-table',
@@ -12,16 +13,16 @@ import { AgCellButtonComponent } from './ag-cell-button/ag-cell-button.component
 })
 export class HistoryTableComponent implements OnInit, OnDestroy {
 
-  _filter:{key:string, value:string};
+  _filters:IFilter[];
 
-  get filter(): {key:string, value:string} {
-    return this._filter;
+  get filters(): IFilter[] {
+    return this._filters;
   }
 
   @Input()
-  set filter (value:{key:string, value:string}) {
+  set filters (value:IFilter[]) {
 
-    this._filter = value;
+    this._filters = value;
     this.refresh();
   }
 
@@ -116,7 +117,7 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
   refresh() {
 
     const payload = {
-      filter: this._filter
+      filters: this._filters
     };
 
     this.store.dispatch( refresh({payload}) );

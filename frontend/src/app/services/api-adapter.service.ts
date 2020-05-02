@@ -18,7 +18,7 @@ export class ApiAdapterService {
 
   constructor (
     private dataAccessService: DataAccessService,
-    private filters: FiltersService
+    private filtersService: FiltersService
   ) { }
 
   /*
@@ -62,12 +62,12 @@ export class ApiAdapterService {
     if (filters && filters.length > 0) {
 
       query = '?' + filters
-        .map((filter: IQueryFilter) => { return this.filters.toQuery(filter) })
+        .map((filter: IQueryFilter) => {
+          return this.filtersService.buildQuery(filter)
+        })
         .filter(Boolean)
         .join('&');
     }
-
-    console.log(environment.api + 'test/history' + query)
 
     return this.dataAccessService.get(
       environment.api + 'test/history' + query);

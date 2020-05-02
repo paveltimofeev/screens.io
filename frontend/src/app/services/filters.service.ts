@@ -30,7 +30,6 @@ export class QueryFilter implements IQueryFilter {
 }
 
 
-
 interface IFilterService {
 
   setValue(filter:IQueryFilter, value: string): IQueryFilter;
@@ -156,12 +155,7 @@ export class FiltersService {
   SinceDateFilter:IFilterService = new SinceDateFilterService()
   MultiOptionsFilter:IFilterService = new MultiOptionsFilterService()
 
-  toQuery (filter:IQueryFilter) {
-
-    return this.QueryFilter.toQuery(filter)
-  }
-
-  getValues (filters:IQueryFilter[]):string[] {
+  getFiltersValues (filters:IQueryFilter[]):string[] {
 
     let results:string[] = []
 
@@ -199,5 +193,10 @@ export class FiltersService {
     return filters.map( (filter:IQueryFilter) => {
       return this.QueryFilter.clear(filter)
     })
+  }
+
+  buildQuery (filter:IQueryFilter) {
+
+    return this.QueryFilter.toQuery(filter)
   }
 }

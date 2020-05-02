@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
 
     this.historyFilters = [
       'Show All',
-      ...this.filters.getValues(this._historyFilters)
+      ...this.filters.getFiltersValues(this._historyFilters)
     ]
 
     this.scenarios$ = this.store.pipe( select(selectScenarios))

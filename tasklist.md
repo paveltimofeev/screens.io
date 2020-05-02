@@ -52,17 +52,21 @@
 - Backend: get favorite scenarios
 - Backend: get N latest job histories
 
+- Backend: Approve all failed/filtered tests in run
 - Frontend: create basic routes and responsive/mobile-compatible layouts wireframes (by Figma design)
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
-- run scenarios filtered by ids[]*viewports[]
+- Run scenarios filtered by ids[]*viewports[]
 - Run scenarios with overrode parameters (scenarios/hostname/viewports/...)
-- remove scenarios filtered by ids[]*viewports[]
+- Remove scenarios filtered by ids[]*viewports[]
 - Dates should store in UTC but display in Local timezone (the same according to Tody filter)
 - support groupby=scenario for jobs history
 - Think out different UseScenarios for different Persons: The Developer, The TeamLead, The Indie (Who's he / What problems does he has / How does he expect to use me)
 - Loading a lot of images through AuthProxy is hard? Need to return signed link to S3 instead
 - Do not use Login as userId, because it uses in path building and could allow user chang directories, use user UID instead
 - Cookies callback/field, or before run script
+- Bulk add scenarios (urls)
+- Disable Animation option for scenario
+- Support work with sites protected with BasicAuth or ftp (user:pass)
 - Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
 - Retry Policy for backend-db, backend-queue
 - AuthGuard to redirect unauthorized users to login page ASAP
@@ -73,13 +77,11 @@
 - Sanitize body and params in Auth proxy & Backend
 - Frontend: Angular MultiLanguage support (i18n, l8n)
 - Restrict number of viewports
-- Show Difference value, to get user knowledge for tuning test sensivity 
-- Bulk add scenarios (urls)
-- Page Modification/Disable Animation option for scenario
-- API+APIKEY for runnung-with-parameters by posted config from body (Usecase: developer stores backstopjs-tests near the component, and post them to API to test against his host/params)
-- API+APIKEY for comparing any posted screenshot agaings stored in DB (Usecase: dev team has environment for taking screenshots and uses API to validate them againgst approved, team also uses WenUI to approve cases, to monitor stability, and team uses notificatons at Slack/Telegram)
+- Show Difference value, to get user knowledge for tuning test sensitivity 
+- API+APIKEY for running-with-parameters by posted config from body (Usecase: developer stores backstopjs-tests near the component, and post them to API to test against his host/params)
+- API+APIKEY for comparing any posted screenshot against stored in DB (Usecase: dev team has environment for taking screenshots and uses API to validate them against approved, team also uses WenUI to approve cases, to monitor stability, and team uses notifications at Slack/Telegram)
 - Unapprove: Review and turn back any previously approved results.
-- Locate tiny changes, and mark them more noticably. Add "Scroll to next diff" button.
+- Locate tiny changes, and mark them more noticeably. Add "Scroll to next diff" button.
 - Use user-friendly dates (by moment)
 - Think out understanding of costs (weight of s3/lambdas/queues/vm in total cost of user) to work out correct pricing strategy
 - Frontend: Read proof

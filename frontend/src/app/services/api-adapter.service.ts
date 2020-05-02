@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DataAccessService } from './data-access.service';
 import { environment } from '../../environments/environment';
-import { IQueryFilter } from './filters.service';
+import { FiltersService, IQueryFilter } from './filters.service';
 
 export interface IConfig {
   id:string,
@@ -17,7 +17,8 @@ export interface IConfig {
 export class ApiAdapterService {
 
   constructor (
-    private dataAccessService: DataAccessService
+    private dataAccessService: DataAccessService,
+    private filters: FiltersService
   ) { }
 
   /*
@@ -61,10 +62,12 @@ export class ApiAdapterService {
     if (filters && filters.length > 0) {
 
       query = '?' + filters
-        .map((filter: IQueryFilter) => { return filter.toQuery() })
+        .map((filter: IQueryFilter) => { return this.filters.toQuery(filter) })
         .filter(Boolean)
         .join('&');
     }
+
+    console.log(environment.api + 'test/history' + query)
 
     return this.dataAccessService.get(
       environment.api + 'test/history' + query);

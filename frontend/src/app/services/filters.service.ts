@@ -6,10 +6,92 @@ export interface IQueryFilter {
   key: string;
   values: string[];
   type: string;
+}
 
-  setValue(value: string): void;
-  toQuery(): string;
-  clear(): void
+export interface IFilterService {
+
+  setValue(filter:IQueryFilter, value: string): IQueryFilter;
+  toQuery(filter:IQueryFilter): string;
+  clear(filter:IQueryFilter): IQueryFilter
+}
+
+export class BaseFilterService implements IFilterService {
+
+  setValue(filter:IQueryFilter, value: string): IQueryFilter {
+
+    if (filter.value !== value) {
+
+      return {
+        ...filter,
+        value: value
+      }
+    }
+    else {
+      return this.clear(filter)
+    }
+  }
+  toQuery (filter:IQueryFilter): string {
+
+    if (filter.value !== null) {
+      return `${filter.key}=${filter.value}`;
+    }
+    else {
+      return ''
+    }
+  }
+  clear(filter:IQueryFilter): IQueryFilter {
+
+    return {
+      ...filter,
+      value: null
+    }
+  }
+}
+
+export class SinceDateFilterService extends BaseFilterService {
+
+  setValue(filter:IQueryFilter, value: string): IQueryFilter {
+
+    if (!filter.value && value === 'Today') {
+
+      return {
+      ...filter,
+        value: (new Date()).toISOString().split('T')[0]
+      }
+    }
+    else if (filter.value) {
+      return this.clear(filter)
+    }
+  }
+}
+
+export class MultiOptionsFilterService extends BaseFilterService {
+
+  setValue(filter:IQueryFilter, value: string): IQueryFilter {
+
+    let newValue = value;
+
+    if (filter.value && filter.value.indexOf(','+value) >= 0) {
+      newValue = filter.value.replace(','+value, '')
+    }
+    else if (filter.value && filter.value.indexOf(value+',') >= 0) {
+      newValue = filter.value.replace(value+',', '')
+    }
+    else if (filter.value === value) {
+      return this.clear(filter)
+    }
+    else if (filter.value) {
+      newValue = [filter.value, value].join(',')
+    }
+    else {
+      newValue = value;
+    }
+
+    return {
+      ...filter,
+      value: newValue
+    }
+  }
 }
 
 export class BaseFilter implements IQueryFilter {
@@ -19,28 +101,6 @@ export class BaseFilter implements IQueryFilter {
   values: string[];
   type: string = 'BaseFilter';
 
-  setValue(value: string) :void {
-
-    if (this.value !== value) {
-      this.value = value;
-    }
-    else {
-      this.clear()
-    }
-  }
-  toQuery (): string {
-
-    if (this.value !== null) {
-      return `${this.key}=${this.value}`;
-    }
-    else {
-      return ''
-    }
-  }
-  clear(): void {
-    this.value = null;
-  }
-
   constructor(key: string, values: string[], type:string = 'BaseFilter') {
     this.key = key;
     this.values = values;
@@ -48,46 +108,23 @@ export class BaseFilter implements IQueryFilter {
   }
 }
 
-export class SinceDateFilter extends BaseFilter {
-
-  setValue(value: string) {
-
-    if (!this.value && value === 'Today') {
-      this.value = (new Date()).toISOString().split('T')[0]
-    }
-    else if (this.value) {
-      this.value = null;
-    }
-  }
-}
-
-export class MultiOptionFilter extends BaseFilter {
-
-  setValue(value: string) {
-
-    if (this.value && this.value.indexOf(','+value) >= 0) {
-      this.value = this.value.replace(','+value, '')
-    }
-    else if (this.value && this.value.indexOf(value+',') >= 0) {
-      this.value = this.value.replace(value+',', '')
-    }
-    else if (this.value === value) {
-      this.value = null
-    }
-    else if (this.value) {
-      this.value = [this.value, value].join(',')
-    }
-    else {
-      this.value = value;
-    }
-  }
-}
+export class SinceDateFilter extends BaseFilter {}
+export class MultiOptionFilter extends BaseFilter {}
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class FiltersService {
+
+  BaseFilter:IFilterService = new BaseFilterService()
+  SinceDateFilter:IFilterService = new SinceDateFilterService()
+  MultiOptionsFilter:IFilterService = new MultiOptionsFilterService()
+
+  toQuery (filter:IQueryFilter) {
+
+    return this.BaseFilter.toQuery(filter)
+  }
 
   getValues (filters:IQueryFilter[]):string[] {
 
@@ -100,24 +137,32 @@ export class FiltersService {
     return results;
   }
 
-  setFilter (filters:IQueryFilter[], value:string) {
+  setFilter (filters:IQueryFilter[], value:string):IQueryFilter[] {
 
-    filters.forEach( (filter:IQueryFilter) => {
+
+    return filters.map( (filter:IQueryFilter) => {
 
       if (filter.values.indexOf(value) >= 0 ) {
 
-        console.log(filter.key, filter.type, value)
-        filter.setValue(value);
-        console.log(filter.key, filter.type, filter.toQuery())
-        return;
+        if (filter.type === 'BaseFilter') {
+          filter = this.BaseFilter.setValue(filter, value)
+        }
+        if (filter.type === 'SinceDateFilter') {
+          filter = this.SinceDateFilter.setValue(filter, value)
+        }
+        if (filter.type === 'MultiOptionsFilter') {
+          filter = this.MultiOptionsFilter.setValue(filter, value)
+        }
       }
+
+      return filter
     })
   }
 
-  clearFilters (filters:IQueryFilter[]) {
+  clearFilters (filters:IQueryFilter[]):IQueryFilter[] {
 
-    filters.forEach( (filter:IQueryFilter) => {
-      filter.clear()
+    return filters.map( (filter:IQueryFilter) => {
+      return this.BaseFilter.clear(filter)
     })
   }
 }

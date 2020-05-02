@@ -21,13 +21,21 @@ export class DashboardComponent implements OnInit {
 
   scenarios$: any;
 
-  _historyFilters:IQueryFilter[] = [
+  _historyFilters = [
 
-    new BaseFilter('state', ['Failed', 'Passed']),
-    new BaseFilter('startedBy', ['Run by me']),
-    new SinceDateFilter('startedSince', ['Today'], 'SinceDateFilter'), // This week
-    new MultiOptionFilter('viewports',  ['1600 × 900', '800 × 600'], 'MultiOptionFilter')
+    { key: 'state', values: ['Failed', 'Passed'], type: 'BaseFilter', value: null },
+    { key: 'startedBy', values: ['Run by me'], type: 'BaseFilter', value: null },
+    { key: 'startedSince', values: ['Today'], type: 'SinceDateFilter', value: null },
+    { key: 'viewports', values: ['1600 × 900', '800 × 600'], type: 'MultiOptionsFilter', value: null },
   ]
+
+  //   [
+  //
+  //   new BaseFilter('state', ['Failed', 'Passed']),
+  //   new BaseFilter('startedBy', ['Run by me']),
+  //   new SinceDateFilter('startedSince', ['Today'], 'SinceDateFilter'), // This week
+  //   new MultiOptionFilter('viewports',  ['1600 × 900', '800 × 600'], 'MultiOptionFilter')
+  // ]
 
   currentHistoryFilters:IQueryFilter[] = [];
   historyFilters: string[] = ['Show All'];
@@ -52,10 +60,10 @@ export class DashboardComponent implements OnInit {
   applyFilterHandler($event:string) {
 
     if ($event === 'Show All') {
-      this.filters.clearFilters(this._historyFilters)
+      this._historyFilters = this.filters.clearFilters(this._historyFilters)
     }
     else {
-      this.filters.setFilter(this._historyFilters, $event)
+      this._historyFilters = this.filters.setFilter(this._historyFilters, $event)
     }
 
     this.currentHistoryFilters = this._historyFilters

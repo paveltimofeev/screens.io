@@ -44,9 +44,9 @@
 -- refactoring - replace getHistoryRecordsOfScenario with getTestCaseHistory(scenarioId)
 -- support search and filters on backend (status=, startedBy=, startedSince=)
 -- support multiple filters on backend (viewports=[])
+-- refactor filters funcs, make it easier to reuse
 
 - DESIGN UI PAGES FOR MOBILE
-- refactor filters funcs, make it easier to reuse
 
 - run scenarios filtered by ids[]*viewports[]
 - remove scenarios filtered by ids[]*viewports[]

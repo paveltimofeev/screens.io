@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
-const { recordSchema } = require('./models/history-record')
-const { scenarioSchema } = require('./models/scenario')
-const { viewportSchema } = require('./models/viewport')
-const { reportSchema } = require('./models/report')
+const { recordSchema } = require('../models/history-record')
+const { scenarioSchema } = require('../models/scenario')
+const { viewportSchema } = require('../models/viewport')
+const { reportSchema } = require('../models/report')
 
 class Storage {
 

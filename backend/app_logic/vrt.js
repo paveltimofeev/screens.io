@@ -2,9 +2,11 @@ var backstop = require('backstopjs');
 var fs = require('fs');
 var { promisify } = require('util');
 var path = require('path');
-const storage = new (require('../storage-adapter'))
+const storage = new (require('../storage/storage-adapter'))
 const engine = new (require('../engine-adapter'))
 const { QueueWrapper } = require('./queue-wrappers')
+const { SingleValueRule, ArrayRule, SinceDateRule } =  require('../storage/query-rules')
+
 
 const exists = promisify(fs.exists)
 const copyFile = promisify(fs.copyFile)
@@ -225,22 +227,29 @@ class VRT {
     /// filter: {state, startedBy, startedSince}
     async getHistoryRecords (filter) {
 
-      let query = {}
+        let query = {}
 
         if (filter) {
 
-            if ( filter.state === 'Passed'
-              || filter.state === 'Failed') {
-                query.state = filter.state;
+            const state = new SingleValueRule(filter.state, ['Passed', 'Failed'])
+            const startedBy = new SingleValueRule(filter.startedBy, ['Run by me'])
+            const viewports = new ArrayRule(filter.viewports)
+            const startedSince = new SinceDateRule(filter.startedSince)
+
+            if ( state.isValid() ) {
+                query.state = state.toQueryPart();
             }
-            if ( filter.startedBy === 'Run by me') {
+
+            if ( startedBy.isValid()) {
                 query.startedBy = this._userId;
             }
-            if ( typeof(filter.viewports) === 'string') {
-              query.viewports = { $in: filter.viewports.split(',') }
+
+            if ( viewports.isValid()) {
+                query.viewports = viewports.toQueryPart()
             }
-            if ( typeof(filter.startedSince) === 'string' && /\d\d\d\d-\d\d-\d\d/.test(filter.startedSince)) {
-                query.startedAt = { $gte: filter.startedSince };
+
+            if (startedSince.isValid()) {
+                query.startedAt = startedSince.toQueryPart();
             }
         }
 

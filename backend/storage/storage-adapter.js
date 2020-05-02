@@ -3,6 +3,8 @@ const { recordSchema } = require('../models/history-record')
 const { scenarioSchema } = require('../models/scenario')
 const { viewportSchema } = require('../models/viewport')
 const { reportSchema } = require('../models/report')
+const { UIError } = require('../ui-error')
+
 
 class Storage {
 
@@ -56,9 +58,6 @@ class Storage {
         return await this._getByQuery(database, collection, schema, {})
     }
     async _getByQuery (database, collection, schema, query) {
-
-        console.log('_getByQuery ' + database + ':' + collection, query)
-
         let entity = this._createEntity(database, collection, schema)
         return await entity.find(query || {})
     }
@@ -107,17 +106,17 @@ class Storage {
     }
     async getScenarioByLabel (database, label) {
 
-        const results = await this._getByQuery(database, 'Scenario', scenarioSchema, { "label": label })
+        const results = await this._getByQuery(
+          database, 'Scenario', scenarioSchema, { "label": label }
+        )
 
         if ( !results || results.length === 0 ) {
-            let err = new Error(`No scenarios found with label '${label}'`)
-            err.uiError = { message: `No scenarios found with label '${label}'` }
-            throw err;
+            UIError.throw(`No scenarios found with label '${label}'`,
+              {database, label})
         }
         else if (results.length > 1) {
-            let err = new Error(`More than one scenario found (${results.length}) with label '${label}'`)
-            err.uiError = { message: `More than one scenario found (${results.length}) with label '${label}'` }
-            throw err;
+            UIError.throw(`More than one scenario found (${results.length}) with label '${label}'`,
+              {database, label})
         }
 
         return results[0]

@@ -2,6 +2,8 @@ const fs = require('fs');
 const { promisify } = require('util');
 const path = require('path');
 const readFile = promisify(fs.readFile)
+const { UIError } = require('./ui-error');
+
 
 
 class EngineAdapter {
@@ -36,17 +38,15 @@ class EngineAdapter {
     buildConfig (tenantId, userId, viewports, scenarios, custom) {
 
         const validateString = (name, param) => {
+
             if (!param || typeof(param) !== 'string' || param.length === 0) {
-                let err = new Error(`No ${name} found or ${name} has wrong type`)
-                err.uiError = { message: `No ${name} found or ${name} is not correct` }
-                throw err;
+                UIError.throw( `No ${name} found or "${name}" is not correct`, {name, param})
             }
         }
         const validateArray = (name, param) => {
+
             if (!param || param.length === 0) {
-                let err = new Error(`No ${name} found`)
-                err.uiError = { message: `No ${name} found` }
-                throw err;
+                UIError.throw(`No "${name}" found`, {name, param})
             }
         }
 
@@ -57,10 +57,10 @@ class EngineAdapter {
         validateArray('scenarios', scenarios)
 
         const removeEmptyArraysInObject = (obj, propName) => {
-                
+
             if (obj[propName] && obj[propName].length === 0) {
                 delete obj[propName]
-            }                
+            }
         }
 
         scenarios = scenarios.map(s => {

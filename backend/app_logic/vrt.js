@@ -168,8 +168,6 @@ class VRT {
                     label: scenario.label
                 }]
             })
-
-        return { success: true }
     }
 
     stop (cb) {
@@ -217,6 +215,8 @@ class VRT {
             tenantId: this._tenantId,
             userId: this._userId
         })
+
+        return { enqueuedSuccessfully: true }
     }
     async enqueueApproveCase (pair) {
 
@@ -226,7 +226,7 @@ class VRT {
             userId: this._userId
         })
 
-        return { success: true }
+        return { enqueuedSuccessfully: true }
     }
 
     async getReportByRunId (runId) {

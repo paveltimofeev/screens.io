@@ -46,6 +46,7 @@
 -- support multiple filters on backend (viewports=[])
 -- refactor filters funcs, make it easier to reuse
 -- Backend: store approves in history
+-- Backend: extract UIErrors into the separate class
 
 - DESIGN UI PAGES FOR MOBILE
 

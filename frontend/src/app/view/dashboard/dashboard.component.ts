@@ -3,8 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { refresh, runOneScenario } from './store/dashboard.actions';
 import { select, Store } from '@ngrx/store';
 import { selectScenarios } from './store/dashboard.selectors';
-import { IFilter, FiltersService } from '../../services/filters';
-import { HistoryFilters } from './history-filters';
+import {
+  IQueryFilter,
+  FiltersService,
+  BaseFilter,
+  SinceDateFilter,
+  MultiOptionFilter
+} from '../../services/filters.service';
+//import { HistoryFilters } from './history-filters';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +21,15 @@ export class DashboardComponent implements OnInit {
 
   scenarios$: any;
 
-  currentHistoryFilters:IFilter[] = [];
+  _historyFilters:IQueryFilter[] = [
+
+    new BaseFilter('state', ['Failed', 'Passed']),
+    new BaseFilter('startedBy', ['Run by me']),
+    new SinceDateFilter('startedSince', ['Today'], 'SinceDateFilter'), // This week
+    new MultiOptionFilter('viewports',  ['1600 × 900', '800 × 600'], 'MultiOptionFilter')
+  ]
+
+  currentHistoryFilters:IQueryFilter[] = [];
   historyFilters: string[] = ['Show All'];
 
   constructor (private store: Store, private filters: FiltersService) {}
@@ -24,7 +38,7 @@ export class DashboardComponent implements OnInit {
 
     this.historyFilters = [
       'Show All',
-      ...this.filters.getValues(HistoryFilters)
+      ...this.filters.getValues(this._historyFilters)
     ]
 
     this.scenarios$ = this.store.pipe( select(selectScenarios))
@@ -38,12 +52,12 @@ export class DashboardComponent implements OnInit {
   applyFilterHandler($event:string) {
 
     if ($event === 'Show All') {
-      this.filters.clearFilters(HistoryFilters)
+      this.filters.clearFilters(this._historyFilters)
     }
     else {
-      this.filters.setFilter(HistoryFilters, $event)
+      this.filters.setFilter(this._historyFilters, $event)
     }
 
-    this.currentHistoryFilters = HistoryFilters
+    this.currentHistoryFilters = this._historyFilters
   }
 }

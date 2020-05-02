@@ -49,26 +49,22 @@
 -- Backend: extract UIErrors into the separate class
 
 - DESIGN UI PAGES FOR MOBILE
-
-- Frontend: create basic routes and responsive/mobile-compatible layouts wireframes (by Figma design)
 - Backend: get favorite scenarios
 - Backend: get N latest job histories
-- Show stats, chart and measure stability
+
+- Frontend: create basic routes and responsive/mobile-compatible layouts wireframes (by Figma design)
+- Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - run scenarios filtered by ids[]*viewports[]
+- Run scenarios with overrode parameters (scenarios/hostname/viewports/...)
 - remove scenarios filtered by ids[]*viewports[]
 - Dates should store in UTC but display in Local timezone (the same according to Tody filter)
-- refactoring - Split configuration and configuration/:id components and effects
 - support groupby=scenario for jobs history
 - Think out different UseScenarios for different Persons: The Developer, The TeamLead, The Indie (Who's he / What problems does he has / How does he expect to use me)
 - Loading a lot of images through AuthProxy is hard? Need to return signed link to S3 instead
 - Do not use Login as userId, because it uses in path building and could allow user chang directories, use user UID instead
-- Run scenarios with overrode parameters (hostname/resolutions/...)
 - Cookies callback/field, or before run script
-- Get scenario approved images
-- Collect analytics: % of passed this day/week, passed % by week
 - Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
 - Retry Policy for backend-db, backend-queue
-- Add ScenarioHistory collection [scenarioRef/Name, date, status, historyRecordRef, successRate(calc) ]
 - AuthGuard to redirect unauthorized users to login page ASAP
 - Remove all References and test Files on removing Scenarios or Viewports
 - Remove test result Files and Report after remove history record
@@ -88,11 +84,11 @@
 - Think out understanding of costs (weight of s3/lambdas/queues/vm in total cost of user) to work out correct pricing strategy
 - Frontend: Read proof
 - Frontend: Think out onboarding process, layout and empty state views.
+- Add ScenarioHistory collection [scenarioRef/Name, date, status, historyRecordRef, successRate(calc) ]
 
 
 - Display retry button for not-ready yet history record (screens)
 - Confirmation dialog for delete ops
-- Layout for results/history
 - Displaying Errors on load and save
 
 

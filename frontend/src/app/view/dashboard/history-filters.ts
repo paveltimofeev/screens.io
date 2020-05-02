@@ -1,21 +1,12 @@
-// import { IQueryFilter, BaseFilter, MultiOptionFilter, SinceDateFilter } from '../../services/filters.service';
-//
-// export let HistoryFilters:IQueryFilter[] = [
-//
-//   new BaseFilter('state', ['Failed', 'Passed']),
-//   new BaseFilter('startedBy', ['Run by me']),
-//   new SinceDateFilter('startedSince', ['Today']), // This week
-//   new MultiOptionFilter('viewports',  ['1600 × 900', '800 × 600'])
-// ]
+import { IQueryFilter, QueryFilter, QueryFilterType } from '../../services/filters.service';
 
+export const CreateHistoryFilters = (): IQueryFilter[] => {
 
+  return [
 
-import { IQueryFilter } from '../../services/filters.service';
-
-export let HistoryFilters:IQueryFilter[] = [
-
-  { key: 'state', values: ['Failed', 'Passed'], type: 'BaseFilter', value: null },
-  { key: 'startedBy', values: ['Run by me'], type: 'BaseFilter', value: null },
-  { key: 'startedSince', values: ['Today'], type: 'SinceDateFilter', value: null },
-  { key: 'viewports', values: ['1600 × 900', '800 × 600'], type: 'MultiOptionsFilter', value: null },
-]
+    new QueryFilter('state', ['Failed', 'Passed'], QueryFilterType.SingleOptionFilter),
+    new QueryFilter('startedBy', ['Run by me'], QueryFilterType.SingleOptionFilter),
+    new QueryFilter('startedSince', ['Today', 'Last 3 days', 'Last 7 days'], QueryFilterType.SinceDateFilter),
+    new QueryFilter('viewports',  ['1600 × 900', '800 × 600'], QueryFilterType.MultiOptionsFilter)
+  ]
+}

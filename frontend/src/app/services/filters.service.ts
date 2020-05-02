@@ -1,23 +1,48 @@
 import { Injectable } from '@angular/core';
 
+export enum QueryFilterType {
+  SingleOptionFilter,
+  SinceDateFilter,
+  MultiOptionsFilter
+}
+
 export interface IQueryFilter {
 
   value: string;
   key: string;
   values: string[];
-  type: string;
+  type: QueryFilterType;
 }
 
-export interface IFilterService {
+export class QueryFilter implements IQueryFilter {
+
+  value: string = null;
+  key: string;
+  values: string[];
+  type: QueryFilterType;
+
+  constructor(key: string, values: string[], type:QueryFilterType = QueryFilterType.SinceDateFilter) {
+
+    this.key = key;
+    this.values = values;
+    this.type = type;
+  }
+}
+
+
+
+interface IFilterService {
 
   setValue(filter:IQueryFilter, value: string): IQueryFilter;
   toQuery(filter:IQueryFilter): string;
   clear(filter:IQueryFilter): IQueryFilter
 }
 
-export class BaseFilterService implements IFilterService {
 
-  setValue(filter:IQueryFilter, value: string): IQueryFilter {
+/// Creates query like: key=value
+class BaseFilterService implements IFilterService {
+
+  setValue (filter:IQueryFilter, value: string): IQueryFilter {
 
     if (filter.value !== value) {
 
@@ -30,6 +55,7 @@ export class BaseFilterService implements IFilterService {
       return this.clear(filter)
     }
   }
+
   toQuery (filter:IQueryFilter): string {
 
     if (filter.value !== null) {
@@ -39,7 +65,8 @@ export class BaseFilterService implements IFilterService {
       return ''
     }
   }
-  clear(filter:IQueryFilter): IQueryFilter {
+
+  clear (filter:IQueryFilter): IQueryFilter {
 
     return {
       ...filter,
@@ -48,43 +75,68 @@ export class BaseFilterService implements IFilterService {
   }
 }
 
-export class SinceDateFilterService extends BaseFilterService {
+/// Creates query like: key=YYYY-MM-DD
+class SinceDateFilterService extends BaseFilterService {
 
-  setValue(filter:IQueryFilter, value: string): IQueryFilter {
+  readonly dayMs = 1000 * 60 * 60 * 24;
 
-    if (!filter.value && value === 'Today') {
+  getDaysAgo (days:number): Date {
+
+    return new Date(Date.now() - this.dayMs * days)
+  }
+
+  // Return date in YYYY-MM-DD format
+  formatDate (date: Date): string {
+
+    return date.toISOString().split('T')[0]
+  }
+
+  setValue (filter:IQueryFilter, value: string): IQueryFilter {
+
+    let newValue = ''
+
+    switch (value) {
+      case 'Today':
+        newValue = this.formatDate( new Date() )
+        break
+      case 'Last 3 days':
+        newValue = this.formatDate( this.getDaysAgo(3)  )
+        break
+      case 'Last 7 days':
+        newValue = this.formatDate( this.getDaysAgo(7) )
+    }
+
+    if (filter.value === newValue) {
+      return this.clear(filter)
+    }
+    else {
 
       return {
-      ...filter,
-        value: (new Date()).toISOString().split('T')[0]
+        ...filter,
+        value: newValue
       }
-    }
-    else if (filter.value) {
-      return this.clear(filter)
     }
   }
 }
 
-export class MultiOptionsFilterService extends BaseFilterService {
+/// Creates query like: key=val1,val2
+class MultiOptionsFilterService extends BaseFilterService {
 
   setValue(filter:IQueryFilter, value: string): IQueryFilter {
 
     let newValue = value;
 
-    if (filter.value && filter.value.indexOf(','+value) >= 0) {
-      newValue = filter.value.replace(','+value, '')
+    if (filter.value && filter.value.indexOf( ',' + value ) >= 0) {
+      newValue = filter.value.replace( ',' + value, '')
     }
-    else if (filter.value && filter.value.indexOf(value+',') >= 0) {
-      newValue = filter.value.replace(value+',', '')
+    else if (filter.value && filter.value.indexOf( value + ',' ) >= 0) {
+      newValue = filter.value.replace (value + ',', '')
     }
     else if (filter.value === value) {
       return this.clear(filter)
     }
     else if (filter.value) {
       newValue = [filter.value, value].join(',')
-    }
-    else {
-      newValue = value;
     }
 
     return {
@@ -94,36 +146,19 @@ export class MultiOptionsFilterService extends BaseFilterService {
   }
 }
 
-export class BaseFilter implements IQueryFilter {
-
-  value: string = null;
-  key: string;
-  values: string[];
-  type: string = 'BaseFilter';
-
-  constructor(key: string, values: string[], type:string = 'BaseFilter') {
-    this.key = key;
-    this.values = values;
-    this.type = type;
-  }
-}
-
-export class SinceDateFilter extends BaseFilter {}
-export class MultiOptionFilter extends BaseFilter {}
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class FiltersService {
 
-  BaseFilter:IFilterService = new BaseFilterService()
+  QueryFilter:IFilterService = new BaseFilterService()
   SinceDateFilter:IFilterService = new SinceDateFilterService()
   MultiOptionsFilter:IFilterService = new MultiOptionsFilterService()
 
   toQuery (filter:IQueryFilter) {
 
-    return this.BaseFilter.toQuery(filter)
+    return this.QueryFilter.toQuery(filter)
   }
 
   getValues (filters:IQueryFilter[]):string[] {
@@ -144,13 +179,13 @@ export class FiltersService {
 
       if (filter.values.indexOf(value) >= 0 ) {
 
-        if (filter.type === 'BaseFilter') {
-          filter = this.BaseFilter.setValue(filter, value)
+        if (filter.type === QueryFilterType.SingleOptionFilter) {
+          filter = this.QueryFilter.setValue(filter, value)
         }
-        if (filter.type === 'SinceDateFilter') {
+        if (filter.type === QueryFilterType.SinceDateFilter) {
           filter = this.SinceDateFilter.setValue(filter, value)
         }
-        if (filter.type === 'MultiOptionsFilter') {
+        if (filter.type === QueryFilterType.MultiOptionsFilter) {
           filter = this.MultiOptionsFilter.setValue(filter, value)
         }
       }
@@ -162,7 +197,7 @@ export class FiltersService {
   clearFilters (filters:IQueryFilter[]):IQueryFilter[] {
 
     return filters.map( (filter:IQueryFilter) => {
-      return this.BaseFilter.clear(filter)
+      return this.QueryFilter.clear(filter)
     })
   }
 }

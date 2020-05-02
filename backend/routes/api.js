@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const VRT = require('../app_logic/vrt');
 
-const vrt = new VRT('test-tenant', 'test-user');
-
 const tryWrapper = async (req, res, action) => {
 
     try {
@@ -34,7 +32,8 @@ router.post('/test/approvecase', async function(req, res) {
 
     tryWrapper(req, res, async () => {
 
-        const result = await vrt.enqueueApproveCase({
+        const result = await VRT.create(req.context).enqueueApproveCase({
+            label: pair.label,
             reference: pair.reference,
             test: pair.test
         })

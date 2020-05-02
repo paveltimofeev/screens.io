@@ -45,16 +45,20 @@
 -- support search and filters on backend (status=, startedBy=, startedSince=)
 -- support multiple filters on backend (viewports=[])
 -- refactor filters funcs, make it easier to reuse
+-- Backend: store approves in history
 
 - DESIGN UI PAGES FOR MOBILE
 
+- Frontend: create basic routes and responsive/mobile-compatible layouts wireframes (by Figma design)
+- Backend: get favorite scenarios
+- Backend: get N latest job histories
+- Show stats, chart and measure stability
 - run scenarios filtered by ids[]*viewports[]
 - remove scenarios filtered by ids[]*viewports[]
 - Dates should store in UTC but display in Local timezone (the same according to Tody filter)
 - refactoring - Split configuration and configuration/:id components and effects
 - support groupby=scenario for jobs history
-- store approves in history
-- Think out different UseScenarios for different Persons: The Developer, The TeamLead, The Indie
+- Think out different UseScenarios for different Persons: The Developer, The TeamLead, The Indie (Who's he / What problems does he has / How does he expect to use me)
 - Loading a lot of images through AuthProxy is hard? Need to return signed link to S3 instead
 - Do not use Login as userId, because it uses in path building and could allow user chang directories, use user UID instead
 - Run scenarios with overrode parameters (hostname/resolutions/...)
@@ -88,7 +92,6 @@
 - Display retry button for not-ready yet history record (screens)
 - Confirmation dialog for delete ops
 - Layout for results/history
-- Show stats, chart and measure stability
 - Displaying Errors on load and save
 
 

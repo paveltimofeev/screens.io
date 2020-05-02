@@ -57,6 +57,8 @@ class Storage {
     }
     async _getByQuery (database, collection, schema, query) {
 
+        console.log('_getByQuery ' + database + ':' + collection, query)
+
         let entity = this._createEntity(database, collection, schema)
         return await entity.find(query || {})
     }
@@ -102,6 +104,23 @@ class Storage {
     async getScenarioById (database, id) {
 
         return await this._getById(database, 'Scenario', scenarioSchema, id)
+    }
+    async getScenarioByLabel (database, label) {
+
+        const results = await this._getByQuery(database, 'Scenario', scenarioSchema, { "label": label })
+
+        if ( !results || results.length === 0 ) {
+            let err = new Error(`No scenarios found with label '${label}'`)
+            err.uiError = { message: `No scenarios found with label '${label}'` }
+            throw err;
+        }
+        else if (results.length > 1) {
+            let err = new Error(`More than one scenario found (${results.length}) with label '${label}'`)
+            err.uiError = { message: `More than one scenario found (${results.length}) with label '${label}'` }
+            throw err;
+        }
+
+        return results[0]
     }
     async getScenarios (database, query) {
 

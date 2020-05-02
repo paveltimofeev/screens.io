@@ -154,6 +154,21 @@ class VRT {
         await mkdir(path.dirname(reference), {recursive:true})
         await copyFile(test, reference)
 
+        const date = new Date()
+        const scenario = await storage.getScenarioByLabel(this._userId, pair.label)
+
+        await storage.createHistoryRecord(this._userId, {
+            state: 'Approved',
+            startedAt: date,
+            finishedAt: date,
+            startedBy: this._userId,
+            viewports: [ pair.viewportLabel ],
+            scenarios: [{
+                    id: scenario._id.toString(),
+                    label: scenario.label
+                }]
+            })
+
         return { success: true }
     }
 

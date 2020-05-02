@@ -41,6 +41,9 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
     if (params.value === 'Failed')
       return '<i style="line-height: inherit; color: #cd3636" class="material-icons">cancel</i>';
 
+    if (params.value === 'Approved')
+      return '<i style="line-height: inherit; color: #1572c3" class="material-icons">done</i>';
+
     return '<i style="line-height: inherit" class="material-icons">' + params.value + '</i>';
   }
 

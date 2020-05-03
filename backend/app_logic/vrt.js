@@ -5,7 +5,7 @@ var path = require('path');
 const storage = new (require('../storage/storage-adapter'))
 const engine = new (require('../engine-adapter'))
 const { QueueWrapper } = require('./queue-wrappers')
-const { SingleValueRule, ArrayRule, SinceDateRule } =  require('../storage/query-rules')
+const { SingleValueRule, BooleanValueRule, ArrayRule, SinceDateRule } =  require('../storage/query-rules')
 
 
 const exists = promisify(fs.exists)
@@ -255,15 +255,15 @@ class VRT {
                 query.state = state.toQueryPart();
             }
 
-            if ( startedBy.isValid()) {
+            if ( startedBy.isValid() ) {
                 query.startedBy = this._userId;
             }
 
-            if ( viewports.isValid()) {
+            if ( viewports.isValid() ) {
                 query.viewports = viewports.toQueryPart()
             }
 
-            if (startedSince.isValid()) {
+            if (startedSince.isValid() ) {
                 query.startedAt = startedSince.toQueryPart();
             }
         }
@@ -307,8 +307,19 @@ class VRT {
     async getScenarioById (id) {
         return await storage.getScenarioById(this._userId, id)
     }
-    async getScenarios () {
-        return await storage.getScenarios(this._userId)
+    async getScenarios (filter) {
+        
+        let query = {}
+        
+        if(filter) {
+            const favorites = new BooleanValueRule(filter.favorites)
+
+            if (favorites.isValid()) {
+                query.meta_isFavorite = favorites.toQueryPart()
+            }
+        }
+
+        return await storage.getScenarios(this._userId, query)
     }
     async createScenario (data) {
         return await storage.createScenario(this._userId, data)

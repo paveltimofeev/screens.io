@@ -127,7 +127,9 @@ router.get('/test/scenarios', async function(req, res) {
 
     tryWrapper(req, res, async () => {
 
-        const data = await VRT.create( req.context ).getScenarios()
+        const favorites = req.query.favorites;
+
+        const data = await VRT.create( req.context ).getScenarios({favorites})
         res.status( 200 ).send( { data } )
     })
 });

@@ -17,6 +17,19 @@ class SingleValueRule {
   }
 }
 
+class BooleanValueRule {
+
+  constructor(value) {
+    this._value = value;
+  }
+  isValid() {
+    return this._value === 'true' || this._value === 'false'
+  }
+  toQueryPart () {
+    return this._value === 'true'
+  }
+}
+
 /// Validate if incoming VALUE is as string and convert it to '$in array' query, by splitting VALUE by ','
 class ArrayRule {
 
@@ -48,5 +61,6 @@ class SinceDateRule {
 module.exports = {
   SingleValueRule,
   ArrayRule,
-  SinceDateRule
+  SinceDateRule,
+  BooleanValueRule
 }

@@ -47,9 +47,9 @@
 -- refactor filters funcs, make it easier to reuse
 -- Backend: store approves in history
 -- Backend: extract UIErrors into the separate class
+-- Backend: get favorite scenarios
 
 - DESIGN UI PAGES FOR MOBILE
-- Backend: get favorite scenarios
 - Backend: get N latest job histories
 
 - Backend: Approve all failed/filtered tests in run

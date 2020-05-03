@@ -131,6 +131,12 @@ export class ApiAdapterService {
       environment.api + 'test/scenarios')
   }
 
+  getFavoriteScenarios(): Observable<any> {
+
+    return this.dataAccessService.get(
+      environment.api + 'test/scenarios?favorites=true')
+  }
+
   getScenario(id:string): Observable<any> {
 
     return this.dataAccessService.get(

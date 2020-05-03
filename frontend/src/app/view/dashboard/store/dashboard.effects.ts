@@ -17,7 +17,7 @@ export class DashboardEffects {
     ofType(refresh),
     mergeMap(() => {
 
-      return this.api.getScenarios().pipe(
+      return this.api.getFavoriteScenarios().pipe(
 
         map( res => {
           return { type: loaded.type, payload: { scenarios: res.data }}

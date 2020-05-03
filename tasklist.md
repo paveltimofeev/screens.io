@@ -48,9 +48,9 @@
 -- Backend: store approves in history
 -- Backend: extract UIErrors into the separate class
 -- Backend: get favorite scenarios
+-- Backend: top-N filter for job histories
 
 - DESIGN UI PAGES FOR MOBILE
-- Backend: get N latest job histories
 
 - Backend: Approve all failed/filtered tests in run
 - Frontend: create basic routes and responsive/mobile-compatible layouts wireframes (by Figma design)

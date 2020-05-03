@@ -240,7 +240,7 @@ class VRT {
     }
 
     /// filter: {state, startedBy, startedSince}
-    async getHistoryRecords (filter) {
+    async getHistoryRecords (filter, limit) {
 
         let query = {}
 
@@ -268,7 +268,7 @@ class VRT {
             }
         }
 
-        return await storage.getHistoryRecords(this._userId, query)
+        return await storage.getHistoryRecords(this._userId, query, limit)
     }
     async getHistoryRecordsOfScenario (scenarioId) {
 

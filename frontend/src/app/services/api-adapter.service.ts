@@ -55,7 +55,7 @@ export class ApiAdapterService {
       environment.api + 'test/report/' + jobId);
   }
 
-  getHistory (filters?: IQueryFilter[], limit:number): Observable<any> {
+  getHistory (filters?: IQueryFilter[], limit?:number): Observable<any> {
 
     let query = '';
 
@@ -68,7 +68,7 @@ export class ApiAdapterService {
         .filter(Boolean)
         .join('&');
     }
-    if (limit > 0) {
+    if (limit && limit > 0) {
       
       query = query.length > 0 ? `${query}&limit=${limit}` : `?limit=${limit}`
     }

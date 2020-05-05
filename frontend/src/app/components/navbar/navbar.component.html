@@ -1,7 +1,33 @@
+<!--
 <nav class="navbar">
   <a class="navbar-item" routerLinkActive="navbar-item--active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['/']"><i class="material-icons">apps</i></a>
   <a class="navbar-item" routerLinkActive="navbar-item--active" [routerLink]="['/configuration']"><i class="material-icons">view_list</i></a>
   <a class="navbar-item" routerLinkActive="navbar-item--active" [routerLink]="['/history/1']"><i class="material-icons">ballot</i></a>
   <a class="navbar-item" routerLinkActive="navbar-item--active" [routerLink]="['/settings']"><i class="material-icons">settings</i></a>
   <a class="navbar-item" routerLinkActive="navbar-item--active" [routerLink]="['/login']"><i class="material-icons">person_outline</i></a>
+</nav>
+-->
+
+<nav>
+  <div class="menu">
+    <span class="logo">Logo</span>
+    <ul>
+      <li routerLinkActive="navbar-item--active" [routerLink]="['/overview']">Overview</li>
+      <li routerLinkActive="navbar-item--active" [routerLink]="['/scenarios']">Scenarios</li>
+      <li routerLinkActive="navbar-item--active" [routerLink]="['/jobs']">Jobs History</li>
+      <li routerLinkActive="navbar-item--active" [routerLink]="['/settings']">Settings</li>
+    </ul>
+  </div>
+  <div class="account">admin</div>
+  <div class="humburger">
+    <span>hum</span>
+    <ul>
+      <li routerLinkActive="navbar-item--active" [routerLink]="['/overview']">Overview</li>
+      <li routerLinkActive="navbar-item--active" [routerLink]="['/scenarios']">Scenarios</li>
+      <li routerLinkActive="navbar-item--active" [routerLink]="['/jobs']">Jobs History</li>
+      <li routerLinkActive="navbar-item--active" [routerLink]="['/settings']">Settings</li>
+      <li class="account">admin</li>
+    </ul>
+  </div>
+
 </nav>

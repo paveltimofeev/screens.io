@@ -1,5 +1,5 @@
 /*
-{ 
+{
   box-sizing: border-box;
 }
 html, body {
@@ -7,7 +7,7 @@ html, body {
   height: 100%;
   margin: 0;
   font-family: 'Ubuntu', sans-serif;
-} 
+}
 */
 
 ul {
@@ -23,9 +23,9 @@ li {
   --navbar-size: 70px;
   --navbar-size-xs: 50px;
   --sidebar-size: 25vw;
-  
+
   --card-height: 20vh;
-  
+
   --humburger-width: 90%;
   --humburger-pos-right: 0px;
   --humburger-pos-top: 0px;
@@ -37,7 +37,7 @@ li {
   --xs-title-actions-right: 7vw;
   --xs-title-actions-left: none;
   --xs-title-actions-bottom: 2vh;
-  
+
   --xs-data-placeholder-margin-bottom: 6vh;
 }
 
@@ -123,10 +123,8 @@ main .content .data-placeholder .card {
   flex-basis: auto;
 }
 
-@media (min-width: 601px)  { .card { width: 33.333%; } } 
-@media (max-width: 600px)  { .xs12 { width: 100%; } } 
-
-
+@media (min-width: 601px)  { .card { width: 33.333%; } }
+@media (max-width: 600px)  { .xs12 { width: 100%; } }
 
 @media (min-width: 601px)  { .xs-only { display: none; } }
 @media (max-width: 600px)  { .xs-only { display: block; } }
@@ -134,8 +132,8 @@ main .content .data-placeholder .card {
 @media (max-width: 600px)  { .except-xs { display: none; } }
 
 @media (max-width: 600px) {
-  
-  nav { 
+
+  nav {
     position: fixed;
     height: var(--navbar-size-xs);
   }
@@ -153,14 +151,14 @@ main .content .data-placeholder .card {
     z-index: 10;
     width: var(--humburger-width);
   }
-  
+
   nav .menu .menu-item { display: none; }
   nav .account { display: none; }
-  
-  main .content { 
+
+  main .content {
     padding-left: 16px;
     padding-right: 16px;
-    margin-top: var(--navbar-size-xs); 
+    margin-top: var(--navbar-size-xs);
   }
   main .content .data-placeholder { margin-bottom: var(--xs-data-placeholder-margin-bottom); }
   main .content .title-row .title-actions {

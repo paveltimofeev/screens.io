@@ -40,6 +40,10 @@ import { LoginComponent } from './view/login/login.component';
 import { AgCellButtonComponent } from './components/history-table/ag-cell-button/ag-cell-button.component';
 import { ReportComponent } from './view/report/report.component';
 import { routes } from './app.routes';
+import { OverviewComponent } from './view/overview/overview.component';
+import { ScenariosComponent } from './view/scenarios/scenarios.component';
+import { OverviewLayoutComponent } from './layouts/overview-layout/overview-layout.component';
+import { SidebarPageLayoutComponent } from './layouts/sidebar-page-layout/sidebar-page-layout.component';
 
 
 @NgModule({
@@ -63,7 +67,11 @@ import { routes } from './app.routes';
     HistoryRecordComponent,
     LoginComponent,
     AgCellButtonComponent,
-    ReportComponent
+    ReportComponent,
+    OverviewComponent,
+    ScenariosComponent,
+    OverviewLayoutComponent,
+    SidebarPageLayoutComponent
   ],
   imports: [
     BrowserModule,

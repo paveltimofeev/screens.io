@@ -1,28 +1,27 @@
 <main>
-<div class="app-content">
-  <div class="title-row">
-    <h1 class="title-header">Title Header</h1>
+  <div class="app-content">
 
-    <ng-content select=".page-actions-placeholder"></ng-content>
+    <div class="title-row">
+      <h1 class="title-header">{{ title }}</h1> <ng-content select=".page-actions-placeholder"></ng-content>
+    </div>
+    <div class="description">
+      {{ description }}
+    </div>
+
+    <div class="app-filters xs-only">
+      <ng-content select=".xs-filters-placeholder"></ng-content>
+    </div>
+
+    <div class="app-actions">
+      <ng-content select=".data-actions-placeholder"></ng-content>
+    </div>
+
+    <ng-content select=".data-placeholder"></ng-content>
 
   </div>
-  <div class="description">
-    Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Et fugit quam voluptates eaque unde vero ex error magnam quas doloremque.
+  <div class="app-sidebar except-xs">
+
+    <ng-content select=".sidebar-placeholder"></ng-content>
+
   </div>
-  <div class="app-filters xs-only">filters</div>
-  <div class="app-actions">
-    <div>actions</div>
-    <div>actions</div>
-  </div>
-
-  <ng-content select=".data-placeholder">
-  </ng-content>
-
-</div>
-<div class="app-sidebar except-xs">
-
-  <ng-content select=".sidebar-placeholder">
-  </ng-content>
-
-</div>
 </main>

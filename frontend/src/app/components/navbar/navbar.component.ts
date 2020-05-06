@@ -6,4 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+
+  isMenuOpened:boolean = false;
+
+  openMenuHandler () {
+    this.isMenuOpened = !this.isMenuOpened;
+  }
 }

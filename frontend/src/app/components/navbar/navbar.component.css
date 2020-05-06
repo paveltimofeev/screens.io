@@ -1,44 +1,83 @@
-/*
 :host {
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
-  z-index: 10;
-}
-.navbar {
-  background-color: var(--schema-darkest);
-  display: flex;
-  flex-direction: column;
 
-  padding-top: 310px;
-  justify-content: flex-start;
+}
+nav {
+  position: relative;
+  background-color: var(--navbar-bg-color);
+  color: var(--text-gray-color);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 67px;
+  height: var(--navbar-size);
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 3px 1px -2px rgba(0,0,0,0.12);
+}
+
+.logo {
+  display: flex;
   align-items: center;
 
-  height: 100%;
-  width: 74px;
 }
-
-.navbar-item {
-  color: var(--menu-item-disabled);
-  padding: 16px;
-  line-height: 1.5;
-  transition: color .25s;
+.logo > img {
+  width: 207px;
+  margin-left: 40px;
+  margin-right: 80px;
+}
+li {
+  cursor: pointer;
   user-select: none;
+  white-space: nowrap;
+  border-bottom: 3px solid white;
 }
 
-.navbar-item i.material-icons {
-  line-height: 1;
-  height: auto;
-  font-size: 32px;
+li:hover {
+  border-bottom: 3px solid rgba(243, 182, 24, 0.5);
 }
-
+li:focus,
+li:active {
+  outline: none;
+}
 .navbar-item--active {
-  color: var(--menu-item-enabled);
+  color: #323232;
+  border-bottom: 3px solid #F3B618;
+}
+li + li {
+  margin-left: 75px;
 }
 
-.navbar-item:active {
-  color: var(--menu-item-accent);
+.app-account .icon {
+  margin-left: 13px;
 }
 
-.navbar-item + .navbar-item {
-  margin-top: 10px;
+
+.app-hamburger--opened ul {
+
+  position: fixed;
+  top: var(--navbar-size);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--navbar-bg-color);
+  display: block;
+  width: 100%;
+  padding: 20px;
 }
-*/
+.app-hamburger--opened ul li {
+  float: none;
+  height: 82px;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  border: 1px solid #F3EDED;
+  border-radius: 4px;
+  color: #313131;
+  font-weight: 500;
+  font-size: 24px;
+  width: 100%;
+  margin-left: 0;
+  justify-content: center;
+  margin-top: 5px;
+}
+.app-hamburger--opened ul li.navbar-item--active {
+  color: var(--white-color);
+  background: var(--blue-accent-color);
+}

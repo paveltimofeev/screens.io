@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar-page-layout',
@@ -6,6 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./sidebar-page-layout.component.css']
 })
 export class SidebarPageLayoutComponent {
+
+  @Input()
+  title:string;
+
+  @Input()
+  description:string;
 
   constructor() { }
 }

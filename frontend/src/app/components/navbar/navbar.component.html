@@ -1,16 +1,8 @@
-<!--
-<nav class="navbar">
-  <a class="navbar-item" routerLinkActive="navbar-item--active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['/']"><i class="material-icons">apps</i></a>
-  <a class="navbar-item" routerLinkActive="navbar-item--active" [routerLink]="['/configuration']"><i class="material-icons">view_list</i></a>
-  <a class="navbar-item" routerLinkActive="navbar-item--active" [routerLink]="['/history/1']"><i class="material-icons">ballot</i></a>
-  <a class="navbar-item" routerLinkActive="navbar-item--active" [routerLink]="['/settings']"><i class="material-icons">settings</i></a>
-  <a class="navbar-item" routerLinkActive="navbar-item--active" [routerLink]="['/login']"><i class="material-icons">person_outline</i></a>
-</nav>
--->
-
 <nav>
   <div class="app-menu">
-    <span class="logo">Logo</span>
+    <span class="logo">
+      <img src="/assets/images/logo.svg" alt="">
+    </span>
     <ul>
       <li routerLinkActive="navbar-item--active" [routerLink]="['/overview']">Overview</li>
       <li routerLinkActive="navbar-item--active" [routerLink]="['/scenarios']">Scenarios</li>
@@ -18,15 +10,15 @@
       <li routerLinkActive="navbar-item--active" [routerLink]="['/settings']">Settings</li>
     </ul>
   </div>
-  <div class="app-account">admin</div>
-  <div class="app-hamburger">
-    <span>hum</span>
+  <div class="app-account except-xs">Maddy Savage <i class="icon material-icons">copyright</i></div>
+  <div class="app-hamburger" [ngClass]="{ 'app-hamburger--opened': isMenuOpened }">
+    <span (click)="openMenuHandler()"><i class="material-icons">dehaze</i></span>
     <ul>
       <li routerLinkActive="navbar-item--active" [routerLink]="['/overview']">Overview</li>
       <li routerLinkActive="navbar-item--active" [routerLink]="['/scenarios']">Scenarios</li>
       <li routerLinkActive="navbar-item--active" [routerLink]="['/jobs']">Jobs History</li>
       <li routerLinkActive="navbar-item--active" [routerLink]="['/settings']">Settings</li>
-      <li class="app-account">admin</li>
+      <li class="app-account">Sign-Out</li>
     </ul>
   </div>
 

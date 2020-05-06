@@ -1,4 +1,8 @@
-<app-sidebar-page-layout>
+<app-sidebar-page-layout
+  [title]="'Test Scenarios'"
+  [description]="'Each scenario will test one page, component or action against one or many viewport sizes'"
+
+>
 
   <div class="page-actions-placeholder">
     <ul class="page-actions">
@@ -6,6 +10,11 @@
       <li class="title-actions-item">Page action 2</li>
       <li class="title-actions-item">Page action 3</li>
     </ul>
+  </div>
+
+  <div class="data-actions-placeholder">
+    <div>actions</div>
+    <div>actions</div>
   </div>
 
   <div class="data-placeholder">
@@ -24,8 +33,13 @@
   </div>
 
   <div class="sidebar-placeholder">
-    <h2>Sidebar header</h2>
-    <div class="app-filters">filters</div>
+    <h2>14 Pages <br><small>tested</small> </h2>
+    <span>12 stable 2 fragile</span>
+    <div class="app-filters">Sidebar filters</div>
+  </div>
+
+  <div class="xs-filters-placeholder">
+    Filters (xs)
   </div>
 
 </app-sidebar-page-layout>

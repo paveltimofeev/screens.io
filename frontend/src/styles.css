@@ -7,46 +7,58 @@ main > *,
 }
 .cards-placeholder,
 .records-placeholder,
+.data-actions-placeholder,
 .data-placeholder,
+.xs-filters-placeholder,
 .widgets-left-placeholder,
 .widgets-center-placeholder,
 .widgets-right-placeholder,
 .sidebar-placeholder,
 .page-actions-placeholder
 {
-  border: 1px dashed red;
-  background: rgba(205, 0, 13, 0.31);
+  _border: 1px dashed red;
+  _background: rgba(205, 0, 13, 0.31);
 }
-
-.app-container.container--colorful { background: rgb(245, 245, 245); }
-.app-container.container--colorful nav { background: rgb(232, 232, 241); }
-.app-container.container--colorful nav .app-menu .logo { background: darkviolet; }
-.app-container.container--colorful nav .app-account { background: gold; }
-.app-container.container--colorful nav .app-hamburger ul { background: indigo; }
-.app-container.container--colorful nav .app-hamburger ul li:hover { background: gold; }
-.app-container.container--colorful nav .app-hamburger ul li.app-account { background: gold; }
-.app-container.container--colorful main .app-sidebar { background: rgb(240, 240, 240); }
-.app-container.container--colorful main .app-sidebar .app-filters { background: rgb(255, 246, 251); }
-.app-container.container--colorful main { background: rgb(255, 255, 255); }
-.app-container.container--colorful main .content { background: rgb(255, 253, 249); }
-.app-container.container--colorful main .content .description { background: rgb(217, 219, 223); }
-.app-container.container--colorful main .content .app-filters { background: rgb(252, 246, 249); }
-.app-container.container--colorful main .content .app-actions { background: rgb(233, 227, 217); }
-.app-container.container--colorful main .content .title-row .title-header { background: rgb(255, 255, 255); }
-.app-container.container--colorful main .content .title-actions-item { background: rgb(187, 187, 187); }
-.app-container.container--colorful main .content .data-placeholder { background: rgb(255, 255, 255); }
-.app-container.container--colorful main .content .data-placeholder .app-card { background: rgb(234, 245, 255); border: 1px solid rgb(180, 180, 180); }
-
-
-
-
-
-
-
 
 
 :root {
+
   --base-font: 'Ubuntu', sans-serif;
+
+  --white-color: #ffffff;
+  --text-gray-color: #6A6A6A;
+
+  --green-accent-color: #89CB8C;
+  --blue-accent-color: #8AC1F4;
+  --red-accent-color: #EB5757;
+  --grid-main-cell-color: #1F1F1F;
+  --sidebar-bg-color: #F7F7F6;
+  --navbar-bg-color: #ffffff;
+  --navbar-font-normal-color: #E1E1E1;
+  --navbar-font-active-color: #F3B618;
+  --control-background-color: #FBFBFB;
+  --control-border-color: #DBDBDB;
+
+
+  --navbar-size: 70px;
+  --navbar-size-xs: 50px;
+  --sidebar-size: 25vw;
+
+  --card-height: 20vh;
+
+  --humburger-width: 90%;
+  --humburger-pos-right: 0px;
+  --humburger-pos-top: 0px;
+  --humburger-pos-left: none;
+  --humburger-pos-bottom: none;
+
+  --xs-size: 600px;
+  --xs-title-actions-top: none;
+  --xs-title-actions-right: 7vw;
+  --xs-title-actions-left: none;
+  --xs-title-actions-bottom: 2vh;
+
+  --xs-data-placeholder-margin-bottom: 6vh;
 }
 
 * {
@@ -70,28 +82,6 @@ li {
   display: block;
 }
 
-:root {
-  --navbar-size: 70px;
-  --navbar-size-xs: 50px;
-  --sidebar-size: 25vw;
-
-  --card-height: 20vh;
-
-  --humburger-width: 90%;
-  --humburger-pos-right: 0px;
-  --humburger-pos-top: 0px;
-  --humburger-pos-left: none;
-  --humburger-pos-bottom: none;
-
-  --xs-size: 600px;
-  --xs-title-actions-top: none;
-  --xs-title-actions-right: 7vw;
-  --xs-title-actions-left: none;
-  --xs-title-actions-bottom: 2vh;
-
-  --xs-data-placeholder-margin-bottom: 6vh;
-}
-
 .app-container {
   width: 100%;
   height: 100%;
@@ -110,11 +100,20 @@ nav {
 nav .app-menu {
   display: flex;
   align-items: center;
+  height: 100%;
 }
 nav .app-menu .logo { }
 nav .app-menu ul { }
 nav .app-menu ul li { float: left; display: block; margin: 0;}
-nav .app-account { }
+nav .app-account {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  font-size: 16px;
+  margin-right: 24px;
+  display: flex;
+  align-items: center;
+}
 nav .app-hamburger { display: none; }
 
 
@@ -151,9 +150,10 @@ main {
 }
 .app-sidebar {
   width: var(--sidebar-size);
+  background: var(--sidebar-bg-color);
 }
 .app-filters { }
-.app-actions { display: flex; justify-content: space-between; }
+.app-actions .data-actions-placeholder { display: flex; justify-content: space-between; }
 .app-content .data-placeholder {
   flex: 1;
   display: flex;
@@ -282,8 +282,8 @@ main {
   nav .app-hamburger ul { display: none; }
   nav .app-hamburger ul li { padding: 0; display: block;}
   nav .app-hamburger ul li.app-account { }
-  nav .app-hamburger:hover ul { display: block;}
-  nav .app-hamburger:hover ul li { float: none; }
+  /*nav .app-hamburger:hover ul { display: block;}*/
+  /*nav .app-hamburger:hover ul li { float: none; }*/
   nav .app-hamburger ul {
     position: fixed;
     top: var(--humburger-pos-top);

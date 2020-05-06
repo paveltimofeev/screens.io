@@ -1,41 +1,28 @@
 <main>
-<div class="content">
+<div class="app-content">
   <div class="title-row">
     <h1 class="title-header">Title Header</h1>
-    <ul class="title-actions">
-      <li class="title-actions-item">title-actions-item 1</li>
-      <li class="title-actions-item">title-actions-item 2</li>
-      <li class="title-actions-item">title-actions-item 3</li>
-    </ul>
+
+    <ng-content select=".page-actions-placeholder"></ng-content>
+
   </div>
   <div class="description">
     Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Et fugit quam voluptates eaque unde vero ex error magnam quas doloremque.
   </div>
-  <div class="filters xs-only">filters</div>
-  <div class="actions">
+  <div class="app-filters xs-only">filters</div>
+  <div class="app-actions">
     <div>actions</div>
     <div>actions</div>
   </div>
-  <div class="data-placeholder">
 
-    <div class="card xs12 m6 m4 l3 xl2">Card</div>
-    <div class="card xs12 m6 m4 l3 xl2">Card</div>
-    <div class="card xs12 m6 m4 l3 xl2">Card</div>
-    <div class="card xs12 m6 m4 l3 xl2">Card</div>
-    <div class="card xs12 m6 m4 l3 xl2">Card</div>
-    <div class="card xs12 m6 m4 l3 xl2">Card</div>
-    <div class="card xs12 m6 m4 l3 xl2">Card</div>
-    <div class="card xs12 m6 m4 l3 xl2">Card</div>
-    <div class="card xs12 m6 m4 l3 xl2">Card</div>
-    <div class="card xs12 m6 m4 l3 xl2">Card</div>
+  <ng-content select=".data-placeholder">
+  </ng-content>
 
-  </div>
 </div>
-<div class="sidebar except-xs">
-  <h2>sidebar header</h2>
-  <div class="filters">filters</div>
-  <div class="sidebar-content">
-    sidebar-content
-  </div>
+<div class="app-sidebar except-xs">
+
+  <ng-content select=".sidebar-placeholder">
+  </ng-content>
+
 </div>
 </main>

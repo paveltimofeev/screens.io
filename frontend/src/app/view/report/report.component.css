@@ -146,7 +146,7 @@ label {
 .button--default:hover {
   border: 1px solid hsla(60, 77%, 56%, 1);
 }
-.sidebar {
+.app-sidebar {
   width: 20%;
   background: var(--background-dark);
   color: var(--font-default);

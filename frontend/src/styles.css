@@ -1,3 +1,54 @@
+main > *,
+.app-row > *,
+.app-content > *,
+.app-row-title
+{
+  _border: 1px dashed blue;
+}
+.cards-placeholder,
+.records-placeholder,
+.data-placeholder,
+.widgets-left-placeholder,
+.widgets-center-placeholder,
+.widgets-right-placeholder,
+.sidebar-placeholder,
+.page-actions-placeholder
+{
+  border: 1px dashed red;
+  background: rgba(205, 0, 13, 0.31);
+}
+
+.app-container.container--colorful { background: rgb(245, 245, 245); }
+.app-container.container--colorful nav { background: rgb(232, 232, 241); }
+.app-container.container--colorful nav .app-menu .logo { background: darkviolet; }
+.app-container.container--colorful nav .app-account { background: gold; }
+.app-container.container--colorful nav .app-hamburger ul { background: indigo; }
+.app-container.container--colorful nav .app-hamburger ul li:hover { background: gold; }
+.app-container.container--colorful nav .app-hamburger ul li.app-account { background: gold; }
+.app-container.container--colorful main .app-sidebar { background: rgb(240, 240, 240); }
+.app-container.container--colorful main .app-sidebar .app-filters { background: rgb(255, 246, 251); }
+.app-container.container--colorful main { background: rgb(255, 255, 255); }
+.app-container.container--colorful main .content { background: rgb(255, 253, 249); }
+.app-container.container--colorful main .content .description { background: rgb(217, 219, 223); }
+.app-container.container--colorful main .content .app-filters { background: rgb(252, 246, 249); }
+.app-container.container--colorful main .content .app-actions { background: rgb(233, 227, 217); }
+.app-container.container--colorful main .content .title-row .title-header { background: rgb(255, 255, 255); }
+.app-container.container--colorful main .content .title-actions-item { background: rgb(187, 187, 187); }
+.app-container.container--colorful main .content .data-placeholder { background: rgb(255, 255, 255); }
+.app-container.container--colorful main .content .data-placeholder .app-card { background: rgb(234, 245, 255); border: 1px solid rgb(180, 180, 180); }
+
+
+
+
+
+
+
+
+
+:root {
+  --base-font: 'Ubuntu', sans-serif;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -5,6 +56,10 @@ html, body {
   width: 100%;
   height: 100%;
   margin: 0;
+  font-family: var(--base-font);
+}
+button, input {
+  font-family: inherit;
 }
 ul {
   padding: 0;
@@ -37,26 +92,7 @@ li {
   --xs-data-placeholder-margin-bottom: 6vh;
 }
 
-.container.container--colorful { background: rgb(245, 245, 245); }
-.container.container--colorful nav { background: rgb(232, 232, 241); }
-.container.container--colorful nav .menu .logo { background: darkviolet; }
-.container.container--colorful nav .account { background: gold; }
-.container.container--colorful nav .humburger ul { background: indigo; }
-.container.container--colorful nav .humburger ul li:hover { background: gold; }
-.container.container--colorful nav .humburger ul li.account { background: gold; }
-.container.container--colorful main .sidebar { background: rgb(240, 240, 240); }
-.container.container--colorful main .sidebar .filters { background: rgb(255, 246, 251); }
-.container.container--colorful main { background: rgb(255, 255, 255); }
-.container.container--colorful main .content { background: rgb(255, 253, 249); }
-.container.container--colorful main .content .description { background: rgb(217, 219, 223); }
-.container.container--colorful main .content .filters { background: rgb(252, 246, 249); }
-.container.container--colorful main .content .actions { background: rgb(233, 227, 217); }
-.container.container--colorful main .content .title-row .title-header { background: rgb(255, 255, 255); }
-.container.container--colorful main .content .title-actions-item { background: rgb(187, 187, 187); }
-.container.container--colorful main .content .data-placeholder { background: rgb(255, 255, 255); }
-.container.container--colorful main .content .data-placeholder .card { background: rgb(234, 245, 255); border: 1px solid rgb(180, 180, 180); }
-
-.container {
+.app-container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -71,15 +107,158 @@ nav {
   align-items: center;
   z-index: 10;
 }
-nav .menu {
+nav .app-menu {
   display: flex;
   align-items: center;
 }
-nav .menu .logo { }
-nav .menu ul { }
-nav .menu ul li { float: left; display: block; margin: 0;}
-nav .account { }
-nav .humburger { display: none; }
+nav .app-menu .logo { }
+nav .app-menu ul { }
+nav .app-menu ul li { float: left; display: block; margin: 0;}
+nav .app-account { }
+nav .app-hamburger { display: none; }
+
+
+main {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  z-index: 1;
+  min-height: 100%;
+}
+
+.app-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 600px) {
+  .app-content {
+    margin-top: var(--navbar-size-xs);
+  }
+}
+
+
+/* SIDEBAR PAGE LAYOUT */
+
+.app-content .title-row {
+  display: flex;
+  justify-content: space-between;
+}
+.page-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; }
+.page-actions .title-actions-item {
+  float: left;
+  display: block;
+}
+.app-sidebar {
+  width: var(--sidebar-size);
+}
+.app-filters { }
+.app-actions { display: flex; justify-content: space-between; }
+.app-content .data-placeholder {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  overflow-y: auto;
+
+  padding-top: 22px;
+}
+.app-card {
+  height: var(--card-height);
+  flex-basis: auto;
+}
+@media (min-width: 601px)  {
+  .app-card { width: 33.333%; }
+}
+@media (max-width: 600px) {
+
+  .app-content .data-placeholder {
+    margin-bottom: var(--xs-data-placeholder-margin-bottom);
+  }
+
+  .page-actions {
+    position: fixed;
+    top: var(--xs-title-actions-top);
+    right: var(--xs-title-actions-right);
+    left: var(--xs-title-actions-left);
+    bottom: var(--xs-title-actions-bottom);
+    display: flex;
+    flex-flow: wrap-reverse;
+  }
+}
+
+
+
+
+/* OVERVIEW LAYOUT */
+.app-content .app-row {
+  display: flex;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+@media (max-width: 600px)  {
+  main .app-content .app-row {
+    flex-direction: column;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+.app-widgets-row {
+  justify-content: space-evenly;
+  height: 55vh;
+  position: relative;
+  z-index: 1;
+}
+.app-widgets-row:before {
+  position: absolute;
+  content: ' ';
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #eee;
+  z-index: -1;
+  bottom: 25%;
+}
+.app-widgets-row .action {
+  position: absolute;
+  bottom: 25%;
+}
+.app-widgets-row .app-widgets-column {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+.app-widgets-row .widgets-grid {
+  width: 51vw;
+}
+.app-data-row .app-row-title {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 100%;
+}
+.app-data-row .app-column--left,
+.app-data-row .app-column--right {
+  flex: 1;
+}
+
+
+.app-card--sm {
+  width: 50%;
+  height: 160px;
+}
+@media (max-width: 600px)  {
+  .app-card--sm {
+    width: 100%;
+  }
+}
+
+.app-record {
+  height: 70px;
+}
+
+
 
 @media (min-width: 2049px) { .xxl1 { width: 6.5%; } }
 @media (max-width: 2048px) { .xl2 { width: 12.5%; } }
@@ -99,12 +278,12 @@ nav .humburger { display: none; }
     position: fixed;
     height: var(--navbar-size-xs);
   }
-  nav .humburger { display: block; }
-  nav .humburger ul { display: none; }
-  nav .humburger ul li { padding: 0; display: block;}
-  nav .humburger ul li.account { }
-  nav .humburger:hover ul { display: block; }
-  nav .humburger ul {
+  nav .app-hamburger { display: block; }
+  nav .app-hamburger ul { display: none; }
+  nav .app-hamburger ul li { padding: 0; display: block;}
+  nav .app-hamburger ul li.app-account { }
+  nav .app-hamburger:hover ul { display: block; }
+  nav .app-hamburger ul {
     position: fixed;
     top: var(--humburger-pos-top);
     right: var(--humburger-pos-right);
@@ -114,8 +293,8 @@ nav .humburger { display: none; }
     width: var(--humburger-width);
   }
 
-  nav .menu ul { display: none; }
-  nav .account { display: none; }
+  nav .app-menu ul { display: none; }
+  nav .app-account { display: none; }
 
 }
 

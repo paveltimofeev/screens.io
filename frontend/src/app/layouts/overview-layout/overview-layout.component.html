@@ -1,33 +1,37 @@
 <main>
-    <div class="content">
-      <div class="row widgets-row">
-        <div class="column">
-          <div>column-1</div>
-          <div class="action">action</div>
+    <div class="app-content">
+      <div class="app-row app-widgets-row">
+
+        <div class="app-widgets-column">
+          <div>
+            <ng-content select=".widgets-left-placeholder"></ng-content>
+          </div>
+          <div class="action"><button>Run All Scenarios</button></div>
         </div>
-        <div class="column except-xs">
-          <div class="widgets-grid">column-2</div>
+        <div class="app-widgets-column except-xs">
+          <div class="widgets-grid">
+            <ng-content select=".widgets-center-placeholder"></ng-content>
+          </div>
         </div>
-        <div class="column except-xs">column-3</div>
+        <div class="app-widgets-column except-xs">
+          <ng-content select=".widgets-right-placeholder"></ng-content>
+        </div>
+
       </div>
-      <div class="row data-row">
-        <div class="column-1">
-          <div class="row-title"><h3>row-title</h3><span>actions</span></div>
-          <ng-content select="favorite-scenarios"></ng-content>
-          <div class="card">card 1</div>
-          <div class="card">card 2</div>
-          <div class="card">card 3</div>
-          <div class="card">card 4</div>
+      <div class="app-row app-data-row">
+
+        <div class="app-column--left">
+
+          <div class="app-row-title"><h3>Favorite Scenarios</h3><span>View all</span></div>
+          <ng-content select=".cards-placeholder"></ng-content>
+
         </div>
-        <div class="column-2">
-          <div class="row-title"><h3>row-title</h3><span>actions</span></div>
-          <ng-content select="recent-jobs"></ng-content>
-          <div class="record">Record 1</div>
-          <div class="record">Record 2</div>
-          <div class="record">Record 3</div>
-          <div class="record">Record 4</div>
-          <div class="record">Record 5</div>
+        <div class="app-column--right">
+
+          <div class="app-row-title"><h3>Recent Runs</h3><span>actions</span></div>
+          <ng-content select=".records-placeholder"></ng-content>
         </div>
+
       </div>
     </div>
 </main>

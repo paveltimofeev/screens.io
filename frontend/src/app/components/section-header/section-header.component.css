@@ -16,13 +16,13 @@
   align-items: center;
 }
 
-.actions > span {
+.app-actions > span {
   cursor: pointer;
 }
-.actions > span:hover {
+.app-actions > span:hover {
   text-decoration: underline;
 }
-.actions > span + span {
+.app-actions > span + span {
   margin-left: 1.5em;
 }
 

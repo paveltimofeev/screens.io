@@ -1,64 +1,13 @@
-
-main {
-  width: 100%;
-  flex: 1;
-  display: flex;
-  z-index: 1;
-  min-height: 100%;
-}
-main .content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+.app-content {
   padding-left: 50px;
   padding-right: 100px;
   min-height: 100%;
 }
-main .sidebar {
-  width: var(--sidebar-size);
-}
-main .filters { }
-main .actions { display: flex; justify-content: space-between; }
-main .content .title-row {
-  display: flex;
-  justify-content: space-between;
-}
-main .content .title-row .title-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; }
-main .content .title-row .title-actions .title-actions-item {
-  float: left;
-  display: block;
-}
-main .content .data-placeholder {
-  flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  overflow-y: auto;
-
-  padding-top: 22px;
-}
-main .content .data-placeholder .card {
-  height: var(--card-height);
-  flex-basis: auto;
-}
-
-@media (min-width: 601px)  { .card { width: 33.333%; } }
 
 @media (max-width: 600px) {
 
-  main .content {
+  .app-content {
     padding-left: 16px;
     padding-right: 16px;
-    margin-top: var(--navbar-size-xs);
-  }
-  main .content .data-placeholder { margin-bottom: var(--xs-data-placeholder-margin-bottom); }
-  main .content .title-row .title-actions {
-    position: fixed;
-    top: var(--xs-title-actions-top);
-    right: var(--xs-title-actions-right);
-    left: var(--xs-title-actions-left);
-    bottom: var(--xs-title-actions-bottom);
-    display: flex;
-    flex-flow: wrap-reverse;
   }
 }

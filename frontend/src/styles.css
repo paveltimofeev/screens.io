@@ -282,7 +282,8 @@ main {
   nav .app-hamburger ul { display: none; }
   nav .app-hamburger ul li { padding: 0; display: block;}
   nav .app-hamburger ul li.app-account { }
-  nav .app-hamburger:hover ul { display: block; }
+  nav .app-hamburger:hover ul { display: block;}
+  nav .app-hamburger:hover ul li { float: none; }
   nav .app-hamburger ul {
     position: fixed;
     top: var(--humburger-pos-top);

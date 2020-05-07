@@ -301,14 +301,15 @@ main {
 
 
 
+
 /* BUTTONS */
-button {
+
+.button {
   border-radius: 50px;
   border: none;
   min-height: 40px;
-  line-height: 40px;
   padding: 0px 1.25em 0px 1.25em;
-  font-size: 18px;
+  font-size: 100%;
   font-family: 'Ubuntu', sans-serif;
   font-weight: 400;
   color: #ffffff;
@@ -316,25 +317,193 @@ button {
   position: relative;
   box-shadow: 0px 15px 20px 0 #0000002e, 0px 5px 10px 0 #00000010;
 }
-button:focus {
+.button:focus {
   outline: none;
 }
-button:hover {
+.button:hover {
   filter: opacity(70%) hue-rotate(30deg);
 }
-button:active {
+.button:active {
   filter: opacity(100%);
 }
-button + button {
+.button + .button {
   margin-left: 1em;
 }
 
-.btn--accent1 { background: #39A0FF; border: 1px solid #39A0FF; }
-.btn--accent2 { background: #73C376; border: 1px solid #73C376; }
-.btn--dark    { background: #000000; border: 1px solid #000000; }
-.btn--white   { background: #ffffff; border: 1px solid #545454; color: #000; }
+.button--accent1 { background: #39A0FF; border: 1px solid #39A0FF; }
+.button--accent2 { background: #73C376; border: 1px solid #73C376; }
+.button--dark    { background: #000000; border: 1px solid #000000; }
+.button--white   { background: #ffffff; border: 1px solid #545454; color: #000; }
 
 /* END BUTTONS */
+
+/* HEADERS */
+.column-header {
+  font-weight: 500;
+  font-size: 24px;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+
+/* INPUTS */
+
+.text-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+  font-family: 'Ubuntu', sans-serif;
+}
+.text-field--150 {
+  width: 150px;
+}
+.text-field--350 {
+  width: 350px;
+}
+.text-field--500 {
+  width: 500px;
+}
+.text-field--full {
+  width: 1005;
+}
+.text-field label {
+  font-weight: 500;
+  font-size: 16px;
+  color: #1F1F1F;
+}
+.text-field label > i {
+  color: #c7c7c7;
+  cursor: pointer;
+  margin-left: 0.5em;
+}
+.text-field label > i:hover {
+  color: #000000;
+}
+.text-field .description {
+  margin-block-start: 6px;
+  margin-block-end: 6px;
+  letter-spacing: .5px;
+  font-size: 13px;
+  color: #909090;
+  line-height: 150%;
+}
+.text-field .input-box  {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #DBDBDB;
+  background: #FBFBFB;
+  border-radius: 3px;
+  height: 36px;
+  overflow: hidden;
+}
+
+.text-field .input-box input[type=text] {
+  border: none;
+  background: transparent;
+  color: #535353;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 16px;
+  padding-left: 11px;
+  padding-right: 11px;
+  width: 100%;
+  outline: none;
+}
+.text-field .input-box input[type=text]::placeholder {
+  color: #c3c3c3;
+}
+.text-field.text-field--error .input-box:focus-within,
+.text-field .input-box:focus-within {
+  outline: none;
+  border-color: #DBDBDB;
+  border-bottom: 2px solid #FFD600;
+  padding-top: 2px;
+}
+.text-field.text-field--error .input-box {
+  border-color: #EB5757;
+  border-bottom-width: 2px;
+  padding-top: 2px;
+}
+.text-field .input-box .input-box-chips {
+  height: 30px;
+  background: #e8e8e8;
+  color: #535353;
+  border: none;
+  border-radius: 20px;
+  padding-left: 16px;
+  padding-right: 12px;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  margin: 2px;
+  white-space: nowrap;
+  align-items: center;
+  display: flex;
+}
+.text-field .input-box .input-box-chips i {
+  margin-left: 0.5em;
+  cursor: pointer;
+}
+.text-field .input-box .input-box-button {
+  height: 30px;
+  background: #89CB8C;
+  color: #ffffff;
+  border: none;
+  border-radius: 2px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  margin: 2px;
+  cursor: pointer;
+  outline: none;
+  white-space: nowrap;
+}
+.text-field .input-box .input-box-icon {
+  color: #89CB8C;
+  font-size: 16px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+.text-field .input-box .input-box-icon:hover,
+.text-field .input-box .input-box-button:hover {
+  filter: opacity(70%);
+}
+.text-field .error-message {
+  margin-block-start: 5px;
+  margin-block-end: 0;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .5px;
+  color: #EB5757;
+  line-height: 135%;
+}
+
+
+/* CHECKBOXES */
+
+.checkbox, .switch, .toggle {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  position: relative;
+  color: #1F1F1F;
+}
+.checkbox > input[type=checkbox] {
+}
+.checkbox > input[type=checkbox]:before {
+  content: ' ';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0px;
+  left: 1px;
+  border: 1px solid #DBDBDB;
+  background: #FBFBFB;
+  border-radius: 3px;
+  _opacity: .5;
+}
 
 
 

@@ -44,6 +44,7 @@ import { OverviewComponent } from './view/overview/overview.component';
 import { ScenariosComponent } from './view/scenarios/scenarios.component';
 import { OverviewLayoutComponent } from './layouts/overview-layout/overview-layout.component';
 import { SidebarPageLayoutComponent } from './layouts/sidebar-page-layout/sidebar-page-layout.component';
+import { UiKitPreviewComponent } from './ui-kit/preview/ui-kit-preview.component';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { SidebarPageLayoutComponent } from './layouts/sidebar-page-layout/sideba
     OverviewComponent,
     ScenariosComponent,
     OverviewLayoutComponent,
-    SidebarPageLayoutComponent
+    SidebarPageLayoutComponent,
+    UiKitPreviewComponent
   ],
   imports: [
     BrowserModule,

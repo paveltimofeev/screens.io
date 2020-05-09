@@ -55,6 +55,7 @@
 
 - Create Dumb Angular Components by UI-Kit
 
+- Support mobile and 1600x900 screen sizes
 - Backend: Approve all failed/filtered tests in run
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Run scenarios filtered by ids[]*viewports[]

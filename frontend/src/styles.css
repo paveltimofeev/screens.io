@@ -211,11 +211,13 @@ main {
   _background: #F7F7F6;
   background: #eee;
   z-index: -1;
-  bottom: 25%;
+  _bottom: 25%;
+  bottom: 11vh;
 }
 .app-widgets-row .action {
   position: absolute;
-  bottom: calc(25% - 20px);
+  _bottom: calc(25% - 20px);
+  bottom: calc(11vh - 20px);
 }
 .app-widgets-row .app-widgets-column {
   height: 100%;
@@ -223,12 +225,11 @@ main {
   position: relative;
   padding-top: 87px;
 }
-.app-widgets-row .app-widgets-column + .app-widgets-column {
+.app-widgets-row .app-widgets-column .widgets-center-placeholder {
   margin-left: 6.5vw;
+  margin-right: 6.5vw;
 }
-.app-widgets-row .widgets-grid {
-  width: 51vw;
-}
+.app-widgets-row .widgets-grid {}
 .app-data-row .app-row-title {
   flex: 1;
   display: flex;

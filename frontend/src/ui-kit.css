@@ -265,6 +265,9 @@
   margin-right: 20px;
   cursor: pointer;
 }
+.card-sm .image--empty {
+  background-color: #E6EAEE;
+}
 .card-sm .image img {
   object-fit: cover;
   width: 100%;

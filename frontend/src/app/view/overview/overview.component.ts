@@ -12,4 +12,7 @@ export class OverviewComponent implements OnInit {
   ngOnInit() {
   }
 
+  testEventHandler(event) {
+    console.log(event)
+  }
 }

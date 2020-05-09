@@ -1,0 +1,21 @@
+<div class="card-sm">
+  <div class="image" [ngClass]="{ 'image--empty': !imageUrl }">
+    <img (click)="clickCard.emit(itemId)" [src]="imageUrl" [alt]="header">
+  </div>
+  <div class="info-panel">
+    <div class="info">
+      <div (click)="clickCard.emit(itemId)" class="header">{{ header }}</div>
+      <div *ngIf="isPassed" class="label label--passed">Passed</div>
+      <div *ngIf="!isPassed" class="label label--failed">Failed</div>
+      <div class="description">{{ viewports[0] }}
+        <span *ngIf="viewports.length > 1" class="more">+{{ viewports.length - 1 }}
+          <i class="hidden-more">{{ viewports.slice(1, viewports.length).join(', ') }}</i>
+        </span>
+      </div>
+    </div>
+    <div class="actions">
+      <span (click)="clickRun.emit(itemId)">Play <i class="fas fa-play"></i></span>
+      <span (click)="clickHistory.emit(itemId)">Latest results</span>
+    </div>
+  </div>
+</div>

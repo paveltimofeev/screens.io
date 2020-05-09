@@ -49,9 +49,11 @@
 -- Backend: extract UIErrors into the separate class
 -- Backend: get favorite scenarios
 -- Backend: top-N filter for job histories
+-- DESIGN UI PAGES FOR MOBILE
 -- Frontend: create basic routes and responsive/mobile-compatible layouts wireframes (by Figma design)
+-- Frontend: Create HTML/CSS UI-Kit
 
-- DESIGN UI PAGES FOR MOBILE
+- 
 
 - Backend: Approve all failed/filtered tests in run
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before

@@ -1,0 +1,21 @@
+<div class="widget-label widget-label--xl">
+
+  <h2 class="header">
+    <span *ngIf="state === 'passed'">All</span>
+    <span *ngIf="state === 'failed'">Some</span>
+    <span *ngIf="state !== 'passed' && state !== 'failed'">There is no</span>
+    Test Scenarios</h2>
+  <div *ngIf="state === 'passed'" class="state state--passed">Passed</div>
+  <div *ngIf="state === 'failed'" class="state state--failed">Failed</div>
+  <div class="stats">
+    <div class="stats-left">
+      <em>{{ scenarios || 'No' }}</em> Scenarios <br>
+      <em>{{ viewports || 'No' }}</em> Viewports
+    </div>
+    <div class="stats-right">
+      <em>Last Run</em><br>
+      {{ lastRun || 'Has not been run yet' }}
+    </div>
+  </div>
+
+</div>

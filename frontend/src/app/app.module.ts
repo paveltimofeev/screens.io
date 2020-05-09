@@ -49,6 +49,7 @@ import { CardSmComponent } from './ui-kit/card-sm/card-sm.component';
 import { WidgetComponent } from './ui-kit/widget/widget.component';
 import { WidgetFragiledComponent } from './ui-kit/widget-fragiled/widget-fragiled.component';
 import { WidgetTimelineComponent } from './ui-kit/widget-timeline/widget-timeline.component';
+import { WidgetLabelComponent } from './ui-kit/widget-label/widget-label.component';
 
 
 @NgModule({
@@ -81,7 +82,8 @@ import { WidgetTimelineComponent } from './ui-kit/widget-timeline/widget-timelin
     CardSmComponent,
     WidgetComponent,
     WidgetFragiledComponent,
-    WidgetTimelineComponent
+    WidgetTimelineComponent,
+    WidgetLabelComponent
   ],
   imports: [
     BrowserModule,

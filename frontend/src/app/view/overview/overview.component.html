@@ -1,6 +1,16 @@
 <app-overview-layout>
 
-  <div class="widgets-left-placeholder">left</div>
+  <div class="widgets-left-placeholder">
+
+    <app-widget-label
+      [state]="'passed'"
+      [scenarios]="72"
+      [viewports]="3"
+      [lastRun]="'2h 36min ago'">
+    </app-widget-label>
+
+  </div>
+
   <div class="widgets-center-placeholder">
 
     <div class="widgets-center-row">

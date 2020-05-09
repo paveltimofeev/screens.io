@@ -208,6 +208,7 @@ main {
   top: 0;
   left: 0;
   width: 100%;
+  _background: #F7F7F6;
   background: #eee;
   z-index: -1;
   bottom: 25%;
@@ -221,6 +222,9 @@ main {
   width: 100%;
   position: relative;
   padding-top: 87px;
+}
+.app-widgets-row .app-widgets-column + .app-widgets-column {
+  margin-left: 6.5vw;
 }
 .app-widgets-row .widgets-grid {
   width: 51vw;

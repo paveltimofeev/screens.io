@@ -799,3 +799,45 @@
   background: #ffffff;
   border-top: 3px solid #47A066;
 }
+
+
+/* LABELS */
+
+.widget-label {}
+.widget-label--xl {}
+.widget-label .header {
+  margin-bottom: 8px;
+}
+.widget-label .state {
+  font-size: 80px;
+  font-weight: bold;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 8px 36px;
+  _width: fit-content;
+  text-align: center;
+  margin-bottom: 36px;
+}
+.widget-label .state--passed {
+  background: var(--color-green);
+  border-left: 7px solid var(--color-green-dark);
+}
+.widget-label .state--failed {
+  background: var(--color-red);
+  border-left: 7px solid var(--color-red-dark);
+}
+.widget-label .stats {
+  display: flex;
+  width: 100%;
+}
+.widget-label .stats .stats-left,
+.widget-label .stats .stats-right {
+  flex: 1;
+  font-size: 18px;
+  font-weight: normal;
+}
+.widget-label .stats .stats-left em,
+.widget-label .stats .stats-right em {
+  font-weight: bold;
+  font-style: normal;
+}

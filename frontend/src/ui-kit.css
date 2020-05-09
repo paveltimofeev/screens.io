@@ -547,9 +547,6 @@
   background: rgba(138, 224, 255, 0.15);
 }
 .runs-table tr td {
-  border-bottom: 1px solid #F5F5F5;
-}
-.runs-table tr:first-child td {
   border-top: 1px solid #F5F5F5;
 }
 

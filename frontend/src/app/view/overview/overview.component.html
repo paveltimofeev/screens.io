@@ -24,56 +24,24 @@
 
       </app-widget>
 
-      <div class="widget widget--green widget--double">
-        <div class="widget-header">This week</div>
-        <div class="widget-value widget-value--stats">
+      <app-widget-timeline
+        [title]="'This week'"
+        [passedPercent]="52"
+        [delta]="'+7'"
+        [chartData]="weeklyPassed"
+      ></app-widget-timeline>
 
-          <div class="stats-value">52% Passed</div>
-          <div class="stats-sub">+7% to previouse week</div>
-          <div class="stats-chart">
-            <div style="height: 14%" title="14% - 12 Jan" class="bar"></div>
-            <div style="height: 28%" title="28% - 19 Jan" class="bar"></div>
-            <div style="height: 36%" title="26% - 26 Jan" class="bar"></div>
-            <div style="height: 35%" title="35%" class="bar"></div>
-            <div style="height: 34%" title="34%" class="bar"></div>
-            <div style="height: 20%" title="20%" class="bar"></div>
-            <div style="height: 83%" title="83%" class="bar bar--hl"></div>
-            <div style="height: 87%" class="bar bar--hl"></div>
-            <div style="height: 81%" class="bar bar--hl"></div>
-            <div style="height: 77%" class="bar"></div>
-            <div style="height: 21%" class="bar"></div>
-            <div style="height: 20%" class="bar"></div>
-            <div style="height: 23%" class="bar"></div>
-            <div style="height: 87%" class="bar bar--hl"></div>
-            <div style="height: 81%" class="bar bar--hl"></div>
-            <div style="height: 80%" class="bar bar--hl"></div>
-            <div style="height: 76%" class="bar"></div>
-            <div style="height: 82%" class="bar bar--hl"></div>
-            <div style="height: 60%" class="bar"></div>
-            <div style="height: 25%" class="bar"></div>
-            <div style="height: 70%" class="bar"></div>
-            <div style="height: 90%" class="bar bar--hl"></div>
-            <div style="height: 85%" class="bar bar--hl"></div>
-            <div style="height: 75%" class="bar"></div>
-            <div style="height: 77%" class="bar"></div>
-          </div>
-
-        </div>
-      </div>
     </div>
     <div class="widgets-center-row">
 
-      <div class="widget widget--steel widget--double">
-        <div class="widget-header">Most fragile case of the week</div>
-        <div class="widget-value widget-value--fragile">
-
-          <div class="fragile-value">Lorem ipsum dolor sit amet dolor sit ame</div>
-          <div class="fragile-value fragile-value--accent"><em>+73%</em> of lorem</div>
-        </div>
-
-        <img class="fragile-preview" src="assets/images/stubs/screen9.png" alt="">
-
-      </div>
+      <app-widget-fragiled
+        [scenarioId]="12345678901"
+        [title]="'Most fragile case of the week'"
+        [scenarioName]="'Home Page / Navigation Bar Component'"
+        [failsPercent]="73"
+        [imageUrl]="'assets/images/stubs/screen9.png'"
+        (clickOnImage)="testEventHandler($event)"
+      ></app-widget-fragiled>
 
       <app-widget
         [title]="'Already'"
@@ -81,7 +49,6 @@
         [bgColor]="'white'">
         <span><em>32</em>days without fails</span>
       </app-widget>
-
 
       <app-widget
         [title]="'Test cases'"

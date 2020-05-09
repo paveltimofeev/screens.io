@@ -47,6 +47,8 @@ import { SidebarPageLayoutComponent } from './layouts/sidebar-page-layout/sideba
 import { UiKitPreviewComponent } from './ui-kit/preview/ui-kit-preview.component';
 import { CardSmComponent } from './ui-kit/card-sm/card-sm.component';
 import { WidgetComponent } from './ui-kit/widget/widget.component';
+import { WidgetFragiledComponent } from './ui-kit/widget-fragiled/widget-fragiled.component';
+import { WidgetTimelineComponent } from './ui-kit/widget-timeline/widget-timeline.component';
 
 
 @NgModule({
@@ -77,7 +79,9 @@ import { WidgetComponent } from './ui-kit/widget/widget.component';
     SidebarPageLayoutComponent,
     UiKitPreviewComponent,
     CardSmComponent,
-    WidgetComponent
+    WidgetComponent,
+    WidgetFragiledComponent,
+    WidgetTimelineComponent
   ],
   imports: [
     BrowserModule,

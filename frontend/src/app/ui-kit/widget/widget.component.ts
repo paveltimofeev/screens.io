@@ -2,8 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-widget',
-  templateUrl: './widget.component.html',
-  styleUrls: ['./widget.component.css']
+  templateUrl: './widget.component.html'
 })
 export class WidgetComponent {
 
@@ -18,5 +17,4 @@ export class WidgetComponent {
 
   @Input()
   bgColor:string;
-
 }

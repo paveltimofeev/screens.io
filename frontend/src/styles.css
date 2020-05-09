@@ -198,7 +198,7 @@ main {
 }
 .app-widgets-row {
   justify-content: space-evenly;
-  height: 55vh;
+  height: 53vh;
   position: relative;
   z-index: 1;
 }

@@ -61,9 +61,28 @@
 
 /* HEADERS */
 .column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 100%;
+}
+.column-header h2 {
   font-weight: 500;
   font-size: 24px;
   font-family: 'Ubuntu', sans-serif;
+}
+.column-header span .action {
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #CDCDCD;
+  cursor: pointer;
+}
+.column-header span .action + .action {
+  margin-left: 14px;
+}
+.column-header span .action--active {
+  color: #8AC1F4;
 }
 
 

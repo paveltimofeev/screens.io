@@ -22,13 +22,34 @@
 
         <div class="app-column--left">
 
-          <div class="app-row-title"><h2 class="column-header">Favorite Scenarios</h2><span>View all</span></div>
+          <div class="app-row-title">
+
+            <div class="column-header">
+              <h2>Favorite Scenarios</h2>
+              <span>
+                <span class="action">View All</span>
+              </span>
+            </div>
+
+          </div>
           <ng-content select=".cards-placeholder"></ng-content>
 
         </div>
         <div class="app-column--right">
 
-          <div class="app-row-title"><h2 class="column-header">Recent Runs</h2><span>actions</span></div>
+          <div class="app-row-title">
+
+            <div class="column-header">
+              <h2>Recent Runs</h2>
+              <span>
+                <span class="action">View All (112)</span>
+                <span class="action action--active">Latest</span>
+                <span class="action">Passed</span>
+                <span class="action">Failed</span>
+              </span>
+            </div>
+
+          </div>
           <ng-content select=".records-placeholder"></ng-content>
         </div>
 

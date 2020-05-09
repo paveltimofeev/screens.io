@@ -1,7 +1,96 @@
 <app-overview-layout>
 
   <div class="widgets-left-placeholder">left</div>
-  <div class="widgets-center-placeholder">center</div>
+  <div class="widgets-center-placeholder">
+
+    <div class="widgets-center-row">
+      <div class="widget widget--blue">
+        <div class="widget-header">Today</div>
+        <div class="widget-value widget-value--lg">
+          Lorem ipsum
+          <br>
+          <i class="far fa-thumbs-up"></i>
+        </div>
+      </div>
+
+      <div class="widget widget--gray">
+        <div class="widget-header">Recently failed</div>
+        <div class="widget-value">
+          Lorem ipsum dolor <br>
+          sit amet
+          <br>
+          <button class="button button--white">Retry op</button>
+        </div>
+      </div>
+
+      <div class="widget widget--green widget--double">
+        <div class="widget-header">This week</div>
+        <div class="widget-value widget-value--stats">
+
+          <div class="stats-value">52% Passed</div>
+          <div class="stats-sub">+7% to previouse week</div>
+          <div class="stats-chart">
+            <div style="height: 14%" title="14% - 12 Jan" class="bar"></div>
+            <div style="height: 28%" title="28% - 19 Jan" class="bar"></div>
+            <div style="height: 36%" title="26% - 26 Jan" class="bar"></div>
+            <div style="height: 35%" title="35%" class="bar"></div>
+            <div style="height: 34%" title="34%" class="bar"></div>
+            <div style="height: 20%" title="20%" class="bar"></div>
+            <div style="height: 83%" title="83%" class="bar bar--hl"></div>
+            <div style="height: 87%" class="bar bar--hl"></div>
+            <div style="height: 81%" class="bar bar--hl"></div>
+            <div style="height: 77%" class="bar"></div>
+            <div style="height: 21%" class="bar"></div>
+            <div style="height: 20%" class="bar"></div>
+            <div style="height: 23%" class="bar"></div>
+            <div style="height: 87%" class="bar bar--hl"></div>
+            <div style="height: 81%" class="bar bar--hl"></div>
+            <div style="height: 80%" class="bar bar--hl"></div>
+            <div style="height: 76%" class="bar"></div>
+            <div style="height: 82%" class="bar bar--hl"></div>
+            <div style="height: 60%" class="bar"></div>
+            <div style="height: 25%" class="bar"></div>
+            <div style="height: 70%" class="bar"></div>
+            <div style="height: 90%" class="bar bar--hl"></div>
+            <div style="height: 85%" class="bar bar--hl"></div>
+            <div style="height: 75%" class="bar"></div>
+            <div style="height: 77%" class="bar"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="widgets-center-row">
+
+      <div class="widget widget--steel widget--double">
+        <div class="widget-header">Most fragile case of the week</div>
+        <div class="widget-value widget-value--fragile">
+
+          <div class="fragile-value">Lorem ipsum dolor sit amet dolor sit ame</div>
+          <div class="fragile-value fragile-value--accent"><em>+73%</em> of lorem</div>
+        </div>
+
+        <img class="fragile-preview" src="assets/images/stubs/screen9.png" alt="">
+
+      </div>
+
+      <div class="widget widget--white">
+        <div class="widget-header">Already</div>
+        <div class="widget-value widget-value--accent">
+          <span><em>32</em>days without fails</span>
+        </div>
+      </div>
+
+      <div class="widget widget--white">
+        <div class="widget-header">Test cases</div>
+        <div class="widget-value widget-value--accent">
+          <span><em>72</em><br>37 are stable</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
   <div class="widgets-right-placeholder">right</div>
 
 
@@ -61,8 +150,8 @@
 
   <div class="records-placeholder">
 
-    <table style="width: 100%">
-      <tr class="app-record">
+    <table class="runs-table" border="0">
+      <tr>
         <td>
 
           <div class="status-cell">
@@ -96,7 +185,7 @@
 
         </td>
       </tr>
-      <tr class="app-record">
+      <tr>
         <td>
 
           <div class="status-cell">
@@ -130,7 +219,7 @@
 
         </td>
       </tr>
-      <tr class="app-record">
+      <tr>
         <td>
 
           <div class="status-cell">
@@ -164,7 +253,7 @@
 
         </td>
       </tr>
-      <tr class="app-record">
+      <tr>
         <td>
 
           <div class="status-cell">
@@ -198,7 +287,7 @@
 
         </td>
       </tr>
-      <tr class="app-record">
+      <tr>
         <td>
 
           <div class="status-cell">

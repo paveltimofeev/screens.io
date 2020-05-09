@@ -220,6 +220,7 @@ main {
   height: 100%;
   width: 100%;
   position: relative;
+  padding-top: 87px;
 }
 .app-widgets-row .widgets-grid {
   width: 51vw;
@@ -231,9 +232,22 @@ main {
   align-items: baseline;
   width: 100%;
 }
+.app-data-row .app-column--left {
+  padding-right: 16px;
+}
 .app-data-row .app-column--left,
 .app-data-row .app-column--right {
   flex: 1;
+}
+
+.widgets-center-row {
+  display: flex;
+}
+.widgets-center-row > * + * {
+  margin-left: 16px;
+}
+.widgets-center-row + .widgets-center-row {
+  margin-top: 16px;
 }
 
 
@@ -245,10 +259,6 @@ main {
   .app-card--sm {
     width: 100%;
   }
-}
-
-.app-record {
-  height: 70px;
 }
 
 

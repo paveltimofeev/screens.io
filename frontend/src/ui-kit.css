@@ -55,7 +55,10 @@
 .button--accent2 { background: var(--color-green); border: 1px solid var(--color-green); }
 .button--dark    { background: #000000; border: 1px solid #000000; }
 .button--white   { background: #ffffff; border: 1px solid #545454; color: #000; }
-
+.button--lg {
+  font-size: 18px;
+  font-weight: 500;
+}
 /* END BUTTONS */
 
 /* HEADERS */
@@ -533,6 +536,22 @@
 
 
 /* TABLE CELLS */
+.runs-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.runs-table tr {
+  height: 70px;
+}
+.runs-table tr:hover {
+  background: rgba(138, 224, 255, 0.15);
+}
+.runs-table tr td {
+  border-bottom: 1px solid #F5F5F5;
+}
+.runs-table tr:first-child td {
+  border-top: 1px solid #F5F5F5;
+}
 
 .status-cell {
   display: flex;
@@ -641,9 +660,10 @@
   flex-direction: column;
   position: relative;
   overflow: hidden;
+  user-select: none;
 }
 .widget + .widget {
-  margin-top: 16px;
+  _margin-top: 16px;
 }
 
 .widget--blue {
@@ -729,7 +749,7 @@
 }
 .fragile-preview {
   position: absolute;
-  width: 35%;
+  _width: 35%;
   height: 100%;
   top: 0px;
   right: 0;
@@ -740,9 +760,13 @@
 
   width: 45%;
   clip-path: polygon(100% 0%, 100% 90%, 100% 100%, 35% 100%, 0% 90%, 25% 0%);
+  opacity: .5;
+  filter: hue-rotate(30deg) grayscale(90%);
+  transition: opacity .3s ease-in-out, filter .3s ease-in-out;
 }
 .fragile-preview:hover {
-  filter: hue-rotate(30deg) grayscale(50%) brightness(1.1);
+  opacity: 1;
+  filter: hue-rotate(0deg) grayscale(0%);
 }
 
 .stats-value {

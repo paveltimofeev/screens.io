@@ -1,0 +1,15 @@
+<div class="widget" [ngClass]="{
+  'widget--blue': bgColor === 'blue',
+  'widget--gray': bgColor === 'gray',
+  'widget--white': bgColor === 'white'
+  }">
+
+  <div class="widget-header">{{ title }}</div>
+  <div class="widget-value" [ngClass]="{
+  'widget-value--lg': isLargeContent,
+  'widget-value--accent': isAccentValue
+  }">
+    <ng-content></ng-content>
+  </div>
+
+</div>

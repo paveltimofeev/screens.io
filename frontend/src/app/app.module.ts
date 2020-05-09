@@ -46,6 +46,7 @@ import { OverviewLayoutComponent } from './layouts/overview-layout/overview-layo
 import { SidebarPageLayoutComponent } from './layouts/sidebar-page-layout/sidebar-page-layout.component';
 import { UiKitPreviewComponent } from './ui-kit/preview/ui-kit-preview.component';
 import { CardSmComponent } from './ui-kit/card-sm/card-sm.component';
+import { WidgetComponent } from './ui-kit/widget/widget.component';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import { CardSmComponent } from './ui-kit/card-sm/card-sm.component';
     OverviewLayoutComponent,
     SidebarPageLayoutComponent,
     UiKitPreviewComponent,
-    CardSmComponent
+    CardSmComponent,
+    WidgetComponent
   ],
   imports: [
     BrowserModule,

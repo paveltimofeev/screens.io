@@ -4,24 +4,25 @@
   <div class="widgets-center-placeholder">
 
     <div class="widgets-center-row">
-      <div class="widget widget--blue">
-        <div class="widget-header">Today</div>
-        <div class="widget-value widget-value--lg">
-          Lorem ipsum
-          <br>
-          <i class="far fa-thumbs-up"></i>
-        </div>
-      </div>
 
-      <div class="widget widget--gray">
-        <div class="widget-header">Recently failed</div>
-        <div class="widget-value">
-          Lorem ipsum dolor <br>
-          sit amet
-          <br>
-          <button class="button button--white">Retry op</button>
-        </div>
-      </div>
+      <app-widget
+        [title]="'Today'"
+        [isLargeContent]="true"
+        [bgColor]="'blue'">
+
+        Nothing broken<br>
+        <i class="far fa-thumbs-up"></i>
+
+      </app-widget>
+
+      <app-widget
+        [title]="'Recently failed'"
+        [bgColor]="'gray'">
+
+        Home Page / Navigation Bar Component <br>
+        <button class="button button--white button--lg">Run Again</button>
+
+      </app-widget>
 
       <div class="widget widget--green widget--double">
         <div class="widget-header">This week</div>
@@ -74,19 +75,20 @@
 
       </div>
 
-      <div class="widget widget--white">
-        <div class="widget-header">Already</div>
-        <div class="widget-value widget-value--accent">
-          <span><em>32</em>days without fails</span>
-        </div>
-      </div>
+      <app-widget
+        [title]="'Already'"
+        [isAccentValue]="true"
+        [bgColor]="'white'">
+        <span><em>32</em>days without fails</span>
+      </app-widget>
 
-      <div class="widget widget--white">
-        <div class="widget-header">Test cases</div>
-        <div class="widget-value widget-value--accent">
-          <span><em>72</em><br>37 are stable</span>
-        </div>
-      </div>
+
+      <app-widget
+        [title]="'Test cases'"
+        [isAccentValue]="true"
+        [bgColor]="'white'">
+        <span><em>72</em><br>37 are stable</span>
+      </app-widget>
 
     </div>
 

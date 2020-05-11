@@ -52,34 +52,41 @@
 -- DESIGN UI PAGES FOR MOBILE
 -- Frontend: create basic routes and responsive/mobile-compatible layouts wireframes (by Figma design)
 -- Frontend: Create HTML/CSS UI-Kit
+-- Define MVP tasks scope
 
 - Create Dumb Angular Components by UI-Kit
 
-- Support mobile and 1600x900 screen sizes
-- Backend: Approve all failed/filtered tests in run
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
-- Run scenarios filtered by ids[]*viewports[]
 - Run scenarios with overrode parameters (scenarios/hostname/viewports/...)
+- Do not use Login as userId, because it uses in path building and could allow user chang directories, use user UID instead
+- Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
+- Auth proxy should not store passwords in plain text
+- STORE IMAGES AT AWS S3 WITH RETENTION TIME
+- LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
+- MVP MILESTONE ------------
+
+- Frontend: Read proof
+- Frontend: Think out onboarding process, layout and empty state views.
+- Support mobile and 1600x900 screen sizes
+- Run scenarios filtered by ids[]*viewports[]
+- Restrict number of viewports
 - Remove scenarios filtered by ids[]*viewports[]
+- Loading a lot of images through AuthProxy is hard? Need to return signed link to S3 instead
+- Backend: Approve all failed/filtered tests in run
 - Dates should store in UTC but display in Local timezone (the same according to Tody filter)
 - support groupby=scenario for jobs history
 - Think out different UseScenarios for different Persons: The Developer, The TeamLead, The Indie (Who's he / What problems does he has / How does he expect to use me)
-- Loading a lot of images through AuthProxy is hard? Need to return signed link to S3 instead
-- Do not use Login as userId, because it uses in path building and could allow user chang directories, use user UID instead
 - Cookies callback/field, or before run script
 - Bulk add scenarios (urls)
 - Disable Animation option for scenario
 - Support work with sites protected with BasicAuth or ftp (user:pass)
-- Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
 - Retry Policy for backend-db, backend-queue
 - AuthGuard to redirect unauthorized users to login page ASAP
 - Remove all References and test Files on removing Scenarios or Viewports
 - Remove test result Files and Report after remove history record
-- Auth proxy should not store passwords in plain text
 - Auth proxy - change password
 - Sanitize body and params in Auth proxy & Backend
 - Frontend: Angular MultiLanguage support (i18n, l8n)
-- Restrict number of viewports
 - Show Difference value, to get user knowledge for tuning test sensitivity 
 - API+APIKEY for running-with-parameters by posted config from body (Usecase: developer stores backstopjs-tests near the component, and post them to API to test against his host/params)
 - API+APIKEY for comparing any posted screenshot against stored in DB (Usecase: dev team has environment for taking screenshots and uses API to validate them against approved, team also uses WenUI to approve cases, to monitor stability, and team uses notifications at Slack/Telegram)
@@ -87,8 +94,6 @@
 - Locate tiny changes, and mark them more noticeably. Add "Scroll to next diff" button.
 - Use user-friendly dates (by moment)
 - Think out understanding of costs (weight of s3/lambdas/queues/vm in total cost of user) to work out correct pricing strategy
-- Frontend: Read proof
-- Frontend: Think out onboarding process, layout and empty state views.
 - Add ScenarioHistory collection [scenarioRef/Name, date, status, historyRecordRef, successRate(calc) ]
 
 
@@ -98,14 +103,12 @@
 
 
 - DOCKERIZE AUTH-PROXY & BACKEND AND RUN THEM IN AWS
-- STORE IMAGES AT AWS S3
 - AWS LAMBDA
 - AWS SQS
 - CLOUD MONGODB
 - TELEGRAM BOT
 - SLACK BOT
 - SCHEDULER FOR RUNS
-- LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
 - PAYMENT & TRIAL-ACCOUNTS
 - COMPARE WITH COMPETITORS: diffy.website, screenster.io, percy.io
     - ON DEMAND AGENT (MANAGED BY SERVER) TO MAKE SCREENSHOTS (WITHOUT AUTH/OF LOCALHOST) AND SEND THEM TO THE BACKEND

@@ -55,14 +55,17 @@
 -- Define MVP tasks scope
 
 - Create Dumb Angular Components by UI-Kit
+- RESTYLE UI
 
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Run scenarios with overrode parameters (scenarios/hostname/viewports/...)
 - Do not use Login as userId, because it uses in path building and could allow user chang directories, use user UID instead
 - Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
 - Auth proxy should not store passwords in plain text
-- STORE IMAGES AT AWS S3 WITH RETENTION TIME
 - LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
+- Run backend on AWS VM
+- STORE IMAGES AT AWS S3 WITH RETENTION TIME
+- Deploy frontend to AWS S3/CloudFront of github under the new domain name
 - MVP MILESTONE ------------
 
 - Frontend: Read proof

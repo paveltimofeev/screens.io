@@ -1,0 +1,22 @@
+<div class="text-field text-field--350">
+  <label>{{ label }} <i *ngIf="tooltip" [attr.tooltip]="tooltip" class="far fa-question-circle"></i></label>
+  <p *ngIf="description" class="description">{{ description }}</p>
+  <div class="input-box">
+<!--
+    <span class="input-box-chips">value1 <i class="fas fa-times"></i></span>
+    <span class="input-box-chips">value2 <i class="fas fa-times"></i></span>
+-->
+
+    <input type="text"
+           [attr.placeholder]="placeholder"
+           [(ngModel)]="value"
+           (ngModelChange)="ngModelChangeHandler($event, val)"
+           #val>
+    <i *ngIf="fieldIcon" class="input-box-icon fas fa-external-link-alt"></i>
+
+    <!--
+    <button class="input-box-button">Reset</button>
+    <i class="input-box-icon fas fa-times"></i>
+    -->
+  </div>
+</div>

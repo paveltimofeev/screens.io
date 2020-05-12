@@ -52,6 +52,7 @@ import { WidgetTimelineComponent } from './ui-kit/widget-timeline/widget-timelin
 import { WidgetLabelComponent } from './ui-kit/widget-label/widget-label.component';
 import { WidgetRunComponent } from './ui-kit/widget-run/widget-run.component';
 import { ViewportsSelectorComponent } from './ui-kit/viewports-selector/viewports-selector.component';
+import { TextFieldComponent } from './ui-kit/text-field/text-field.component';
 
 
 @NgModule({
@@ -87,7 +88,8 @@ import { ViewportsSelectorComponent } from './ui-kit/viewports-selector/viewport
     WidgetTimelineComponent,
     WidgetLabelComponent,
     WidgetRunComponent,
-    ViewportsSelectorComponent
+    ViewportsSelectorComponent,
+    TextFieldComponent
   ],
   imports: [
     BrowserModule,

@@ -4,12 +4,13 @@
 
   <div class="run-form">
 
-    <div class="text-field text-field--full">
-      <label for="scenariosFilter">Scenarios filter <i class="far fa-question-circle"></i></label>
-      <div class="input-box">
-        <input type="text" id="scenariosFilter" #scenariosFilter placeholder="some-label*">
-      </div>
-    </div>
+    <app-text-field
+      [label]="'Scenarios filter'"
+      [tooltip]="'* support wildcards'"
+      [placeholder]="'some-label*'"
+      (valueChanged)="scenariosFilterChanged($event)"
+    >
+    </app-text-field>
 
     <span class="viewports-selector-header">Viewports</span>
     <app-viewports-selector

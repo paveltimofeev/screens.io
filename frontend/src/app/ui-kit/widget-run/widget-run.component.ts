@@ -22,15 +22,16 @@ export class WidgetRunComponent {
   @Output()
   clickRunFiltered: EventEmitter<Filters> = new EventEmitter();
 
+  scenariosFilterChanged (scenariosFilter) {
+    this.filters.scenariosFilter = scenariosFilter;
+  }
 
   viewportSelectionChanged (viewports) {
-
     this.filters.viewports = viewports;
   }
 
   clickRunFilteredHandler () {
 
-    this.filters.scenariosFilter = this.scenariosFilter.nativeElement.value;
     this.clickRunFiltered.emit(this.filters);
   }
 }

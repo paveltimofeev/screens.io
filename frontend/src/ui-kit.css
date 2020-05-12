@@ -63,7 +63,25 @@
   font-size: 18px;
   font-weight: 500;
 }
-/* END BUTTONS */
+
+/* ACTIONS */
+.data-action {
+  border: none;
+  background: transparent;
+  color: #5F5F5F;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+.data-action + .data-action {
+  margin-left: 20px;
+}
+.data-action i {
+  margin-right: .25em;
+}
+
 
 /* HEADERS */
 .column-header {
@@ -91,6 +109,42 @@
   color: #8AC1F4;
 }
 
+.page-header {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 36px;
+  font-weight: 500;
+  color: #5F5F5F;
+}
+.page-description {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000000;
+}
+.sidebar-header {
+  border-bottom: 1px solid #D1D1D1;
+  text-align: right;
+  color: #5F5F5F;
+  padding-bottom: 23px;
+}
+.sidebar-header > h2 {
+  font-size: 72px;
+  font-weight: bold;
+  line-height: 60%;
+  margin: 70px 0 27px 0;
+  padding: 0;
+}
+.sidebar-header > h2 small {
+  font-size: 36px;
+  font-weight: 500;
+}
+.sidebar-header span {
+  font-size: 24px;
+  font-weight: 500;
+}
+.sidebar-header span + span {
+  margin-left: 32px;
+}
 
 /* INPUTS */
 

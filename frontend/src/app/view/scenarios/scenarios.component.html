@@ -1,7 +1,6 @@
 <app-sidebar-page-layout
   [title]="'Test Scenarios'"
-  [description]="'Each scenario will test one page, component or action against one or many viewport sizes'"
->
+  [description]="'Each scenario will test one page, component or action against one or many viewport sizes'">
 
   <div class="page-actions-placeholder">
     <ul class="page-actions">
@@ -18,29 +17,53 @@
   </div>
 
   <div class="data-actions-placeholder">
-    <div>actions</div>
-    <div>actions</div>
+    <div>
+      <button class="data-action"><i class="fas fa-search"></i> Search scenario</button>
+    </div>
+    <div>
+      <button class="data-action"><i class="fas fa-redo"></i> Refresh</button>
+      <button class="data-action">Show Differences</button>
+    </div>
   </div>
 
   <div class="data-placeholder">
 
-    <div class="app-card xs12 m6 m4 l3 xl2">Card</div>
-    <div class="app-card xs12 m6 m4 l3 xl2">Card</div>
-    <div class="app-card xs12 m6 m4 l3 xl2">Card</div>
-    <div class="app-card xs12 m6 m4 l3 xl2">Card</div>
-    <div class="app-card xs12 m6 m4 l3 xl2">Card</div>
-    <div class="app-card xs12 m6 m4 l3 xl2">Card</div>
-    <div class="app-card xs12 m6 m4 l3 xl2">Card</div>
-    <div class="app-card xs12 m6 m4 l3 xl2">Card</div>
-    <div class="app-card xs12 m6 m4 l3 xl2">Card</div>
-    <div class="app-card xs12 m6 m4 l3 xl2">Card</div>
+    <div class="app-card xs12 m6 m4 l3" *ngFor="let c of [1,2,3,4,5,6,7,8,9,10,11]">
+
+      <div class="card-md">
+        <div class="image image--passed">
+          <img [src]="'/assets/images/stubs/screen' + (12 - c) +'.png'" alt="">
+          <i class="favorite-icon far fa-heart"></i>
+          <i class="delete-icon fas fa-trash"></i>
+        </div>
+        <div class="header">
+          <span class="left">Card Title <i class="fas fa-play"></i></span>
+          <span class="right">
+      <i class="far fa-square"></i>
+      <i class="failed fas fa-times"></i>
+      <i class="far fa-square"></i>
+      <i class="far fa-square"></i>
+      <i class="far fa-square"></i>
+    </span>
+        </div>
+      </div>
+
+    </div>
+
+
 
   </div>
 
   <div class="sidebar-placeholder">
-    <h2>14 Pages <br><small>tested</small> </h2>
-    <span>12 stable 2 fragile</span>
-    <div class="app-filters">Sidebar filters</div>
+
+    <div class="sidebar-header">
+      <h2>14 Pages <br><small>tested</small> </h2>
+      <span>12 stable</span><span>2 fragile</span>
+    </div>
+    <div class="app-filters">
+      Sidebar filters
+    </div>
+
   </div>
 
   <div class="xs-filters-placeholder">

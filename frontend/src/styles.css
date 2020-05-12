@@ -133,13 +133,32 @@ main {
 /* SIDEBAR PAGE LAYOUT */
 
 .app-content .title-row {
+  margin-top: 40px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
-.page-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; }
+.app-content .title-row .page-header {
+  margin: 0;
+  padding: 0;
+}
+.app-content .page-description {
+  margin-top: 7px;
+  margin-bottom: 40px;
+  width: 45%;
+}
+.page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
 .page-actions .title-actions-item {
   float: left;
   display: block;
+}
+.page-actions .title-actions-item + .title-actions-item {
+  margin-left: 26px;
 }
 .app-sidebar {
   width: var(--sidebar-size);
@@ -157,7 +176,7 @@ main {
   padding-top: 22px;
 }
 .app-card {
-  height: var(--card-height);
+  min-height: var(--card-height);
   flex-basis: auto;
 }
 @media (min-width: 601px)  {
@@ -171,6 +190,7 @@ main {
 
   .page-actions {
     position: fixed;
+    z-index: 100;
     top: var(--xs-title-actions-top);
     right: var(--xs-title-actions-right);
     left: var(--xs-title-actions-left);
@@ -180,6 +200,10 @@ main {
   }
 }
 
+.sidebar-placeholder {
+  margin-left: 22px;
+  margin-right: 50px;
+}
 
 
 

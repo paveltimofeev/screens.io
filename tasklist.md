@@ -57,17 +57,25 @@
 - Create Dumb Angular Components by UI-Kit
 - RESTYLE UI
 
+- Responsove UI (support 1920/1600/1270/mobile)
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
-- Run scenarios with overrode parameters (scenarios/hostname/viewports/...)
+- Run scenarios with overrode parameters (scenarios + viewports filtration)
 - Do not use Login as userId, because it uses in path building and could allow user chang directories, use user UID instead
 - Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
 - Auth proxy should not store passwords in plain text
 - LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
-- Run backend on AWS VM
-- STORE IMAGES AT AWS S3 WITH RETENTION TIME
-- Deploy frontend to AWS S3/CloudFront of github under the new domain name
-- MVP MILESTONE ------------
+- [Move to AWS: 1] STORE IMAGES AT AWS S3 WITH RETENTION TIME
+- [Move to AWS: 2] Run MongoDb on AWS VM
+- [Move to AWS: 3] Run backend on AWS VM
+- [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name
+- Define Metrics to collect
+- **------------ MVP MILESTONE ------------**
 
+- Deplyment scripts (backend, frontend, landing)
+- Marketing efforts (Internet marketing, SEO, Social presence, Blogging, Video Tutorials)
+- Complete auto security checks & validation
+- Run scenarios with overridden parameters hostname (stage)
+- Frontend: Splitter for comparer view
 - Frontend: Read proof
 - Frontend: Think out onboarding process, layout and empty state views.
 - Support mobile and 1600x900 screen sizes
@@ -98,11 +106,10 @@
 - Use user-friendly dates (by moment)
 - Think out understanding of costs (weight of s3/lambdas/queues/vm in total cost of user) to work out correct pricing strategy
 - Add ScenarioHistory collection [scenarioRef/Name, date, status, historyRecordRef, successRate(calc) ]
-
-
 - Display retry button for not-ready yet history record (screens)
 - Confirmation dialog for delete ops
 - Displaying Errors on load and save
+- Other browsers: FF/IE?
 
 
 - DOCKERIZE AUTH-PROXY & BACKEND AND RUN THEM IN AWS

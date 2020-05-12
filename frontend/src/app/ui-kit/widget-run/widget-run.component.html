@@ -12,17 +12,10 @@
     </div>
 
     <span class="viewports-selector-header">Viewports</span>
-    <div class="viewports-selector">
-
-      <span
-        *ngFor="let v of _viewports"
-        class="viewport-toggle"
-        (click)="viewportClickHandler(v)"
-        [ngClass]="{
-          'viewport-toggle--on': v.checked
-        }"
-      >{{ v.label }}</span>
-    </div>
+    <app-viewports-selector
+      [viewports]="viewports"
+      (selectionChanged)="viewportSelectionChanged($event)">
+    </app-viewports-selector>
 
     <div class="actions">
       <button class="button button--white">Reset</button>

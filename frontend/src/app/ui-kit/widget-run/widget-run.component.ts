@@ -11,38 +11,26 @@ export class Filters {
 })
 export class WidgetRunComponent {
 
+  filters:Filters = new Filters();
+
   @ViewChild('scenariosFilter')
   scenariosFilter:ElementRef;
 
-  _viewports:{
-    data:string,
-    label:string,
-    checked:boolean
-  }[];
-
   @Input()
-  set viewports(value: string[]) {
-
-    this._viewports = value.map(v =>
-      ({
-        data: v,
-        label: v.replace(/\s/g, ''),
-        checked: false
-      }))
-  }
-
-  viewportClickHandler (viewport) {
-    viewport.checked = !viewport.checked;
-  }
+  viewports;
 
   @Output()
   clickRunFiltered: EventEmitter<Filters> = new EventEmitter();
 
+
+  viewportSelectionChanged (viewports) {
+
+    this.filters.viewports = viewports;
+  }
+
   clickRunFilteredHandler () {
 
-    let filters:Filters = new Filters();
-    filters.scenariosFilter = this.scenariosFilter.nativeElement.value;
-    filters.viewports = this._viewports.filter(v => v.checked).map(v => v.data);
-    this.clickRunFiltered.emit(filters);
+    this.filters.scenariosFilter = this.scenariosFilter.nativeElement.value;
+    this.clickRunFiltered.emit(this.filters);
   }
 }

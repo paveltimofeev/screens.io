@@ -51,6 +51,7 @@ import { WidgetFragiledComponent } from './ui-kit/widget-fragiled/widget-fragile
 import { WidgetTimelineComponent } from './ui-kit/widget-timeline/widget-timeline.component';
 import { WidgetLabelComponent } from './ui-kit/widget-label/widget-label.component';
 import { WidgetRunComponent } from './ui-kit/widget-run/widget-run.component';
+import { ViewportsSelectorComponent } from './ui-kit/viewports-selector/viewports-selector.component';
 
 
 @NgModule({
@@ -85,7 +86,8 @@ import { WidgetRunComponent } from './ui-kit/widget-run/widget-run.component';
     WidgetFragiledComponent,
     WidgetTimelineComponent,
     WidgetLabelComponent,
-    WidgetRunComponent
+    WidgetRunComponent,
+    ViewportsSelectorComponent
   ],
   imports: [
     BrowserModule,

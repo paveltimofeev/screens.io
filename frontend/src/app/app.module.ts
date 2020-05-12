@@ -50,6 +50,7 @@ import { WidgetComponent } from './ui-kit/widget/widget.component';
 import { WidgetFragiledComponent } from './ui-kit/widget-fragiled/widget-fragiled.component';
 import { WidgetTimelineComponent } from './ui-kit/widget-timeline/widget-timeline.component';
 import { WidgetLabelComponent } from './ui-kit/widget-label/widget-label.component';
+import { WidgetRunComponent } from './ui-kit/widget-run/widget-run.component';
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import { WidgetLabelComponent } from './ui-kit/widget-label/widget-label.compone
     WidgetComponent,
     WidgetFragiledComponent,
     WidgetTimelineComponent,
-    WidgetLabelComponent
+    WidgetLabelComponent,
+    WidgetRunComponent
   ],
   imports: [
     BrowserModule,

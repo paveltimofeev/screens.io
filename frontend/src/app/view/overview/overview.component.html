@@ -73,9 +73,11 @@
 
   <div class="widgets-right-placeholder">
 
-    <div class="widget widget-run widget--green">
-
-    </div>
+    <app-widget-run
+      [viewports]="['1920 × 1080', '1600 × 900', '1270 × 768', '800 × 600']"
+      (clickRunFiltered)="testEventHandler($event)"
+    >
+    </app-widget-run>
 
   </div>
 

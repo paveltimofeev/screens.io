@@ -1,0 +1,34 @@
+<div class="widget widget-run widget--green">
+
+  <div class="widget-header">Run Filtered Test Cases</div>
+
+  <div class="run-form">
+
+    <div class="text-field text-field--full">
+      <label for="scenariosFilter">Scenarios filter <i class="far fa-question-circle"></i></label>
+      <div class="input-box">
+        <input type="text" id="scenariosFilter" #scenariosFilter placeholder="some-label*">
+      </div>
+    </div>
+
+    <span class="viewports-selector-header">Viewports</span>
+    <div class="viewports-selector">
+
+      <span
+        *ngFor="let v of _viewports"
+        class="viewport-toggle"
+        (click)="viewportClickHandler(v)"
+        [ngClass]="{
+          'viewport-toggle--on': v.checked
+        }"
+      >{{ v.label }}</span>
+    </div>
+
+    <div class="actions">
+      <button class="button button--white">Reset</button>
+      <button (click)="clickRunFilteredHandler()" class="button button--dark">Run Filtered</button>
+    </div>
+
+  </div>
+
+</div>

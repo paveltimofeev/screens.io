@@ -61,7 +61,31 @@
       <span>12 stable</span><span>2 fragile</span>
     </div>
     <div class="app-filters">
-      Sidebar filters
+
+      <h3 class="filter-header">Filter by Status</h3>
+
+      <div class="checkbox-field">
+        <input type="checkbox" name="">
+        <label>Passed in the last run</label>
+      </div>
+
+      <div class="checkbox-field">
+        <input type="checkbox" name="" checked>
+        <label>Failed in the last run</label>
+      </div>
+
+      <h3 class="filter-header">Filter by Viewport Size</h3>
+      <h4 class="filter-subheader">Desktop</h4>
+      <app-viewports-selector
+        [viewports]="['1920 × 1080', '1600 × 900', '1270 × 720', '1024 × 1366', '1024 × 768']">
+      </app-viewports-selector>
+
+      <h4 class="filter-subheader">Mobile</h4>
+      <app-viewports-selector
+        [viewports]="['1920 × 1080', '1600 × 900', '1270 × 720', '1024 × 1366', '1024 × 768']">
+      </app-viewports-selector>
+
+
     </div>
 
   </div>

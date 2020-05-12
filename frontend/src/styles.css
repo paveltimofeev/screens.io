@@ -164,7 +164,9 @@ main {
   width: var(--sidebar-size);
   background: var(--sidebar-bg-color);
 }
-.app-filters { }
+.app-filters {
+  margin: 32px 22px 0px 22px;
+}
 .app-actions .data-actions-placeholder { display: flex; justify-content: space-between; }
 .app-content .data-placeholder {
   flex: 1;

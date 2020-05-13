@@ -2,8 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-card-sm',
-  templateUrl: './card-sm.component.html',
-  styleUrls: ['./card-sm.component.css']
+  templateUrl: './card-sm.component.html'
 })
 export class CardSmComponent{
 

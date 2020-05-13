@@ -55,6 +55,7 @@ import { ViewportsSelectorComponent } from './ui-kit/viewports-selector/viewport
 import { TextFieldComponent } from './ui-kit/text-field/text-field.component';
 import { CheckboxFieldComponent } from './ui-kit/checkbox-field/checkbox-field.component';
 import { DataActionButtonComponent } from './ui-kit/data-action-button/data-action-button.component';
+import { CardMdComponent } from './ui-kit/card-md/card-md.component';
 
 
 @NgModule({
@@ -93,7 +94,8 @@ import { DataActionButtonComponent } from './ui-kit/data-action-button/data-acti
     ViewportsSelectorComponent,
     TextFieldComponent,
     CheckboxFieldComponent,
-    DataActionButtonComponent
+    DataActionButtonComponent,
+    CardMdComponent
   ],
   imports: [
     BrowserModule,

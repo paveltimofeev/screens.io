@@ -40,23 +40,19 @@
 
     <div class="app-card xs12 m6 m4 l3" *ngFor="let c of [1,2,3,4,5,6,7,8,9,10,11]">
 
-      <div class="card-md">
-        <div class="image image--passed">
-          <img [src]="'/assets/images/stubs/screen' + (12 - c) +'.png'" alt="">
-          <i class="favorite-icon far fa-heart"></i>
-          <i class="delete-icon fas fa-trash"></i>
-        </div>
-        <div class="header">
-          <span class="left">Card Title <i class="fas fa-play"></i></span>
-          <span class="right">
-            <i class="far fa-square"></i>
-            <i class="failed fas fa-times"></i>
-            <i class="far fa-square"></i>
-            <i class="far fa-square"></i>
-            <i class="far fa-square"></i>
-          </span>
-        </div>
-      </div>
+      <app-card-md
+        [itemId]="c"
+        [header]="'Scenario'+c"
+        [state]="c % 4 === 0 ? '' : (c % 4 === 1 ? 'failed' :  (c % 4 === 2 ? 'running': 'passed' ) )"
+        [isFavorite]="c % 5 === 0"
+        [runs]="[true, true, false, false, true]"
+        [imageUrl]="'/assets/images/stubs/screen' + (12 - c) +'.png'"
+        (clickRun)="testHandler($event, 'clickRun')"
+        (clickFavorite)="testHandler($event, 'clickFavorite')"
+        (clickCard)="testHandler($event, 'clickCard')"
+        (clickDelete)="testHandler($event, 'clickDelete')"
+      >
+      </app-card-md>
 
     </div>
 

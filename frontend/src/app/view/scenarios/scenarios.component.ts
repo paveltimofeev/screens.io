@@ -12,8 +12,8 @@ export class ScenariosComponent implements OnInit {
   ngOnInit() {
   }
 
-  testHandler(e:any) {
-    console.log(e);
+  testHandler(e:any, label:string='testHandler') {
+    console.log(label, e);
   }
 
 }

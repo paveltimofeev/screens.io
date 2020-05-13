@@ -1,0 +1,41 @@
+<div class="card-md">
+  <div class="image"
+       [ngClass]="{
+        'image--passed': state === 'passed',
+        'image--failed': state === 'failed',
+        'image--running': state === 'running',
+        'image--never-run-before': state === ''
+       }"
+  >
+    <img (click)="clickCard.emit(itemId)" [src]="imageUrl" [attr.alt]="header">
+    <i (click)="clickFavorite.emit(itemId)" class="favorite-icon fa-heart"
+       [ngClass]="{
+       'fas': isFavorite == true,
+       'far': isFavorite != true
+       }"
+    ></i>
+    <i (click)="clickDelete.emit(itemId)" class="delete-icon fas fa-trash"></i>
+  </div>
+  <div class="header">
+    <span class="left">
+      <span (click)="clickCard.emit(itemId)">{{ header }}</span>
+      <i (click)="clickRun.emit(itemId)"
+         class="fas"
+         [ngClass]="{
+          'fa-play': state !== 'running',
+          'fa-circle-notch': state === 'running',
+          'icon--running': state === 'running'
+         }"
+      ></i>
+    </span>
+    <span class="right">
+      <i *ngFor="let r of runs"
+         [ngClass]="{
+         'far fa-square': r,
+         'failed fas fa-times': !r
+         }"
+         class="far fa-square"
+      ></i>
+    </span>
+  </div>
+</div>

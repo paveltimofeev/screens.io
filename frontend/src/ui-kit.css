@@ -479,8 +479,11 @@
 
 .card-md {
   width: 380px;
+  margin-bottom: 50px;
+
+  /*width: 380px;*/
   max-width: 100%;
-  margin-bottom: 30px;
+  /*margin-bottom: 30px;*/
   display: flex;
   flex-direction: column;
 }
@@ -491,10 +494,31 @@
   margin-bottom: 10px;
   height: 250px;
   max-height: 50vh;
-
-  position: relative;
+  filter: grayscale(.75);
+  border-top: 1px solid #E6EAEE;
+  border-left: 1px solid #E6EAEE;
+  border-right: 1px solid #E6EAEE;
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
+  cursor: pointer;
+  transition: filter .2 ease-in-out;
+}
+.card-md .image:hover {
+  filter: grayscale(0);
+  border-top: 1px solid transparent;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
 }
 .card-md .image:before {
+  position: absolute;
+  content: ' ';
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 10px;
+  box-shadow: 0 10px 30px 0 rgba(0,0,0,.15);
+}
+.card-md .image:hover:before {
   position: absolute;
   content: ' ';
   top: 20px;
@@ -504,10 +528,20 @@
   box-shadow: 0 20px 50px 0 rgba(0,0,0,.25);
 }
 .card-md .image--passed {
-  border-bottom: 3px solid var(--color-green);
+  border-bottom-color: var(--color-green);
 }
 .card-md .image--failed {
-  border-bottom: 3px solid var(--color-red-dark);
+  border-bottom-color: var(--color-red-dark);
+}
+.card-md .image--running {
+  animation: runningState 1s infinite alternate-reverse;
+}
+.card-md .image--never-run-before {
+  border-bottom-color: lightgray;
+}
+@keyframes runningState {
+  from { border-bottom-color: #87CEEB; }
+  to { border-bottom-color: #00008B; }
 }
 .card-md .image img {
   object-fit: cover;
@@ -548,6 +582,7 @@
 .card-md .header .left {
   font-size: 16px;
   color: #1F1F1F;
+  cursor: pointer;
 }
 .card-md .header .left i {
   margin-left: .5em;
@@ -555,12 +590,22 @@
   font-size: 12px;
   opacity: .75;
 }
+.card-md .header .left i.icon--running {
+  color: var(--color-blue);
+  cursor: default;
+  animation: rotatingIcon 10s linear infinite;
+}
+@keyframes rotatingIcon {
+  from { transform:rotate(0deg); }
+  to { transform:rotate(1440deg); }
+}
 .card-md .header .left i:hover {
   opacity: 1;
 }
 .card-md .header .right {
-  font-size: 10px;
   color: var(--color-green);
+  font-size: 11px;
+  letter-spacing: 2px;
 }
 .card-md .header .right .failed {
   color: var(--color-red);

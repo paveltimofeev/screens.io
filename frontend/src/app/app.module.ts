@@ -54,6 +54,7 @@ import { WidgetRunComponent } from './ui-kit/widget-run/widget-run.component';
 import { ViewportsSelectorComponent } from './ui-kit/viewports-selector/viewports-selector.component';
 import { TextFieldComponent } from './ui-kit/text-field/text-field.component';
 import { CheckboxFieldComponent } from './ui-kit/checkbox-field/checkbox-field.component';
+import { DataActionButtonComponent } from './ui-kit/data-action-button/data-action-button.component';
 
 
 @NgModule({
@@ -91,7 +92,8 @@ import { CheckboxFieldComponent } from './ui-kit/checkbox-field/checkbox-field.c
     WidgetRunComponent,
     ViewportsSelectorComponent,
     TextFieldComponent,
-    CheckboxFieldComponent
+    CheckboxFieldComponent,
+    DataActionButtonComponent
   ],
   imports: [
     BrowserModule,

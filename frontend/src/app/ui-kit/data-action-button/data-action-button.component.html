@@ -1,0 +1,6 @@
+<button
+  class="data-action"
+  (click)="clicked.emit(label)"
+>
+  <i *ngIf="icon" [attr.class]="icon"></i> {{ label }}
+</button>

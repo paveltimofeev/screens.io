@@ -21,8 +21,18 @@
       <button class="data-action"><i class="fas fa-search"></i> Search scenario</button>
     </div>
     <div>
-      <button class="data-action"><i class="fas fa-redo"></i> Refresh</button>
-      <button class="data-action">Show Differences</button>
+
+      <app-data-action-button
+        [label]="'Refresh'"
+        [icon]="'fas fa-redo'"
+        (clicked)="testHandler($event)">
+      </app-data-action-button>
+
+      <app-data-action-button
+        [label]="'Show Differences'"
+        (clicked)="testHandler($event)">
+      </app-data-action-button>
+
     </div>
   </div>
 
@@ -39,12 +49,12 @@
         <div class="header">
           <span class="left">Card Title <i class="fas fa-play"></i></span>
           <span class="right">
-      <i class="far fa-square"></i>
-      <i class="failed fas fa-times"></i>
-      <i class="far fa-square"></i>
-      <i class="far fa-square"></i>
-      <i class="far fa-square"></i>
-    </span>
+            <i class="far fa-square"></i>
+            <i class="failed fas fa-times"></i>
+            <i class="far fa-square"></i>
+            <i class="far fa-square"></i>
+            <i class="far fa-square"></i>
+          </span>
         </div>
       </div>
 

@@ -53,6 +53,7 @@ import { WidgetLabelComponent } from './ui-kit/widget-label/widget-label.compone
 import { WidgetRunComponent } from './ui-kit/widget-run/widget-run.component';
 import { ViewportsSelectorComponent } from './ui-kit/viewports-selector/viewports-selector.component';
 import { TextFieldComponent } from './ui-kit/text-field/text-field.component';
+import { CheckboxFieldComponent } from './ui-kit/checkbox-field/checkbox-field.component';
 
 
 @NgModule({
@@ -89,7 +90,8 @@ import { TextFieldComponent } from './ui-kit/text-field/text-field.component';
     WidgetLabelComponent,
     WidgetRunComponent,
     ViewportsSelectorComponent,
-    TextFieldComponent
+    TextFieldComponent,
+    CheckboxFieldComponent
   ],
   imports: [
     BrowserModule,

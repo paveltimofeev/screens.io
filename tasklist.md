@@ -68,7 +68,8 @@
 - [Move to AWS: 2] Run MongoDb on AWS VM
 - [Move to AWS: 3] Run backend on AWS VM
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name
-- Define Metrics to collect
+- Define Metrics to collect (feature requests & feedback button)
+- ability to quickly close new user registration / stop, block or limit user (to protect from overbudget)
 - **------------ MVP MILESTONE ------------**
 
 - Deplyment scripts (backend, frontend, landing)

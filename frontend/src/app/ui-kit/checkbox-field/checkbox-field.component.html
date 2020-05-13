@@ -1,0 +1,11 @@
+<div class="checkbox-field">
+  <input type="checkbox"
+         [attr.name]="label"
+         [attr.id]="label"
+         [checked]="checked"
+         (change)="changed.emit(el.checked)"
+         #el
+  >
+  <label [attr.for]="label"></label>
+  <span>{{ label }}</span>
+</div>

@@ -20,8 +20,7 @@
     <div>
       <app-data-search-button
         [label]="'Search scenario'"
-        (changed)="testHandler($event, 'search changed')"
-      >
+        (changed)="testHandler($event, 'search changed')">
       </app-data-search-button>
     </div>
     <div>
@@ -76,15 +75,12 @@
 
       <app-checkbox-field
         [label]="'Passed in the last run'"
-        (changed)="testHandler($event)"
-      >
+        (changed)="testHandler($event)">
       </app-checkbox-field>
 
       <app-checkbox-field
         [label]="'Failed in the last run'"
-        [checked]="true"
-        (changed)="testHandler($event)"
-      >
+        (changed)="testHandler($event)">
       </app-checkbox-field>
 
 

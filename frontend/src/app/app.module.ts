@@ -56,6 +56,7 @@ import { TextFieldComponent } from './ui-kit/text-field/text-field.component';
 import { CheckboxFieldComponent } from './ui-kit/checkbox-field/checkbox-field.component';
 import { DataActionButtonComponent } from './ui-kit/data-action-button/data-action-button.component';
 import { CardMdComponent } from './ui-kit/card-md/card-md.component';
+import { DataSearchButtonComponent } from './ui-kit/data-search-button/data-search-button.component';
 
 
 @NgModule({
@@ -95,7 +96,8 @@ import { CardMdComponent } from './ui-kit/card-md/card-md.component';
     TextFieldComponent,
     CheckboxFieldComponent,
     DataActionButtonComponent,
-    CardMdComponent
+    CardMdComponent,
+    DataSearchButtonComponent
   ],
   imports: [
     BrowserModule,

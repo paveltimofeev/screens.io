@@ -74,12 +74,33 @@
   cursor: pointer;
   margin: 0;
   padding: 0;
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
 }
 .data-action + .data-action {
   margin-left: 20px;
 }
 .data-action i {
   margin-right: .25em;
+}
+
+.data-action .search-field {
+  display: inline-flex;
+  align-items: center;
+}
+.data-action .search-field input {
+  margin-right: .5em;
+  border: none;
+  border-bottom: 1px solid #a0a0a0;
+  outline: none;
+  color: #5F5F5F;
+  font-size: 16px;
+  font-weight: 500;
+}
+.data-action .search-field input::placeholder {
+  color: #a0a0a0;
+  font-weight: 400;
 }
 
 

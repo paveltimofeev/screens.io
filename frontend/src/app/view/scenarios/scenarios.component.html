@@ -18,7 +18,11 @@
 
   <div class="data-actions-placeholder">
     <div>
-      <button class="data-action"><i class="fas fa-search"></i> Search scenario</button>
+      <app-data-search-button
+        [label]="'Search scenario'"
+        (changed)="testHandler($event, 'search changed')"
+      >
+      </app-data-search-button>
     </div>
     <div>
 

@@ -1,0 +1,18 @@
+
+<div class="data-action">
+
+  <i class="fas fa-search"></i>
+
+  <span *ngIf="!editMode" (click)="editMode = true">
+    {{ label }}
+  </span>
+
+  <span *ngIf="editMode" class="search-field">
+    <input type="text"
+           placeholder="Search scenario"
+           (keyup)="keyupHandler(el.value)"
+           #el>
+    <i class="fas fa-times" (click)="closeClickHandler()"></i>
+  </span>
+
+</div>

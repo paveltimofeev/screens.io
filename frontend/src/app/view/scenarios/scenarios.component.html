@@ -5,13 +5,13 @@
   <div class="page-actions-placeholder">
     <ul class="page-actions">
       <li class="title-actions-item">
-        <button class="button button--white">Remove Filtered</button>
+        <button class="button button--white" (click)="removeFilteredScenariosHandler()">Remove Filtered</button>
        </li>
       <li class="title-actions-item">
-        <button class="button button--white">Run Filtered</button>
+        <button class="button button--white" (click)="runFilteredScenariosHandler()">Run Filtered</button>
       </li>
       <li class="title-actions-item">
-        <button class="button button--dark">Add New Scenario</button>
+        <button class="button button--dark" (click)="addScenarioHandler()">Add New Scenario</button>
       </li>
     </ul>
   </div>
@@ -20,7 +20,7 @@
     <div>
       <app-data-search-button
         [label]="'Search scenario'"
-        (changed)="testHandler($event, 'search changed')">
+        (changed)="search($event)">
       </app-data-search-button>
     </div>
     <div>
@@ -29,14 +29,14 @@
         [label]="'Refresh'"
         [icon]="'fas fa-redo'"
         [hideLabelOnXS]="true"
-        (clicked)="testHandler($event)">
+        (clicked)="refresh($event)">
       </app-data-action-button>
 
       <app-data-action-button
         [label]="'Show Differences'"
         [icon]="'far fa-images'"
         [hideLabelOnXS]="true"
-        (clicked)="testHandler($event)">
+        (clicked)="showDifference($event)">
       </app-data-action-button>
 
     </div>
@@ -44,19 +44,19 @@
 
   <div class="data-placeholder">
 
-    <div class="app-card xs12 m6 m4 l3" *ngFor="let c of [1,2,3,4,5,6,7,8,9,10,11]">
+    <div class="app-card xs12 m6 m4 l3" *ngFor="let scenario of scenarios$ | async">
 
       <app-card-md
-        [itemId]="c"
-        [header]="'Scenario'+c"
-        [state]="c % 4 === 0 ? '' : (c % 4 === 1 ? 'failed' :  (c % 4 === 2 ? 'running': 'passed' ) )"
-        [isFavorite]="c % 5 === 0"
-        [runs]="[true, true, false, false, true]"
-        [imageUrl]="'/assets/images/stubs/screen' + (12 - c) +'.png'"
-        (clickRun)="testHandler($event, 'clickRun')"
-        (clickFavorite)="testHandler($event, 'clickFavorite')"
-        (clickCard)="testHandler($event, 'clickCard')"
-        (clickDelete)="testHandler($event, 'clickDelete')"
+        [itemId]="scenario._id"
+        [header]="scenario.label"
+        [state]="scenario.state"
+        [isFavorite]="scenario.meta_isFavorite"
+        [imageUrl]="'/assets/images/stubs/screen11.png'"
+        [runs]="[]"
+        (clickRun)="runScenarioHandler($event)"
+        (clickFavorite)="favoriteScenarioHandler($event)"
+        (clickCard)="selectScenarioHandler($event)"
+        (clickDelete)="deleteScenarioHandler($event)"
       >
       </app-card-md>
 
@@ -67,7 +67,7 @@
   <div class="sidebar-placeholder">
 
     <div class="sidebar-header">
-      <h2>14 Pages <br><small>tested</small> </h2>
+      <h2>{{ (scenarios$ | async).length }} Pages <br><small>tested</small> </h2>
       <span>12 stable</span><span>2 fragile</span>
     </div>
     <div class="app-filters">
@@ -76,30 +76,31 @@
 
       <app-checkbox-field
         [label]="'Passed in the last run'"
-        (changed)="testHandler($event)">
+        (changed)="changeStatusFilter_Passed($event)">
       </app-checkbox-field>
 
       <app-checkbox-field
         [label]="'Failed in the last run'"
-        (changed)="testHandler($event)">
+        (changed)="changeStatusFilter_Failed($event)">
       </app-checkbox-field>
 
 
       <h3 class="filter-header">Filter by Viewport Size</h3>
       <h4 class="filter-subheader">Desktop</h4>
       <app-viewports-selector
-        [viewports]="['1920 × 1080', '1600 × 900', '1270 × 720', '1024 × 1366', '1024 × 768']"
-        (selectionChanged)="testHandler($event)"
+        [viewports]="viewports$ | async"
+        (selectionChanged)="changeViewportsFilter($event)"
       >
       </app-viewports-selector>
 
+      <!--
       <h4 class="filter-subheader">Mobile</h4>
       <app-viewports-selector
         [viewports]="['1920 × 1080', '1600 × 900', '1270 × 720', '1024 × 1366', '1024 × 768']"
-        (selectionChanged)="testHandler($event)"
+        (selectionChanged)="changeViewportsFilter($event)"
       >
       </app-viewports-selector>
-
+      -->
 
     </div>
 
@@ -110,7 +111,7 @@
     <app-data-action-button
       [label]="'Add Filters'"
       [icon]="'fas fa-filter'"
-      (clicked)="testHandler($event)">
+      (clicked)="showMobileFilters($event)">
     </app-data-action-button>
 
   </div>

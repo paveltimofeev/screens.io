@@ -168,11 +168,11 @@ main {
   }
   .app-content .page-description {
     margin-top: 16px;
-    margin-bottom: 0;
+    margin-bottom: 26px;
     width: 100%;
   }
   .app-content .app-filters {
-    margin: 26px 0 14px 0;
+    margin: 0 0 14px 0;
   }
   .app-content .data-placeholder {
     margin-bottom: var(--xs-data-placeholder-margin-bottom);

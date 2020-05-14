@@ -11,6 +11,9 @@ export class DataActionButtonComponent{
   label:string;
 
   @Input()
+  hideLabelOnXS:boolean;
+
+  @Input()
   icon:string;
 
   @Output()

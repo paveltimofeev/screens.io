@@ -28,11 +28,14 @@
       <app-data-action-button
         [label]="'Refresh'"
         [icon]="'fas fa-redo'"
+        [hideLabelOnXS]="true"
         (clicked)="testHandler($event)">
       </app-data-action-button>
 
       <app-data-action-button
         [label]="'Show Differences'"
+        [icon]="'far fa-images'"
+        [hideLabelOnXS]="true"
         (clicked)="testHandler($event)">
       </app-data-action-button>
 
@@ -105,7 +108,13 @@
   </div>
 
   <div class="xs-filters-placeholder">
-    Filters (xs)
+
+    <app-data-action-button
+      [label]="'Add Filters'"
+      [icon]="'fas fa-filter'"
+      (clicked)="testHandler($event)">
+    </app-data-action-button>
+
   </div>
 
 </app-sidebar-page-layout>

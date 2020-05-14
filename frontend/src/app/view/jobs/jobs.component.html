@@ -1,0 +1,95 @@
+<app-sidebar-page-layout
+  [title]="'Jobs History'"
+  [description]="'Each scenario will test one page, component or action against one or many viewport sizes'">
+
+  <div class="page-actions-placeholder">
+    <ul class="page-actions">
+      <li class="title-actions-item">
+        <button class="button button--dark">Purge History</button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="data-actions-placeholder">
+    <div>
+      <app-data-search-button
+        [label]="'Search job'"
+        (changed)="testHandler($event, 'search changed')">
+      </app-data-search-button>
+    </div>
+    <div>
+
+      <app-data-action-button
+        [label]="'Refresh'"
+        [icon]="'fas fa-redo'"
+        [hideLabelOnXS]="true"
+        (clicked)="testHandler($event)">
+      </app-data-action-button>
+
+      <app-data-action-button
+        [label]="'Group by Scenarios'"
+        [icon]="'fas fa-object-ungroup'"
+        [hideLabelOnXS]="true"
+        (clicked)="testHandler($event)">
+      </app-data-action-button>
+
+    </div>
+  </div>
+
+  <div class="sidebar-placeholder">
+
+    <div class="sidebar-header">
+      <h2>112 Jobs <br><small>executed</small> </h2>
+      <span>102 succeed</span>
+      <span>3 running</span>
+      <span>7 failed</span>
+    </div>
+    <div class="app-filters">
+
+      <h3 class="filter-header">Filter by State</h3>
+      <app-checkbox-field
+        [label]="'Show Successfully Passed Jobs'"
+        (changed)="testHandler($event)">
+      </app-checkbox-field>
+      <app-checkbox-field
+        [label]="'Show Failed Jobs'"
+        (changed)="testHandler($event)">
+      </app-checkbox-field>
+      <app-checkbox-field
+        [label]="'Show Running Only'"
+        (changed)="testHandler($event)">
+      </app-checkbox-field>
+
+      <h3 class="filter-header">Filter by Starter</h3>
+      <app-checkbox-field
+        [label]="'Show Started by Me'"
+        (changed)="testHandler($event)">
+      </app-checkbox-field>
+      <app-checkbox-field
+        [label]="'Show Started by Schedule'"
+        (changed)="testHandler($event)">
+      </app-checkbox-field>
+
+      <h3 class="filter-header">Filter by Date</h3>
+      <app-checkbox-field
+        [label]="'Show Run Today Only'"
+        (changed)="testHandler($event)">
+      </app-checkbox-field>
+
+
+    </div>
+
+  </div>
+
+  <div class="xs-filters-placeholder">
+
+    <app-data-action-button
+      [label]="'Add Filters'"
+      [icon]="'fas fa-filter'"
+      (clicked)="testHandler($event)">
+    </app-data-action-button>
+
+  </div>
+
+
+</app-sidebar-page-layout>

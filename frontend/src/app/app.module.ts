@@ -57,6 +57,7 @@ import { CheckboxFieldComponent } from './ui-kit/checkbox-field/checkbox-field.c
 import { DataActionButtonComponent } from './ui-kit/data-action-button/data-action-button.component';
 import { CardMdComponent } from './ui-kit/card-md/card-md.component';
 import { DataSearchButtonComponent } from './ui-kit/data-search-button/data-search-button.component';
+import { JobsComponent } from './view/jobs/jobs.component';
 
 
 @NgModule({
@@ -97,7 +98,8 @@ import { DataSearchButtonComponent } from './ui-kit/data-search-button/data-sear
     CheckboxFieldComponent,
     DataActionButtonComponent,
     CardMdComponent,
-    DataSearchButtonComponent
+    DataSearchButtonComponent,
+    JobsComponent
   ],
   imports: [
     BrowserModule,

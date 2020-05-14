@@ -9,7 +9,7 @@
 
   <span *ngIf="editMode" class="search-field">
     <input type="text"
-           placeholder="Search scenario"
+           [attr.placeholder]="placeholder"
            (keyup)="keyupHandler(el.value)"
            autofocus="true"
            #el>

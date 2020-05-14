@@ -15,6 +15,9 @@ export class DataSearchButtonComponent  {
   @Input()
   label:string;
 
+  @Input()
+  placeholder:string;
+
   @Output()
   changed:EventEmitter<string> = new EventEmitter();
 

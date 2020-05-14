@@ -1,9 +1,33 @@
 :root {
+
+  /* BASE COLORS */
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-blue-light: #8AC1F4;
   --color-blue: #39A0FF;
   --color-green: #73C376;
   --color-green-dark: #359539;
   --color-red: #EB5757;
   --color-red-dark: #A93434;
+  --color-semiwhite: #ffffff8c;
+
+  /* DOMAIN COLORS */
+  --color-passed: #89CB8C;
+  --color-accent: #FFD600;
+  --color-upic: #6087AB;
+  --color-headers-text: #1F1F1F;
+  --color-cell-text: #565656;
+  --color-page-headers: #5F5F5F;
+  --color-page-data-actions: var(--color-page-headers);
+  --color-page-data-actions-alt: #a0a0a0;
+  --color-more-text: #909090;
+  --color-more-background: #EEEEEE;
+  --color-card-background: #E6EAEE;
+  --color-controls-border: #DBDBDB;
+  --color-controls-background: #FBFBFB;
+
+  --shadow-normal: 0 20px 50px 0 rgba(0,0,0,.25);
+  --shadow-sm: 0 10px 30px 0 rgba(0,0,0,.15);
 }
 
 .color-blue {
@@ -58,7 +82,7 @@
 .button--accent1 { background: var(--color-blue); border: 1px solid var(--color-blue); }
 .button--accent2 { background: var(--color-green); border: 1px solid var(--color-green); }
 .button--dark    { background: #000000; border: 1px solid #000000; }
-.button--white   { background: #ffffff; border: 1px solid #545454; color: #000; }
+.button--white   { background: #ffffff; border: 1px solid #545454; color: #000000; }
 .button--lg {
   font-size: 18px;
   font-weight: 500;
@@ -68,7 +92,7 @@
 .data-action {
   border: none;
   background: transparent;
-  color: #5F5F5F;
+  color: var(--color-page-data-actions);
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -92,14 +116,14 @@
 .data-action .search-field input {
   margin-right: .5em;
   border: none;
-  border-bottom: 1px solid #a0a0a0;
+  border-bottom: 1px solid var(--color-page-data-actions-alt);
   outline: none;
-  color: #5F5F5F;
+  color: var(--color-page-data-actions);
   font-size: 16px;
   font-weight: 500;
 }
 .data-action .search-field input::placeholder {
-  color: #a0a0a0;
+  color: var(--color-page-data-actions-alt);
   font-weight: 400;
 }
 
@@ -134,7 +158,7 @@
   font-family: 'Ubuntu', sans-serif;
   font-size: 36px;
   font-weight: 500;
-  color: #5F5F5F;
+  color: var(--color-page-headers);
 }
 .page-description {
   font-family: 'Ubuntu', sans-serif;
@@ -146,7 +170,7 @@
 .sidebar-header {
   border-bottom: 1px solid #D1D1D1;
   text-align: right;
-  color: #5F5F5F;
+  color: var(--color-page-headers);
   padding-bottom: 23px;
 }
 .sidebar-header > h2 {
@@ -374,7 +398,7 @@
 }
 
 /* CHECKBOXES */
-
+/* ???
 .checkbox, .switch, .toggle {
   font-family: 'Ubuntu', sans-serif;
   font-size: 16px;
@@ -390,13 +414,14 @@
   position: absolute;
   width: 16px;
   height: 16px;
-  top: 0px;
+  top: 0;
   left: 1px;
   border: 1px solid #DBDBDB;
   background: #FBFBFB;
   border-radius: 3px;
   _opacity: .5;
 }
+*/
 
 
 /* CARDS */
@@ -522,7 +547,7 @@
   border-bottom-width: 3px;
   border-bottom-style: solid;
   cursor: pointer;
-  transition: filter .2 ease-in-out;
+  transition: filter .2s ease-in-out;
 }
 .card-md .image:hover {
   filter: grayscale(0);
@@ -579,7 +604,7 @@
   position: absolute;
   right: 10px;
   top: 10px;
-  color: red;
+  color: var(--color-red);
 
   opacity: .25;
   cursor: pointer;
@@ -875,7 +900,7 @@
 }
 .widget--white {
   background: #F8F7F7;
-  color: #000;
+  color: #000000;
 }
 .widget--double {
   width: 416px;
@@ -929,7 +954,7 @@
   line-height: 120%;
 }
 .fragile-value--accent {
-  color: #000;
+  color: #000000;
   font-size: 18px;
 }
 .fragile-value--accent em {
@@ -940,7 +965,7 @@
   position: absolute;
   _width: 35%;
   height: 100%;
-  top: 0px;
+  top: 0;
   right: 0;
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
@@ -1007,7 +1032,7 @@
 .widget-run .run-form .input-box {
   border-width: 2px;
   border-radius: 4px;
-  box-shadow: inset 0px 4px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 .widget-run .run-form .actions {
   flex: 1;

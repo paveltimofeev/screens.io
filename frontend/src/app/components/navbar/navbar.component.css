@@ -1,6 +1,8 @@
 :host {
-
+  position: relative;
+  z-index: 1000;
 }
+
 nav {
   position: relative;
   background-color: var(--navbar-bg-color);
@@ -22,6 +24,23 @@ nav {
   margin-left: 40px;
   margin-right: 80px;
 }
+
+@media (max-width: 600px) {
+  nav {
+    box-shadow: none;
+  }
+  nav .app-hamburger {
+    display: block;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+  nav .logo > img {
+    width: 160px;
+    margin-left: 20px;
+  }
+
+}
+
 ul {
   margin: 0;
 }
@@ -50,7 +69,6 @@ li + li {
 .app-account .icon {
   margin-left: 13px;
 }
-
 
 .app-hamburger--opened ul {
 

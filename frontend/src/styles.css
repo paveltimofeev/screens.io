@@ -54,9 +54,9 @@ main > *,
 
   --xs-size: 600px;
   --xs-title-actions-top: none;
-  --xs-title-actions-right: 7vw;
-  --xs-title-actions-left: none;
-  --xs-title-actions-bottom: 2vh;
+  --xs-title-actions-right: 0px;
+  --xs-title-actions-left: 0px;
+  --xs-title-actions-bottom: 0px;
 
   --xs-data-placeholder-margin-bottom: 6vh;
 }
@@ -204,10 +204,10 @@ main {
   .app-content .page-actions {
     position: fixed;
     z-index: 100;
-    /* top: var(--xs-title-actions-top); */
-    right: 0;
-    left: 0;
-    bottom: 0;
+    top: var(--xs-title-actions-top);
+    right: var(--xs-title-actions-right);
+    left: var(--xs-title-actions-left);
+    bottom: var(--xs-title-actions-bottom);
     padding: 20px;
     margin-bottom: 0;
     display: flex;

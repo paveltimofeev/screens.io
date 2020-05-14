@@ -29,14 +29,22 @@
         [label]="'Refresh'"
         [icon]="'fas fa-redo'"
         [hideLabelOnXS]="true"
-        (clicked)="refresh($event)">
+        (clicked)="refresh()">
+      </app-data-action-button>
+
+      <app-data-action-button
+        class="except-xs"
+        [label]="'List View'"
+        [icon]="'fas fa-th-list'"
+        [hideLabelOnXS]="true"
+        (clicked)="listView()">
       </app-data-action-button>
 
       <app-data-action-button
         [label]="'Show Differences'"
         [icon]="'far fa-images'"
         [hideLabelOnXS]="true"
-        (clicked)="showDifference($event)">
+        (clicked)="showDifference()">
       </app-data-action-button>
 
     </div>

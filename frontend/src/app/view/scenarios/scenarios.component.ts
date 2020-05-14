@@ -46,16 +46,17 @@ export class ScenariosComponent implements OnInit {
     console.log('removeFilteredScenariosHandler')
   }
 
+  search ($event) {
+    console.log('search', $event)
+  }
   refresh () {
     this.store.dispatch(refresh({payload: {id: null}}));
   }
-  search ($event) {
-    // this.modals.addScenarioModal.open();
-    console.log('search', $event)
+  showDifference () {
+    console.log('showDifference')
   }
-  showDifference ($event) {
-    // this.modals.addScenarioModal.open();
-    console.log('showDifference', $event)
+  listView () {
+    console.log('listView')
   }
 
   selectScenarioHandler ($event) {

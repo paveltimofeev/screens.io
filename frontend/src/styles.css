@@ -306,7 +306,7 @@ main {
 
 @media (min-width: 601px)  { .xs-only { display: none; } }
 @media (max-width: 600px)  { .xs-only { display: block; } }
-@media (min-width: 601px)  { .except-xs { display: block; } }
+@media (min-width: 601px)  { .except-xs { display: initial; } }
 @media (max-width: 600px)  { .except-xs { display: none; } }
 
 @media (max-width: 600px) {

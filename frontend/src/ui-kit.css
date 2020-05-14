@@ -12,8 +12,14 @@
   --color-semiwhite: #ffffff8c;
 
   /* DOMAIN COLORS */
+
+  --color-navbar-background: var(--color-white);
   --color-page-background: var(--color-white);
+  --color-sidebar-background: #F7F7F6;
+  --color-mobile-menu-background: var(--color-white);
+
   --color-passed: #89CB8C;
+  --color-failed: var(--color-red);
   --color-accent: #FFD600;
   --color-upic: #6087AB;
   --color-headers-text: #1F1F1F;
@@ -52,6 +58,23 @@
 .color-red-dark {
   background: var(--color-red-dark);
 }
+
+
+/* LAYOUT COLORS */
+
+nav {
+  background-color: var(--color-navbar-background);
+}
+.app-content {
+  background: var(--color-page-background);
+}
+.app-sidebar {
+  background: var(--color-sidebar-background);
+}
+.app-hamburger--opened ul {
+  background: var(--color-mobile-menu-background);
+}
+
 
 /* TYPOGRAPHY */
 
@@ -172,7 +195,7 @@ button, input {
   margin-left: 14px;
 }
 .column-header span .action--active {
-  color: #8AC1F4;
+  color: var(--color-blue-light);
 }
 
 .page-header {
@@ -505,7 +528,7 @@ button, input {
   border-left: 4px solid var(--color-green-dark);
 }
 .card-sm .info-panel .info .label--failed {
-  background: var(--color-red);
+  background: var(--color-failed);
   border-left: 4px solid var(--color-red-dark);
 }
 .card-sm .info-panel .info .description {
@@ -681,7 +704,7 @@ button, input {
   letter-spacing: 2px;
 }
 .card-md .header .right .failed {
-  color: var(--color-red);
+  color: var(--color-failed);
 }
 
 .card-lg {
@@ -764,11 +787,11 @@ button, input {
   border-left: 4px solid var(--color-green-dark);
 }
 .card-lg .info-panel .left .label--failed {
-  background: var(--color-red);
+  background: var(--color-failed);
   border-left: 4px solid var(--color-red-dark);
 }
 .card-lg .info-panel .right .card-button {
-  background: #8AC1F4;
+  background: var(--color-blue-light);
   color: #ffffff;
   border: none;
   border-radius: 4px;
@@ -806,7 +829,7 @@ button, input {
   color: #89CB8C;
 }
 .status-cell .status-icon--failed {
-  color: var(--color-red);
+  color: var(--color-failed);
 }
 .status-cell .status-icon--approved {
   color: #000000;
@@ -1164,7 +1187,7 @@ button, input {
   border-left: 7px solid var(--color-green-dark);
 }
 .widget-label .state--failed {
-  background: var(--color-red);
+  background: var(--color-failed);
   border-left: 7px solid var(--color-red-dark);
 }
 .widget-label .stats {

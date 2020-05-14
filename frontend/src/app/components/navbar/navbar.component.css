@@ -5,8 +5,7 @@
 
 nav {
   position: relative;
-  background-color: var(--navbar-bg-color);
-  color: var(--text-gray-color);
+  color: #6A6A6A;
   font-size: 20px;
   font-weight: 400;
   line-height: 67px;
@@ -77,7 +76,6 @@ li + li {
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--navbar-bg-color);
   display: block;
   width: 100%;
   padding: 20px;
@@ -99,6 +97,6 @@ li + li {
   margin-top: 5px;
 }
 .app-hamburger--opened ul li.navbar-item--active {
-  color: var(--white-color);
-  background: var(--blue-accent-color);
+  color: var(--color-white);
+  background: var(--color-blue-light);
 }

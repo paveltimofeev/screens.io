@@ -22,24 +22,6 @@ main > *,
 
 
 :root {
-
-  --base-font: 'Ubuntu', sans-serif;
-
-  --white-color: #ffffff;
-  --text-gray-color: #6A6A6A;
-
-  --green-accent-color: #89CB8C;
-  --blue-accent-color: #8AC1F4;
-  --red-accent-color: #EB5757;
-  --grid-main-cell-color: #1F1F1F;
-  --sidebar-bg-color: #F7F7F6;
-  --navbar-bg-color: #ffffff;
-  --navbar-font-normal-color: #E1E1E1;
-  --navbar-font-active-color: #F3B618;
-  --control-background-color: #FBFBFB;
-  --control-border-color: #DBDBDB;
-
-
   --navbar-size: 70px;
   --navbar-size-xs: 20px;
   --sidebar-size: 25vw;
@@ -158,7 +140,6 @@ main {
 }
 .app-sidebar {
   width: var(--sidebar-size);
-  background: var(--sidebar-bg-color);
 }
 .app-filters {
   margin: 32px 22px 0px 22px;

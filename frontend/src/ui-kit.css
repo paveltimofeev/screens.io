@@ -529,13 +529,15 @@
 
 .card-md {
   width: 380px;
-  margin-bottom: 50px;
-
-  /*width: 380px;*/
   max-width: 100%;
-  /*margin-bottom: 30px;*/
+  margin-bottom: 50px;
   display: flex;
   flex-direction: column;
+}
+@media (max-width: 600px) {
+  .card-md {
+    width: 100%;
+  }
 }
 .card-md .image {
   flex: 1;

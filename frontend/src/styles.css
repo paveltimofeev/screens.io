@@ -204,12 +204,25 @@ main {
   .app-content .page-actions {
     position: fixed;
     z-index: 100;
-    top: var(--xs-title-actions-top);
-    right: var(--xs-title-actions-right);
-    left: var(--xs-title-actions-left);
-    bottom: var(--xs-title-actions-bottom);
+    /* top: var(--xs-title-actions-top); */
+    right: 0;
+    left: 0;
+    bottom: 0;
+    padding: 20px;
+    margin-bottom: 0;
     display: flex;
     flex-flow: wrap-reverse;
+    background: linear-gradient(0deg,
+    #ffffff 0%,
+    #ffffffc2 70%,
+    transparent 100%);
+    align-content: end;
+  }
+  .page-actions .title-actions-item {
+    margin-top: 10px;
+  }
+  .page-actions .title-actions-item + .title-actions-item {
+    margin-left: 16px;
   }
 }
 

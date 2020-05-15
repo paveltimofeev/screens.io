@@ -10,10 +10,10 @@ import {
 } from './store/configuration.selectors';
 import {
   createScenario, createViewport,
-  deleteCurrentScenario, deleteViewport,
+  deleteScenario, deleteViewport,
   refresh,
   updateScenario,
-  cloneCurrentScenario, favoriteCurrentScenario
+  cloneCurrentScenario, favoriteScenario
 } from './store/configuration.actions';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -140,15 +140,8 @@ export class ConfigurationComponent implements OnInit, AfterViewInit {
 
   topMenuClickHandler ($event: string) {
 
-    console.log($event);
-    if ($event === 'Delete') {
-      this.store.dispatch(deleteCurrentScenario());
-    }
-    else if($event === 'Clone') {
+    if($event === 'Clone') {
       this.store.dispatch(cloneCurrentScenario())
-    }
-    else if($event === 'Add to Fav' || $event === 'Remove Fav') {
-      this.store.dispatch(favoriteCurrentScenario())
     }
   }
 }

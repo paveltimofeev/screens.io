@@ -1,5 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import * as actions from './configuration.actions';
+import { favoriteScenario } from './configuration.actions';
+import { deleteScenario } from './configuration.actions';
 
 export interface ConfigurationState {
   viewportsList: string[];
@@ -48,6 +50,13 @@ const _reducer = createReducer(initState,
     }
   }),
 
+  on(actions.deleteScenario, (state, actions:any) => {
+    return {
+      ...state,
+      scenarios : state.scenarios.filter(s => s._id !== actions.payload.id)
+    }
+  }),
+
   on(actions.createScenario, (state, actions:any) => {
     return {
       ...state,
@@ -62,15 +71,36 @@ const _reducer = createReducer(initState,
     }
   }),
 
-  on(actions.setFavoriteResult, (state, actions:any) => {
-    return {
-      ...state,
-      currentScenario: {
-        ...state.currentScenario,
-        meta_isFavorite: actions.payload
-      }
-    }
-  })
+  // on(actions.favoriteScenario, (state, actions:any) => {
+  //
+  //   console.log('favoriteScenario reducer')
+  //   let scenarios = state.scenarios.map( s => {
+  //
+  //     if(s._id == actions.payload.id) {
+  //
+  //       let f = !(s.meta_isFavorite || false);
+  //
+  //       return {
+  //         ...s,
+  //         ...{
+  //           meta_isFavorite: f
+  //         }
+  //       }
+  //     }
+  //     return s;
+  //   });
+  //
+  //   console.log('favoriteScenario reducer scenarios',
+  //     state.scenarios[0].meta_isFavorite,
+  //     scenarios[0].meta_isFavorite
+  //   )
+  //
+  //
+  //   return {
+  //     ...state,
+  //     scenarios : scenarios
+  //   }
+  // })
 
 );
 

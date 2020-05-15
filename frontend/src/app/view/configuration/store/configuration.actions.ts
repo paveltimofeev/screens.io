@@ -22,8 +22,9 @@ export const cloneCurrentScenario = createAction(
   '[Configuration] cloneCurrentScenario'
 );
 
-export const favoriteCurrentScenario = createAction(
-  '[Configuration] favoriteCurrentScenario'
+export const favoriteScenario = createAction(
+  '[Configuration] favoriteScenario',
+  props<{payload: {id:string} }>()
 );
 export const setFavoriteResult = createAction(
   '[Configuration] setFavoriteResult',
@@ -44,4 +45,7 @@ export const deleteViewport = createAction(
   props<{label:string}>()
 );
 
-export const deleteCurrentScenario = createAction('[Configuration] deleteCurrentScenario');
+export const deleteScenario = createAction(
+  '[Configuration] deleteScenario',
+  props<{payload: {id:string} }>()
+);

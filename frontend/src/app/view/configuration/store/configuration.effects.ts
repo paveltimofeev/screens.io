@@ -6,14 +6,14 @@ import {
   refresh,
   loaded,
   updateScenario,
-  deleteCurrentScenario,
+  deleteScenario,
   cloneCurrentScenario,
   createScenario,
-  createViewport, deleteViewport, favoriteCurrentScenario, setFavoriteResult, redirect
+  createViewport, deleteViewport, favoriteScenario, setFavoriteResult, redirect
 } from './configuration.actions';
 import { forkJoin, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { selectCurrentScenario, selectCurrentScenarioLabel } from './configuration.selectors';
+import { selectCurrentScenario, selectCurrentScenarioLabel, selectScenarios } from './configuration.selectors';
 
 @Injectable()
 export class ConfigurationEffects {
@@ -25,15 +25,10 @@ export class ConfigurationEffects {
   ){}
 
   deleteScenario$ = createEffect(() => this.actions$.pipe(
-    ofType(deleteCurrentScenario),
-    concatMap(action => {
-      return of(action).pipe(
-        withLatestFrom(this.store.pipe(select(selectCurrentScenario)))
-      );
-    }),
-    mergeMap(([action, scenario]) => {
+    ofType(deleteScenario),
+    mergeMap( action => {
 
-      return this.api.deleteScenario(scenario).pipe(
+      return this.api.deleteScenario(action.payload.id).pipe(
         map( res => {
           return { type: refresh.type }
         })
@@ -84,29 +79,16 @@ export class ConfigurationEffects {
     })
   ));
 
-  favoriteCurrentScenario$ = createEffect(() => this.actions$.pipe(
-    ofType(favoriteCurrentScenario),
-    concatMap(action => {
-      return of(action).pipe(
-        withLatestFrom(this.store.pipe(select(selectCurrentScenario)))
-      );
-    }),
-    mergeMap(([action, scenario]) => {
+  switchScenarioFavorite$ = createEffect(() => this.actions$.pipe(
+    ofType(favoriteScenario),
+    mergeMap(action => {
 
-      console.log('favoriteCurrentScenario$', action)
+      console.log('switchScenarioFavorite$', action)
 
-      if (scenario.meta_isFavorite) {
-
-        return this.api.removeScenarioToFavorites(scenario).pipe(
-          map(res => { return {type: setFavoriteResult.type, payload: false} })
+      return this.api.switchScenarioFavorite(action.payload.id)
+        .pipe(
+          map(res => { return {type: refresh.type, payload: false} })
         );
-      }
-      else {
-
-        return this.api.addScenarioToFavorite(scenario).pipe(
-          map(res => { return {type: setFavoriteResult.type, payload: true} })
-        );
-      }
     })
   ));
 
@@ -153,33 +135,15 @@ export class ConfigurationEffects {
         this.api.getViewports()
       ];
 
-      if (action.payload.id != undefined) {
-        requests.push( this.api.getScenario(action.payload.id) )
-        requests.push( this.api.getTestCaseHistory(action.payload.id) )
-      }
-
       return forkJoin( requests ).pipe(
         map(res => {
-
-          const currentScenarioAdapter = (res) => {
-
-            if (res.length > 2) {
-              return res[2].data;
-            }
-            else {
-              // first item in scenariosList
-              return res[0].data && res[0].data.length > 0 ? res[0].data[0] : null
-            }
-          }
 
           return {
             type: loaded.type,
             payload: {
               scenarios: res[0].data,
               scenariosList: res[0].data,
-              viewportsList: res[1].data,
-              currentScenario: currentScenarioAdapter(res),
-              currentScenarioHistory: res.length > 3 ? res[3].jobs : []
+              viewportsList: res[1].data
             }
           }
         })

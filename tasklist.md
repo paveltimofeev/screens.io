@@ -59,7 +59,7 @@
 
 - Responsive UI (support 1920/1600/1270/mobile)
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
-- Run scenarios with overrode parameters (scenarios + viewports filtration)
+- Run scenarios with overridden parameters (scenarios + viewports filtration)
 - Do not use Login as userId, because it uses in path building and could allow user chang directories, use user UID instead
 - Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
 - Auth proxy should not store passwords in plain text
@@ -72,10 +72,11 @@
 - ability to quickly close new user registration / stop, block or limit user (to protect from overbudget)
 - **------------ MVP MILESTONE ------------**
 
+- Lazy Loading for most of images to reduce S3-traffic, pressure on backend and increase UI responsiveness
 - Deplyment scripts (backend, frontend, landing)
 - Marketing efforts (Internet marketing, SEO, Social presence, Blogging, Video Tutorials)
 - Complete auto security checks & validation
-- Run scenarios with overridden parameters hostname (stage)
+- Run scenarios with overridden hostname (stage)
 - Frontend: Splitter for comparer view
 - Frontend: Read proof
 - Frontend: Think out onboarding process, layout and empty state views.

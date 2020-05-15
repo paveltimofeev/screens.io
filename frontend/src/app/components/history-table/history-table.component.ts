@@ -5,6 +5,8 @@ import { selectHistoryTable } from './store/history-table.selectors';
 import { interval } from 'rxjs';
 import { AgCellButtonComponent } from './ag-cell-button/ag-cell-button.component';
 import { IQueryFilter } from '../../services/filters.service';
+import { statusCellRenderer } from './cell-renderers/status-cell';
+import { dateCellRenderer } from './cell-renderers/date-cell';
 
 @Component({
   selector: 'app-history-table',
@@ -15,47 +17,9 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
 
   _filters:IQueryFilter[];
 
-  get filters(): IQueryFilter[] {
-    return this._filters;
-  }
-
-  @Input()
-  set filters (value:IQueryFilter[]) {
-
-    this._filters = value;
-    this.refresh();
-  }
-
   refresher$: any;
-
-  gridApi;
-
-  private statusCellRenderer(params) {
-
-    if (params.value === 'Passed')
-      return '<i style="line-height: inherit; color: #5ed17f" class="material-icons">check_circle</i>';
-
-    if (params.value === 'Running')
-      return '<i style="line-height: inherit; color: #ced16a" class="material-icons rotate">rotate_right</i>';
-
-    if (params.value === 'Failed')
-      return '<i style="line-height: inherit; color: #cd3636" class="material-icons">cancel</i>';
-
-    if (params.value === 'Approved')
-      return '<i style="line-height: inherit; color: #1572c3" class="material-icons">done</i>';
-
-    return '<i style="line-height: inherit" class="material-icons">' + params.value + '</i>';
-  }
-
-  private actionCellRenderer(params) {
-
-    return '<i style="line-height: inherit" class="material-icons" (click)="actionClickHandler()">clear</i>'
-  }
-
-  private dateCellRenderer(data) {
-
-    return data.value ? (new Date(data.value)).toLocaleString() : '';
-  }
+  jobs$: any;
+  gridApi: any;
 
   columnDefs = [
     {
@@ -64,7 +28,7 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
       sortable: true,
       filter: true,
       width: 60,
-      cellRenderer: this.statusCellRenderer,
+      cellRenderer: statusCellRenderer,
       suppressSizeToFit: true
     },
     { headerName: 'Date of Run',
@@ -72,7 +36,7 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
       field: 'date',
       sortable: true,
       suppressSizeToFit: true,
-      cellRenderer: this.dateCellRenderer
+      cellRenderer: dateCellRenderer
     },
     { field: 'scope', colId:'scope', filter: true },
     { field: 'viewports', colId:'viewports', filter: true },
@@ -82,13 +46,29 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
       headerName:'',
       field: 'action',
       cellRendererFramework: AgCellButtonComponent,
-      //cellRenderer: this.actionCellRenderer,
+      //cellRenderer: actionCellRenderer,
       width: 60,
       suppressSizeToFit: true
     }
   ];
 
-  jobs$;
+  @Input()
+  set filters (value:IQueryFilter[]) {
+
+    this._filters = value;
+    this.refresh();
+  }
+  get filters(): IQueryFilter[] {
+
+    return this._filters;
+  }
+
+  @Input()
+  enableAutoRefresh:boolean = false;
+
+  actionClickHandler (event) {
+    console.log('actionClickHandler', event)
+  }
 
   onGridReady(params) {
 
@@ -100,34 +80,30 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
     this.gridApi.setDomLayout('autoHeight');
   }
 
-  constructor(private store: Store) { }
+  refresh() {
 
-  actionClickHandler (event) {
-
-    console.log('actionClickHandler', event)
+    this.store.dispatch( refresh({
+      payload: { filters: this._filters }
+    }));
   }
+
+
+  constructor(private store: Store) {}
 
   ngOnInit() {
 
     this.jobs$ = this.store.pipe( select(selectHistoryTable));
     this.refresh();
 
-    this.refresher$ = interval(5000).subscribe( () => {
-      this.refresh();
-    })
-  }
-
-  refresh() {
-
-    const payload = {
-      filters: this._filters
-    };
-
-    this.store.dispatch( refresh({payload}) );
+    if (this.enableAutoRefresh) {
+      this.refresher$ = interval(5000).subscribe(this.refresh)
+    }
   }
 
   ngOnDestroy (): void {
-    this.refresher$.unsubscribe()
-  }
 
+    if (this.refresher$) {
+      this.refresher$.unsubscribe()
+    }
+  }
 }

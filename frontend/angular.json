@@ -23,6 +23,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/ag-grid-custom-theme.css",
               "src/styles.css",
               "src/ui-kit.css"
             ],

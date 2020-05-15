@@ -36,6 +36,12 @@
     </div>
   </div>
 
+  <div class="data-placeholder">
+
+    <app-history-table></app-history-table>
+
+  </div>
+
   <div class="sidebar-placeholder">
 
     <div class="sidebar-header">
@@ -52,21 +58,21 @@
         (changed)="testHandler($event)">
       </app-checkbox-field>
       <app-checkbox-field
-        [label]="'Show Failed Jobs'"
+        [label]="'Show Only Failed Jobs'"
         (changed)="testHandler($event)">
       </app-checkbox-field>
       <app-checkbox-field
-        [label]="'Show Running Only'"
+        [label]="'Show Only Running'"
         (changed)="testHandler($event)">
       </app-checkbox-field>
 
       <h3 class="filter-header">Filter by Starter</h3>
       <app-checkbox-field
-        [label]="'Show Started by Me'"
+        [label]="'Only Started by Me'"
         (changed)="testHandler($event)">
       </app-checkbox-field>
       <app-checkbox-field
-        [label]="'Show Started by Schedule'"
+        [label]="'Only Started by Schedule'"
         (changed)="testHandler($event)">
       </app-checkbox-field>
 

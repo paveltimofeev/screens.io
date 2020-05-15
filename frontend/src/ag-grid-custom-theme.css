@@ -1,0 +1,45 @@
+@import "ag-grid-community/dist/styles/ag-grid.css";
+@import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+
+
+.ag-theme-alpine {
+  -webkit-font-smoothing: antialiased;
+  color: #6A6A6A;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 16px;
+  line-height: normal;
+}
+
+.ag-theme-alpine .ag-header-row {
+  font-weight: 500;
+  color: #6A6A6A;
+}
+
+.ag-theme-alpine .ag-header {
+  background-color: unset;
+  border-bottom: solid 1px #EFEFEF;
+  border-bottom-color: #EFEFEF;
+}
+.ag-theme-alpine .ag-header {
+  border-bottom: none;
+}
+
+.ag-theme-alpine .ag-root-wrapper {
+  border: none;
+}
+
+.ag-theme-alpine .ag-row {
+  font-size: 16px;
+  color: #6A6A6A;
+  font-style: normal;
+  font-weight: normal;
+  font-family: var(--font-normal);
+  border: none 1px #EFEFEF;
+}
+.ag-theme-alpine .ag-row-odd {
+  _background-color: #ffffff;
+}
+
+.ag-theme-alpine .ag-cell {
+  line-height: 68px;
+}

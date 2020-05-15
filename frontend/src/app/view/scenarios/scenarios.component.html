@@ -61,7 +61,7 @@
         [isFavorite]="scenario.meta_isFavorite"
         [imageUrl]="'/assets/images/stubs/screen11.png'"
         [runs]="[]"
-        (clickRun)="runScenarioHandler($event)"
+        (clickRun)="runScenarioHandler($event, scenario.label)"
         (clickFavorite)="favoriteScenarioHandler($event)"
         (clickCard)="selectScenarioHandler($event)"
         (clickDelete)="deleteScenarioHandler($event)"

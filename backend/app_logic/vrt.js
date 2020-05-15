@@ -308,9 +308,9 @@ class VRT {
         return await storage.getScenarioById(this._userId, id)
     }
     async getScenarios (filter) {
-        
+
         let query = {}
-        
+
         if(filter) {
             const favorites = new BooleanValueRule(filter.favorites)
 
@@ -329,6 +329,11 @@ class VRT {
     }
     async addScenarioToFavorites (id) {
         await storage.updateScenario(this._userId, id, {meta_isFavorite: true})
+    }
+    async switchScenarioFavorite (id) {
+
+        let scenario = await storage.getScenarioById(this._userId, id)
+        await storage.updateScenario(this._userId, id, {meta_isFavorite: !(scenario.meta_isFavorite || false)})
     }
     async removeScenarioFromFavorites (id) {
         await storage.updateScenario(this._userId, id, {meta_isFavorite: false})

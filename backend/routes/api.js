@@ -155,6 +155,16 @@ router.post('/test/scenario/:id/favorite', async function(req, res) {
     })
 });
 
+// Switch: Add or Delete scenario to/from favorite
+router.put('/test/scenario/:id/favorite', async function(req, res) {
+
+    tryWrapper(req, res, async () => {
+
+        const data = await VRT.create(req.context).switchScenarioFavorite(req.params.id)
+        res.status(200).send( {data} )
+    })
+});
+
 // Delete scenario from favorites
 router.delete('/test/scenario/:id/favorite', async function(req, res) {
 

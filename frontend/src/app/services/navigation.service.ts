@@ -10,6 +10,10 @@ export class NavigationService {
 
   openScenario(scenarioId:string) {
 
-    this.router.navigate(['configuration', scenarioId])
+    this.router.navigate(['scenario', scenarioId])
+  }
+
+  openNewScenario() {
+    this.router.navigate(['scenario', 'new'])
   }
 }

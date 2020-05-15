@@ -3,8 +3,9 @@ import { select, Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { NavigationService } from '../../services/navigation.service';
 import { selectLoading, selectScenarios, selectViewports } from '../configuration/store/configuration.selectors';
-import { refresh } from '../configuration/store/configuration.actions';
+import { deleteScenario, favoriteScenario, refresh } from '../configuration/store/configuration.actions';
 import { map } from 'rxjs/operators';
+import { runOneScenario } from '../dashboard/store/dashboard.actions';
 
 @Component({
   selector: 'app-scenarios',
@@ -28,7 +29,7 @@ export class ScenariosComponent implements OnInit {
 
     this.isLoading$ = this.store.pipe(select(selectLoading));
     this.viewports$ = this.store.pipe(select(selectViewports)).pipe(
-      map( x => { return x.map( s => s.label) })
+      map( x => { return x.map( (s:any) => s.label) })
     );
     this.scenarios$ = this.store.pipe(select(selectScenarios));
 
@@ -38,6 +39,7 @@ export class ScenariosComponent implements OnInit {
   addScenarioHandler () {
     // this.modals.addScenarioModal.open();
     console.log('addScenarioHandler')
+    this.navigation.openNewScenario();
   }
   runFilteredScenariosHandler () {
     console.log('runFilteredScenariosHandler')
@@ -62,14 +64,17 @@ export class ScenariosComponent implements OnInit {
   selectScenarioHandler ($event) {
     this.navigation.openScenario($event);
   }
-  runScenarioHandler ($event) {
-    console.log('runScenarioHandler', $event)
+  runScenarioHandler ($event:any, label:string) {
+    console.log('runScenarioHandler', $event);
+    this.store.dispatch(runOneScenario( {label: label}));
   }
   deleteScenarioHandler ($event) {
-    console.log('deleteScenarioHandler', $event)
+    console.log('deleteScenarioHandler', $event);
+    this.store.dispatch( deleteScenario({payload: {id:$event}}))
   }
   favoriteScenarioHandler ($event) {
-    console.log('favoriteScenarioHandler', $event)
+    console.log('favoriteScenarioHandler', $event);
+    this.store.dispatch( favoriteScenario({payload: {id:$event}}))
   }
 
   changeStatusFilter_Passed ($event) {

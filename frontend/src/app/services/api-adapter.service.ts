@@ -69,7 +69,7 @@ export class ApiAdapterService {
         .join('&');
     }
     if (limit && limit > 0) {
-      
+
       query = query.length > 0 ? `${query}&limit=${limit}` : `?limit=${limit}`
     }
 
@@ -208,16 +208,16 @@ export class ApiAdapterService {
       environment.api + 'test/scenario/' + scenario._id + '/favorite')
   }
 
-  deleteScenario(scenario:any): Observable<any> {
+  switchScenarioFavorite (scenarioId:any): Observable<any> {
 
-    if (!scenario)
-      throw new Error('Wrong scenario: empty data')
+    return this.dataAccessService.put(
+      environment.api + 'test/scenario/' + scenarioId + '/favorite')
+  }
 
-    if (!scenario._id)
-      throw new Error('Wrong scenario: No _id')
+  deleteScenario(scenarioId:any): Observable<any> {
 
     return this.dataAccessService.delete(
-      environment.api + 'test/scenario/' + scenario._id)
+      environment.api + 'test/scenario/' + scenarioId)
   }
 
   signup (user, password): Observable<any> {

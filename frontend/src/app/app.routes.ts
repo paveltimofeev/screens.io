@@ -11,6 +11,7 @@ import { JobsComponent } from './view/jobs/jobs.component';
 export const routes = [
 
   { path: 'overview', component: OverviewComponent },
+  { path: 'scenarios/new', component: ScenariosComponent, data: { createMode: true } },
   { path: 'scenarios/:id', component: ScenariosComponent },
   { path: 'scenarios', component: ScenariosComponent },
   { path: 'jobs/:id/compare', component: ScenariosComponent },

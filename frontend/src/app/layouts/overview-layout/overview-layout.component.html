@@ -27,7 +27,7 @@
             <div class="column-header">
               <h2>Favorite Scenarios</h2>
               <span>
-                <span class="action">View All</span>
+                <span class="action" [routerLink]="['/', 'scenarios']">View All</span>
               </span>
             </div>
 
@@ -42,7 +42,7 @@
             <div class="column-header">
               <h2>Recent Runs</h2>
               <span>
-                <span class="action">View All (112)</span>
+                <span class="action" [routerLink]="['/', 'jobs']">View All (112)</span>
                 <span class="action action--active">Latest</span>
                 <span class="action">Passed</span>
                 <span class="action">Failed</span>

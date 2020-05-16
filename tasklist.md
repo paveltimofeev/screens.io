@@ -55,6 +55,7 @@
 -- Define MVP tasks scope
 -- Replace all icons with wrapped component to be independent from used icons library
 
+- Bind Overview page data
 - Create Dumb Angular Components by UI-Kit
 - RESTYLE UI
 

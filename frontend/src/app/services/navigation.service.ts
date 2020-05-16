@@ -13,6 +13,11 @@ export class NavigationService {
     this.router.navigate(['scenario', scenarioId])
   }
 
+  openScenarioHistory(scenarioId:string) {
+
+    this.router.navigate(['job', scenarioId])
+  }
+
   openNewScenario() {
     this.router.navigate(['scenario', 'new'])
   }

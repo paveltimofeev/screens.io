@@ -165,11 +165,8 @@ main {
     margin-bottom: 0;
     display: flex;
     flex-flow: wrap-reverse;
-    background: linear-gradient(0deg,
-    #ffffff 0%,
-    #ffffffc2 70%,
-    transparent 100%);
-    align-content: end;
+    background: linear-gradient(0deg, #ffffff 0%, #ffffffc2 70%, transparent 100%);
+    align-content: flex-end;
   }
   .page-actions .title-actions-item {
     margin-top: 10px;

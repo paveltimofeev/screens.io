@@ -83,57 +83,23 @@
 
 
   <div class="cards-placeholder">
-    <div class="app-card--sm">
+    
+    <div *ngFor="let scenario of favoriteScenarios$ | async" class="app-card--sm">
 
       <app-card-sm
-        [itemId]="12345678901"
-        [header]="'Landing page'"
+        [itemId]="scenario._id"
+        [header]="scenario.label"
         [isPassed]="true"
-        [viewports]="['1920 × 1080', '1600 × 900', '1270 × 768', '800 × 600']"
+        [viewports]="[]"
         [imageUrl]="'https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/27d32389267827.5df0b971656d7.png'"
-        (clickCard)="testEventHandler($event)"
-        (clickHistory)="testEventHandler($event)"
-        (clickRun)="testEventHandler($event)"
+        (clickCard)="openScenarioHandler(scenario._id)"
+        (clickHistory)="openScenarioHistoryHandler(scenario._id)"
+        (clickRun)="runScenarioHandler(scenario.label)"
       >
       </app-card-sm>
 
     </div>
-    <div class="app-card--sm">
 
-      <app-card-sm
-        [itemId]="12345678902"
-        [header]="'Home page'"
-        [isPassed]="true"
-        [viewports]="['800 × 600']"
-        [imageUrl]="'https://cdn.dribbble.com/users/917664/screenshots/11219076/media/c46b8d697e3f85ec7cc04b04df2def26.png'"
-      >
-      </app-card-sm>
-
-    </div>
-    <div class="app-card--sm">
-
-      <app-card-sm
-        [itemId]="12345678903"
-        [header]="'Login Component'"
-        [isPassed]="false"
-        [viewports]="['800 × 600', '600 × 800']"
-        [imageUrl]="'https://cdn.dribbble.com/users/1627429/screenshots/11076094/media/f02c05bf11d5a79c7c52d98dc448a052.png'"
-      >
-      </app-card-sm>
-
-    </div>
-    <div class="app-card--sm">
-
-      <app-card-sm
-        [itemId]="12345678904"
-        [header]="'Footer / Components / JoinUs-Button (hovered state)'"
-        [isPassed]="true"
-        [viewports]="['800 × 600']"
-        [imageUrl]="'https://cdn.dribbble.com/users/1630608/screenshots/11019033/media/bbb15b65d0a28264053512759fff57b9.png'"
-      >
-      </app-card-sm>
-
-    </div>
   </div>
 
   <div class="records-placeholder">

@@ -59,6 +59,12 @@ import { CardMdComponent } from './ui-kit/card-md/card-md.component';
 import { DataSearchButtonComponent } from './ui-kit/data-search-button/data-search-button.component';
 import { JobsComponent } from './view/jobs/jobs.component';
 import { IconComponent } from './ui-kit/icon/icon.component';
+import { ScenarioPageComponent } from './view/scenario-page/scenario-page.component';
+import { JobPageComponent } from './view/job-page/job-page.component';
+import { ComparerComponent } from './view/comparer/comparer.component';
+import { SettingsComponent } from './view/settings/settings.component';
+import { OverviewEffects } from './view/overview/store/overview.effects';
+import { overviewReducer } from './view/overview/store/overview.reducer';
 
 
 @NgModule({
@@ -101,7 +107,11 @@ import { IconComponent } from './ui-kit/icon/icon.component';
     CardMdComponent,
     DataSearchButtonComponent,
     JobsComponent,
-    IconComponent
+    IconComponent,
+    ScenarioPageComponent,
+    JobPageComponent,
+    ComparerComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -109,6 +119,7 @@ import { IconComponent } from './ui-kit/icon/icon.component';
     FormsModule,
     StoreModule.forRoot({
       app: appReducer,
+      overview: overviewReducer,
       dashboard: dashboardReducer,
       configurationView: configurationReducer,
       historyTable: historyTableReducer
@@ -119,6 +130,7 @@ import { IconComponent } from './ui-kit/icon/icon.component';
       logOnly: environment.production
     }),
     EffectsModule.forRoot([
+      OverviewEffects,
       DashboardEffects,
       ConfigurationEffects,
       HistoryTableEffects

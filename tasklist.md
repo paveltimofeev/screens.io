@@ -53,6 +53,7 @@
 -- Frontend: create basic routes and responsive/mobile-compatible layouts wireframes (by Figma design)
 -- Frontend: Create HTML/CSS UI-Kit
 -- Define MVP tasks scope
+-- Replace all icons with wrapped component to be independent from used icons library
 
 - Create Dumb Angular Components by UI-Kit
 - RESTYLE UI

@@ -1,7 +1,7 @@
 
 <div class="data-action">
 
-  <i class="fas fa-search"></i>
+  <app-icon icon="Search"></app-icon>
 
   <span *ngIf="!editMode" (click)="editModeHandler()">
     {{ label }}
@@ -11,9 +11,9 @@
     <input type="text"
            [attr.placeholder]="placeholder"
            (keyup)="keyupHandler(el.value)"
-           autofocus="true"
+           autofocus
            #el>
-    <i class="fas fa-times" (click)="closeClickHandler()"></i>
+    <app-icon icon="Close" (click)="closeClickHandler()"></app-icon>
   </span>
 
 </div>

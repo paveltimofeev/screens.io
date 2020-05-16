@@ -1,6 +1,6 @@
 <button
   class="data-action"
   (click)="clicked.emit(label)">
-  <i *ngIf="icon" [attr.class]="icon"></i>
+  <app-icon [icon]="icon"></app-icon>
   <span [ngClass]="{ 'except-xs': hideLabelOnXS }">{{ label }}</span>
 </button>

@@ -8,34 +8,47 @@
        }"
   >
     <img (click)="clickCard.emit(itemId)" [src]="imageUrl" [attr.alt]="header">
-    <i (click)="clickFavorite.emit(itemId)" class="favorite-icon fa-heart"
-       [ngClass]="{
-       'fas': isFavorite == true,
-       'far': isFavorite != true
-       }"
-    ></i>
-    <i (click)="clickDelete.emit(itemId)" class="delete-icon fas fa-trash"></i>
+
+    <app-icon
+      *ngIf="isFavorite"
+      icon="Favorite Enabled"
+      customClass="favorite-icon"
+      (click)="clickFavorite.emit(itemId)">
+    </app-icon>
+
+    <app-icon
+      *ngIf="!isFavorite"
+      icon="Favorite Disabled"
+      customClass="favorite-icon"
+      (click)="clickFavorite.emit(itemId)">
+
+    </app-icon>
+
+    <app-icon
+      icon="Delete"
+      customClass="delete-icon"
+      (click)="clickDelete.emit(itemId)">
+    </app-icon>
+
   </div>
   <div class="header">
     <span class="left">
       <span (click)="clickCard.emit(itemId)">{{ header }}</span>
-      <i (click)="clickRun.emit(itemId)"
-         class="fas"
-         [ngClass]="{
-          'fa-play': state !== 'running',
-          'fa-circle-notch': state === 'running',
-          'icon--running': state === 'running'
-         }"
-      ></i>
+
+      <app-icon
+        (click)="clickRun.emit(itemId)"
+        [icon]="state !== 'running' ? 'Run' : 'Running Spinning'">
+      </app-icon>
+
     </span>
     <span class="right">
-      <i *ngFor="let r of runs"
-         [ngClass]="{
-         'far fa-square': r,
-         'failed fas fa-times': !r
-         }"
-         class="far fa-square"
-      ></i>
+
+      <app-icon
+        *ngFor="let passed of runs"
+        [icon]=" passed ? 'Passed' : 'Close' "
+        [customClass]=" !passed ? 'failed' : undefined">
+      </app-icon>
+
     </span>
   </div>
 </div>

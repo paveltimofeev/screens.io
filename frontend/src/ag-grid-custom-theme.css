@@ -17,8 +17,7 @@
 
 .ag-theme-alpine .ag-header {
   background-color: unset;
-  border-bottom: solid 1px #EFEFEF;
-  border-bottom-color: #EFEFEF;
+  border-top: solid 1px #EFEFEF;
 }
 .ag-theme-alpine .ag-header {
   border-bottom: none;

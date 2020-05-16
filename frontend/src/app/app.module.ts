@@ -58,6 +58,7 @@ import { DataActionButtonComponent } from './ui-kit/data-action-button/data-acti
 import { CardMdComponent } from './ui-kit/card-md/card-md.component';
 import { DataSearchButtonComponent } from './ui-kit/data-search-button/data-search-button.component';
 import { JobsComponent } from './view/jobs/jobs.component';
+import { IconComponent } from './ui-kit/icon/icon.component';
 
 
 @NgModule({
@@ -99,7 +100,8 @@ import { JobsComponent } from './view/jobs/jobs.component';
     DataActionButtonComponent,
     CardMdComponent,
     DataSearchButtonComponent,
-    JobsComponent
+    JobsComponent,
+    IconComponent
   ],
   imports: [
     BrowserModule,

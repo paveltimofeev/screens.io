@@ -10,7 +10,8 @@
       <li routerLinkActive="navbar-item--active" [routerLink]="['/settings']">Settings</li>
     </ul>
   </div>
-  <div class="app-account except-xs">Maddy Savage <i class="icon material-icons">copyright</i></div>
+  <div class="app-account except-xs">Maddy Savage <i [routerLink]="['/signin']" class="icon material-icons">copyright</i></div>
+  
   <div class="app-hamburger" [ngClass]="{ 'app-hamburger--opened': isMenuOpened }">
     <app-icon icon="Hamburger" (click)="openMenuHandler()"></app-icon>
     <ul>
@@ -18,7 +19,7 @@
       <li routerLinkActive="navbar-item--active" [routerLink]="['/scenarios']">Scenarios</li>
       <li routerLinkActive="navbar-item--active" [routerLink]="['/jobs']">Jobs History</li>
       <li routerLinkActive="navbar-item--active" [routerLink]="['/settings']">Settings</li>
-      <li class="app-account">Sign-Out</li>
+      <li [routerLink]="['/signin']" class="app-account">Sign-Out</li>
     </ul>
   </div>
 

@@ -105,176 +105,42 @@
   <div class="records-placeholder">
 
     <table class="runs-table" border="0">
-      <tr>
+      <tr *ngFor="let job of recentJobs$ | async">
         <td>
 
           <div class="status-cell">
+
             <div class="status-icon status-icon--passed">
-              <app-icon icon="Passed"></app-icon>
+              <app-icon [icon]="job.state"></app-icon>
             </div>
+
             <div class="labels">
-              <div class="time-label">3 min ago</div>
-              <div class="state-label">Running now...</div>
+              <div class="time-label">{{ job.startedAt }}</div>
+              <div class="state-label">{{ job.state }}</div>
             </div>
           </div>
 
         </td>
         <td>
-          All scenarios
+          <a [routerLink]="['/', 'job', job._id]">{{ job.scenarios }}</a>
+          
         </td>
         <td>
 
           <div class="user-cell">
-            <div class="upic">JA</div>
-            <span class="text">Jonathan Amos</span>
+            <div class="upic">{{ job.upic }}</div>
+            <span class="text">{{ job.startedBy }}</span>
           </div>
 
         </td>
 
         <td>
-
           <div class="action-cell action-cell--right">
             <app-icon icon="Close" customClass="action-cell-icon"></app-icon>
           </div>
-
         </td>
       </tr>
-      <tr>
-        <td>
 
-          <div class="status-cell">
-            <div class="status-icon status-icon--passed">
-              <app-icon icon="Passed"></app-icon>
-            </div>
-            <div class="labels">
-              <div class="time-label">3 min ago</div>
-              <div class="state-label">Running now...</div>
-            </div>
-          </div>
-
-        </td>
-        <td>
-          All scenarios
-        </td>
-        <td>
-
-          <div class="user-cell">
-            <div class="upic">JA</div>
-            <span class="text">Jonathan Amos</span>
-          </div>
-
-        </td>
-
-        <td>
-
-          <div class="action-cell action-cell--right">
-            <app-icon icon="Close" customClass="action-cell-icon"></app-icon>
-          </div>
-
-        </td>
-      </tr>
-      <tr>
-        <td>
-
-          <div class="status-cell">
-            <div class="status-icon status-icon--passed">
-              <app-icon icon="Passed"></app-icon>
-            </div>
-            <div class="labels">
-              <div class="time-label">3 min ago</div>
-              <div class="state-label">Running now...</div>
-            </div>
-          </div>
-
-        </td>
-        <td>
-          All scenarios
-        </td>
-        <td>
-
-          <div class="user-cell">
-            <div class="upic">JA</div>
-            <span class="text">Jonathan Amos</span>
-          </div>
-
-        </td>
-
-        <td>
-
-          <div class="action-cell action-cell--right">
-            <app-icon icon="Close" customClass="action-cell-icon"></app-icon>
-          </div>
-
-        </td>
-      </tr>
-      <tr>
-        <td>
-
-          <div class="status-cell">
-            <div class="status-icon status-icon--passed">
-              <app-icon icon="Passed"></app-icon>
-            </div>
-            <div class="labels">
-              <div class="time-label">3 min ago</div>
-              <div class="state-label">Running now...</div>
-            </div>
-          </div>
-
-        </td>
-        <td>
-          All scenarios
-        </td>
-        <td>
-
-          <div class="user-cell">
-            <div class="upic">JA</div>
-            <span class="text">Jonathan Amos</span>
-          </div>
-
-        </td>
-
-        <td>
-
-          <div class="action-cell action-cell--right">
-            <app-icon icon="Close" customClass="action-cell-icon"></app-icon>
-          </div>
-
-        </td>
-      </tr>
-      <tr>
-        <td>
-
-          <div class="status-cell">
-            <div class="status-icon status-icon--passed">
-              <app-icon icon="Passed"></app-icon>
-            </div>
-            <div class="labels">
-              <div class="time-label">3 min ago</div>
-              <div class="state-label">Running now...</div>
-            </div>
-          </div>
-
-        </td>
-        <td>
-          All scenarios
-        </td>
-        <td>
-
-          <div class="user-cell">
-            <div class="upic">JA</div>
-            <span class="text">Jonathan Amos</span>
-          </div>
-
-        </td>
-
-        <td>
-
-          <div class="action-cell action-cell--right">
-            <app-icon icon="Close" customClass="action-cell-icon"></app-icon>
-          </div>
-
-        </td>
-      </tr>
     </table>
 
   </div>

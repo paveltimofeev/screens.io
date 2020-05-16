@@ -5,6 +5,7 @@ import { Store, select } from '@ngrx/store';
 import { favoriteScenarios, recentJobs, stats } from './store/overview.selectors';
 import { refresh } from './store/overview.actions';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { runOneScenario } from '../dashboard/store/dashboard.actions';
 
 @Component({
   selector: 'app-overview',
@@ -42,7 +43,8 @@ export class OverviewComponent implements OnInit {
   
   runScenarioHandler (scenarioLabel:string) {
     console.log('runScenarioHandler', scenarioLabel)
-    // api action 'run scenario' ?
+    // api action 'run one scenario' ?
+    this.store.dispatch(runOneScenario({label:scenarioLabel}))
   }
 
 

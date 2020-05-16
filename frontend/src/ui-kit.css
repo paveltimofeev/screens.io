@@ -869,6 +869,7 @@ button, input {
   align-items: center;
   justify-content: center;
   font-size: 14px;
+  text-transform: uppercase;
 }
 .user-cell .text {
   flex: 1;

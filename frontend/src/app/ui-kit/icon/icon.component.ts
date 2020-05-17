@@ -18,7 +18,7 @@ export let IconMapping:Map<string, string> = new Map(
     ['Run', 'fas fa-play'],
     ['Running Spinning', 'fas fa-circle-notch icon--running'],
     ['Passed', 'fas fa-check-circle'],
-    ['Failed', ''],
+    ['Failed', 'fas fa-times-circle'],
 
     ['Delete', 'fas fa-trash'],
     ['Favorite', 'fa-heart'],

@@ -115,15 +115,18 @@
             </div>
 
             <div class="labels">
-              <div class="time-label">{{ job.startedAt }}</div>
+              <div class="time-label">
+                <a [routerLink]="['/job', job._id]">
+                  {{ job.startedAt }}
+                </a>
+              </div>
               <div class="state-label">{{ job.state }}</div>
             </div>
           </div>
 
         </td>
         <td>
-          <a [routerLink]="['/', 'job', job._id]">{{ job.scenarios }}</a>
-          
+          {{ job.scenarios }}
         </td>
         <td>
 

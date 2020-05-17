@@ -22,7 +22,7 @@ export const routes = [
   { path: 'job/:id/compare', component: ComparerComponent },
   { path: 'job/:id', component: JobPageComponent },
   { path: 'settings', component: SettingsComponent },
-  { path: 'signin', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   
   { path: 'ui-kit-preview', component: UiKitPreviewComponent },
   { path: '', component: OverviewComponent },
@@ -31,6 +31,5 @@ export const routes = [
   { path: 'configuration/:id', component: ConfigurationComponent },
   { path: 'configuration', component: ConfigurationComponent },
   { path: 'history/:jobId', component: HistoryRecordComponent },
-  { path: 'login', component: LoginComponent },
   { path: 'report', component: ReportComponent }
 ];

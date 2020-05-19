@@ -5,9 +5,25 @@ export interface AppState {
   jobPage: JobPageState
 }
 export interface JobPageState {
+  title: string;
+  scenarios: string;
+  viewports: string[];
+  startedBy: string;
+  totalCases: number;
+  failedCases: number;
+  status: string;
+  cases: any[];
 }
 
 export const initState = {
+  title: '',
+  scenarios: '',
+  viewports: [],
+  startedBy: '',
+  totalCases: 0,
+  failedCases: 0,
+  status: '',
+  cases: [],
 };
 
 const _reducer = createReducer(initState,

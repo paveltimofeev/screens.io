@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { cleanupNgrxStorage } from '../configuration/store/configuration.actions';
 
 @Component({
   selector: 'app-job-page',
   templateUrl: './job-page.component.html',
   styleUrls: ['./job-page.component.css']
 })
-export class JobPageComponent implements OnInit {
+export class JobPageComponent implements OnInit, OnDestroy {
 
   id:string;
 
@@ -14,5 +15,9 @@ export class JobPageComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.params.id;
+  }
+
+  ngOnDestroy () {
+    // this.store.dispatch(cleanupNgrxStorage())
   }
 }

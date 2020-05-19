@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { NavigationService } from '../../services/navigation.service';
@@ -6,13 +6,14 @@ import { selectLoading, selectScenarios, selectViewports } from '../configuratio
 import { deleteScenario, favoriteScenario, refresh } from '../configuration/store/configuration.actions';
 import { map } from 'rxjs/operators';
 import { runOneScenario } from '../dashboard/store/dashboard.actions';
+import { cleanupNgrxStorage } from '../configuration/store/configuration.actions';
 
 @Component({
   selector: 'app-scenarios',
   templateUrl: './scenarios.component.html',
   styleUrls: ['./scenarios.component.css']
 })
-export class ScenariosComponent implements OnInit {
+export class ScenariosComponent implements OnInit, OnDestroy {
 
   url:string = "http://localhost";
 
@@ -34,6 +35,9 @@ export class ScenariosComponent implements OnInit {
     this.scenarios$ = this.store.pipe(select(selectScenarios));
 
     this.refresh()
+  }
+  ngOnDestroy () {
+    this.store.dispatch(cleanupNgrxStorage())
   }
 
   addScenarioHandler () {

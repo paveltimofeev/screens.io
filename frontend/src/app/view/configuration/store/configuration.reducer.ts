@@ -71,37 +71,10 @@ const _reducer = createReducer(initState,
     }
   }),
 
-  // on(actions.favoriteScenario, (state, actions:any) => {
-  //
-  //   console.log('favoriteScenario reducer')
-  //   let scenarios = state.scenarios.map( s => {
-  //
-  //     if(s._id == actions.payload.id) {
-  //
-  //       let f = !(s.meta_isFavorite || false);
-  //
-  //       return {
-  //         ...s,
-  //         ...{
-  //           meta_isFavorite: f
-  //         }
-  //       }
-  //     }
-  //     return s;
-  //   });
-  //
-  //   console.log('favoriteScenario reducer scenarios',
-  //     state.scenarios[0].meta_isFavorite,
-  //     scenarios[0].meta_isFavorite
-  //   )
-  //
-  //
-  //   return {
-  //     ...state,
-  //     scenarios : scenarios
-  //   }
-  // })
+  on(actions.cleanupNgrxStorage, (state, action) => {
 
+    return initState
+  })
 );
 
 export function configurationReducer (state, action) {

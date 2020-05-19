@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IBarItem } from '../../ui-kit/widget-timeline/widget-timeline.component';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { favoriteScenarios, recentJobs, stats } from './store/overview.selectors';
-import { refresh } from './store/overview.actions';
+import { cleanupNgrxStorage, refresh } from './store/overview.actions';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { runOneScenario } from '../dashboard/store/dashboard.actions';
 
@@ -12,12 +12,12 @@ import { runOneScenario } from '../dashboard/store/dashboard.actions';
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css']
 })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit, OnDestroy {
 
   favoriteScenarios$: Observable<any[]>;
   recentJobs$: Observable<any[]>;
   stats$: Observable<any>;
-  
+
   refresher$: Observable<any>;
 
   constructor(private store: Store, private navigation:NavigationService) { }
@@ -33,6 +33,10 @@ export class OverviewComponent implements OnInit {
     this.makeStubChart();
   }
 
+  ngOnDestroy () {
+    this.store.dispatch(cleanupNgrxStorage())
+  }
+
   openScenarioHandler (scenarioId:string) {
     this.navigation.openScenario(scenarioId);
   }
@@ -40,7 +44,7 @@ export class OverviewComponent implements OnInit {
   openScenarioHistoryHandler (scenarioId:string) {
     this.navigation.openScenarioHistory(scenarioId);
   }
-  
+
   runScenarioHandler (scenarioLabel:string) {
     console.log('runScenarioHandler', scenarioLabel)
     // api action 'run one scenario' ?

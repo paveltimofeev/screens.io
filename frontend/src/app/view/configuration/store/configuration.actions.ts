@@ -3,6 +3,7 @@ import { createAction, props } from '@ngrx/store';
 export const refresh = createAction('[Configuration] refresh', props<{payload:{id:string}}>());
 export const redirect = createAction('[Configuration] redirect', props<{payload:{scenarioId:string}}>());
 export const error = createAction('[Configuration] error');
+export const cleanupNgrxStorage = createAction('[Configuration] cleanupNgrxStorage');
 
 export const loaded = createAction(
   '[Configuration] loaded',

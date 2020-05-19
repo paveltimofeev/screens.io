@@ -25,14 +25,19 @@ export const initState = {
     totalState: ''
 };
 
-const _reducer = createReducer(initState, 
-    
+const _reducer = createReducer(initState,
+
     on(actions.loaded, (state, action) => {
 
         return {
             ...state,
             ...action.payload
         }
+    }),
+
+    on(actions.cleanupNgrxStorage, (state, action) => {
+
+      return initState
     })
 );
 

@@ -28,28 +28,18 @@ export class JobPageEffects {
           return this.api.getReport(job.runId).pipe(
             map ( report => {
 
-              console.log( 'res:',  job, report );
-
               return {
                 type: loaded.type,
-                payload: { title: this.date.calendar(job.startedAt) }
+                payload: {
+                  title: this.date.calendar(job.startedAt),
+                  job: job,
+                  report: report
+                }
               }
             })
           )
         })
-      )
-
-/*      return this.api.getReport(action.payload.id).pipe(
-        map(
-        report => {
-
-          return {
-            type: loaded.type,
-            payload: { jobTitle: 'test' }
-          }
-        }
-      )
-      );*/
+      );
 
     })
   ));

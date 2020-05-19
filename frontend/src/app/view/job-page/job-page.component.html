@@ -49,12 +49,13 @@
         (clicked)="listView()">
       </app-data-action-button>
 
-      <app-data-action-button
-        [label]="'Switch on MouseOver'"
-        [icon]="'Toggle Off'"
-        [hideLabelOnXS]="true"
-        (clicked)="showDifference()">
-      </app-data-action-button>
+      <span class="except-xs">
+        <app-data-action-button
+          [label]="'Switch on MouseOver'"
+          [icon]="'Toggle Off'"
+          (clicked)="showDifference()">
+        </app-data-action-button>
+      </span>
 
     </div>
   </div>

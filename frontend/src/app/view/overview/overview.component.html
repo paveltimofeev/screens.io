@@ -83,7 +83,7 @@
 
 
   <div class="cards-placeholder">
-    
+
     <div *ngFor="let scenario of favoriteScenarios$ | async" class="app-card--sm">
 
       <app-card-sm
@@ -105,7 +105,10 @@
   <div class="records-placeholder">
 
     <table class="runs-table" border="0">
-      <tr *ngFor="let job of recentJobs$ | async">
+      <tr
+        *ngFor="let job of recentJobs$ | async"
+        [routerLink]="['/job', job._id]"
+      >
         <td>
 
           <div class="status-cell">
@@ -116,11 +119,11 @@
 
             <div class="labels">
               <div class="time-label">
-                <a [routerLink]="['/job', job._id]">
-                  {{ job.startedAt }}
-                </a>
+                <span>
+                  {{ job.startedDateLabel }}
+                </span>
               </div>
-              <div class="state-label">{{ job.state }}</div>
+              <div class="state-label">{{ job.startedDate }}</div>
             </div>
           </div>
 
@@ -135,12 +138,6 @@
             <span class="text">{{ job.startedBy }}</span>
           </div>
 
-        </td>
-
-        <td>
-          <div class="action-cell action-cell--right">
-            <app-icon icon="Close" customClass="action-cell-icon"></app-icon>
-          </div>
         </td>
       </tr>
 

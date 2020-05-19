@@ -16,6 +16,7 @@ export let IconMapping:Map<string, string> = new Map(
     ['External Link', 'fas fa-external-link-alt'],
 
     ['Run', 'fas fa-play'],
+    ['Running', 'fas fa-circle-notch icon--running'],
     ['Running Spinning', 'fas fa-circle-notch icon--running'],
     ['Passed', 'fas fa-check-circle'],
     ['Failed', 'fas fa-times-circle'],

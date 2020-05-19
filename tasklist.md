@@ -54,10 +54,13 @@
 -- Frontend: Create HTML/CSS UI-Kit
 -- Define MVP tasks scope
 -- Replace all icons with wrapped component to be independent from used icons library
+-- Bind Overview page data
+-- Use user-friendly dates (by moment)
 
-- Bind Overview page data
+- Job page data
 - Create Dumb Angular Components by UI-Kit
 - RESTYLE UI
+
 
 - Responsive UI (support 1920/1600/1270/mobile)
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
@@ -74,6 +77,7 @@
 - ability to quickly close new user registration / stop, block or limit user (to protect from overbudget)
 - **------------ MVP MILESTONE ------------**
 
+- Frontend: Check on FF/Opeara/Edge. Egde - shadows, status-label, toggle animation, flex alignment (IE11 - too many bugs, too expensive to support)
 - Lazy Loading for most of images to reduce S3-traffic, pressure on backend and increase UI responsiveness
 - Deplyment scripts (backend, frontend, landing)
 - Marketing efforts (Internet marketing, SEO, Social presence, Blogging, Video Tutorials)
@@ -107,7 +111,6 @@
 - API+APIKEY for comparing any posted screenshot against stored in DB (Usecase: dev team has environment for taking screenshots and uses API to validate them against approved, team also uses WenUI to approve cases, to monitor stability, and team uses notifications at Slack/Telegram)
 - Unapprove: Review and turn back any previously approved results.
 - Locate tiny changes, and mark them more noticeably. Add "Scroll to next diff" button.
-- Use user-friendly dates (by moment)
 - Think out understanding of costs (weight of s3/lambdas/queues/vm in total cost of user) to work out correct pricing strategy
 - Add ScenarioHistory collection [scenarioRef/Name, date, status, historyRecordRef, successRate(calc) ]
 - Display retry button for not-ready yet history record (screens)

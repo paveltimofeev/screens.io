@@ -85,6 +85,21 @@ button, input {
   font-family: inherit;
 }
 
+/* ANIMATIONS */
+
+@keyframes spinning {
+  from { transform:rotate(0deg); }
+  to { transform:rotate(1440deg); }
+}
+
+@keyframes blinking {
+  from { border-bottom-color: #87CEEB; }
+  to { border-bottom-color: #00008B; }
+}
+
+.icon--running {
+  animation: spinning 10s linear infinite;
+}
 
 /* BUTTONS */
 
@@ -632,14 +647,10 @@ button, input {
   border-bottom-color: var(--color-red-dark);
 }
 .card-md .image--running {
-  animation: runningState 1s infinite alternate-reverse;
+  animation: blinking 1s infinite alternate-reverse;
 }
 .card-md .image--never-run-before {
   border-bottom-color: lightgray;
-}
-@keyframes runningState {
-  from { border-bottom-color: #87CEEB; }
-  to { border-bottom-color: #00008B; }
 }
 .card-md .image img {
   object-fit: cover;
@@ -695,11 +706,6 @@ button, input {
 .card-md .header .left i.icon--running {
   color: var(--color-blue);
   cursor: default;
-  animation: rotatingIcon 10s linear infinite;
-}
-@keyframes rotatingIcon {
-  from { transform:rotate(0deg); }
-  to { transform:rotate(1440deg); }
 }
 .card-md .header .left i:hover {
   opacity: 1;
@@ -816,6 +822,7 @@ button, input {
 }
 .runs-table tr {
   height: 70px;
+  cursor: pointer;
 }
 .runs-table tr:hover {
   background: rgba(138, 224, 255, 0.15);

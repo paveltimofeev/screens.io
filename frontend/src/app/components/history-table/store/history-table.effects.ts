@@ -4,13 +4,15 @@ import { refresh, loaded, clearRecord } from './history-table.actions'
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { debounceTime, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { DateService } from '../../../services/date.service';
 
 @Injectable()
 export class HistoryTableEffects {
 
   constructor(
     private api: ApiAdapterService,
-    private actions$: Actions
+    private actions$: Actions,
+    private date: DateService
   ) {}
 
   refresh$ = createEffect(() => this.actions$.pipe(
@@ -25,7 +27,7 @@ export class HistoryTableEffects {
             return {
               _id: j._id,
               runId: j.runId,
-              date: j.startedAt,
+              date: this.date.calendar(j.startedAt),
               duration: j.finishedAt && j.startedAt ? `${((new Date(j.finishedAt) as any) - (new Date(j.startedAt) as any)) / 1000} sec` : 'running...',
               status: j.state,
               scope: (j.scenarios||[]).map( (x:any) => x.label).join(', '),

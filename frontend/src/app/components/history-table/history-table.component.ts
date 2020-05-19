@@ -35,8 +35,7 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
       width: 250,
       field: 'date',
       sortable: true,
-      suppressSizeToFit: true,
-      cellRenderer: dateCellRenderer
+      suppressSizeToFit: true
     },
     { field: 'scope', colId:'scope', filter: true },
     { field: 'viewports', colId:'viewports', filter: true },

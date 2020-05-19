@@ -4,13 +4,16 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { refresh, loaded } from './overview.actions';
 import { mergeMap, map } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
+import { DateService } from '../../../services/date.service';
+
 
 @Injectable()
 export class OverviewEffects {
 
   constructor(
     private actions$: Actions,
-    private api: ApiAdapterService
+    private api: ApiAdapterService,
+    private date: DateService
   ){}
 
   refresh$ = createEffect(() => this.actions$.pipe(
@@ -18,11 +21,14 @@ export class OverviewEffects {
     mergeMap(() => {
 
         const jobsAdapter = (jobs:any[]) => {
-         
+
             return jobs.map( job => {
+
                 return {
                     ...job,
                     scenarios: job.scenarios.map( (s:any) => s.label ),
+                    startedDateLabel: this.date.fromNow(job.startedAt),
+                    startedDate: this.date.calendar(job.startedAt),
                     upic: job.startedBy && job.startedBy.length > 0 ? job.startedBy[0] : ' '
                 }
             })
@@ -36,15 +42,15 @@ export class OverviewEffects {
 
         map( res => {
           return { type: loaded.type, payload: {
-               
+
               //scenarios: res.data
               favoriteScenarios: res[0].data,
               recentJobs: jobsAdapter(res[1].jobs),
-          
+
               totalScenarios: 0,
               totalViewports: 0,
               lastRunTime: -1,
-              totalState: '' 
+              totalState: ''
             }}
         })
       )

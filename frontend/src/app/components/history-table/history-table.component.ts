@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { refresh } from './store/history-table.actions';
+import { cleanupNgrxStorage, refresh } from './store/history-table.actions';
 import { selectHistoryTable } from './store/history-table.selectors';
 import { interval } from 'rxjs';
 import { AgCellButtonComponent } from './ag-cell-button/ag-cell-button.component';
@@ -105,5 +105,7 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
     if (this.refresher$) {
       this.refresher$.unsubscribe()
     }
+
+    this.store.dispatch(cleanupNgrxStorage());
   }
 }

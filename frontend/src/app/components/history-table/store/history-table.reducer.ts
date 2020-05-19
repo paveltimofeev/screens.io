@@ -29,6 +29,11 @@ const _reducer = createReducer(initState,
       ...state,
       error: action.payload
     }
+  }),
+
+  on(actions.cleanupNgrxStorage, (state, actions) => {
+
+    return initState;
   })
 );
 

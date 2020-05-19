@@ -1,4 +1,73 @@
 <app-sidebar-page-layout
-  [title]="'Job: ' + id"
+  [title]="title$ | async"
   [description]="''">
+
+  <div class="page-actions-placeholder">
+    <ul class="page-actions">
+      <li class="title-actions-item">
+        <button class="button button--white" (click)="runFilteredScenariosHandler()">Run All Again</button>
+      </li>
+      <li class="title-actions-item">
+        <button class="button button--dark" (click)="addScenarioHandler()">Approve All Failed Cases (3)</button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="data-actions-placeholder">
+    <div>
+      <app-data-search-button
+        [label]="'Search case'"
+        (changed)="search($event)">
+      </app-data-search-button>
+    </div>
+    <div>
+
+      <app-data-action-button
+        [label]="'Reference'"
+        [icon]="'Reference'"
+        [hideLabelOnXS]="true"
+        (clicked)="refresh()">
+      </app-data-action-button>
+      <app-data-action-button
+        [label]="'Test'"
+        [icon]="'Test'"
+        [hideLabelOnXS]="true"
+        (clicked)="refresh()">
+      </app-data-action-button>
+      <app-data-action-button
+        [label]="'Difference'"
+        [icon]="'Difference'"
+        [hideLabelOnXS]="true"
+        (clicked)="refresh()">
+      </app-data-action-button>
+
+      <app-data-action-button
+        class="except-xs"
+        [label]="'Group by Scenarios'"
+        [icon]="'Group by Scenarios'"
+        [hideLabelOnXS]="true"
+        (clicked)="listView()">
+      </app-data-action-button>
+
+      <app-data-action-button
+        [label]="'Switch on MouseOver'"
+        [icon]="'Toggle Off'"
+        [hideLabelOnXS]="true"
+        (clicked)="showDifference()">
+      </app-data-action-button>
+
+    </div>
+  </div>
+
+  <div class="xs-filters-placeholder">
+
+    <app-data-action-button
+      [label]="'Add Filters'"
+      [icon]="'Add Filters'"
+      (clicked)="showMobileFilters($event)">
+    </app-data-action-button>
+
+  </div>
+
+
 </app-sidebar-page-layout>

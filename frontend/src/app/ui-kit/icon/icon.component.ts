@@ -4,7 +4,7 @@ export let IconMapping:Map<string, string> = new Map(
   [
     // key, icon
     ['Refresh', 'fas fa-redo'],
-    ['Group by Scenarios', 'fas fa-object-ungroup'],
+    ['Group by Scenarios', 'fas fa-object-group'],
     ['List View', 'fas fa-th-list'],
     ['Show Differences', 'far fa-images'],
     ['Close', 'fas fa-times'],
@@ -20,6 +20,13 @@ export let IconMapping:Map<string, string> = new Map(
     ['Running Spinning', 'fas fa-circle-notch icon--running'],
     ['Passed', 'fas fa-check-circle'],
     ['Failed', 'fas fa-times-circle'],
+
+    ['Toggle On', 'fas fa-toggle-on'],
+    ['Toggle Off', 'fas fa-toggle-off'],
+
+    ['Reference', 'far fa-image'],
+    ['Test', 'fas fa-image'],
+    ['Difference', 'far fa-images'],
 
     ['Delete', 'fas fa-trash'],
     ['Favorite', 'fa-heart'],

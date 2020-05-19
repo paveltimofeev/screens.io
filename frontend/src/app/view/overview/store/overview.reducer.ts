@@ -1,6 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
 import * as actions from './overview.actions'
-import { stats } from './overview.selectors';
 
 export interface AppState {
     overview: OverviewState

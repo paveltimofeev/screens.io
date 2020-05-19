@@ -78,12 +78,15 @@ class Storage {
     }
 
 
+    async getHistoryRecordById (database, id) {
+        return await this._getById(database, 'Record', recordSchema, id)
+    }
     async getHistoryRecords (database, query, limit) {
 
         const isValidNumber = (value) => {
             return value && /^[0-9]{1,10}$/.test(value)
         }
-        
+
         limit = isValidNumber(limit) ? parseInt(limit) : 1000
 
         let entity = this._createEntity(database, 'Record', recordSchema)

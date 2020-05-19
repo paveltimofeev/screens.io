@@ -49,10 +49,16 @@ export class ApiAdapterService {
       pair);
   }
 
-  getReport (jobId:any): Observable<any> {
+  getReport (runId:any): Observable<any> {
 
     return this.dataAccessService.get(
-      environment.api + 'test/report/' + jobId);
+      environment.api + 'test/report/' + runId);
+  }
+
+  getHistoryRecord (jobId:string): Observable<any> {
+
+    return this.dataAccessService.get(
+      environment.api + 'test/history/' + jobId);
   }
 
   getHistory (filters?: IQueryFilter[], limit?:number): Observable<any> {

@@ -270,6 +270,9 @@ class VRT {
 
         return await storage.getHistoryRecords(this._userId, query, limit)
     }
+    async getHistoryRecordById (id) {
+        return await storage.getHistoryRecordById(this._userId, id)
+    }
     async getHistoryRecordsOfScenario (scenarioId) {
 
         const query = {

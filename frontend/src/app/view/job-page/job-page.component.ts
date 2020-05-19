@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { cleanupNgrxStorage } from '../configuration/store/configuration.actions';
+import { refresh, cleanupNgrxStorage } from './store/job-page.actions';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { jobTitle } from './store/job-page.selectors';
 
 @Component({
   selector: 'app-job-page',
@@ -9,15 +12,29 @@ import { cleanupNgrxStorage } from '../configuration/store/configuration.actions
 })
 export class JobPageComponent implements OnInit, OnDestroy {
 
-  id:string;
+  title$:Observable<string>;
 
-  constructor(private route:ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store
+    ) { }
 
   ngOnInit() {
-    this.id = this.route.snapshot.params.id;
+
+    this.title$ = this.store.select( jobTitle );
+
+    this.refreshView( this.route.snapshot.params.id )
   }
 
   ngOnDestroy () {
-    // this.store.dispatch(cleanupNgrxStorage())
+    this.cleanupView()
+  }
+
+
+  refreshView (id?:string) {
+    this.store.dispatch( refresh( {payload:{id}} ) )
+  }
+  cleanupView () {
+    this.store.dispatch( cleanupNgrxStorage() )
   }
 }

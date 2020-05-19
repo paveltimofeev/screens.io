@@ -65,6 +65,8 @@ import { ComparerComponent } from './view/comparer/comparer.component';
 import { SettingsComponent } from './view/settings/settings.component';
 import { OverviewEffects } from './view/overview/store/overview.effects';
 import { overviewReducer } from './view/overview/store/overview.reducer';
+import { jobPageReducer } from './view/job-page/store/job-page.reducer';
+import { JobPageEffects } from './view/job-page/store/job-page.effects';
 
 
 @NgModule({
@@ -122,7 +124,8 @@ import { overviewReducer } from './view/overview/store/overview.reducer';
       overview: overviewReducer,
       dashboard: dashboardReducer,
       configurationView: configurationReducer,
-      historyTable: historyTableReducer
+      historyTable: historyTableReducer,
+      jobPage: jobPageReducer
     }),
     // StoreDevtoolsModule should be imported after StoreModule
     StoreDevtoolsModule.instrument({
@@ -133,7 +136,8 @@ import { overviewReducer } from './view/overview/store/overview.reducer';
       OverviewEffects,
       DashboardEffects,
       ConfigurationEffects,
-      HistoryTableEffects
+      HistoryTableEffects,
+      JobPageEffects
     ]),
     RouterModule.forRoot(routes),
     AgGridModule.withComponents([])

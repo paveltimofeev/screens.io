@@ -65,6 +65,15 @@ router.get('/test/report/:runId', async function(req, res) {
     })
 });
 
+router.get('/test/history/:id', async function(req, res) {
+
+    tryWrapper(req, res, async () => {
+
+        const job = await VRT.create(req.context).getHistoryRecordById(req.params.id)
+        res.status(200).send( job )
+    })
+});
+
 router.get('/test/history', async function(req, res) {
 
     tryWrapper(req, res, async () => {
@@ -85,7 +94,7 @@ router.delete('/test/history/:id', async function(req, res) {
 
     tryWrapper(req, res, async () => {
 
-        const data = await VRT.create(req.context).deleteHistoryRecord(req.params.id)
+        const data = await VRT.create(req.context).deleteHistoryRecord( req.params.id )
         res.status(200).send( {data} )
     })
 });

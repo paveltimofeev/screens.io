@@ -56,8 +56,8 @@
 -- Replace all icons with wrapped component to be independent from used icons library
 -- Bind Overview page data
 -- Use user-friendly dates (by moment)
+-- Job page data
 
-- Job page data
 - Create Dumb Angular Components by UI-Kit
 - RESTYLE UI
 

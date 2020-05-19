@@ -4,9 +4,10 @@
 
 export const environment = {
   production: false,
-  storage: 'http://localhost:8888',
-  auth: 'http://localhost:8888',
-  api: 'http://localhost:8888/api/'
+  storage: 'http://localhost:8888', // DB
+  media: 'http://localhost:8888',   // Images
+  auth: 'http://localhost:8888',    // Auth proxy
+  api: 'http://localhost:8888/api/' // REST
 };
 
 /*

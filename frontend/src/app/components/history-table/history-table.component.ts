@@ -6,7 +6,6 @@ import { interval } from 'rxjs';
 import { AgCellButtonComponent } from './ag-cell-button/ag-cell-button.component';
 import { IQueryFilter } from '../../services/filters.service';
 import { statusCellRenderer } from './cell-renderers/status-cell';
-import { dateCellRenderer } from './cell-renderers/date-cell';
 
 @Component({
   selector: 'app-history-table',
@@ -45,7 +44,6 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
       headerName:'',
       field: 'action',
       cellRendererFramework: AgCellButtonComponent,
-      //cellRenderer: actionCellRenderer,
       width: 60,
       suppressSizeToFit: true
     }

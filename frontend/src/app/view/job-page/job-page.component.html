@@ -1,6 +1,25 @@
 <app-sidebar-page-layout
   [title]="title$ | async"
-  [description]="''">
+  [customDescription]="true"
+  [breadcrumb]="true"
+>
+
+  <div class="breadcrumb-placeholder">
+    <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/jobs']">Jobs History</span>
+    <span class="breadcrumb-item">Job: 12/31/2019 11:27:10 PM</span>
+  </div>
+
+  <div class="description-placeholder">
+    <table class="info-table">
+      <tr><td class="label-cell">Scenarios</td><td class="value-cell"> {{ (jobDescriptionInfo$ | async).scenarios }}</td></tr>
+      <tr><td class="label-cell">Viewports</td><td class="value-cell">
+        <span *ngFor="let v of (jobDescriptionInfo$ | async).viewports">
+          {{ v }}
+        </span>
+      </td></tr>
+      <tr><td class="label-cell">Run by</td>   <td class="value-cell"> {{ (jobDescriptionInfo$ | async).startedBy }}</td></tr>
+    </table>
+  </div>
 
   <div class="page-actions-placeholder">
     <ul class="page-actions">
@@ -8,7 +27,7 @@
         <button class="button button--white" (click)="runFilteredScenariosHandler()">Run All Again</button>
       </li>
       <li class="title-actions-item">
-        <button class="button button--dark" (click)="addScenarioHandler()">Approve All Failed Cases (3)</button>
+        <button class="button button--dark" (click)="addScenarioHandler()">Approve All Failed Cases ({{(sidebarHeaderInfo$ | async).failedCases}})</button>
       </li>
     </ul>
   </div>
@@ -50,6 +69,15 @@
       </app-data-action-button>
 
       <span class="except-xs">
+
+        <app-data-action-button
+          class="except-xs"
+          [label]="'Full Height'"
+          [icon]="'Full Height'"
+          [hideLabelOnXS]="true"
+          (clicked)="listView()">
+        </app-data-action-button>
+
         <app-data-action-button
           [label]="'Switch on MouseOver'"
           [icon]="'Toggle Off'"
@@ -70,5 +98,100 @@
 
   </div>
 
+  <div class="data-placeholder">
+
+    <div class="app-card m6 xs12" *ngFor="let c of cases$ | async">
+
+    <div class="card-lg">
+      <div class="image">
+        <img [attr.src]="c.test" alt="">
+        <div class="tags">
+          <span class="tag tag--active">{{ c.viewport }}</span>
+        </div>
+      </div>
+      <div class="info-panel">
+        <div class="left">
+          <div class="header" (click)="openScenario(c.label)">{{ c.label }}</div>
+          <div class="description">
+            <span class="label" [ngClass]="{
+              'label--failed': c.status === 'fail',
+              'label--passed': c.status === 'pass'
+            }">{{ c.status }}</span> {{ c.error }}
+          </div>
+        </div>
+        <div class="right">
+          <button class="card-button">Approve</button>
+        </div>
+      </div>
+    </div>
+
+
+
+    </div>
+
+  </div>
+
+  <div class="sidebar-placeholder">
+
+    <div class="sidebar-header">
+
+      <div class="widget-label widget-label--xl">
+        <div class="header header--semibold">
+          {{ (sidebarHeaderInfo$ | async).failedCases }}
+          of {{ (sidebarHeaderInfo$ | async).totalCases }}
+          Test Cases
+        </div>
+        <div
+          class="state"
+          *ngIf="(sidebarHeaderInfo$ | async).status"
+             [ngClass]="{
+             'state--failed': (sidebarHeaderInfo$ | async).status === 'Failed',
+             'state--passed': (sidebarHeaderInfo$ | async).status !== 'Failed'
+             }"
+        >
+          {{ (sidebarHeaderInfo$ | async).status }}
+        </div>
+      </div>
+
+
+    </div>
+    <div class="app-filters">
+
+      <h3 class="filter-header">Filter by State</h3>
+
+      <app-checkbox-field
+        [label]="'Show Successful Cases'"
+        (changed)="changeStatusFilter_Passed($event)"
+        [checked]="true"
+      >
+      </app-checkbox-field>
+
+      <app-checkbox-field
+        [label]="'Show Failed Cases'"
+        (changed)="changeStatusFilter_Failed($event)"
+        [checked]="true"
+      >
+      </app-checkbox-field>
+
+
+      <h3 class="filter-header">Filter by Viewport Size</h3>
+      <app-viewports-selector
+        [viewports]="viewports$ | async"
+        (selectionChanged)="changeViewportsFilter($event)"
+      >
+      </app-viewports-selector>
+
+      <!--
+      <h4 class="filter-subheader">Mobile</h4>
+      <app-viewports-selector
+        [viewports]="['1920 × 1080', '1600 × 900', '1270 × 720', '1024 × 1366', '1024 × 768']"
+        (selectionChanged)="changeViewportsFilter($event)"
+      >
+      </app-viewports-selector>
+      -->
+
+    </div>
+
+  </div>
 
 </app-sidebar-page-layout>

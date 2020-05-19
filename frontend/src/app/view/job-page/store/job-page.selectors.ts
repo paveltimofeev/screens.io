@@ -8,3 +8,31 @@ export const jobTitle = createSelector(
   (state: JobPageState) => state.title
 );
 
+export const cases = createSelector(
+  selectFeature,
+  (state: JobPageState) => state.cases
+);
+
+export const viewports = createSelector(
+  selectFeature,
+  (state: JobPageState) => state.viewports
+);
+
+export const jobDescriptionInfo = createSelector(
+  selectFeature,
+  (state: JobPageState) => ({
+    scenarios: state.scenarios,
+    viewports: state.viewports,
+    startedBy: state.startedBy
+  })
+);
+
+export const sidebarHeaderInfo = createSelector(
+  selectFeature,
+  (state: JobPageState) => ({
+    totalCases: state.totalCases,
+    failedCases: state.failedCases,
+    status: state.status
+  })
+);
+

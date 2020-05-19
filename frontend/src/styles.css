@@ -87,11 +87,17 @@ main {
 
 /* SIDEBAR PAGE LAYOUT */
 
+.app-content .breadcrumb-placeholder {
+  margin-top: 40px;
+}
 .app-content .title-row {
   margin-top: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.app-content .breadcrumb-placeholder ~ .title-row {
+  margin-top: 0;
 }
 .app-content .title-row .page-header {
   margin: 0;
@@ -177,7 +183,8 @@ main {
 }
 
 .sidebar-placeholder {
-  margin-left: 22px;
+  margin-left: 40px;
+  margin-top: 50px;
   margin-right: 50px;
 }
 .xs-filters-placeholder {
@@ -275,6 +282,7 @@ main {
 @media (max-width: 2048px) { .xl2 { width: 12.5%; } }
 @media (max-width: 1600px) { .l3 { width: 25%; } }
 @media (max-width: 1200px) { .m4 { width: 33.333%; } }
+@media (min-width: 1200px) { .m6 { width: 50%; } }
 @media (max-width: 800px)  { .s6 { width: 50%; } }
 @media (max-width: 600px)  { .xs12 { width: 100%; } }
 

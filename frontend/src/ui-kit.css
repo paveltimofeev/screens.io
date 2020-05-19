@@ -268,6 +268,25 @@ button, input {
   padding: 0;
 }
 
+/* BREADCRUMB */
+.breadcrumb-item {
+  color: #5F5F5F;
+  font-weight: 400;
+  font-size: 16px;
+}
+.breadcrumb-item + .breadcrumb-item {
+  margin-left: 10px;
+}
+.breadcrumb-item + .breadcrumb-item:before {
+  content: '›';
+  margin-right: 10px;
+}
+.breadcrumb-item--link {
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+}
+
 /* INPUTS */
 
 .text-field {
@@ -727,6 +746,11 @@ button, input {
   position: relative;
   margin-bottom: 50px;
 }
+@media (max-width:600px) {
+  .card-lg {
+    width: 100%;
+  }
+}
 .card-lg:before {
   position: absolute;
   content: ' ';
@@ -812,6 +836,25 @@ button, input {
 }
 .card-lg .info-panel .right .card-button:hover {
   filter: hue-rotate(-60deg);
+}
+
+
+/* TABLES */
+
+.info-table { font-size: 16px }
+.info-table .label-cell {
+  font-weight: bold;
+  padding-right: 20px;
+}
+.info-table .value-cell { font-weight: 400;}
+.info-table .value-cell span {
+  font-weight: 400;
+  font-size: 14px;
+  color: #838383;
+  background: #F4F4F4;
+  border-radius: 4px;
+  padding: 2px 4px;
+  margin-right: 5px;
 }
 
 
@@ -1179,6 +1222,10 @@ button, input {
   font-size: 24px;
   margin-top: 0;
   font-family: var(--font-header);
+}
+.widget-label--xl .header--semibold {
+  font-weight: 600;
+  font-size: 22px;
 }
 .widget-label .state {
   color: #ffffff;

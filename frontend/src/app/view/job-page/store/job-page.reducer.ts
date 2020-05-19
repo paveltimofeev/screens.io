@@ -5,11 +5,9 @@ export interface AppState {
   jobPage: JobPageState
 }
 export interface JobPageState {
-  title:string
 }
 
 export const initState = {
-  title: 'n/a'
 };
 
 const _reducer = createReducer(initState,

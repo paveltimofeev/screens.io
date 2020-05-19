@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { refresh, cleanupNgrxStorage } from './store/job-page.actions';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { jobTitle } from './store/job-page.selectors';
+import { cases, jobDescriptionInfo, jobTitle, sidebarHeaderInfo, viewports } from './store/job-page.selectors';
 
 @Component({
   selector: 'app-job-page',
@@ -12,7 +12,11 @@ import { jobTitle } from './store/job-page.selectors';
 })
 export class JobPageComponent implements OnInit, OnDestroy {
 
-  title$:Observable<string>;
+  title$: Observable<string>;
+  cases$: Observable<any[]>;
+  viewports$: Observable<string[]>;
+  sidebarHeaderInfo$: Observable<any>;
+  jobDescriptionInfo$: Observable<any>;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,6 +26,10 @@ export class JobPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.title$ = this.store.select( jobTitle );
+    this.cases$ = this.store.select( cases );
+    this.viewports$ = this.store.select( viewports );
+    this.sidebarHeaderInfo$ = this.store.select( sidebarHeaderInfo );
+    this.jobDescriptionInfo$ = this.store.select( jobDescriptionInfo );
 
     this.refreshView( this.route.snapshot.params.id )
   }

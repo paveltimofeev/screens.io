@@ -27,6 +27,7 @@ export let IconMapping:Map<string, string> = new Map(
     ['Reference', 'far fa-image'],
     ['Test', 'fas fa-image'],
     ['Difference', 'far fa-images'],
+    ['Full Height', 'fas fa-arrows-alt-v'],
 
     ['Delete', 'fas fa-trash'],
     ['Favorite', 'fa-heart'],

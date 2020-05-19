@@ -13,5 +13,11 @@ export class SidebarPageLayoutComponent {
   @Input()
   description:string;
 
+@Input()
+  customDescription:boolean;
+
+  @Input()
+  breadcrumb:boolean;
+
   constructor() { }
 }

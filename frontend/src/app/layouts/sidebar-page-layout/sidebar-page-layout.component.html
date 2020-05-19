@@ -1,12 +1,19 @@
 <main>
   <div class="app-content">
 
+    <ng-content *ngIf="breadcrumb" select=".breadcrumb-placeholder"></ng-content>
+
     <div class="title-row">
       <h1 class="page-header">{{ title }}</h1> <ng-content select=".page-actions-placeholder"></ng-content>
     </div>
-    <div class="page-description">
+
+    <div *ngIf="!customDescription" class="page-description">
       {{ description }}
     </div>
+    <div *ngIf="customDescription" class="page-description">
+      <ng-content select=".description-placeholder"></ng-content>
+    </div>
+
 
     <div class="app-filters xs-only">
       <ng-content select=".xs-filters-placeholder"></ng-content>

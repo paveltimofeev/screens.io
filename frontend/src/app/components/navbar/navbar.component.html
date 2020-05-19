@@ -1,6 +1,6 @@
 <nav>
   <div class="app-menu">
-    <a href="/" class="logo">
+    <a [routerLink]="['/overview']" class="logo">
       <img src="/assets/images/logo.svg" alt="">
     </a>
     <ul>
@@ -11,7 +11,7 @@
     </ul>
   </div>
   <div class="app-account except-xs">Maddy Savage <i [routerLink]="['/signin']" class="icon material-icons">copyright</i></div>
-  
+
   <div class="app-hamburger" [ngClass]="{ 'app-hamburger--opened': isMenuOpened }">
     <app-icon icon="Hamburger" (click)="openMenuHandler()"></app-icon>
     <ul>

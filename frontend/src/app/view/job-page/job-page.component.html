@@ -104,7 +104,7 @@
 
     <div class="card-lg">
       <div class="image">
-        <img [attr.src]="c.test" alt="">
+        <img [attr.src]="c.test" [attr.alt]="c.label">
         <div class="tags">
           <span class="tag tag--active">{{ c.viewport }}</span>
         </div>
@@ -180,15 +180,6 @@
         (selectionChanged)="changeViewportsFilter($event)"
       >
       </app-viewports-selector>
-
-      <!--
-      <h4 class="filter-subheader">Mobile</h4>
-      <app-viewports-selector
-        [viewports]="['1920 × 1080', '1600 × 900', '1270 × 720', '1024 × 1366', '1024 × 768']"
-        (selectionChanged)="changeViewportsFilter($event)"
-      >
-      </app-viewports-selector>
-      -->
 
     </div>
 

@@ -31,6 +31,16 @@ export class JobPageEffects {
 
               let tests = report.report.tests;
 
+
+              const getScenarioId = (job:any, scenarioLabel:string) => {
+
+                let scenarios = job.scenarios.filter(s => s.label === scenarioLabel)
+                if (!scenarios || scenarios.length !== 1 || !scenarios[0]) {
+                  return undefined;
+                }
+                return scenarios[0].id
+              }
+
               const getMediaUrls = (path) => {
 
                 if (!path) {
@@ -56,6 +66,7 @@ export class JobPageEffects {
 
                   cases: tests.map( x => ({
 
+                    scenarioId: getScenarioId(job, x.pair.label),
                     label: x.pair.label,
                     status: x.status,
                     error: x.pair.error,

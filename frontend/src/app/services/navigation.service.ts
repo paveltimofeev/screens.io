@@ -8,6 +8,11 @@ export class NavigationService {
 
   constructor(private router: Router) { }
 
+  openComparer(jobId:string, caseIdx:number) {
+
+    this.router.navigate(['job', jobId, 'compare', caseIdx])
+  }
+
   openScenario(scenarioId:string) {
 
     this.router.navigate(['scenario', scenarioId])

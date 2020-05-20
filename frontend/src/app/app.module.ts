@@ -67,6 +67,8 @@ import { OverviewEffects } from './view/overview/store/overview.effects';
 import { overviewReducer } from './view/overview/store/overview.reducer';
 import { jobPageReducer } from './view/job-page/store/job-page.reducer';
 import { JobPageEffects } from './view/job-page/store/job-page.effects';
+import { CardLgComponent } from './ui-kit/card-lg/card-lg.component';
+import { InfoTableComponent } from './ui-kit/info-table/info-table.component';
 
 
 @NgModule({
@@ -113,7 +115,9 @@ import { JobPageEffects } from './view/job-page/store/job-page.effects';
     ScenarioPageComponent,
     JobPageComponent,
     ComparerComponent,
-    SettingsComponent
+    SettingsComponent,
+    CardLgComponent,
+    InfoTableComponent
   ],
   imports: [
     BrowserModule,

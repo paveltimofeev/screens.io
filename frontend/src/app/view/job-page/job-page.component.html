@@ -45,19 +45,19 @@
         [label]="'Reference'"
         [icon]="'Reference'"
         [hideLabelOnXS]="true"
-        (clicked)="refresh()">
+        (clicked)="showReferenceImage()">
       </app-data-action-button>
       <app-data-action-button
         [label]="'Test'"
         [icon]="'Test'"
         [hideLabelOnXS]="true"
-        (clicked)="refresh()">
+        (clicked)="showTestImage()">
       </app-data-action-button>
       <app-data-action-button
         [label]="'Difference'"
         [icon]="'Difference'"
         [hideLabelOnXS]="true"
-        (clicked)="refresh()">
+        (clicked)="showDifferenceImage()">
       </app-data-action-button>
 
       <app-data-action-button
@@ -75,13 +75,13 @@
           [label]="'Full Height'"
           [icon]="'Full Height'"
           [hideLabelOnXS]="true"
-          (clicked)="listView()">
+          (clicked)="fullHeightMode()">
         </app-data-action-button>
 
         <app-data-action-button
           [label]="'Switch on MouseOver'"
           [icon]="'Toggle Off'"
-          (clicked)="showDifference()">
+          (clicked)="switchOnMouseOver()">
         </app-data-action-button>
       </span>
 
@@ -100,32 +100,21 @@
 
   <div class="data-placeholder">
 
-    <div class="app-card m6 xs12" *ngFor="let c of cases$ | async">
+    <div class="app-card m6 xs12" *ngFor="let c of cases$ | async; index as idx">
 
-    <div class="card-lg">
-      <div class="image">
-        <img [attr.src]="c.test" [attr.alt]="c.label">
-        <div class="tags">
-          <span class="tag tag--active">{{ c.viewport }}</span>
-        </div>
-      </div>
-      <div class="info-panel">
-        <div class="left">
-          <div class="header" (click)="openScenario(c.label)">{{ c.label }}</div>
-          <div class="description">
-            <span class="label" [ngClass]="{
-              'label--failed': c.status === 'fail',
-              'label--passed': c.status === 'pass'
-            }">{{ c.status }}</span> {{ c.error }}
-          </div>
-        </div>
-        <div class="right">
-          <button class="card-button">Approve</button>
-        </div>
-      </div>
-    </div>
-
-
+      <app-card-lg
+        [label]="c.label"
+        [imageUrl]="c.test"
+        [hoverImageUrl]="c.difference"
+        [viewports]="[c.viewport]"
+        [status]="c.status"
+        [errorMessage]="c.error"
+        [switchOnMouseOver]="true"
+        (clickCard)="clickCardHandler(idx)"
+        (clickLabel)="clickLabelHandler(c.scenarioId)"
+        (clickApprove)="clickApproveHandler(c.scenarioId)"
+      >
+      </app-card-lg>
 
     </div>
 

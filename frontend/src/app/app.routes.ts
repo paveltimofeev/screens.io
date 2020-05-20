@@ -19,11 +19,11 @@ export const routes = [
   { path: 'scenario/new', component: ScenarioPageComponent, data: { createMode: true } },
   { path: 'scenario/:id', component: ScenarioPageComponent },
   { path: 'jobs', component: JobsComponent },
-  { path: 'job/:id/compare', component: ComparerComponent },
+  { path: 'job/:id/compare/:case', component: ComparerComponent },
   { path: 'job/:id', component: JobPageComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'login', component: LoginComponent },
-  
+
   { path: 'ui-kit-preview', component: UiKitPreviewComponent },
   { path: '', component: OverviewComponent },
   { path: '**', component: OverviewComponent },

@@ -1,0 +1,33 @@
+<div class="card-lg">
+  <div class="image"
+       (click)="clickCard.emit(label)"
+       [ngClass]="{
+        'mouse--over': switchOnMouseOver && hoverImageUrl
+       }">
+
+    <img class="main-image" [attr.src]="imageUrl" [attr.alt]="label">
+    <img class="hover-image" *ngIf="hoverImageUrl" [attr.src]="hoverImageUrl" [attr.alt]="label">
+
+    <div class="tags">
+      <span
+        *ngFor="let v of viewports"
+        class="tag tag--active"
+        (click)="clickViewport.emit(v)"
+      >{{ v }}</span>
+    </div>
+  </div>
+  <div class="info-panel">
+    <div class="left">
+      <div class="header" (click)="clickLabel.emit(label)">{{ label }}</div>
+      <div class="description">
+            <span class="label" [ngClass]="{
+              'label--failed': status === 'fail',
+              'label--passed': status === 'pass'
+            }">{{ status }}</span> {{ errorMessage }}
+      </div>
+    </div>
+    <div class="right">
+      <button class="card-button" (click)="clickApprove.emit(label)">Approve</button>
+    </div>
+  </div>
+</div>

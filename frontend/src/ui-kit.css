@@ -773,6 +773,16 @@ button, input {
   height: 100%;
   cursor: pointer;
 }
+.card-lg .hover-image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: opacity .15s ease-in-out;
+}
+.card-lg .mouse--over .hover-image:hover {
+  opacity: .75;
+}
 .card-lg .tags {
   position: absolute;
   top: 8px;

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiAdapterService } from 'src/app/services/api-adapter.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { refresh, loaded } from './overview.actions';
+import { refresh, loaded, runAllScenarios } from './overview.actions';
 import { mergeMap, map } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 import { DateService } from '../../../services/date.service';
@@ -15,6 +15,17 @@ export class OverviewEffects {
     private api: ApiAdapterService,
     private date: DateService
   ){}
+
+  runAllScenarios$ = createEffect(() => this.actions$.pipe(
+    ofType(runAllScenarios),
+    mergeMap(() => {
+
+      return this.api.run({})
+        .pipe(
+          map( res => ({ type: refresh.type }) )
+        )
+    })
+  ));
 
   refresh$ = createEffect(() => this.actions$.pipe(
     ofType(refresh),

@@ -6,7 +6,9 @@
           <div>
             <ng-content select=".widgets-left-placeholder"></ng-content>
           </div>
-          <div class="action"><button class="button button--dark button--lg">Run All Scenarios</button></div>
+          <div class="action">
+            <button class="button button--dark button--lg" (click)="clickRunAll.emit()">Run All Scenarios</button>
+          </div>
         </div>
         <div class="app-widgets-column except-xs">
           <div class="widgets-grid">

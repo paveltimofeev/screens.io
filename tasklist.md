@@ -77,6 +77,7 @@
 - ability to quickly close new user registration / stop, block or limit user (to protect from overbudget)
 - **------------ MVP MILESTONE ------------**
 
+- Backend: resize images for ui cards (sm, md, lg)
 - Frontend: Check on FF/Opeara/Edge. Egde - shadows, status-label, toggle animation, flex alignment (IE11 - too many bugs, too expensive to support)
 - Lazy Loading for most of images to reduce S3-traffic, pressure on backend and increase UI responsiveness
 - Deplyment scripts (backend, frontend, landing)

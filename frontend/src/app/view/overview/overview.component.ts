@@ -3,7 +3,7 @@ import { IBarItem } from '../../ui-kit/widget-timeline/widget-timeline.component
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { favoriteScenarios, recentJobs, stats } from './store/overview.selectors';
-import { cleanupNgrxStorage, refresh } from './store/overview.actions';
+import { cleanupNgrxStorage, refresh, runAllScenarios } from './store/overview.actions';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { runOneScenario } from '../dashboard/store/dashboard.actions';
 
@@ -49,6 +49,10 @@ export class OverviewComponent implements OnInit, OnDestroy {
     console.log('runScenarioHandler', scenarioLabel)
     // api action 'run one scenario' ?
     this.store.dispatch(runOneScenario({label:scenarioLabel}))
+  }
+
+  runAllScenariosHandler () {
+    this.store.dispatch(runAllScenarios())
   }
 
 

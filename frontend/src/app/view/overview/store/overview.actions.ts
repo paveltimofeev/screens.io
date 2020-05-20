@@ -5,3 +5,4 @@ export const refresh = createAction('[Overview Component] refresh');
 export const loaded = createAction( '[Overview Component] loaded', props<{payload: any}>() );
 export const cleanupNgrxStorage = createAction('[Overview Component] cleanupNgrxStorage');
 
+export const runAllScenarios = createAction('[Overview Component] runAllScenarios');

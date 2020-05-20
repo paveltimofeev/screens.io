@@ -1,3 +1,14 @@
-<p>
-  info-table works!
-</p>
+<table class="info-table">
+
+  <tr *ngFor="let lp of labelsAndProps">
+    <td class="label-cell">{{ lp.label }}</td>
+    <td *ngIf="!lp.chips" class="value-cell">{{ items[ lp.prop ] }}</td>
+    <td *ngIf="lp.chips" class="value-cell">
+        <span *ngFor="let v of items[ lp.prop ]">
+          {{ v }}
+        </span>
+    </td>
+  </tr>
+
+</table>
+

@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-info-table',
-  templateUrl: './info-table.component.html',
-  styleUrls: ['./info-table.component.css']
+  templateUrl: './info-table.component.html'
 })
-export class InfoTableComponent implements OnInit {
+export class InfoTableComponent {
 
-  constructor() { }
+  @Input()
+  items: any;
 
-  ngOnInit() {
-  }
+  @Input()
+  labelsAndProps: {label:string, prop:string, chips:boolean}[];
 
 }

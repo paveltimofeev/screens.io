@@ -10,18 +10,20 @@
   </div>
 
   <div class="description-placeholder">
-    <table class="info-table">
-      <tr><td class="label-cell">Scenarios</td><td class="value-cell"> {{ (jobDescriptionInfo$ | async).scenarios }}</td></tr>
-      <tr><td class="label-cell">Viewports</td><td class="value-cell">
-        <span *ngFor="let v of (jobDescriptionInfo$ | async).viewports">
-          {{ v }}
-        </span>
-      </td></tr>
-      <tr><td class="label-cell">Run by</td>   <td class="value-cell"> {{ (jobDescriptionInfo$ | async).startedBy }}</td></tr>
-    </table>
+
+    <app-info-table
+      [items]="jobDescriptionInfo$ | async"
+      [labelsAndProps]="[
+        { label: 'Scenarios', prop: 'scenarios'},
+        { label: 'Viewports', prop: 'viewports', chips: true },
+        { label: 'Run by', prop: 'startedBy' }
+      ]">
+    </app-info-table>
+
   </div>
 
   <div class="page-actions-placeholder">
+
     <ul class="page-actions">
       <li class="title-actions-item">
         <button class="button button--white" (click)="runFilteredScenariosHandler()">Run All Again</button>
@@ -30,6 +32,7 @@
         <button class="button button--dark" (click)="addScenarioHandler()">Approve All Failed Cases ({{(sidebarHeaderInfo$ | async).failedCases}})</button>
       </li>
     </ul>
+
   </div>
 
   <div class="data-actions-placeholder">

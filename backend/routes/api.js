@@ -33,9 +33,9 @@ router.post('/test/approvecase', async function(req, res) {
     tryWrapper(req, res, async () => {
 
         const result = await VRT.create(req.context).enqueueApproveCase({
-            label: pair.label,
-            reference: pair.reference,
-            test: pair.test
+            reportId: pair.reportId,
+            viewportLabel: pair.viewportLabel,
+            label: pair.label
         })
 
         console.log('[VRT] approvecase result', result);

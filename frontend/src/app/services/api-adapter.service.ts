@@ -42,11 +42,15 @@ export class ApiAdapterService {
       environment.api + 'test/approve/' + jobId);
   }
 
-  approveCase (pair:any): Observable<any> {
+  approveCase (testCase: {
+    reportId: string,
+    label: string,
+    viewportLabel: string
+  }): Observable<any> {
 
     return this.dataAccessService.post(
       environment.api + 'test/approvecase/',
-      pair);
+      testCase);
   }
 
   getReport (runId:any): Observable<any> {

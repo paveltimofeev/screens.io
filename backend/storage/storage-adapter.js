@@ -181,6 +181,9 @@ class Storage {
     }
 
 
+    async getReportById (database, id) {
+        return await this._getById(database, 'Report', reportSchema, id)
+    }
     async getReportByRunId (database, runId) {
 
         let entity = this._createEntity(database, 'Report', reportSchema)

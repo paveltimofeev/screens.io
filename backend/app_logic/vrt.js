@@ -218,15 +218,37 @@ class VRT {
 
         return { enqueuedSuccessfully: true }
     }
-    async enqueueApproveCase (pair) {
+    async enqueueApproveCase (testCase) {
 
-        await approveQueue.push({
-            pair,
-            tenantId: this._tenantId,
-            userId: this._userId
-        })
+        let report = await storage.getReportById(this._userId, testCase.reportId);
 
-        return { enqueuedSuccessfully: true }
+        let pairs = report
+          .tests
+          .filter( t =>
+            t.pair.label === testCase.label &&
+            t.pair.viewportLabel === testCase.viewportLabel
+          )
+          .map( x => ({
+              reference: x.pair.reference,
+              test: x.pair.test
+          }))
+
+        if (pairs && pairs.length === 1) {
+
+            let pair = pairs[0]
+            console.log('>>>>pair', pair)
+
+            await approveQueue.push( {
+                pair,
+                tenantId : this._tenantId,
+                userId : this._userId
+            } )
+
+            return { enqueuedSuccessfully : true }
+        }
+        else {
+            return { enqueuedSuccessfully : false }
+        }
     }
 
     async getReportByRunId (runId) {

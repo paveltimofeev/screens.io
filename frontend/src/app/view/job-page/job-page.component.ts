@@ -70,8 +70,15 @@ export class JobPageComponent implements OnInit, OnDestroy {
   clickLabelHandler (scenarioId: string) {
     this.navigation.openScenario(scenarioId)
   }
-  clickApproveHandler (scenarioId: string) {
-    this.store.dispatch(approve({payload:{scenarioId}}))
+  clickApproveHandler (testCase: any) {
+
+    this.store.dispatch(approve({payload:{
+      testCase: {
+        reportId: testCase.reportId,
+        label: testCase.label,
+        viewportLabel: testCase.viewport
+      }
+      }}))
   }
 
 

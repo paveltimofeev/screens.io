@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiAdapterService } from 'src/app/services/api-adapter.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { refresh, loaded } from './job-page.actions';
+import { refresh, loaded, approve } from './job-page.actions';
 import { mergeMap, map, concatMap, concatMapTo } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 import { DateService } from '../../../services/date.service';
@@ -18,6 +18,15 @@ export class JobPageEffects {
     private date: DateService
   ){}
 
+  approve$ = createEffect(() => this.actions$.pipe(
+    ofType(approve),
+    mergeMap((action) => {
+
+      return this.api.approveCase(action.payload.testCase).pipe(
+        map( res => ({ type: refresh.type }))
+      )
+    })));
+
   refresh$ = createEffect(() => this.actions$.pipe(
     ofType(refresh),
     mergeMap((action) => {
@@ -27,9 +36,9 @@ export class JobPageEffects {
         mergeMap( job => {
 
           return this.api.getReport(job.runId).pipe(
-            map ( report => {
+            map ( res => {
 
-              let tests = report.report.tests;
+              let tests = res.report.tests;
 
 
               const getScenarioId = (job:any, scenarioLabel:string) => {
@@ -64,8 +73,10 @@ export class JobPageEffects {
                   startedBy: job.startedBy,
                   status: job.state,
 
+
                   cases: tests.map( x => ({
 
+                    reportId: res.report._id,
                     scenarioId: getScenarioId(job, x.pair.label),
                     label: x.pair.label,
                     status: x.status,

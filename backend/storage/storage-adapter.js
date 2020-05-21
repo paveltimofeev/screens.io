@@ -154,6 +154,12 @@ class Storage {
 
         return this._update(database, 'Scenario', scenarioSchema, id, data)
     }
+    async updateScenarioByLabel (database, label, data) {
+
+        let entry = await this.getScenarioByLabel(database, label)
+        Object.keys(data).forEach(x => entry[x] = data[x])
+        return await entry.save()
+    }
     async deleteScenario (database, id) {
 
         return await this._deleteById(database, 'Scenario', scenarioSchema, id)

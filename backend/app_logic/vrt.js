@@ -13,6 +13,18 @@ const copyFile = promisify(fs.copyFile)
 const writeFile = promisify(fs.writeFile)
 const mkdir = promisify(fs.mkdir)
 
+function uniqueOnly (value, index, self) {
+    return self.findIndex(x => {
+        return x.label === value.label && x.status === value.status
+    }) === index;
+}
+
+function skipPassedIfHasFailed (value, index, self) {
+    let found = self.findIndex(x => {
+        return x.label === value.label && x.status === 'Failed'
+    })
+    return  found  === index || found === -1;
+}
 
 function uuidv4() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -61,6 +73,24 @@ class VRT {
 
     /// LAMBDA
 
+    async updateScenariosRunStatus (scenarios) {
+
+        await scenarios
+          .filter(uniqueOnly)
+          .filter(skipPassedIfHasFailed)
+          .forEach(async scenario => {
+
+              console.log('[VRT] updateScenariosRunStatus', scenario.label, scenario.status)
+
+              await storage.updateScenarioByLabel(
+                this._userId,
+                scenario.label,
+                { meta_recentRunStatus: scenario.status }
+              )
+
+          })
+    }
+
     async processRun (runId, config) {
 
         const record = await storage.createHistoryRecord(this._userId, {
@@ -97,11 +127,12 @@ class VRT {
                     s.status = test.status;
                 }
                 else {
-                    console.warn('Cannot find rest result for "'+s.label + '" in', report)
+                    console.warn('Cannot find test result for "'+s.label + '" in', report)
                 }
                 return s;
             });
 
+            await this.updateScenariosRunStatus(record.scenarios)
             await storage.updateHistoryRecord(
               this._userId,
               record._id,
@@ -129,7 +160,7 @@ class VRT {
                 return s;
             });
 
-
+            await this.updateScenariosRunStatus(record.scenarios)
             await storage.updateHistoryRecord(
               this._userId,
               record._id,

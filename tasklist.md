@@ -57,6 +57,7 @@
 -- Bind Overview page data
 -- Use user-friendly dates (by moment)
 -- Job page data
+-- Backend: Store recent run result in meta_recentRunStatus of scenario
 
 - Create Dumb Angular Components by UI-Kit
 - RESTYLE UI

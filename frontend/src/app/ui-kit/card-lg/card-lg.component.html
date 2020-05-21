@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="right">
-      <button class="card-button" (click)="clickApprove.emit(label)">Approve</button>
+      <button *ngIf="status === 'fail'" class="card-button" (click)="clickApprove.emit(label)">Approve</button>
     </div>
   </div>
 </div>

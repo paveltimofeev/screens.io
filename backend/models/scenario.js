@@ -22,7 +22,8 @@ const scenarioSchema = new Schema({
     selectorExpansion: Boolean, /// Default false, unused when selectors is empty
     expect: Number, /// Default 0, unused when selectorExpansion=false
 
-    meta_isFavorite: Boolean
+    meta_isFavorite: Boolean,
+    meta_recentRunStatus: String  /// Passed/Failed status of recent run
 });
 
 module.exports = {

@@ -91,7 +91,7 @@
       <app-card-sm
         [itemId]="scenario._id"
         [header]="scenario.label"
-        [isPassed]="true"
+        [status]="scenario.meta_recentRunStatus"
         [viewports]="[]"
         [imageUrl]="'https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/27d32389267827.5df0b971656d7.png'"
         (clickCard)="openScenarioHandler(scenario._id)"

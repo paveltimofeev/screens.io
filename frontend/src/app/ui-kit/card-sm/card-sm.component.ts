@@ -19,6 +19,9 @@ export class CardSmComponent{
   isPassed:boolean;
 
   @Input()
+  status:string;
+
+  @Input()
   viewports:string[];
 
   @Output()

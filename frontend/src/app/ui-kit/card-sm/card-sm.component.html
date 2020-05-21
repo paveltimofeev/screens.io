@@ -5,8 +5,10 @@
   <div class="info-panel">
     <div class="info">
       <div (click)="clickCard.emit(itemId)" class="header">{{ header }}</div>
-      <div *ngIf="isPassed" class="label label--passed">Passed</div>
-      <div *ngIf="!isPassed" class="label label--failed">Failed</div>
+      <div class="label" [ngClass]="{
+        'label--passed': status === 'pass',
+        'label--failed': status === 'fail'
+      }">{{ status }}</div>
       <div class="description">{{ viewports[0] }}
         <span *ngIf="viewports.length > 1" class="more">+{{ viewports.length - 1 }}
           <i class="hidden-more">{{ viewports.slice(1, viewports.length).join(', ') }}</i>

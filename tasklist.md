@@ -61,7 +61,7 @@
 
 - Create Dumb Angular Components by UI-Kit
 - RESTYLE UI
-
+- Frontend: skip 'Approve' results in Recent Runs table at Overview page
 
 - Responsive UI (support 1920/1600/1270/mobile)
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before

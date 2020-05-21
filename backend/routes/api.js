@@ -40,7 +40,7 @@ router.post('/test/approvecase', async function(req, res) {
 
         console.log('[VRT] approvecase result', result);
 
-        if (result.success) {
+        if (result.enqueuedSuccessfully) {
 
             res.status(200)
               .send( { message:'Successfully approved'} )

@@ -4,10 +4,28 @@ const path = require('path');
 const readFile = promisify(fs.readFile)
 const { UIError } = require('./ui-error');
 
+const throwIfInvalidPathPart = (name, pathPart) => {
 
+  if (
+    !pathPart ||
+    typeof(pathPart) !== 'string' ||
+    pathPart.length === 0 ||
+    pathPart === '' ||
+    pathPart >= 0
+  ) {
+    throw new Error( `Invalid path part: "${name}" = "${pathPart}"`)
+  }
+}
+const validateArray = (name, param) => {
+
+  if (!param || param.length === 0) {
+    UIError.throw(`No "${name}" found`, {name, param})
+  }
+}
 
 class EngineAdapter {
 
+    /* UNUSED? */
     async getReport (reportFolder) {
 
         try {
@@ -22,6 +40,9 @@ class EngineAdapter {
 
     convertReportPath (configPaths, runId, report) {
 
+        throwIfInvalidPathPart('html_report', configPaths.html_report)
+        throwIfInvalidPathPart('runId', runId)
+
         report.tests.forEach( t => {
 
             t.pair.reference = '\\' + path.join( configPaths.html_report, runId, t.pair.reference );
@@ -35,24 +56,32 @@ class EngineAdapter {
         return report;
     }
 
+    buildConfigPaths (tenantId, userId) {
+
+        throwIfInvalidPathPart('tenantId', tenantId)
+        throwIfInvalidPathPart('userId', userId)
+
+        return {
+            bitmaps_reference: `vrt_data/${tenantId}/${userId}/bitmaps_reference`,
+            engine_scripts:    `app_logic/engine_scripts`,
+
+            bitmaps_test: `vrt_data/${tenantId}/${userId}/bitmaps_test`,
+            html_report:  `vrt_data/${tenantId}/${userId}/html_report`,
+            ci_report:    `vrt_data/${tenantId}/${userId}/ci_report`,
+            json_report:  `vrt_data/${tenantId}/${userId}/json_report`
+        }
+    }
+
     buildConfig (tenantId, userId, viewports, scenarios, custom) {
 
-        const validateString = (name, param) => {
-
-            if (!param || typeof(param) !== 'string' || param.length === 0) {
-                UIError.throw( `No ${name} found or "${name}" is not correct`, {name, param})
-            }
-        }
-        const validateArray = (name, param) => {
-
-            if (!param || param.length === 0) {
-                UIError.throw(`No "${name}" found`, {name, param})
-            }
+        if (!tenantId || tenantId === '') {
+          throw new Error('buildConfigPaths: no tenantId')
         }
 
+        if (!userId || userId === '') {
+          throw new Error('buildConfigPaths: no userId')
+        }
 
-        validateString('tenantId', tenantId)
-        validateString('userId', userId)
         validateArray('viewports', viewports)
         validateArray('scenarios', scenarios)
 
@@ -102,16 +131,7 @@ class EngineAdapter {
             ...base
         }
 
-        result.paths = {
-
-            bitmaps_reference: `vrt_data/${tenantId}/${userId}/bitmaps_reference`,
-            engine_scripts:    `app_logic/engine_scripts`,
-
-            bitmaps_test: `vrt_data/${tenantId}/${userId}/bitmaps_test`,
-            html_report:  `vrt_data/${tenantId}/${userId}/html_report`,
-            ci_report:    `vrt_data/${tenantId}/${userId}/ci_report`,
-            json_report:  `vrt_data/${tenantId}/${userId}/json_report`
-        };
+        result.paths = this.buildConfigPaths(tenantId, userId);
 
         return result;
     }

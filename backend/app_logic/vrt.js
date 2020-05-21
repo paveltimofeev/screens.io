@@ -139,7 +139,7 @@ class VRT {
         }
     }
 
-    async processApproveCase (pair, cb) {
+    async processApproveCase (pair) {
 
         const reference = path.join(__dirname, '..', pair.reference);
         const test = path.join(__dirname, '..', pair.test);
@@ -147,7 +147,7 @@ class VRT {
         const testFileExits = await exists(test)
 
         if (!testFileExits) {
-            console.error('ERR: Cannot find TEST result', test);
+            console.error('ERR: Cannot find TEST result at', test);
             return {success:false, reason: 'Cannot find TEST result'};
         }
 
@@ -190,9 +190,12 @@ class VRT {
         const viewports = await storage.getViewports(this._userId)
         const scenarios = await storage.getScenarios(this._userId, scenariosFilter )
 
-        return engine.buildConfig(this._tenantId, this._userId,
+        return engine.buildConfig(
+          this._tenantId,
+          this._userId,
           (viewports||[]).map(storage.convertToObject),
-          scenarios);
+          scenarios
+        );
     }
 
 
@@ -222,6 +225,11 @@ class VRT {
 
         let report = await storage.getReportById(this._userId, testCase.reportId);
 
+        console.log('report.runId', report.runId)
+
+        const configPaths = engine.buildConfigPaths(this._tenantId, this._userId)
+        engine.convertReportPath(configPaths, report.runId, report)
+
         let pairs = report
           .tests
           .filter( t =>
@@ -229,6 +237,7 @@ class VRT {
             t.pair.viewportLabel === testCase.viewportLabel
           )
           .map( x => ({
+              label: x.pair.label,
               reference: x.pair.reference,
               test: x.pair.test
           }))

@@ -857,7 +857,7 @@ button, input {
   padding-right: 20px;
 }
 .info-table .value-cell { font-weight: 400;}
-.info-table .value-cell span {
+.info-table .value-cell .chips {
   font-weight: 400;
   font-size: 14px;
   color: #838383;
@@ -865,6 +865,9 @@ button, input {
   border-radius: 4px;
   padding: 2px 4px;
   margin-right: 5px;
+  display: inline-block;
+  margin-bottom: 2px;
+  margin-top: 2px;
 }
 
 

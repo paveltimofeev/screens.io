@@ -1,10 +1,10 @@
 <div class="viewports-selector">
-  <span
+  <div
     *ngFor="let v of _viewports"
     class="viewport-toggle"
     (click)="viewportClickHandler(v)"
     [ngClass]="{
       'viewport-toggle--on': v.checked
     }"
-  >{{ v.label }}</span>
+  >{{ v.label }}</div>
 </div>

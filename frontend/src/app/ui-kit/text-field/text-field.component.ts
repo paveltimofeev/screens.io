@@ -27,6 +27,10 @@ export class TextFieldComponent {
   @Input()
   defaultValue:string;
 
+  @Input()
+  fieldSize: string = '350'; // 150 | 350 | 500 | full
+
+
   @Output()
   iconClick:EventEmitter<string> = new EventEmitter();
 

@@ -40,32 +40,83 @@
 
   <div class="data-placeholder">
 
-    <div id="tab-general" #tabGeneral>
+    <div class="tab-container">
 
-      <app-text-field
-        [label]="'Scenario name'"
-        [value]="scenario.label"
-        (valueChanged)="changeFieldHandler($event, 'label')"
-      ></app-text-field>
+      <ul class="tabs-list except-xs">
+        <li class="tab--active">
+          <div class="tab-title">General</div>
+        </li>
+        <li>
+          <div class="tab-title">Wait Loading</div>
+          <div class="tab-description">optional</div>
+        </li>
+        <li>
+          <div class="tab-title">Page Modification</div>
+          <div class="tab-description">optional</div>
+        </li>
+        <li>
+          <div class="tab-title">Authorization</div>
+          <div class="tab-description">optional</div>
+        </li>
+        <li>
+          <div class="tab-title">Interaction</div>
+          <div class="tab-description">optional</div>
+        </li>
+        <li>
+          <div class="tab-title">Viewports</div>
+          <div class="tab-description">optional</div>
+        </li>
+        <li>
+          <div class="tab-title">Notifications</div>
+          <div class="tab-description">optional</div>
+        </li>
+        <li>
+          <div class="tab-title">Scheduler</div>
+          <div class="tab-description">optional</div>
+        </li>
+        <li>
+          <div class="tab-title">Overview</div>
+          <div class="tab-description">Total</div>
+        </li>
+      </ul>
 
-      <app-text-field
-        [label]="'Url of Testing Page'"
-        [description]="'[required] The url of your app state'"
-        [placeholder]="'https://my.server/home'"
-        [fieldIcon]="'External Link'"
-        (iconClick)="openExternalUrlHandler($event)"
-        [value]="scenario.url"
-        (valueChanged)="changeFieldHandler($event, 'url')"
-      ></app-text-field>
+      <div class="tabs-content">
 
-      <app-text-field
-        [label]="'Mismatch Threshold'"
-        [description]="'Mismatch Threshold is the percentage of different pixels allowed to pass test'"
-        [placeholder]="'0.1'"
-        [value]="scenario.misMatchThreshold"
-        [defaultValue]="'0.1'"
-        (valueChanged)="changeFieldHandler($event, 'misMatchThreshold')"
-      ></app-text-field>
+        <div class="tab-content--hidden_" #tabGeneral>
+
+          <h3 class="tabs-content-title">General</h3>
+
+          <app-text-field
+            [label]="'Scenario name'"
+            [fieldSize]="'500'"
+            [value]="scenario.label"
+            (valueChanged)="changeFieldHandler($event, 'label')"
+          ></app-text-field>
+
+          <app-text-field
+            [label]="'Url of Testing Page'"
+            [description]="'[required] The url of your app state'"
+            [placeholder]="'https://my.server/home'"
+            [fieldSize]="'full'"
+            [fieldIcon]="'External Link'"
+            (iconClick)="openExternalUrlHandler($event)"
+            [value]="scenario.url"
+            (valueChanged)="changeFieldHandler($event, 'url')"
+          ></app-text-field>
+
+          <app-text-field
+            [label]="'Mismatch Threshold'"
+            [description]="'Mismatch Threshold is the percentage of different pixels allowed to pass test'"
+            [placeholder]="'0.1'"
+            [fieldSize]="'350'"
+            [value]="scenario.misMatchThreshold"
+            [defaultValue]="'0.1'"
+            (valueChanged)="changeFieldHandler($event, 'misMatchThreshold')"
+          ></app-text-field>
+
+        </div>
+
+      </div>
 
     </div>
 

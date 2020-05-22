@@ -504,6 +504,64 @@ button, input {
 */
 
 
+/* TABS */
+
+.tab-container {
+  display: flex;
+  margin-top: 16px;
+  width: 100%;
+}
+.tabs-list {
+  width: 300px;
+  padding-right: 50px;
+
+  list-style-type: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0px;
+}
+.tabs-list li {
+  color: #989898;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  cursor: pointer;
+  transition: color .1s ease-in-out;
+}
+.tabs-list li:hover {
+  color: #1F1F1F;
+}
+.tabs-list li + li {
+  border-top: 1px solid #EEEEEE;
+}
+.tabs-list .tab--active {
+  color: #1F1F1F;
+}
+.tabs-content .tabs-content-title {
+  margin-top: 14px;
+}
+.tabs-content .tabs-content-title,
+.tabs-list .tab-title {
+  font-weight: 400;
+  font-size: 24px;
+  font-family: var(--font-header);
+  line-height: 135%;
+}
+.tabs-list .tab-description {
+  font-size: 14px;
+  color: #B1B1B1;
+  font-weight: 400;
+}
+.tabs-content {
+  flex: 1;
+}
+.tabs-content .tab-content--hidden {
+  opacity: 0;
+  display: none;
+}
+
+
 /* CARDS */
 
 .card-sm {
@@ -807,8 +865,11 @@ button, input {
   justify-content: space-between;
   align-items: center;
   padding: 10px 16px;
-
+  overflow: hidden;
   background: #F8F8F8;
+}
+.card-lg .info-panel .left {
+  max-width: 82%;
 }
 .card-lg .info-panel .left .header {
   font-size: 18px;
@@ -821,6 +882,7 @@ button, input {
   color: #1F1F1F;
   font-size: 14px;
   font-weight: 400;
+  line-break: anywhere;
 }
 .card-lg .info-panel .left .label {
   font-size: 14px;

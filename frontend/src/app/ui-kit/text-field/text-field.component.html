@@ -1,4 +1,9 @@
-<div class="text-field text-field--350">
+<div class="text-field" [ngClass]="{
+  'text-field--150': fieldSize === '150',
+  'text-field--350': fieldSize === '350',
+  'text-field--500': fieldSize === '500',
+  'text-field--full': fieldSize === 'full'
+}">
   <label>{{ label }}
     <app-icon *ngIf="tooltip" icon="Help"></app-icon>
     <!--<i *ngIf="!tooltip" [attr.tooltip]="tooltip" class="far fa-question-circle"></i>-->

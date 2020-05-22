@@ -7,13 +7,14 @@ import {
   runScenario,
   loadedScenarioHistory,
   deleteScenario,
-  cloneScenario
+  cloneScenario, saveScenario
 } from './scenario-page.actions';
 import { mergeMap, map, concatMap, concatMapTo, take, tap } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 import { DateService } from '../../../services/date.service';
 import { environment } from '../../../../environments/environment';
 import { NavigationService } from '../../../services/navigation.service';
+import { updateScenario } from '../../configuration/store/configuration.actions';
 
 
 @Injectable()
@@ -68,7 +69,6 @@ export class ScenarioPageEffects {
         .pipe(take(1))
         .subscribe(res => {
 
-          console.log(res);
           this.navigate.openScenarios();
         })
 
@@ -93,4 +93,15 @@ export class ScenarioPageEffects {
     { dispatch: false }
   );
 
+  saveScenario$ = createEffect(() => this.actions$.pipe(
+    ofType(saveScenario),
+    mergeMap((action:any) => {
+
+      return this.api.updateScenario(action.payload.scenario).pipe(
+        map( res => {
+          return { type: refresh.type, payload: { id: res.data._id} }
+        })
+      );
+    })
+  ));
 }

@@ -38,6 +38,39 @@
     </div>
   </div>
 
+  <div class="data-placeholder">
+
+    <div id="tab-general" #tabGeneral>
+
+      <app-text-field
+        [label]="'Scenario name'"
+        [value]="scenario.label"
+        (valueChanged)="changeFieldHandler($event, 'label')"
+      ></app-text-field>
+
+      <app-text-field
+        [label]="'Url of Testing Page'"
+        [description]="'[required] The url of your app state'"
+        [placeholder]="'https://my.server/home'"
+        [fieldIcon]="'External Link'"
+        (iconClick)="openExternalUrlHandler($event)"
+        [value]="scenario.url"
+        (valueChanged)="changeFieldHandler($event, 'url')"
+      ></app-text-field>
+
+      <app-text-field
+        [label]="'Mismatch Threshold'"
+        [description]="'Mismatch Threshold is the percentage of different pixels allowed to pass test'"
+        [placeholder]="'0.1'"
+        [value]="scenario.misMatchThreshold"
+        [defaultValue]="'0.1'"
+        (valueChanged)="changeFieldHandler($event, 'misMatchThreshold')"
+      ></app-text-field>
+
+    </div>
+
+  </div>
+
   <div class="sidebar-placeholder">
 
     <div class="sidebar-header">

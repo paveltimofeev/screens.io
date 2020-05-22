@@ -24,6 +24,7 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
   id: string;
   title$: Observable<string>;
   scenario$: Observable<any>;
+  scenario: any;
   scenarioHistory$: Observable<IScenarioHistory[]>;
 
   constructor(
@@ -36,6 +37,7 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
 
     this.title$ = this.store.select( title );
     this.scenario$ = this.store.select( scenario );
+    this.scenario$.subscribe(scenario => this.scenario = scenario);
     this.scenarioHistory$ = this.store.select( scenarioHistory );
 
     this.route.params.subscribe(params => {
@@ -65,9 +67,20 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
       this.store.dispatch( runScenario( {payload:{label:label}}) );
     })
   }
+  changeFieldHandler ($event, field) {
+
+    let change = {};
+    change[field] = $event;
+
+    this.scenario = {
+      ...this.scenario,
+      ...change
+    };
+  }
   saveHandler () {
+
     this.store.dispatch( saveScenario( {payload:{
-      scenario:{}
+      scenario: this.scenario
     }}) );
   }
 
@@ -76,6 +89,9 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
 
   }
 
+  openExternalUrlHandler ($event: string) {
+    this.navigation.openExternalUrl($event)
+  }
 
   /* SIDEBAR ACTIONS */
   refreshHistoryHandler () {

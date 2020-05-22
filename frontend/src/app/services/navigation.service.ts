@@ -32,4 +32,14 @@ export class NavigationService {
 
     this.router.navigate(['job', jobId, 'compare', caseIdx])
   }
+
+
+  /// OTHER
+
+  openExternalUrl(url:string) {
+
+    var otherWindow = window.open() as any;
+    otherWindow.opener = null;
+    otherWindow.location = url;
+  }
 }

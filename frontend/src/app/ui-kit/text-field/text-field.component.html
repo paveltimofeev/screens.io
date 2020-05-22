@@ -17,15 +17,28 @@
            (ngModelChange)="ngModelChangeHandler($event, val)"
            #val>
 
-    <app-icon *ngIf="fieldIcon" icon="External Link" customClass="input-box-icon"></app-icon>
+    <app-icon
+      *ngIf="fieldIcon"
+      [icon]="fieldIcon"
+      customClass="input-box-icon"
+      (click)="iconClick.emit(value)"
+    >
+    </app-icon>
 
-    <!-- Button
-    <button class="input-box-button">Reset</button>
-    -->
+    <!-- Reset Button -->
+    <button
+      *ngIf="defaultValue"
+      class="input-box-button"
+      (click)="resetValueHandler()"
+    >Reset</button>
 
-    <!-- Clear icon
-    <app-icon icon="Close" customClass="input-box-icon"></app-icon>
-    -->
+    <!-- Clear icon -->
+    <app-icon
+      *ngIf="value != '' && !defaultValue && !fieldIcon"
+      (click)="value = ''"
+      icon="Close"
+      customClass="input-box-icon">
+    </app-icon>
 
   </div>
 </div>

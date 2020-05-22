@@ -24,10 +24,21 @@ export class TextFieldComponent {
   @Input()
   value:string;
 
+  @Input()
+  defaultValue:string;
+
+  @Output()
+  iconClick:EventEmitter<string> = new EventEmitter();
+
   @Output()
   valueChanged:EventEmitter<string> = new EventEmitter();
 
   ngModelChangeHandler(e) {
     this.valueChanged.emit(e)
+  }
+
+  resetValueHandler () {
+    this.value = this.defaultValue;
+    this.ngModelChangeHandler(this.value);
   }
 }

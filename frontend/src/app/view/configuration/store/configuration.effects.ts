@@ -60,25 +60,6 @@ export class ConfigurationEffects {
     })
   ));
 
-  cloneScenario$ = createEffect(() => this.actions$.pipe(
-    ofType(cloneCurrentScenario),
-    concatMap(action => {
-      return of(action).pipe(
-        withLatestFrom(this.store.pipe(select(selectCurrentScenario)))
-      );
-    }),
-    mergeMap(([action, scenario]) => {
-
-      console.log('cloneScenario$', action)
-
-      return this.api.cloneScenario(scenario).pipe(
-        map( res => {
-          return { type: refresh.type }
-        })
-      );
-    })
-  ));
-
   switchScenarioFavorite$ = createEffect(() => this.actions$.pipe(
     ofType(favoriteScenario),
     mergeMap(action => {

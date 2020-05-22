@@ -179,18 +179,15 @@ export class ApiAdapterService {
       scenario)
   }
 
-  cloneScenario(scenario:any): Observable<any> {
+  cloneScenario(scenarioId:string, newScenarioLabel:string): Observable<any> {
 
-    if (!scenario)
-      throw new Error('Wrong scenario: empty data')
-
-    if (!scenario._id)
-      throw new Error('Wrong scenario: No _id')
+    if (!scenarioId)
+      throw new Error('No scenarioId')
 
     return this.dataAccessService.post(
-      environment.api + 'test/scenario/' + scenario._id + '/clone',
+      environment.api + 'test/scenario/' + scenarioId + '/clone',
       {
-        label: scenario.label + ' ' + (new Date()).toLocaleString()
+        label: newScenarioLabel
       })
   }
 

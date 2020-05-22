@@ -69,6 +69,8 @@ import { jobPageReducer } from './view/job-page/store/job-page.reducer';
 import { JobPageEffects } from './view/job-page/store/job-page.effects';
 import { CardLgComponent } from './ui-kit/card-lg/card-lg.component';
 import { InfoTableComponent } from './ui-kit/info-table/info-table.component';
+import { scenarioPageReducer } from './view/scenario-page/store/scenario-page.reducer';
+import { ScenarioPageEffects } from './view/scenario-page/store/scenario-page.effects';
 
 
 @NgModule({
@@ -129,7 +131,8 @@ import { InfoTableComponent } from './ui-kit/info-table/info-table.component';
       dashboard: dashboardReducer,
       configurationView: configurationReducer,
       historyTable: historyTableReducer,
-      jobPage: jobPageReducer
+      jobPage: jobPageReducer,
+      scenarioPage: scenarioPageReducer
     }),
     // StoreDevtoolsModule should be imported after StoreModule
     StoreDevtoolsModule.instrument({
@@ -141,7 +144,8 @@ import { InfoTableComponent } from './ui-kit/info-table/info-table.component';
       DashboardEffects,
       ConfigurationEffects,
       HistoryTableEffects,
-      JobPageEffects
+      JobPageEffects,
+      ScenarioPageEffects
     ]),
     RouterModule.forRoot(routes),
     AgGridModule.withComponents([])

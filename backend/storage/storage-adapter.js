@@ -144,6 +144,8 @@ class Storage {
 
         let newScenario = this.convertToObject(scenario)
         delete newScenario._id
+        delete newScenario.meta_isFavorite
+        delete newScenario.meta_recentRunStatus
 
         return await this._create(database, 'Scenario', scenarioSchema, {
             ...newScenario,

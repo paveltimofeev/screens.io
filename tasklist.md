@@ -58,10 +58,12 @@
 -- Use user-friendly dates (by moment)
 -- Job page data
 -- Backend: Store recent run result in meta_recentRunStatus of scenario
+-- Frontend: RESTYLE UI - Scenario edit view - basic functionality
 
 - Create Dumb Angular Components by UI-Kit
 - RESTYLE UI
-- Frontend: RESTYLE UI - Scenario edit view & Tab component
+- Frontend: RESTYLE UI - Scenario edit view - Tab component
+- Frontend: RESTYLE UI - Scenario edit view (New Scenario Mode)
 - Frontend: skip 'Approve' results in Recent Runs table at Overview page
 
 - Frontend: RESTYLE UI - Comparer view
@@ -81,6 +83,7 @@
 - Auth proxy should not store passwords in plain text
 - **------------ MVP MILESTONE ------------**
 
+- Run Scenario(s) by Id, not by label, because different project should be able to have the same label sometimes.
 - Feature Requests button or link to feedback form / poll
 - Backend: resize images for ui cards (sm, md, lg)
 - Frontend: Check on FF/Opeara/Edge. Egde - shadows, status-label, toggle animation, flex alignment (IE11 - too many bugs, too expensive to support)

@@ -2,10 +2,8 @@ import { Injectable } from '@angular/core';
 import { ApiAdapterService } from 'src/app/services/api-adapter.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { refresh, loaded, approve } from './job-page.actions';
-import { mergeMap, map, concatMap, concatMapTo } from 'rxjs/operators';
-import { forkJoin } from 'rxjs';
+import { mergeMap, map } from 'rxjs/operators';
 import { DateService } from '../../../services/date.service';
-import { jobTitle } from './job-page.selectors';
 import { environment } from '../../../../environments/environment';
 
 

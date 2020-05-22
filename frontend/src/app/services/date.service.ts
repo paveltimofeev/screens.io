@@ -6,11 +6,15 @@ import * as moment from 'moment'
 })
 export class DateService {
 
-  fromNow (date:string) {
+  fromNow (date:string): string {
     return moment(date).fromNow();
   }
 
-  calendar (date:string) {
+  calendar (date:string): string {
     return moment(date).calendar()
+  }
+
+  short (date:any): string {
+    return moment(date).format('DD/MM/YY_hh:mm')
   }
 }

@@ -8,22 +8,28 @@ export class NavigationService {
 
   constructor(private router: Router) { }
 
-  openComparer(jobId:string, caseIdx:number) {
 
-    this.router.navigate(['job', jobId, 'compare', caseIdx])
+  /// SCENARIO
+  openScenarios() {
+    this.router.navigate(['scenarios'])
   }
-
+  openNewScenario() {
+    this.router.navigate(['scenario', 'new'])
+  }
   openScenario(scenarioId:string) {
 
     this.router.navigate(['scenario', scenarioId])
   }
 
+
+  /// JOB
+
   openScenarioHistory(scenarioId:string) {
 
     this.router.navigate(['job', scenarioId])
   }
+  openComparer(jobId:string, caseIdx:number) {
 
-  openNewScenario() {
-    this.router.navigate(['scenario', 'new'])
+    this.router.navigate(['job', jobId, 'compare', caseIdx])
   }
 }

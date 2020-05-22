@@ -1,4 +1,50 @@
 <app-sidebar-page-layout
-  [title]="'Scenario: Label ' + id"
-  [description]="''">
+  [title]="'Edit: ' + (title$ | async)"
+  [description]="'Each scenario will test one page, component or action against one or many viewport sizes'"
+  [breadcrumb]="true"
+>
+
+  <div class="breadcrumb-placeholder">
+    <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/scenarios']">Scenarios</span>
+    <span class="breadcrumb-item">{{ title$ | async }}</span>
+  </div>
+
+
+  <div class="page-actions-placeholder">
+
+    <ul class="page-actions">
+      <li class="title-actions-item">
+        <button class="button button--white" (click)="cloneHandler()">Clone</button>
+      </li>
+      <li class="title-actions-item">
+        <button class="button button--white" (click)="deleteHandler()">Delete</button>
+      </li>
+      <li class="title-actions-item">
+        <button class="button button--white" (click)="runHandler()">Run Scenario</button>
+      </li>
+      <li class="title-actions-item">
+        <button class="button button--dark" (click)="saveHandler()">Save</button>
+      </li>
+    </ul>
+
+  </div>
+
+  <div class="data-actions-placeholder">
+    <div>
+      <app-data-search-button
+        [label]="'Search options'"
+        (changed)="searchHandler($event)">
+      </app-data-search-button>
+    </div>
+  </div>
+
+  <div class="sidebar-placeholder">
+
+    <div class="sidebar-header">
+      <h3>History of Scenario Runs</h3>
+    </div>
+
+  </div>
+
+
 </app-sidebar-page-layout>

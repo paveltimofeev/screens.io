@@ -26,6 +26,7 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
   scenario$: Observable<any>;
   scenario: any;
   scenarioHistory$: Observable<IScenarioHistory[]>;
+  currentTab:string = 'General'
 
   constructor(
     private route: ActivatedRoute,
@@ -51,6 +52,7 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
   ngOnDestroy () {
     this.store.dispatch(cleanupNgrxStorage())
   }
+
 
   /* PAGE ACTIONS */
   cloneHandler () {
@@ -84,13 +86,16 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
     }}) );
   }
 
+
   /* DATA ACTIONS */
   searchHandler ($event: string) {
 
   }
-
   openExternalUrlHandler ($event: string) {
     this.navigation.openExternalUrl($event)
+  }
+  tabSwitchHandler (tab:string) {
+    this.currentTab = tab;
   }
 
   /* SIDEBAR ACTIONS */

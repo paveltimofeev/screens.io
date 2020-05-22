@@ -527,6 +527,10 @@ button, input {
   padding-top: 14px;
   padding-bottom: 14px;
   cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   transition: color .1s ease-in-out;
 }
 .tabs-list li:hover {

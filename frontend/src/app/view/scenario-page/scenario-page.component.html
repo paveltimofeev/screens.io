@@ -43,38 +43,38 @@
     <div class="tab-container">
 
       <ul class="tabs-list except-xs">
-        <li class="tab--active">
+        <li (click)="tabSwitchHandler('General')" [ngClass]="{ 'tab--active': currentTab === 'General'}">
           <div class="tab-title">General</div>
         </li>
-        <li>
+        <li (click)="tabSwitchHandler('Wait Loading')" [ngClass]="{ 'tab--active': currentTab === 'Wait Loading'}">
           <div class="tab-title">Wait Loading</div>
           <div class="tab-description">optional</div>
         </li>
-        <li>
+        <li (click)="tabSwitchHandler('Page Modification')" [ngClass]="{ 'tab--active': currentTab === 'Page Modification'}">
           <div class="tab-title">Page Modification</div>
           <div class="tab-description">optional</div>
         </li>
-        <li>
+        <li (click)="tabSwitchHandler('Authorization')" [ngClass]="{ 'tab--active': currentTab === 'Authorization'}">
           <div class="tab-title">Authorization</div>
           <div class="tab-description">optional</div>
         </li>
-        <li>
+        <li (click)="tabSwitchHandler('Interaction')" [ngClass]="{ 'tab--active': currentTab === 'Interaction'}">
           <div class="tab-title">Interaction</div>
           <div class="tab-description">optional</div>
         </li>
-        <li>
+        <li (click)="tabSwitchHandler('Viewports')" [ngClass]="{ 'tab--active': currentTab === 'Viewports'}">
           <div class="tab-title">Viewports</div>
           <div class="tab-description">optional</div>
         </li>
-        <li>
+        <li (click)="tabSwitchHandler('Notifications')" [ngClass]="{ 'tab--active': currentTab === 'Notifications'}">
           <div class="tab-title">Notifications</div>
           <div class="tab-description">optional</div>
         </li>
-        <li>
+        <li (click)="tabSwitchHandler('Scheduler')" [ngClass]="{ 'tab--active': currentTab === 'Scheduler'}">
           <div class="tab-title">Scheduler</div>
           <div class="tab-description">optional</div>
         </li>
-        <li>
+        <li (click)="tabSwitchHandler('Overview')" [ngClass]="{ 'tab--active': currentTab === 'Overview'}">
           <div class="tab-title">Overview</div>
           <div class="tab-description">Total</div>
         </li>
@@ -82,8 +82,7 @@
 
       <div class="tabs-content">
 
-        <div class="tab-content--hidden_" #tabGeneral>
-
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'General'}">
           <h3 class="tabs-content-title">General</h3>
 
           <app-text-field
@@ -113,10 +112,41 @@
             [defaultValue]="'0.1'"
             (valueChanged)="changeFieldHandler($event, 'misMatchThreshold')"
           ></app-text-field>
-
         </div>
 
-      </div>
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Wait Loading'}">
+          <h3 class="tabs-content-title">Wait Loading</h3>
+        </div>
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Page Modification'}">
+          <h3 class="tabs-content-title">Page Modification</h3>
+        </div>
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Authorization'}">
+          <h3 class="tabs-content-title">Authorization</h3>
+        </div>
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Interaction'}">
+          <h3 class="tabs-content-title">Interaction</h3>
+        </div>
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Viewports'}">
+          <h3 class="tabs-content-title">Viewports</h3>
+        </div>
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Notifications'}">
+          <h3 class="tabs-content-title">Notifications</h3>
+        </div>
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Scheduler'}">
+          <h3 class="tabs-content-title">Scheduler</h3>
+        </div>
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Overview'}">
+          <h3 class="tabs-content-title">Overview</h3>
+        </div>
+
+        </div>
 
     </div>
 

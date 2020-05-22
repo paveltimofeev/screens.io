@@ -116,6 +116,34 @@
 
         <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Wait Loading'}">
           <h3 class="tabs-content-title">Wait Loading</h3>
+
+          <app-text-field
+            [label]="'Ready Selector'"
+            [description]="'Wait until this selector exists before continuing'"
+            [fieldSize]="'full'"
+            [placeholder]="'.class | #id | tag'"
+            [value]="scenario.readySelector"
+            (valueChanged)="changeFieldHandler($event, 'readySelector')"
+          ></app-text-field>
+
+
+          <app-text-field
+            [label]="'Ready Event'"
+            [description]="'Wait until this string has been logged to the console'"
+            [fieldSize]="'350'"
+            [value]="scenario.readyEvent"
+            (valueChanged)="changeFieldHandler($event, 'readyEvent')"
+          ></app-text-field>
+
+          <app-text-field
+            [label]="'Delay (milliseconds)'"
+            [description]="'Wait for x milliseconds'"
+            [fieldSize]="'350'"
+            [placeholder]="'0ms'"
+            [value]="scenario.delay"
+            (valueChanged)="changeFieldHandler($event, 'delay')"
+          ></app-text-field>
+
         </div>
 
         <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Page Modification'}">

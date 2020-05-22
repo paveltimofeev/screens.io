@@ -61,33 +61,34 @@
 
 - Create Dumb Angular Components by UI-Kit
 - RESTYLE UI
-- Frontend: RESTYLE UI - Scenario edit view
+- Frontend: RESTYLE UI - Scenario edit view & Tab component
 - Frontend: skip 'Approve' results in Recent Runs table at Overview page
 
 - Frontend: RESTYLE UI - Comparer view
 - Frontend: RESTYLE UI - Settings view
 - Frontend: RESTYLE UI - Responsive UI (support 1920/1600/1270/mobile)
-- Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
-- Do not use Login as userId, because it uses in path building and could allow user chang directories, use user UID instead
 - Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
-- Auth proxy should not store passwords in plain text
-- LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
 - [Move to AWS: 1] STORE IMAGES AT AWS S3 WITH RETENTION TIME
 - [Move to AWS: 2] Run MongoDb on AWS VM
 - [Move to AWS: 3] Run backend on AWS VM
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name
+- LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
 - Define Metrics to collect (feature requests & feedback button)
 - ability to quickly close new user registration / stop, block or limit user (to protect from overbudget)
+- Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
+- Do not use Login as userId, because it uses in path building and could allow user chang directories, use user UID instead
+- Auth proxy should not store passwords in plain text
 - **------------ MVP MILESTONE ------------**
 
+- Feature Requests button or link to feedback form / poll
 - Backend: resize images for ui cards (sm, md, lg)
 - Frontend: Check on FF/Opeara/Edge. Egde - shadows, status-label, toggle animation, flex alignment (IE11 - too many bugs, too expensive to support)
 - Lazy Loading for most of images to reduce S3-traffic, pressure on backend and increase UI responsiveness
-- Deplyment scripts (backend, frontend, landing)
+- Deployment scripts (backend, frontend, landing)
 - Marketing efforts (Internet marketing, SEO, Social presence, Blogging, Video Tutorials)
-- Complete auto security checks & validation
-- Run scenarios with overridden hostname (stage)
+- Complete auto security checks & validation (by Lighthouse ans other services)
+- [Feature] Run scenarios with overridden hostname (stage)
 - Frontend: Splitter for comparer view
 - Frontend: Read proof
 - Frontend: Think out onboarding process, layout and empty state views.
@@ -101,42 +102,43 @@
 - support groupby=scenario for jobs history
 - Think out different UseScenarios for different Persons: The Developer, The TeamLead, The Indie (Who's he / What problems does he has / How does he expect to use me)
 - Cookies callback/field, or before run script
-- Bulk add scenarios (urls)
+- [Feature] Bulk add scenarios (urls)
+- [Feature] Import scenarios from customer's backstopjs-config files (as well as from other framework/competitor configurations)
 - Disable Animation option for scenario
-- Support work with sites protected with BasicAuth or ftp (user:pass)
+- [Feature] Support work with sites protected with BasicAuth or ftp (user:pass)
 - Retry Policy for backend-db, backend-queue
 - AuthGuard to redirect unauthorized users to login page ASAP
 - Remove all References and test Files on removing Scenarios or Viewports
 - Remove test result Files and Report after remove history record
 - Auth proxy - change password
 - Sanitize body and params in Auth proxy & Backend
-- Frontend: Angular MultiLanguage support (i18n, l8n)
+- [Feature] Frontend: Angular MultiLanguage support (i18n, l8n)
 - Show Difference value, to get user knowledge for tuning test sensitivity 
-- API+APIKEY for running-with-parameters by posted config from body (Usecase: developer stores backstopjs-tests near the component, and post them to API to test against his host/params)
-- API+APIKEY for comparing any posted screenshot against stored in DB (Usecase: dev team has environment for taking screenshots and uses API to validate them against approved, team also uses WenUI to approve cases, to monitor stability, and team uses notifications at Slack/Telegram)
-- Unapprove: Review and turn back any previously approved results.
-- Locate tiny changes, and mark them more noticeably. Add "Scroll to next diff" button.
+- [Feature] API+APIKEY for running-with-parameters by posted config from body (Usecase: developer stores backstopjs-tests near the component, and post them to API to test against his host/params)
+- [Feature] API+APIKEY for comparing any posted screenshot against stored in DB (Usecase: dev team has environment for taking screenshots and uses API to validate them against approved, team also uses WenUI to approve cases, to monitor stability, and team uses notifications at Slack/Telegram)
+- [Feature] Unapprove: Review and turn back any previously approved results.
+- [Feature] Locate tiny changes, and mark them more noticeably. Add "Scroll to next diff" button.
 - Think out understanding of costs (weight of s3/lambdas/queues/vm in total cost of user) to work out correct pricing strategy
 - Add ScenarioHistory collection [scenarioRef/Name, date, status, historyRecordRef, successRate(calc) ]
 - Display retry button for not-ready yet history record (screens)
 - Confirmation dialog for delete ops
 - Displaying Errors on load and save
-- Other browsers: FF/IE?
+- [Feature] Other browsers: FF/IE?
 
 
 - DOCKERIZE AUTH-PROXY & BACKEND AND RUN THEM IN AWS
 - AWS LAMBDA
 - AWS SQS
 - CLOUD MONGODB
-- TELEGRAM BOT
-- SLACK BOT
-- SCHEDULER FOR RUNS
+- [Feature] TELEGRAM BOT
+- [Feature] SLACK BOT
+- [Feature] SCHEDULER FOR RUNS
 - PAYMENT & TRIAL-ACCOUNTS
 - COMPARE WITH COMPETITORS: diffy.website, screenster.io, percy.io
     - ON DEMAND AGENT (MANAGED BY SERVER) TO MAKE SCREENSHOTS (WITHOUT AUTH/OF LOCALHOST) AND SEND THEM TO THE BACKEND
-    - GITHUB/CIRCLECI INTEGRATION like DIFFY, AutoSearch links to other pages
+    - [Feature] GITHUB/CIRCLECI INTEGRATION like DIFFY, AutoSearch links to other pages
 - Tenant support (Tenant > Users + Scenarios + Results + Jobs)
-- Project support (Tenant > Projects > Users + Scenarios + Results + Jobs). One project is a buch of scenarios.
+- [Feature] Project support (Tenant > Projects > Users + Scenarios + Results + Jobs). One project is a buch of scenarios.
 - (?) Refactoring Mode: Make change > Test > Approve Differences to Stage if no side-effects > Repeat > Ehe all done, Approve to Master
 
 

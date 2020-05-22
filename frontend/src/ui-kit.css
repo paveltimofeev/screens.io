@@ -310,6 +310,13 @@ button, input {
 .text-field--full {
   width: 100%;
 }
+@media (max-width: 600px) {
+  .text-field--150,
+  .text-field--350,
+  .text-field--500 {
+    width: 100%;
+  }
+}
 .text-field label {
   font-weight: 500;
   font-size: 16px;
@@ -559,6 +566,12 @@ button, input {
 }
 .tabs-content {
   flex: 1;
+  _position: relative;
+}
+.tabs-content > div {
+  _opacity: 1;
+  _transition: opacity .2s ease-in-out;
+  _position: absolute;
 }
 .tabs-content .tab-content--hidden {
   opacity: 0;

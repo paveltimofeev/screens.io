@@ -46,6 +46,14 @@
         <li (click)="tabSwitchHandler('General')" [ngClass]="{ 'tab--active': currentTab === 'General'}">
           <div class="tab-title">General</div>
         </li>
+        <li (click)="tabSwitchHandler('Elements Selectors')" [ngClass]="{ 'tab--active': currentTab === 'Elements Selectors'}">
+          <div class="tab-title">Elements Selectors</div>
+          <div class="tab-description">optional</div>
+        </li>
+        <li (click)="tabSwitchHandler('Viewports')" [ngClass]="{ 'tab--active': currentTab === 'Viewports'}">
+          <div class="tab-title">Viewports</div>
+          <div class="tab-description">optional</div>
+        </li>
         <li (click)="tabSwitchHandler('Wait Loading')" [ngClass]="{ 'tab--active': currentTab === 'Wait Loading'}">
           <div class="tab-title">Wait Loading</div>
           <div class="tab-description">optional</div>
@@ -54,16 +62,13 @@
           <div class="tab-title">Page Modification</div>
           <div class="tab-description">optional</div>
         </li>
-        <li (click)="tabSwitchHandler('Authorization')" [ngClass]="{ 'tab--active': currentTab === 'Authorization'}">
-          <div class="tab-title">Authorization</div>
-          <div class="tab-description">optional</div>
-        </li>
         <li (click)="tabSwitchHandler('Interaction')" [ngClass]="{ 'tab--active': currentTab === 'Interaction'}">
           <div class="tab-title">Interaction</div>
           <div class="tab-description">optional</div>
         </li>
-        <li (click)="tabSwitchHandler('Viewports')" [ngClass]="{ 'tab--active': currentTab === 'Viewports'}">
-          <div class="tab-title">Viewports</div>
+        <!--
+        <li (click)="tabSwitchHandler('Authorization')" [ngClass]="{ 'tab--active': currentTab === 'Authorization'}">
+          <div class="tab-title">Authorization</div>
           <div class="tab-description">optional</div>
         </li>
         <li (click)="tabSwitchHandler('Notifications')" [ngClass]="{ 'tab--active': currentTab === 'Notifications'}">
@@ -74,6 +79,7 @@
           <div class="tab-title">Scheduler</div>
           <div class="tab-description">optional</div>
         </li>
+        -->
         <li (click)="tabSwitchHandler('Overview')" [ngClass]="{ 'tab--active': currentTab === 'Overview'}">
           <div class="tab-title">Overview</div>
           <div class="tab-description">Total</div>
@@ -114,6 +120,46 @@
           ></app-text-field>
         </div>
 
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Elements Selectors'}">
+          <h3 class="tabs-content-title">Elements Selectors</h3>
+
+          <app-text-field
+            [label]="'DOM Element Selectors (comma separated array)'"
+            [description]="'Array of selectors to capture. By default takes a screenshot of the first occurrence of any selector found in your DOM. e.g. If you have three li tags in your layout only the first will used.'"
+            [fieldSize]="'full'"
+            [placeholder]="'.class, #id, tag'"
+            [value]="scenario.selectors"
+            (valueChanged)="changeFieldHandler($event, 'selectors')"
+          ></app-text-field>
+
+          <app-text-field
+            [label]="'Expect Elements'"
+            [description]="'The number of results that you expect to find by the selectors. Test will fail for the scenario if the number of selected result does not match the expect number'"
+            [fieldSize]="'500'"
+            [placeholder]="'0 - means disabled'"
+            [defaultValue]="' '"
+            [value]="scenario.expect"
+            (valueChanged)="changeFieldHandler($event, 'expect')"
+          ></app-text-field>
+
+          <div class="text-field text-field--500">
+            <label>Check all matching selectors</label>
+            <p class="description">If you want to find and take screenshots of all matching selector instances then there is a handy switch for that.</p>
+
+            <app-checkbox-field
+              [label]="scenario.selectorExpansion ? 'Enabled' : 'Disabled'"
+              (changed)="changeFieldHandler($event, 'selectorExpansion')"
+              [checked]="scenario.selectorExpansion === true"
+            ></app-checkbox-field>
+
+          </div>
+
+        </div>
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Viewports'}">
+          <h3 class="tabs-content-title">Viewports</h3>
+        </div>
+
         <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Wait Loading'}">
           <h3 class="tabs-content-title">Wait Loading</h3>
 
@@ -148,19 +194,69 @@
 
         <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Page Modification'}">
           <h3 class="tabs-content-title">Page Modification</h3>
-        </div>
 
-        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Authorization'}">
-          <h3 class="tabs-content-title">Authorization</h3>
+          <app-text-field
+            [label]="'Hide Selectors (comma separated array)'"
+            [description]="'Array of selectors set to visibility: hidden'"
+            [fieldSize]="'full'"
+            [placeholder]="'.class | #id | tag'"
+            [value]="scenario.hideSelectors"
+            (valueChanged)="changeFieldHandler($event, 'hideSelectors')"
+          ></app-text-field>
+
+          <app-text-field
+            [label]="'Remove Selectors (comma separated array)'"
+            [description]="'Array of selectors set to display: none'"
+            [fieldSize]="'full'"
+            [placeholder]="'.class | #id | tag'"
+            [value]="scenario.removeSelectors"
+            (valueChanged)="changeFieldHandler($event, 'removeSelectors')"
+          ></app-text-field>
+
         </div>
 
         <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Interaction'}">
           <h3 class="tabs-content-title">Interaction</h3>
+
+          <app-text-field
+            [label]="'Click Selectors (comma separated array)'"
+            [description]="'Click the specified DOM elements prior to screen shot. Takes array of selectors - simulates multiple sequential click interactions'"
+            [fieldSize]="'full'"
+            [placeholder]="'.class, #id, tag'"
+            [value]="scenario.clickSelectors"
+            (valueChanged)="changeFieldHandler($event, 'clickSelectors')"
+          ></app-text-field>
+
+          <app-text-field
+            [label]="'Hover Selectors (comma separated array)'"
+            [description]="'Move the pointer over the specified DOM elements prior to screen shot. Takes array of selectors - simulates multiple sequential hover interactions'"
+            [fieldSize]="'full'"
+            [placeholder]="'.class, #id, tag'"
+            [value]="scenario.hoverSelectors"
+            (valueChanged)="changeFieldHandler($event, 'hoverSelectors')"
+          ></app-text-field>
+
+          <app-text-field
+            [label]="'Scroll to Selector'"
+            [description]="'Scrolls the specified DOM element into view prior to screen shot'"
+            [fieldSize]="'full'"
+            [placeholder]="'.class | #id | tag'"
+            [value]="scenario.scrollToSelector"
+            (valueChanged)="changeFieldHandler($event, 'scrollToSelector')"
+          ></app-text-field>
+
+          <app-text-field
+            [label]="'Post Interaction Wait (milliseconds)'"
+            [description]="'Wait for a selector after interacting with hoverSelector or clickSelector (Idea for use with a click or hover element transition.)'"
+            [fieldSize]="'350'"
+            [placeholder]="'0ms'"
+            [value]="scenario.postInteractionWait"
+            (valueChanged)="changeFieldHandler($event, 'postInteractionWait')"
+          ></app-text-field>
+
         </div>
 
-        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Viewports'}">
-          <h3 class="tabs-content-title">Viewports</h3>
-        </div>
+
 
         <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Notifications'}">
           <h3 class="tabs-content-title">Notifications</h3>

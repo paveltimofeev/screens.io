@@ -146,6 +146,7 @@ class Storage {
         delete newScenario._id
         delete newScenario.meta_isFavorite
         delete newScenario.meta_recentRunStatus
+        delete newScenario.meta_referenceImageUrl
 
         return await this._create(database, 'Scenario', scenarioSchema, {
             ...newScenario,

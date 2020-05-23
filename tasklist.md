@@ -60,9 +60,11 @@
 -- Backend: Store recent run result in meta_recentRunStatus of scenario
 -- Frontend: RESTYLE UI - Scenario edit view - basic functionality
 -- Frontend: RESTYLE UI - Scenario edit view - Tab component
+-- Backend+Frontend: Store meta_referenceImageUrl (url of reference == recent approved image url) in scenario and show it in scenario card
 
 - Create Dumb Angular Components by UI-Kit
 - RESTYLE UI
+- Frontend: RESTYLE UI - Scenario edit view - Run scenario throws an error in log
 - Frontend: RESTYLE UI - Scenario edit view (New Scenario Mode)
 - Frontend: skip 'Approve' results in Recent Runs table at Overview page
 
@@ -83,6 +85,9 @@
 - Auth proxy should not store passwords in plain text
 - **------------ MVP MILESTONE ------------**
 
+- [Feature] Frontend: RESTYLE UI - Scenario edit view - Viewports, Overview/Summary+Refs and HasValues pin.
+- [Feature] Run scenarios with overridden hostname (stage)
+- Frontend: Animate processes - approve button should be animated during approve process, run during run and other microinteractions.
 - Run Scenario(s) by Id, not by label, because different project should be able to have the same label sometimes.
 - Feature Requests button or link to feedback form / poll
 - Backend: resize images for ui cards (sm, md, lg)
@@ -92,7 +97,6 @@
 - Deployment scripts (backend, frontend, landing)
 - Marketing efforts (Internet marketing, SEO, Social presence, Blogging, Video Tutorials)
 - Complete auto security checks & validation (by Lighthouse ans other services)
-- [Feature] Run scenarios with overridden hostname (stage)
 - Frontend: Splitter for comparer view
 - Frontend: Read proof
 - Frontend: Think out onboarding process, layout and empty state views.

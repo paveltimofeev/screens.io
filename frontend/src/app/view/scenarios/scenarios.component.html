@@ -59,7 +59,7 @@
         [header]="scenario.label"
         [state]="scenario.state"
         [isFavorite]="scenario.meta_isFavorite"
-        [imageUrl]="'/assets/images/stubs/screen11.png'"
+        [imageUrl]="scenario.meta_referenceImageUrl || '/assets/images/stubs/screen11.png'"
         [runs]="[]"
         (clickRun)="runScenarioHandler($event, scenario.label)"
         (clickFavorite)="favoriteScenarioHandler($event)"

@@ -14,6 +14,7 @@ import {
 import { forkJoin, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { selectCurrentScenario, selectCurrentScenarioLabel, selectScenarios } from './configuration.selectors';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class ConfigurationEffects {
@@ -123,7 +124,11 @@ export class ConfigurationEffects {
             type: loaded.type,
             payload: {
               scenarios: res[0].data,
-              scenariosList: res[0].data,
+              scenariosList: res[0].data.map( x => ({
+                  ...x,
+                  meta_referenceImageUrl: `${environment.media}${x.meta_referenceImageUrl}`
+                })
+              ),
               viewportsList: res[1].data
             }
           }

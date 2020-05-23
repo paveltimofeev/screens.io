@@ -23,7 +23,8 @@ const scenarioSchema = new Schema({
     expect: Number, /// Default 0, unused when selectorExpansion=false
 
     meta_isFavorite: Boolean,
-    meta_recentRunStatus: String  /// Passed/Failed status of recent run
+    meta_recentRunStatus: String,  /// Passed/Failed status of recent run
+    meta_referenceImageUrl: String  /// Url of reference == recent approved image url
 });
 
 module.exports = {

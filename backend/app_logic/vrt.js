@@ -188,6 +188,10 @@ class VRT {
         const date = new Date()
         const scenario = await storage.getScenarioByLabel(this._userId, pair.label)
 
+        await storage.updateScenario(this._userId, scenario._id, {
+            meta_referenceImageUrl: pair.reference
+        });
+
         await storage.createHistoryRecord(this._userId, {
             state: 'Approved',
             startedAt: date,

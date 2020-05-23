@@ -87,7 +87,7 @@ export class ApiAdapterService {
       environment.api + 'test/history' + query);
   }
 
-  getTestCaseHistory (scenarioId:string): Observable<any> {
+  getScenarioHistory (scenarioId:string): Observable<any> {
 
     if (!scenarioId)
       throw new Error('No scenarioId')

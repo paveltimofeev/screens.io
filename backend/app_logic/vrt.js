@@ -356,7 +356,7 @@ class VRT {
                         runId: j.runId,
                         startedAt: j.startedAt,
                         startedBy: j.startedBy,
-                        state: j.scenarios[0].status
+                        state: j.scenarios[0].status || j.state
                     })
           )
 

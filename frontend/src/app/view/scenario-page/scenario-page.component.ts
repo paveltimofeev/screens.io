@@ -26,7 +26,7 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
   scenario$: Observable<any>;
   scenario: any;
   scenarioHistory$: Observable<IScenarioHistory[]>;
-  currentTab:string = 'General'
+  currentTab:string = 'General';
 
   constructor(
     private route: ActivatedRoute,
@@ -67,6 +67,7 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
     ).subscribe(label => {
 
       this.store.dispatch( runScenario( {payload:{label:label}}) );
+      //this.store.dispatch( refreshScenarioHistory({payload:{id:this.id}}) );
     })
   }
   changeFieldHandler ($event, field) {
@@ -102,7 +103,10 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
   refreshHistoryHandler () {
     this.store.dispatch( refreshScenarioHistory({payload:{id:this.id}}) );
   }
-  openJobRecordHandler (jobId:string) {
-    this.navigation.openScenarioHistory(jobId)
+  openJobRecordHandler (jobId:string, state:string) {
+
+    if(state === 'Passed' || state === 'Failed') {
+      this.navigation.openScenarioHistory(jobId)
+    }
   }
 }

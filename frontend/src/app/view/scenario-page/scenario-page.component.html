@@ -278,8 +278,33 @@
 
   <div class="sidebar-placeholder">
 
-    <div class="sidebar-header">
-      <h3>History of Scenario Runs</h3>
+    <div class="scenario-history">
+      <h3 class="scenario-history-title">Runs History</h3>
+      <div class="scenario-history-actions">
+        <app-data-action-button
+          [label]="'Refresh'"
+          [icon]="'Refresh'" (clicked)="refreshHistoryHandler()">
+        </app-data-action-button>
+      </div>
+      <div
+        class="scenario-history-record"
+        *ngFor="let job of scenarioHistory$ | async"
+        [ngClass]="{ 'scenario-history-record--unclickable': job.state === 'Approved'}"
+        (click)="openJobRecordHandler(job.jobId, job.state)">
+
+        <div class="record-icon">
+          <app-icon [icon]="job.state" [customClass]="job.state"></app-icon>
+        </div>
+        <div class="record-state">
+          <div class="record-date">{{ job.startedAt }}</div>
+          <div class="record-status">{{ job.state }}</div>
+        </div>
+        <div class="user-cell">
+          <div class="upic">{{ job.upic }}</div>
+          <span class="text">by {{ job.startedBy }}</span>
+        </div>
+
+      </div>
     </div>
 
   </div>

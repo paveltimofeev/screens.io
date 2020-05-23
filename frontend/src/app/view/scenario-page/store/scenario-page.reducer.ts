@@ -3,9 +3,10 @@ import * as actions from './scenario-page.actions'
 
 export interface IScenarioHistory {
   jobId:string,
-  status: string,
-  startedAt: string
-  startedBy: string
+  state: string,
+  startedAt: string,
+  startedBy: string,
+  upic: string,
 }
 
 export interface AppState {

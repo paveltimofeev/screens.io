@@ -7,7 +7,7 @@ import {
   runScenario,
   loadedScenarioHistory,
   deleteScenario,
-  cloneScenario, saveScenario
+  cloneScenario, saveScenario, refreshScenarioHistory
 } from './scenario-page.actions';
 import { mergeMap, map, concatMap, concatMapTo, take, tap } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
@@ -15,6 +15,8 @@ import { DateService } from '../../../services/date.service';
 import { environment } from '../../../../environments/environment';
 import { NavigationService } from '../../../services/navigation.service';
 import { updateScenario } from '../../configuration/store/configuration.actions';
+import { Filters } from '../../../ui-kit/widget-run/widget-run.component';
+import { FiltersService, IQueryFilter, QueryFilter, QueryFilterType } from '../../../services/filters.service';
 
 
 @Injectable()
@@ -24,7 +26,8 @@ export class ScenarioPageEffects {
     private actions$: Actions,
     private api: ApiAdapterService,
     private date: DateService,
-    private navigate: NavigationService
+    private navigate: NavigationService,
+    private filtersStv: FiltersService
   ) {}
 
   refresh$ = createEffect(() => this.actions$.pipe(
@@ -41,6 +44,38 @@ export class ScenarioPageEffects {
         })
       );
     })));
+
+  refreshScenarioHistory$ = createEffect(() => this.actions$.pipe(
+    ofType(refreshScenarioHistory),
+    mergeMap((action) => {
+
+      return this.api.getScenarioHistory(action.payload.id).pipe(
+        map( res => {
+
+          const iconMap:any = {
+            pass: 'Passed',
+            fail: 'Failed',
+            Approved: 'Approved'
+          };
+
+          const getUpic = (job) => {
+            return job.startedBy && job.startedBy.length > 0 ? job.startedBy[0] : ' '
+          };
+
+          return {
+            type: loadedScenarioHistory.type,
+            payload: res.jobs.map( x => ({
+              jobId: x.id,
+              state: (iconMap[x.state] || x.state),
+              startedBy: x.startedBy,
+              startedAt: this.date.calendar(x.startedAt),
+              upic: getUpic(x)
+            }))
+          }
+        })
+      );
+    })));
+
 
   runScenario$ = createEffect(() => this.actions$.pipe(
     ofType(runScenario),

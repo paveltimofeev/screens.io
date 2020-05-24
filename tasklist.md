@@ -82,8 +82,9 @@
 - Define Metrics to collect (feature requests & feedback button)
 - ability to quickly close new user registration / stop, block or limit user (to protect from overbudget)
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
-- Do not use Login as userId, because it uses in path building and could allow user chang directories, use user UID instead
+- Do not use Login as userId, because it uses in path building and could allow user change directories, use user UID instead
 - Auth proxy should not store passwords in plain text
+- Register user by email/gmail and promocode with email confirmation.
 - [Feature] Create couple of examples scenarios demonstrating key features (for every new user)
 - **------------ MVP MILESTONE ------------**
 

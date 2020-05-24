@@ -110,7 +110,6 @@ main {
 }
 .page-actions {
   display: flex;
-  flex-wrap: wrap;
   justify-content: flex-end;
   margin-bottom: var(--px20); /* 20px */
 }

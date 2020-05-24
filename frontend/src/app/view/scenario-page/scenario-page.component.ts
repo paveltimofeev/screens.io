@@ -9,10 +9,10 @@ import {
   refreshScenarioHistory,
   runScenario, saveScenario, deleteScenario
 } from './store/scenario-page.actions';
-import { Observable } from 'rxjs';
+import { Observable, interval } from 'rxjs';
 import { IScenarioHistory } from './store/scenario-page.reducer';
 import { title, scenario, scenarioHistory } from './store/scenario-page.selectors';
-import { map, take, tap } from 'rxjs/operators';
+import { map, take, tap, delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-scenario-page',
@@ -26,7 +26,9 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
   scenario$: Observable<any>;
   scenario: any;
   scenarioHistory$: Observable<IScenarioHistory[]>;
-  currentTab:string = 'General';
+  currentTab: string = 'General';
+
+  refresher$: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -66,7 +68,7 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
       take(1)
     ).subscribe(label => {
 
-      this.store.dispatch( runScenario( {payload:{label:label}}) );
+      this.store.dispatch( runScenario( {payload:{id:this.id, label:label}}) );
       //this.store.dispatch( refreshScenarioHistory({payload:{id:this.id}}) );
     })
   }

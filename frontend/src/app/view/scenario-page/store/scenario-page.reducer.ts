@@ -15,13 +15,19 @@ export interface AppState {
 export interface ScenarioPageState {
   title: string;
   scenario: any;
-  scenarioHistory: IScenarioHistory[]
+  scenarioHistory: {
+    id: string,
+    jobs: IScenarioHistory[]
+  }
 }
 
 export const initState = {
   title: '',
   scenario: {},
-  scenarioHistory: []
+  scenarioHistory: {
+    id: null,
+    jobs: []
+  }
 };
 
 const _reducer = createReducer(initState,

@@ -62,6 +62,7 @@
 -- Frontend: RESTYLE UI - Scenario edit view - Tab component
 -- Backend+Frontend: Store meta_referenceImageUrl (url of reference == recent approved image url) in scenario and show it in scenario card
 
+- Frontend: Smrt autorefrseh - do delayed refresh only after get previouse response (does not matter succesful or not)
 - Create Dumb Angular Components by UI-Kit
 - RESTYLE UI
 - Frontend: RESTYLE UI - Responsive UI (support 1920/1600/1270/mobile/iPad)
@@ -83,10 +84,12 @@
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Do not use Login as userId, because it uses in path building and could allow user chang directories, use user UID instead
 - Auth proxy should not store passwords in plain text
+- [Feature] Create couple of examples scenarios demonstrating key features (for every new user)
 - **------------ MVP MILESTONE ------------**
 
 - [Feature] Frontend: RESTYLE UI - Scenario edit view - Viewports, Overview/Summary+Refs and HasValues pin.
 - [Feature] Run scenarios with overridden hostname (stage)
+- Frontend: Table view mode for scenarios list
 - Frontend: Animate processes - approve button should be animated during approve process, run during run and other microinteractions.
 - Run Scenario(s) by Id, not by label, because different project should be able to have the same label sometimes.
 - Feature Requests button or link to feedback form / poll

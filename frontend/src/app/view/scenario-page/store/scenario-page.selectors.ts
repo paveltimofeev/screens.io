@@ -15,5 +15,5 @@ export const scenario = createSelector(
 
 export const scenarioHistory = createSelector(
   selectFeature,
-  (state: ScenarioPageState) => state.scenarioHistory
+  (state: ScenarioPageState) => state.scenarioHistory.jobs
 );

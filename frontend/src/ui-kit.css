@@ -190,12 +190,13 @@ button, input {
   color: #ffffff;
   cursor: pointer;
   position: relative;
-  box-shadow: 0 15px 20px 0 #0000002e, 0 5px 10px 0 #00000010;
+  box-shadow: 0 var(--px14) var(--px20) 0 #0000002e, 0 var(--px4) var(--px10) 0 #00000010;
   white-space: nowrap;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  outline: none;
 }
 .button:focus {
   outline: none;
@@ -298,6 +299,7 @@ button, input {
   font-size: var(--px36); /* 36px */
   font-weight: 500;
   color: var(--color-page-headers);
+  line-break: anywhere;
 }
 .page-description {
   font-family: var(--font-normal);

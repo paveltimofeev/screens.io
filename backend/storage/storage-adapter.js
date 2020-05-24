@@ -87,7 +87,7 @@ class Storage {
             return value && /^[0-9]{1,10}$/.test(value)
         }
 
-        limit = isValidNumber(limit) ? parseInt(limit) : 1000
+        limit = isValidNumber(limit) ? parseInt(limit) : 10
 
         let entity = this._createEntity(database, 'Record', recordSchema)
         return await entity.find(query||{}).sort({ _id: 'desc'}).limit(limit)

@@ -345,7 +345,7 @@ class VRT {
             "scenarios.id" : scenarioId
         }
 
-        let jobs = await storage.getHistoryRecords(this._userId, query)
+        let jobs = await storage.getHistoryRecords(this._userId, query, 10)
 
         const cleanOtherScenarios = (job) => {
             job.scenarios = job.scenarios.filter( s => s.id === scenarioId);

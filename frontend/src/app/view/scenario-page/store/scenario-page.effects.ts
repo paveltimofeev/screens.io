@@ -9,8 +9,8 @@ import {
   deleteScenario,
   cloneScenario, saveScenario, refreshScenarioHistory
 } from './scenario-page.actions';
-import { mergeMap, map, concatMap, concatMapTo, take, tap } from 'rxjs/operators';
-import { forkJoin } from 'rxjs';
+import { mergeMap, map, concatMap, concatMapTo, take, tap, delay, debounceTime } from 'rxjs/operators';
+import { forkJoin, of } from 'rxjs';
 import { DateService } from '../../../services/date.service';
 import { environment } from '../../../../environments/environment';
 import { NavigationService } from '../../../services/navigation.service';
@@ -45,6 +45,19 @@ export class ScenarioPageEffects {
       );
     })));
 
+    autoRefreshScenarioHistory$ = createEffect(() => this.actions$.pipe(
+      ofType(loadedScenarioHistory),
+      debounceTime(5000),
+      mergeMap((action) => {
+        
+        return of({
+          type: refreshScenarioHistory.type,
+          payload: {
+            id: action.payload.id 
+          }
+        })
+      })));
+
   refreshScenarioHistory$ = createEffect(() => this.actions$.pipe(
     ofType(refreshScenarioHistory),
     mergeMap((action) => {
@@ -64,13 +77,16 @@ export class ScenarioPageEffects {
 
           return {
             type: loadedScenarioHistory.type,
-            payload: res.jobs.map( x => ({
-              jobId: x.id,
-              state: (iconMap[x.state] || x.state),
-              startedBy: x.startedBy,
-              startedAt: this.date.calendar(x.startedAt),
-              upic: getUpic(x)
-            }))
+            payload: {
+              id: action.payload.id,
+              jobs: res.jobs.map( x => ({
+                jobId: x.id,
+                state: (iconMap[x.state] || x.state),
+                startedBy: x.startedBy,
+                startedAt: this.date.calendar(x.startedAt),
+                upic: getUpic(x)
+              }))
+            }
           }
         })
       );
@@ -81,14 +97,15 @@ export class ScenarioPageEffects {
     ofType(runScenario),
     mergeMap((action) => {
 
-      let opts = {filter: action.payload.label};
+      let opts = { filter: action.payload.label };
 
       return this.api.run(opts).pipe(
+        delay(500),
         map( res => {
 
           return {
-            type: loadedScenarioHistory.type,
-            payload: res.data
+            type: refreshScenarioHistory.type,
+            payload: { id: action.payload.id }
           }
         })
       );

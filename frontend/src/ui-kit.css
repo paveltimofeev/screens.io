@@ -897,7 +897,7 @@ button, input {
 }
 
 .card-lg {
-  width: 3var(--px32); /* 608px */
+  width: var(--px608); /* 608px */
   max-width: 100%;
   display: flex;
   flex-direction: column;

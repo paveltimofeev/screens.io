@@ -61,17 +61,17 @@
 -- Frontend: RESTYLE UI - Scenario edit view - basic functionality
 -- Frontend: RESTYLE UI - Scenario edit view - Tab component
 -- Backend+Frontend: Store meta_referenceImageUrl (url of reference == recent approved image url) in scenario and show it in scenario card
+-- Frontend: Smart autorefrseh - do delayed refresh only after get previouse response (does not matter succesful or not)
+-- Frontend: RESTYLE UI - Scenario edit view - Run scenario throws an error in log
+-- Create Dumb Angular Components based on UI-Kit styles and markup
 
-- Frontend: Smrt autorefrseh - do delayed refresh only after get previouse response (does not matter succesful or not)
-- Create Dumb Angular Components by UI-Kit
-- RESTYLE UI
 - Frontend: RESTYLE UI - Responsive UI (support 1920/1600/1270/mobile/iPad)
-- Frontend: RESTYLE UI - Scenario edit view - Run scenario throws an error in log
-
 - Frontend: RESTYLE UI - Scenario edit view (New Scenario Mode)
+- Frontend: skip 'Approve' results in Recent Runs table at Overview page
+
 - Frontend: RESTYLE UI - Comparer view
 - Frontend: RESTYLE UI - Settings view
-- Frontend: skip 'Approve' results in Recent Runs table at Overview page
+- Frontend: Hide actions and buttons that not going to be included in MVP, but place all of them into tasklist as items
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 - Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
 - [Move to AWS: 1] STORE IMAGES AT AWS S3 WITH RETENTION TIME

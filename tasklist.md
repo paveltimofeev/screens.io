@@ -64,13 +64,13 @@
 
 - Create Dumb Angular Components by UI-Kit
 - RESTYLE UI
+- Frontend: RESTYLE UI - Responsive UI (support 1920/1600/1270/mobile/iPad)
 - Frontend: RESTYLE UI - Scenario edit view - Run scenario throws an error in log
-- Frontend: RESTYLE UI - Scenario edit view (New Scenario Mode)
-- Frontend: skip 'Approve' results in Recent Runs table at Overview page
 
+- Frontend: RESTYLE UI - Scenario edit view (New Scenario Mode)
 - Frontend: RESTYLE UI - Comparer view
 - Frontend: RESTYLE UI - Settings view
-- Frontend: RESTYLE UI - Responsive UI (support 1920/1600/1270/mobile)
+- Frontend: skip 'Approve' results in Recent Runs table at Overview page
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 - Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
 - [Move to AWS: 1] STORE IMAGES AT AWS S3 WITH RETENTION TIME
@@ -90,7 +90,8 @@
 - Frontend: Animate processes - approve button should be animated during approve process, run during run and other microinteractions.
 - Run Scenario(s) by Id, not by label, because different project should be able to have the same label sometimes.
 - Feature Requests button or link to feedback form / poll
-- Backend: resize images for ui cards (sm, md, lg)
+- Backend: resize images for ui cards (sm, md, lg) - only one viewport size, no matter do it for every viewport size.
+- [Costs] Backend: Do not store test result image if test i passed, because there is no difference with referrence.
 - Add limit or paging to all jobs requests (like getScenarioHistory, no need to load all 1000k records straight away)
 - Frontend: Check on FF/Opeara/Edge. Egde - shadows, status-label, toggle animation, flex alignment (IE11 - too many bugs, too expensive to support)
 - Lazy Loading for most of images to reduce S3-traffic, pressure on backend and increase UI responsiveness
@@ -116,8 +117,9 @@
 - [Feature] Support work with sites protected with BasicAuth or ftp (user:pass)
 - Retry Policy for backend-db, backend-queue
 - AuthGuard to redirect unauthorized users to login page ASAP
-- Remove all References and test Files on removing Scenarios or Viewports
-- Remove test result Files and Report after remove history record
+- [Costs] Backend: Remove all References and test Files on removing Scenarios or Viewports
+- [Costs] Backend: Remove test result Files and Report after remove history record
+- [Costs] Backend: TTL for test result files and db history records & reports
 - Auth proxy - change password
 - Sanitize body and params in Auth proxy & Backend
 - [Feature] Frontend: Angular MultiLanguage support (i18n, l8n)

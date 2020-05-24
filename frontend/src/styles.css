@@ -1,5 +1,5 @@
 :root {
-  --navbar-size: 70px;
+  --navbar-size: 3.646vw; /* 70px */
   --navbar-size-xs: 20px;
   --sidebar-size: 25vw;
 
@@ -56,8 +56,8 @@ nav .app-account {
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
-  font-size: 16px;
-  margin-right: 24px;
+  font-size: 0.833vw; /* 16px */
+  margin-right: 1.250vw; /* 24px; */
   display: flex;
   align-items: center;
 }
@@ -88,10 +88,10 @@ main {
 /* SIDEBAR PAGE LAYOUT */
 
 .app-content .breadcrumb-placeholder {
-  margin-top: 40px;
+  margin-top: 2.083vw; /* 40px */
 }
 .app-content .title-row {
-  margin-top: 40px;
+  margin-top: 2.083vw; /* 40px */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -105,27 +105,27 @@ main {
 }
 .app-content .page-description {
   margin-top: 7px;
-  margin-bottom: 40px;
+  margin-bottom: 2.083vw; /* 40px */
   width: 45%;
 }
 .page-actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  margin-bottom: 20px;
+  margin-bottom: 1.042vw; /* 20px */
 }
 .page-actions .title-actions-item {
   float: left;
   display: block;
 }
 .page-actions .title-actions-item + .title-actions-item {
-  margin-left: 26px;
+  margin-left: 1.354vw; /* 26px; */
 }
 .app-sidebar {
   width: var(--sidebar-size);
 }
 .app-filters {
-  margin: 32px 22px 0px 22px;
+  margin: 1.667vw 1.146vw 0 1.146vw; /* 32px 22px 0px 22px; */
 }
 .app-actions .data-actions-placeholder { display: flex; justify-content: space-between; }
 .app-content .data-placeholder {
@@ -135,14 +135,23 @@ main {
   align-content: flex-start;
   overflow-y: auto;
 
-  padding-top: 22px;
+  padding-top: 1.146vw; /* 22px; */
 }
 .app-card {
   min-height: var(--card-height);
   flex-basis: auto;
 }
-@media (min-width: 601px)  {
-  .app-card { width: 33.333%; }
+.app-card--two-in-row {
+  width: 50%;
+}
+.app-card--three-in-row {
+  width: 33.333%;
+}
+@media (max-width: 601px)  {
+  .app-card--two-in-row,
+  .app-card--three-in-row { 
+    width: 100%; 
+  }
 }
 @media (max-width: 600px) {
 
@@ -183,9 +192,9 @@ main {
 }
 
 .sidebar-placeholder {
-  margin-left: 40px;
-  margin-top: 50px;
-  margin-right: 50px;
+  margin-left: 2.083vw; /* 40px */
+  margin-top: 2.604vw; /* 50px */
+  margin-right: 2.604vw; /* 50px */
 }
 .xs-filters-placeholder {
   margin-left: -20px;
@@ -196,8 +205,9 @@ main {
 /* OVERVIEW LAYOUT */
 .app-content .app-row {
   display: flex;
-  padding-left: 60px;
-  padding-right: 60px;
+  padding-left: 3.125vw;  /* 60px */
+  padding-right: 3.125vw; /* 60px */
+  margin-bottom: 1vw;
 }
 @media (max-width: 600px)  {
   main .app-content .app-row {
@@ -208,7 +218,7 @@ main {
 }
 .app-widgets-row {
   justify-content: space-evenly;
-  height: 53vh;
+  /* height: 53vh; */
   position: relative;
   z-index: 1;
 }
@@ -230,14 +240,14 @@ main {
   bottom: calc(11vh - 20px);
 }
 .app-widgets-row .app-widgets-column {
-  height: 100%;
+  _height: 100%;
   width: 100%;
   position: relative;
-  padding-top: 87px;
+  padding-top: 8vh; /* 87px */
 }
 .app-widgets-row .app-widgets-column .widgets-center-placeholder {
-  margin-left: 6.5vw;
-  margin-right: 6.5vw;
+  margin-left: 5vw;
+  margin-right: 5vw;
 }
 .app-widgets-row .widgets-grid {}
 .app-data-row .app-row-title {

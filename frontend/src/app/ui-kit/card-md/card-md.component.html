@@ -7,7 +7,7 @@
         'image--never-run-before': state === ''
        }"
   >
-    <img (click)="clickCard.emit(itemId)" [src]="imageUrl" [attr.alt]="header">
+    <img (click)="clickCard.emit(itemId)" [src]="imageUrl" alt="">
 
     <app-icon
       *ngIf="isFavorite"

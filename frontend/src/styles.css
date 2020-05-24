@@ -1,6 +1,6 @@
 :root {
-  --navbar-size: 3.646vw; /* 70px */
-  --navbar-size-xs: 20px;
+  --navbar-size: var(--px70); /* 70px */
+  --navbar-size-xs: var(--px20);
   --sidebar-size: 25vw;
 
   --card-height: 20vh;
@@ -56,8 +56,8 @@ nav .app-account {
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
-  font-size: 0.833vw; /* 16px */
-  margin-right: 1.250vw; /* 24px; */
+  font-size: var(--px16); /* 16px */
+  margin-right: var(--px24); /* 24px; */
   display: flex;
   align-items: center;
 }
@@ -88,10 +88,10 @@ main {
 /* SIDEBAR PAGE LAYOUT */
 
 .app-content .breadcrumb-placeholder {
-  margin-top: 2.083vw; /* 40px */
+  margin-top: var(--px40); /* 40px */
 }
 .app-content .title-row {
-  margin-top: 2.083vw; /* 40px */
+  margin-top: var(--px40); /* 40px */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -105,27 +105,27 @@ main {
 }
 .app-content .page-description {
   margin-top: 7px;
-  margin-bottom: 2.083vw; /* 40px */
+  margin-bottom: var(--px40); /* 40px */
   width: 45%;
 }
 .page-actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  margin-bottom: 1.042vw; /* 20px */
+  margin-bottom: var(--px20); /* 20px */
 }
 .page-actions .title-actions-item {
   float: left;
   display: block;
 }
 .page-actions .title-actions-item + .title-actions-item {
-  margin-left: 1.354vw; /* 26px; */
+  margin-left: var(--px26); /* 26px; */
 }
 .app-sidebar {
   width: var(--sidebar-size);
 }
 .app-filters {
-  margin: 1.667vw 1.146vw 0 1.146vw; /* 32px 22px 0px 22px; */
+  margin: var(--px32) var(--px22) 0 var(--px22); /* 32px 22px 0px 22px; */
 }
 .app-actions .data-actions-placeholder { display: flex; justify-content: space-between; }
 .app-content .data-placeholder {
@@ -135,7 +135,7 @@ main {
   align-content: flex-start;
   overflow-y: auto;
 
-  padding-top: 1.146vw; /* 22px; */
+  padding-top: var(--px22); /* 22px; */
 }
 .app-card {
   min-height: var(--card-height);
@@ -192,9 +192,9 @@ main {
 }
 
 .sidebar-placeholder {
-  margin-left: 2.083vw; /* 40px */
-  margin-top: 2.604vw; /* 50px */
-  margin-right: 2.604vw; /* 50px */
+  margin-left: var(--px40); /* 40px */
+  margin-top: var(--px50); /* 50px */
+  margin-right: var(--px50); /* 50px */
 }
 .xs-filters-placeholder {
   margin-left: -20px;
@@ -205,9 +205,9 @@ main {
 /* OVERVIEW LAYOUT */
 .app-content .app-row {
   display: flex;
-  padding-left: 3.125vw;  /* 60px */
-  padding-right: 3.125vw; /* 60px */
-  margin-bottom: 1vw;
+  padding-left: var(--px60);  /* 60px */
+  padding-right: var(--px60); /* 60px */
+  margin-bottom: var(--px20);
 }
 @media (max-width: 600px)  {
   main .app-content .app-row {

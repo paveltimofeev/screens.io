@@ -6,9 +6,9 @@
 nav {
   position: relative;
   color: #6A6A6A;
-  font-size: 1.042vw; /* 20px */
+  font-size: var(--px20); /* 20px */
   font-weight: 400;
-  line-height: 3.490vw; /* 67px */
+  line-height: var(--px67); /* 67px */
   height: var(--navbar-size);
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 3px 1px -2px rgba(0,0,0,0.12);
 }
@@ -16,12 +16,11 @@ nav {
 .logo {
   display: flex;
   align-items: center;
-
 }
 .logo > img {
-  width: 10.781vw; /* 207px */
-  margin-left: 2.083vw; /* 40px */
-  margin-right: 4.167vw; /* 80px */
+  width: var(--px200); /* 207px */
+  margin-left: var(--px40); /* 40px */
+  margin-right: var(--px80); /* 80px */
 }
 
 @media (max-width: 600px) {
@@ -30,14 +29,13 @@ nav {
   }
   nav .app-hamburger {
     display: block;
-    padding-right: 1.042vw; /* 20px */
-    padding-left: 1.042vw; /* 20px */
+    padding-right: var(--px20); /* 20px */
+    padding-left: var(--px20); /* 20px */
   }
   nav .logo > img {
     width: 60%;
-    margin-left: 1.042vw; /* 20px */
+    margin-left: var(--px20); /* 20px */
   }
-
 }
 
 ul {
@@ -62,7 +60,7 @@ li:active {
   border-bottom: 3px solid #F3B618;
 }
 li + li {
-  margin-left: 3.646vw; /* 70px //75px; */
+  margin-left: var(--px70); /* 70px //75px; */
 }
 
 .app-account .icon {

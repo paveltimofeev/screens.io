@@ -64,7 +64,7 @@ export class JobPageEffects {
                 type: loaded.type,
                 payload: {
                   title: this.date.calendar(job.startedAt),
-                  scenarios: tests.map( x => { return x.pair.label }).filter(onlyUnique).join(', '),
+                  scenarios: tests.map( x => { return x.pair.label }).filter(onlyUnique),
                   viewports: tests.map( x => { return x.pair.viewportLabel }).filter(onlyUnique),
                   totalCases: tests.length,
                   failedCases: tests.filter( x => x.status === 'fail' ).length,

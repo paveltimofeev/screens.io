@@ -6,7 +6,7 @@ export interface AppState {
 }
 export interface JobPageState {
   title: string;
-  scenarios: string;
+  scenarios: string[];
   viewports: string[];
   startedBy: string;
   totalCases: number;

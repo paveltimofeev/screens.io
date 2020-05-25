@@ -74,6 +74,7 @@ import { ScenarioPageEffects } from './view/scenario-page/store/scenario-page.ef
 import { NavigationEffects } from './store/navigation/navigation.effects';
 import { comparerPageReducer } from './view/comparer/store/comparer.reducer';
 import { ComparerEffects } from './view/comparer/store/comparer.effects';
+import { MoreComponent } from './ui-kit/more/more.component';
 
 
 @NgModule({
@@ -122,7 +123,8 @@ import { ComparerEffects } from './view/comparer/store/comparer.effects';
     ComparerComponent,
     SettingsComponent,
     CardLgComponent,
-    InfoTableComponent
+    InfoTableComponent,
+    MoreComponent
   ],
   imports: [
     BrowserModule,

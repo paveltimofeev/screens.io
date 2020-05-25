@@ -72,6 +72,7 @@
 - Frontend: RESTYLE UI - Responsive UI (support 1920/1600/1270/mobile/iPad)
 - Frontend: Recent Runs table at Overview page - skip 'Approve' results and add AutoRefresh
 
+- [Bug] Clear text field - cleared field does not save changes on backend (Save Scenario / Hide Selectors field)
 - [Bug] Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
 - [Bug] Job will not fild a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
 - Run scenarios with overridden parameters (scenarios + viewports filtration)

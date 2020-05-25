@@ -1224,6 +1224,51 @@ app-data-action-button:first-child {
 }
 
 
+/* MORABLE */
+
+.morable input[type=checkbox] {
+  display: none;
+}
+.morable input[type=checkbox] ~ .more-value {
+  font-weight: 400;
+}
+.morable input[type=checkbox] ~ label {
+  position: relative;
+  cursor: pointer;
+  margin-left: 4px;
+}
+.morable input[type=checkbox] ~ label > .more-button {
+  background: #eaeaea;
+  padding: 1px 4px;
+  border-radius: 4px;
+  color: #000;
+  font-size: 0.8em;
+  user-select: none;
+  vertical-align: baseline;
+}
+.morable input[type=checkbox] ~ label > .more-button:hover {
+  background: #cacaca;
+}
+.morable input[type=checkbox] ~ label > .more-box {
+  display: none;
+}
+.morable input[type=checkbox]:checked ~ label > .more-box {
+  display: block;
+  position: absolute;
+  top: 1em;
+  left: 2em;
+}
+.morable input[type=checkbox]:checked ~ label > .more-box {
+  background: #000000aa;
+  color: #ffffff;
+  padding: .75em 1em;
+  font-size: 0.9em;
+  line-height: 135%;
+  box-shadow: 5px 5px 10px 0 rgba(0,0,0,.15);
+  border-radius: 2px;
+}
+
+
 /* WIDGETS */
 
 .widget {

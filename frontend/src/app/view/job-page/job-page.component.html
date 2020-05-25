@@ -14,7 +14,7 @@
     <app-info-table
       [items]="jobDescriptionInfo$ | async"
       [labelsAndProps]="[
-        { label: 'Scenarios', prop: 'scenarios'},
+        { label: 'Scenarios', prop: 'scenarios', chips: true },
         { label: 'Viewports', prop: 'viewports', chips: true },
         { label: 'Run by', prop: 'startedBy' }
       ]">

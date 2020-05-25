@@ -50,7 +50,7 @@
   --px12: 0.625vw;
   --px13: 0.677vw;
   --px14: 0.729vw;
-  --px16: 0.833vw; 
+  --px16: 0.833vw;
   --px18: 0.938vw;
   --px20: 1.042vw;
   --px22: 1.146vw;
@@ -267,6 +267,9 @@ button, input {
 
 }
 
+app-data-action-button:first-child {
+  margin-left: 0;
+}
 
 /* HEADERS */
 .column-header {
@@ -760,8 +763,8 @@ button, input {
   cursor: pointer;
 }
 .card-sm .info-panel .actions > * + * { margin-left: 1em; white-space: nowrap; }
-.card-sm .info-panel .actions i { 
-  font-size: var(--px10); /* 10px */ 
+.card-sm .info-panel .actions i {
+  font-size: var(--px10); /* 10px */
   margin-left: 0.25em;
 }
 
@@ -1015,7 +1018,7 @@ button, input {
 
 /* TABLES */
 
-.info-table { 
+.info-table {
   font-size: var(--px16); /* 16px */
 }
 .info-table .label-cell {

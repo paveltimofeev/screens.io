@@ -148,8 +148,8 @@ main {
 }
 @media (max-width: 601px)  {
   .app-card--two-in-row,
-  .app-card--three-in-row { 
-    width: 100%; 
+  .app-card--three-in-row {
+    width: 100%;
   }
 }
 @media (max-width: 600px) {

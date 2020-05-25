@@ -5,6 +5,7 @@ import { refresh, loaded, runAllScenarios } from './overview.actions';
 import { mergeMap, map } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 import { DateService } from '../../../services/date.service';
+import { environment } from '../../../../environments/environment';
 
 
 @Injectable()
@@ -55,7 +56,7 @@ export class OverviewEffects {
           return { type: loaded.type, payload: {
 
               //scenarios: res.data
-              favoriteScenarios: res[0].data,
+              favoriteScenarios: res[0].data.map( x => ({...x, meta_referenceImageUrl: `${environment.media}${x.meta_referenceImageUrl}`})),
               recentJobs: jobsAdapter(res[1].jobs),
 
               totalScenarios: 0,

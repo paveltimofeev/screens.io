@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { NavigationService } from '../../services/navigation.service';
-import { cleanupNgrxStorage, refresh } from './store/comparer.actions';
+import { approve, cleanupNgrxStorage, refresh, runAgain } from './store/comparer.actions';
 import { Observable } from 'rxjs';
 import { breadcrumbsInfo, descriptionInfo, images, jobTitle, pageActionsInfo } from './store/comparer.selectors';
 import { take } from 'rxjs/operators';
@@ -65,9 +65,16 @@ export class ComparerComponent implements OnInit, OnDestroy {
   }
   approveHandler () {
 
+    this.store.dispatch( approve({ payload: {
+        jobId: this.jobId,
+        testCaseIndex: this.testCaseIndex
+    }}) )
   }
   runAgainHandler () {
 
+    this.store.dispatch( runAgain({ payload: {
+        jobId: this.jobId,
+        testCaseIndex: this.testCaseIndex
+    }}) )
   }
-
 }

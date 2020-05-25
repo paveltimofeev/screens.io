@@ -48,10 +48,10 @@
     <div>
 
       <app-data-action-button
-        [label]="'Comparer'"
-        [icon]="'Comparer'"
+        [label]="'Test Result'"
+        [icon]="'Test'"
         [hideLabelOnXS]="true"
-        (clicked)="showComparer()">
+        (clicked)="showTestImage()">
       </app-data-action-button>
       <app-data-action-button
         [label]="'Reference'"
@@ -60,16 +60,16 @@
         (clicked)="showReferenceImage()">
       </app-data-action-button>
       <app-data-action-button
-        [label]="'Test'"
-        [icon]="'Test'"
-        [hideLabelOnXS]="true"
-        (clicked)="showTestImage()">
-      </app-data-action-button>
-      <app-data-action-button
         [label]="'Difference'"
         [icon]="'Difference'"
         [hideLabelOnXS]="true"
         (clicked)="showDifferenceImage()">
+      </app-data-action-button>
+      <app-data-action-button
+        [label]="'Comparer'"
+        [icon]="'Comparer'"
+        [hideLabelOnXS]="true"
+        (clicked)="showComparer()">
       </app-data-action-button>
 
     </div>

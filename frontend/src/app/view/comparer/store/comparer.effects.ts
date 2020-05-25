@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiAdapterService } from 'src/app/services/api-adapter.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { loaded, refresh } from './comparer.actions';
+import { approve, loaded, refresh, runAgain } from './comparer.actions';
 import { map, mergeMap } from 'rxjs/operators';
 import { DateService } from '../../../services/date.service';
 import { of } from 'rxjs';
@@ -20,8 +20,6 @@ export class ComparerEffects {
   refresh$ = createEffect(() => this.actions$.pipe(
     ofType(refresh),
     mergeMap((action) => {
-
-      console.log(action)
 
       return this.api.getHistoryRecord(action.payload.jobId).pipe(
         mergeMap( job => {
@@ -71,7 +69,30 @@ export class ComparerEffects {
           )
 
       }))
-
     })
   ));
+
+  approve$ = createEffect(() => this.actions$.pipe(
+    ofType(approve),
+    mergeMap((action) => {
+
+      console.log(action);
+
+      return of({
+        type: loaded.type,
+        payload: {}
+      })
+    })));
+
+  runAgain$ = createEffect(() => this.actions$.pipe(
+    ofType(runAgain),
+    mergeMap((action) => {
+
+      console.log(action);
+
+      return of({
+        type: loaded.type,
+        payload: {}
+      })
+    })));
 }

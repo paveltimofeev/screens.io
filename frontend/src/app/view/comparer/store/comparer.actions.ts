@@ -4,5 +4,18 @@ export const refresh = createAction('[Comparer Component] refresh', props<{paylo
 export const loaded = createAction( '[Comparer Component] loaded', props<{payload: any}>() );
 export const cleanupNgrxStorage = createAction('[Comparer Component] cleanupNgrxStorage');
 
-export const approve = createAction('[Comparer Component] approve', props<{payload:{id:string}}>());
-export const runAgain = createAction('[Comparer Component] runAgain', props<{payload:{id:string}}>());
+export const approve = createAction(
+  '[Comparer Component] approve',
+  props<{
+    payload:{
+      jobId: string,
+      testCaseIndex: number
+  }}>());
+
+export const runAgain = createAction(
+  '[Comparer Component] runAgain',
+  props<{
+    payload:{
+      jobId: string,
+      testCaseIndex: number
+  }}>());

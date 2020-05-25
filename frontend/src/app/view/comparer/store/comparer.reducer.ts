@@ -10,6 +10,7 @@ export interface ComparerState {
   scenarioId: string;
   scenario: string;
   viewport: string;
+  url: string;
 
   referenceImage: string;
   differenceImage: string;

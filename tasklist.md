@@ -68,7 +68,7 @@
 -- Frontend: RESTYLE UI - Scenario edit view (New Scenario Mode)
 
 - Frontend: RESTYLE UI - Comparer view
-- Frontend: AutoRefshesh should stop after user left page (on ngDestroy)
+- Frontend: AutoRefresh should stop after user left page (on ngDestroy)
 - Frontend: RESTYLE UI - Responsive UI (support 1920/1600/1270/mobile/iPad)
 - Frontend: Recent Runs table at Overview page - skip 'Approve' results and add AutoRefresh
 

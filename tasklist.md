@@ -64,38 +64,49 @@
 -- Frontend: Smart autorefrseh - do delayed refresh only after get previouse response (does not matter succesful or not)
 -- Frontend: RESTYLE UI - Scenario edit view - Run scenario throws an error in log
 -- Create Dumb Angular Components based on UI-Kit styles and markup
+-- Show the latest run image at ScenarioCards
 
+- Frontend: AutoRefshesh should stop after user left page (on ngDestroy)
 - Frontend: RESTYLE UI - Responsive UI (support 1920/1600/1270/mobile/iPad)
 - Frontend: RESTYLE UI - Scenario edit view (New Scenario Mode)
-- Frontend: skip 'Approve' results in Recent Runs table at Overview page
+- Frontend: Recent Runs table at Overview page - skip 'Approve' results and add AutoRefresh
 
 - Frontend: RESTYLE UI - Comparer view
-- Frontend: RESTYLE UI - Settings view
-- Frontend: Hide actions and buttons that not going to be included in MVP, but place all of them into tasklist as items
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
-- Show the latest run image at ScenarioCards: "Store or Query" latestRun, approved and latestRunDiff (if has) of scenario
-- [Move to AWS: 1] STORE IMAGES AT AWS S3 WITH RETENTION TIME
+- Frontend: RESTYLE UI - Settings view (see uistructure.md for content)
+- Frontend: Hide actions and buttons that not going to be included in MVP, but place all of them into tasklist as items
+- Frontend: Implement Sidebar filters
+- Frontend: Implement Page Actions, Data Actions and Search filter
+- Backend: Page Actions - Remove scenarios filtered by ids[]*viewports[]
+- Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
+- Frontend: SignIn/SignUp page RESTYLE
+- [Move to AWS: 1] STORE IMAGES AT AWS S3
 - [Move to AWS: 2] Run MongoDb on AWS VM
 - [Move to AWS: 3] Run backend on AWS VM
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name
+- Register user by email/gmail and promocode with email confirmation.
 - LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
-- Define Metrics to collect (feature requests & feedback button)
-- ability to quickly close new user registration / stop, block or limit user (to protect from overbudget)
-- Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Do not use Login as userId, because it uses in path building and could allow user change directories, use user UID instead
 - Auth proxy should not store passwords in plain text
-- Register user by email/gmail and promocode with email confirmation.
-- [Feature] Create couple of examples scenarios demonstrating key features (for every new user)
 - **------------ MVP MILESTONE ------------**
+- [Costs] ability to quickly block or limit user (to protect from overbudget)
+- Define Metrics to collect (feature requests & feedback button)
+- [Feature] Create couple of examples scenarios demonstrating key features (for every new user)
+- **------------ CLOSED BETA MILESTONE ------------**
 
+- Frontend: Read proof
 - [Feature] Frontend: RESTYLE UI - Scenario edit view - Viewports, Overview/Summary+Refs and HasValues pin.
-- [Feature] Run scenarios with overridden hostname (stage)
+- Frontend: Allow to choose Viewports for Scenario at Viewports Tab
+- Frontend: Show reference image at Scenario Overview tab
 - Frontend: Table view mode for scenarios list
+- [Feature] Run scenarios with overridden hostname (stage)
+- [Feature] To have several Valid References and test image against all of them to mitigate minor (insignificant) differences. To have actions like 'Add to Approved' and 'Override All Approved' instead of 'Approve'.
 - Frontend: Animate processes - approve button should be animated during approve process, run during run and other microinteractions.
 - Run Scenario(s) by Id, not by label, because different project should be able to have the same label sometimes.
 - Feature Requests button or link to feedback form / poll
 - Backend: resize images for ui cards (sm, md, lg) - only one viewport size, no matter do it for every viewport size.
-- [Costs] Backend: Do not store test result image if test i passed, because there is no difference with referrence.
+- [Costs] Backend: Do not store test result image if test i passed, because there is no difference with reference.
+- [Costs] ability to quickly close new user registration (to protect from overbudget)
 - Add limit or paging to all jobs requests (like getScenarioHistory, no need to load all 1000k records straight away)
 - Frontend: Check on FF/Opeara/Edge. Egde - shadows, status-label, toggle animation, flex alignment (IE11 - too many bugs, too expensive to support)
 - Lazy Loading for most of images to reduce S3-traffic, pressure on backend and increase UI responsiveness
@@ -103,12 +114,9 @@
 - Marketing efforts (Internet marketing, SEO, Social presence, Blogging, Video Tutorials)
 - Complete auto security checks & validation (by Lighthouse ans other services)
 - Frontend: Splitter for comparer view
-- Frontend: Read proof
 - Frontend: Think out onboarding process, layout and empty state views.
-- Support mobile and 1600x900 screen sizes
 - Run scenarios filtered by ids[]*viewports[]
 - Restrict number of viewports
-- Remove scenarios filtered by ids[]*viewports[]
 - Loading a lot of images through AuthProxy is hard? Need to return signed link to S3 instead
 - Backend: Approve all failed/filtered tests in run
 - Dates should store in UTC but display in Local timezone (the same according to Tody filter)

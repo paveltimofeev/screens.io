@@ -1,4 +1,104 @@
 <app-sidebar-page-layout
-  [title]="'Job:'"
-  [description]="'Comparer'">
+  [title]="'Home Page 1920 × 1080'"
+  [breadcrumb]="true"
+  [customDescription]="true"
+  [hideSidebar]="true"
+>
+
+  <div class="breadcrumb-placeholder">
+    <span class="breadcrumb-item breadcrumb-item--link">Jobs History</span>
+    <span class="breadcrumb-item breadcrumb-item--link">Job: 12/31/2019 11:27:10 PM</span>
+    <span class="breadcrumb-item breadcrumb-item--link">Home Page</span>
+    <span class="breadcrumb-item">1920 × 1080</span>
+  </div>
+
+  <div class="description-placeholder">
+    <app-info-table
+      [items]="{
+        viewports: ['1920 × 1080', '800 × 600'],
+        scenarios: ['Home Page', 'Login Page']
+      }"
+      [labelsAndProps]="[
+        { label: 'Also tested on', prop: 'viewports', chips: true },
+        { label: 'Tested along with', prop: 'scenarios', chips: true }
+      ]">
+    </app-info-table>
+  </div>
+
+  <div class="page-actions-placeholder">
+
+    <ul class="page-actions">
+      <li class="title-actions-item">
+        <button class="button button--white" (click)="runFilteredScenariosHandler()">Open Url</button>
+      </li>
+      <li class="title-actions-item">
+        <button class="button button--white" (click)="runFilteredScenariosHandler()">Open History</button>
+      </li>
+      <li class="title-actions-item">
+        <button class="button button--white" (click)="runFilteredScenariosHandler()">Open Scenario</button>
+      </li>
+      <li class="title-actions-item">
+        <button class="button button--white" (click)="runFilteredScenariosHandler()">Run Again</button>
+      </li>
+      <li class="title-actions-item">
+        <button class="button button--dark" (click)="addScenarioHandler()">Approve</button>
+      </li>
+    </ul>
+
+  </div>
+
+  <div class="data-actions-placeholder">
+    <div>
+
+      <app-data-action-button
+        [label]="'Comparer'"
+        [icon]="'Comparer'"
+        [hideLabelOnXS]="true"
+        (clicked)="showComparer()">
+      </app-data-action-button>
+      <app-data-action-button
+        [label]="'Reference'"
+        [icon]="'Reference'"
+        [hideLabelOnXS]="true"
+        (clicked)="showReferenceImage()">
+      </app-data-action-button>
+      <app-data-action-button
+        [label]="'Test'"
+        [icon]="'Test'"
+        [hideLabelOnXS]="true"
+        (clicked)="showTestImage()">
+      </app-data-action-button>
+      <app-data-action-button
+        [label]="'Difference'"
+        [icon]="'Difference'"
+        [hideLabelOnXS]="true"
+        (clicked)="showDifferenceImage()">
+      </app-data-action-button>
+
+    </div>
+    <div>
+
+      <app-data-action-button
+        [label]="'Full Size'"
+        [icon]="'Full Size'"
+        [hideLabelOnXS]="true"
+        (clicked)="fullSize()">
+      </app-data-action-button>
+
+      <app-data-action-button
+        [className]="'except-xs'"
+        [label]="'Fit'"
+        [icon]="'Fit'"
+        [hideLabelOnXS]="true"
+        (clicked)="fitSize()">
+      </app-data-action-button>
+
+    </div>
+  </div>
+
+  <div class="data-placeholder">
+
+  </div>
+
+
 </app-sidebar-page-layout>

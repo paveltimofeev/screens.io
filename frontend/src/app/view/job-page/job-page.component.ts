@@ -97,13 +97,13 @@ export class JobPageComponent implements OnInit, OnDestroy {
   showReferenceImage () {
 
   }
-  listView () {
+  groupByScenarios () {
 
   }
   fullHeightMode () {
 
   }
-  switchOnMouseOver () {
+  listView () {
 
   }
 

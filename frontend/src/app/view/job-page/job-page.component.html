@@ -68,25 +68,23 @@
         [label]="'Group by Scenarios'"
         [icon]="'Group by Scenarios'"
         [hideLabelOnXS]="true"
+        (clicked)="groupByScenarios()">
+      </app-data-action-button>
+
+      <app-data-action-button
+        class="except-xs"
+        [label]="'Full Height'"
+        [icon]="'Full Height'"
+        [hideLabelOnXS]="true"
+        (clicked)="fullHeightMode()">
+      </app-data-action-button>
+
+      <app-data-action-button
+        [label]="'List View'"
+        [icon]="'List View'"
         (clicked)="listView()">
       </app-data-action-button>
 
-      <span class="except-xs">
-
-        <app-data-action-button
-          class="except-xs"
-          [label]="'Full Height'"
-          [icon]="'Full Height'"
-          [hideLabelOnXS]="true"
-          (clicked)="fullHeightMode()">
-        </app-data-action-button>
-
-        <app-data-action-button
-          [label]="'Switch on MouseOver'"
-          [icon]="'Toggle Off'"
-          (clicked)="switchOnMouseOver()">
-        </app-data-action-button>
-      </span>
 
     </div>
   </div>

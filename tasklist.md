@@ -67,11 +67,13 @@
 -- Show the latest run image at ScenarioCards
 -- Frontend: RESTYLE UI - Scenario edit view (New Scenario Mode)
 
+- Frontend: RESTYLE UI - Comparer view
 - Frontend: AutoRefshesh should stop after user left page (on ngDestroy)
 - Frontend: RESTYLE UI - Responsive UI (support 1920/1600/1270/mobile/iPad)
 - Frontend: Recent Runs table at Overview page - skip 'Approve' results and add AutoRefresh
 
-- Frontend: RESTYLE UI - Comparer view
+- [Bug] Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
+- [Bug] Job will not fild a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 - Frontend: RESTYLE UI - Settings view (see uistructure.md for content)
 - Frontend: Hide actions and buttons that not going to be included in MVP, but place all of them into tasklist as items
@@ -146,6 +148,7 @@
 - Confirmation dialog for delete ops
 - Displaying Errors on load and save
 - [Feature] Other browsers: FF/IE?
+- FontAwsome can be used for commercial project?
 
 
 - DOCKERIZE AUTH-PROXY & BACKEND AND RUN THEM IN AWS

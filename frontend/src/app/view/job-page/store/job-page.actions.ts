@@ -7,12 +7,11 @@ export const cleanupNgrxStorage = createAction('[Job Page Component] cleanupNgrx
 export const approve = createAction('[Job Page Component] approve', props<
   {
     payload: {
+      jobId: string,
       testCase: {
         reportId: string,
         label: string,
         viewportLabel: string
-        // reference: string,
-        // test: string
       }
     }
   }>());

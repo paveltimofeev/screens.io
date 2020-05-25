@@ -73,6 +73,7 @@ export class JobPageComponent implements OnInit, OnDestroy {
   clickApproveHandler (testCase: any) {
 
     this.store.dispatch(approve({payload:{
+      jobId: this.jobId,
       testCase: {
         reportId: testCase.reportId,
         label: testCase.label,

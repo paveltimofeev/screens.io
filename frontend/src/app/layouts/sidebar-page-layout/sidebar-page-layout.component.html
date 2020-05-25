@@ -26,7 +26,7 @@
     <ng-content select=".data-placeholder"></ng-content>
 
   </div>
-  <div class="app-sidebar except-xs">
+  <div *ngIf="!hideSidebar" class="app-sidebar except-xs">
 
     <ng-content select=".sidebar-placeholder"></ng-content>
 

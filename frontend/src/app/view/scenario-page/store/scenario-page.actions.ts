@@ -6,6 +6,8 @@ export const loaded = createAction( '[Scenario Page Component] loaded', props<{p
 export const loadedScenarioHistory = createAction( '[Scenario Page Component] loadedScenarioHistory', props<{payload: any}>() );
 export const cleanupNgrxStorage = createAction('[Scenario Page Component] cleanupNgrxStorage');
 
+export const initNewScenario = createAction('[Scenario Page Component] initNewScenario');
+
 export const cloneScenario = createAction(
   '[Scenario Page Component] cloneScenario',
   props<{ payload: { id:string } }>()
@@ -23,5 +25,10 @@ export const runScenario = createAction(
 
 export const saveScenario = createAction(
   '[Scenario Page Component] saveScenario',
+  props<{ payload: { scenario:any } }>()
+);
+
+export const createScenario = createAction(
+  '[Scenario Page Component] createScenario',
   props<{ payload: { scenario:any } }>()
 );

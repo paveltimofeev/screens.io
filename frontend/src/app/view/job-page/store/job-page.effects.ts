@@ -21,7 +21,7 @@ export class JobPageEffects {
     mergeMap((action) => {
 
       return this.api.approveCase(action.payload.testCase).pipe(
-        map( res => ({ type: refresh.type }))
+        map( res => ({ type: refresh.type, payload: { id: action.payload.jobId }}))
       )
     })));
 

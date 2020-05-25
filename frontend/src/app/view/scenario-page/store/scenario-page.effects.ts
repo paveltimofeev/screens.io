@@ -7,7 +7,7 @@ import {
   runScenario,
   loadedScenarioHistory,
   deleteScenario,
-  cloneScenario, saveScenario, refreshScenarioHistory
+  cloneScenario, saveScenario, refreshScenarioHistory, createScenario
 } from './scenario-page.actions';
 import { mergeMap, map, concatMap, concatMapTo, take, tap, delay, debounceTime } from 'rxjs/operators';
 import { forkJoin, of } from 'rxjs';
@@ -17,6 +17,7 @@ import { NavigationService } from '../../../services/navigation.service';
 import { updateScenario } from '../../configuration/store/configuration.actions';
 import { Filters } from '../../../ui-kit/widget-run/widget-run.component';
 import { FiltersService, IQueryFilter, QueryFilter, QueryFilterType } from '../../../services/filters.service';
+import { openScenarioPage } from '../../../store/navigation/navigation.actions';
 
 
 @Injectable()
@@ -49,11 +50,11 @@ export class ScenarioPageEffects {
       ofType(loadedScenarioHistory),
       debounceTime(5000),
       mergeMap((action) => {
-        
+
         return of({
           type: refreshScenarioHistory.type,
           payload: {
-            id: action.payload.id 
+            id: action.payload.id
           }
         })
       })));
@@ -152,6 +153,22 @@ export class ScenarioPageEffects {
       return this.api.updateScenario(action.payload.scenario).pipe(
         map( res => {
           return { type: refresh.type, payload: { id: res.data._id} }
+        })
+      );
+    })
+  ));
+
+  createScenario$ = createEffect(() => this.actions$.pipe(
+    ofType(createScenario),
+    mergeMap((action:any) => {
+
+      return this.api.createScenario(action.payload.scenario).pipe(
+        map( res => {
+
+          // If Ok - navigate to scenario page
+          // If error - show error
+
+          return { type: openScenarioPage.type, payload: { scenarioId: res.data._id} }
         })
       );
     })

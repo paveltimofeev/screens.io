@@ -7,7 +7,7 @@ import {
   cloneScenario,
   refresh,
   refreshScenarioHistory,
-  runScenario, saveScenario, deleteScenario
+  runScenario, saveScenario, deleteScenario, initNewScenario, createScenario
 } from './store/scenario-page.actions';
 import { Observable, interval } from 'rxjs';
 import { IScenarioHistory } from './store/scenario-page.reducer';
@@ -22,13 +22,13 @@ import { map, take, tap, delay } from 'rxjs/operators';
 export class ScenarioPageComponent implements OnInit, OnDestroy {
 
   id: string;
-  title$: Observable<string>;
-  scenario$: Observable<any>;
   scenario: any;
-  scenarioHistory$: Observable<IScenarioHistory[]>;
+  routeData: {createMode?: boolean} = {};
   currentTab: string = 'General';
 
-  refresher$: any;
+  title$: Observable<string>;
+  scenario$: Observable<any>;
+  scenarioHistory$: Observable<IScenarioHistory[]>;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,11 +43,18 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
     this.scenario$.subscribe(scenario => this.scenario = scenario);
     this.scenarioHistory$ = this.store.select( scenarioHistory );
 
-    this.route.params.subscribe(params => {
+    this.route.data.subscribe( data => {
+      this.routeData = data;
+      this.store.dispatch( initNewScenario() );
+    });
+
+    this.route.params.subscribe( params => {
 
       this.id = this.route.snapshot.params.id;
-      this.store.dispatch( refresh({payload:{id:this.id}}) );
-      this.store.dispatch( refreshScenarioHistory({payload:{id:this.id}}) );
+      if (this.id !== undefined) {
+        this.store.dispatch(refresh({payload: {id: this.id}}));
+        this.store.dispatch(refreshScenarioHistory({payload: {id: this.id}}));
+      }
     });
   }
 
@@ -87,6 +94,12 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
     this.store.dispatch( saveScenario( {payload:{
       scenario: this.scenario
     }}) );
+  }
+  createHandler () {
+
+    this.store.dispatch( createScenario( {payload:{
+        scenario: this.scenario
+      }}) );
   }
 
 

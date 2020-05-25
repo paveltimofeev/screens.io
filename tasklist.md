@@ -65,10 +65,10 @@
 -- Frontend: RESTYLE UI - Scenario edit view - Run scenario throws an error in log
 -- Create Dumb Angular Components based on UI-Kit styles and markup
 -- Show the latest run image at ScenarioCards
+-- Frontend: RESTYLE UI - Scenario edit view (New Scenario Mode)
 
 - Frontend: AutoRefshesh should stop after user left page (on ngDestroy)
 - Frontend: RESTYLE UI - Responsive UI (support 1920/1600/1270/mobile/iPad)
-- Frontend: RESTYLE UI - Scenario edit view (New Scenario Mode)
 - Frontend: Recent Runs table at Overview page - skip 'Approve' results and add AutoRefresh
 
 - Frontend: RESTYLE UI - Comparer view

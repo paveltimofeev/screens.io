@@ -71,6 +71,7 @@ import { CardLgComponent } from './ui-kit/card-lg/card-lg.component';
 import { InfoTableComponent } from './ui-kit/info-table/info-table.component';
 import { scenarioPageReducer } from './view/scenario-page/store/scenario-page.reducer';
 import { ScenarioPageEffects } from './view/scenario-page/store/scenario-page.effects';
+import { NavigationEffects } from './store/navigation/navigation.effects';
 
 
 @NgModule({
@@ -140,6 +141,7 @@ import { ScenarioPageEffects } from './view/scenario-page/store/scenario-page.ef
       logOnly: environment.production
     }),
     EffectsModule.forRoot([
+      NavigationEffects,
       OverviewEffects,
       DashboardEffects,
       ConfigurationEffects,

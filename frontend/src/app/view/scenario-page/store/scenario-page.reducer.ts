@@ -41,6 +41,16 @@ const _reducer = createReducer(initState,
     }
   }),
 
+  on(actions.initNewScenario, (state, action) => {
+
+    return {
+      ...state,
+      scenario: {
+        label: 'NewScenario'
+      }
+    }
+  }),
+
   on(actions.loadedScenarioHistory, (state, action) => {
 
     return {

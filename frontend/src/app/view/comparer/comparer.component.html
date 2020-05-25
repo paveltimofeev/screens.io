@@ -1,26 +1,23 @@
 <app-sidebar-page-layout
-  [title]="'Home Page 1920 × 1080'"
+  [title]="title$ | async"
   [breadcrumb]="true"
   [customDescription]="true"
   [hideSidebar]="true"
 >
 
   <div class="breadcrumb-placeholder">
-    <span class="breadcrumb-item breadcrumb-item--link">Jobs History</span>
-    <span class="breadcrumb-item breadcrumb-item--link">Job: 12/31/2019 11:27:10 PM</span>
-    <span class="breadcrumb-item breadcrumb-item--link">Home Page</span>
-    <span class="breadcrumb-item">1920 × 1080</span>
+    <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/jobs']">Jobs History</span>
+    <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/job', jobId]">{{ (breadcrumbsInfo$ | async).job }}</span>
+    <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/scenario', (breadcrumbsInfo$ | async).scenarioId]">{{ (breadcrumbsInfo$ | async).scenario }}</span>
+    <span class="breadcrumb-item">{{ (breadcrumbsInfo$ | async).viewport }}</span>
   </div>
 
   <div class="description-placeholder">
     <app-info-table
-      [items]="{
-        viewports: ['1920 × 1080', '800 × 600'],
-        scenarios: ['Home Page', 'Login Page']
-      }"
+      [items]="descriptionInfo$ | async"
       [labelsAndProps]="[
-        { label: 'Also tested on', prop: 'viewports', chips: true },
-        { label: 'Tested along with', prop: 'scenarios', chips: true }
+        { label: 'Also tested on', prop: 'testedOn', chips: true },
+        { label: 'Tested along with', prop: 'testedWith', chips: true }
       ]">
     </app-info-table>
   </div>
@@ -29,19 +26,19 @@
 
     <ul class="page-actions">
       <li class="title-actions-item">
-        <button class="button button--white" (click)="runFilteredScenariosHandler()">Open Url</button>
+        <button class="button button--white" (click)="openUrlHandler()">Open Url</button>
       </li>
       <li class="title-actions-item">
-        <button class="button button--white" (click)="runFilteredScenariosHandler()">Open History</button>
+        <button class="button button--white" [routerLink]="['/job', jobId]">Open History</button>
       </li>
       <li class="title-actions-item">
-        <button class="button button--white" (click)="runFilteredScenariosHandler()">Open Scenario</button>
+        <button class="button button--white" [routerLink]="['/scenario', (pageActionsInfo$ | async).scenarioId]">Open Scenario</button>
       </li>
       <li class="title-actions-item">
-        <button class="button button--white" (click)="runFilteredScenariosHandler()">Run Again</button>
+        <button class="button button--white" (click)="runAgainHandler()">Run Again</button>
       </li>
       <li class="title-actions-item">
-        <button class="button button--dark" (click)="addScenarioHandler()">Approve</button>
+        <button class="button button--dark" (click)="approveHandler()">Approve</button>
       </li>
     </ul>
 
@@ -97,6 +94,8 @@
   </div>
 
   <div class="data-placeholder">
+
+    <img [attr.src]="(images$ | async).referenceImage" alt="" width="100%">
 
   </div>
 

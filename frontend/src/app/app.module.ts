@@ -72,6 +72,8 @@ import { InfoTableComponent } from './ui-kit/info-table/info-table.component';
 import { scenarioPageReducer } from './view/scenario-page/store/scenario-page.reducer';
 import { ScenarioPageEffects } from './view/scenario-page/store/scenario-page.effects';
 import { NavigationEffects } from './store/navigation/navigation.effects';
+import { comparerPageReducer } from './view/comparer/store/comparer.reducer';
+import { ComparerEffects } from './view/comparer/store/comparer.effects';
 
 
 @NgModule({
@@ -133,7 +135,8 @@ import { NavigationEffects } from './store/navigation/navigation.effects';
       configurationView: configurationReducer,
       historyTable: historyTableReducer,
       jobPage: jobPageReducer,
-      scenarioPage: scenarioPageReducer
+      scenarioPage: scenarioPageReducer,
+      comparer: comparerPageReducer
     }),
     // StoreDevtoolsModule should be imported after StoreModule
     StoreDevtoolsModule.instrument({
@@ -147,7 +150,8 @@ import { NavigationEffects } from './store/navigation/navigation.effects';
       ConfigurationEffects,
       HistoryTableEffects,
       JobPageEffects,
-      ScenarioPageEffects
+      ScenarioPageEffects,
+      ComparerEffects
     ]),
     RouterModule.forRoot(routes),
     AgGridModule.withComponents([])

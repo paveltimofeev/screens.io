@@ -50,7 +50,7 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
 
     this.route.params.subscribe( params => {
 
-      this.id = this.route.snapshot.params.id;
+      this.id = params.id;
       if (this.id !== undefined) {
         this.store.dispatch(refresh({payload: {id: this.id}}));
         this.store.dispatch(refreshScenarioHistory({payload: {id: this.id}}));

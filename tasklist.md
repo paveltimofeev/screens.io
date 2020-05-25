@@ -96,6 +96,7 @@
 - [Feature] Create couple of examples scenarios demonstrating key features (for every new user)
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- Frontend: Not found views for scenario, job, comparer pages. Because they could be opened by Id, that does not exists.
 - Frontend: Read proof
 - [Feature] Frontend: RESTYLE UI - Scenario edit view - Viewports, Overview/Summary+Refs and HasValues pin.
 - Frontend: Allow to choose Viewports for Scenario at Viewports Tab

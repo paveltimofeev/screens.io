@@ -123,6 +123,16 @@
 ### 404
 
 ### LANDING PAGE
+
+    Визуальное регрессионное тестирование
+      Автоматические тестирование скриншотами. Легко
+        [Начать]
+        
+    Visual Regression Testing
+      Automated screenshot testing. Easy
+        [Start]
+
+
     see https://www.enginethemes.com
     
     https://www.templatemonster.com/templates.php
@@ -154,4 +164,3 @@
         - https://ui8.net/tanahair-studio/products/computer-programming-illustration-vol-1
 
 
-    

@@ -52,7 +52,7 @@
         [scenarioName]="'Home Page / Navigation Bar Component'"
         [failsPercent]="73"
         [imageUrl]="'assets/images/stubs/screen9.png'"
-        (clickOnImage)="testEventHandler($event)"
+        (clickOnImage)="mostFragileCaseHandler($event)"
       ></app-widget-fragiled>
 
       <app-widget
@@ -77,7 +77,7 @@
 
     <app-widget-run
       [viewports]="['1920 × 1080', '1600 × 900', '1270 × 768', '800 × 600']"
-      (clickRunFiltered)="testEventHandler($event)"
+      (clickRunFiltered)="runFilteredScenariosHandler($event)"
     >
     </app-widget-run>
 
@@ -109,8 +109,7 @@
     <table class="runs-table" border="0">
       <tr
         *ngFor="let job of recentJobs$ | async"
-        [routerLink]="['/job', job._id]"
-      >
+        (click)="recentRunClickHandler(job._id)">
         <td>
 
           <div class="status-cell">
@@ -140,7 +139,7 @@
 
           <div class="user-cell">
             <div class="upic">{{ job.upic }}</div>
-            <span class="text">{{ job.startedBy }}</span>
+            <span class="text except-xs">{{ job.startedBy }}</span>
           </div>
 
         </td>

@@ -2,10 +2,10 @@
 
   <span class="more-value">{{ _value }}</span>
 
-  <input type="checkbox" id="ch1">
-  <label *ngIf="hasMore" for="ch1">
+  <input type="checkbox" [attr.id]="id" #checkbox>
+  <label (click)="clickHandler($event); false" *ngIf="hasMore" [attr.for]="id">
     <span class="more-button">+{{ moreNumber }}</span>
-    <div class="more-box">Value2, Value3</div>
+    <div class="more-box">{{ moreValues }}</div>
   </label>
 
 </span>

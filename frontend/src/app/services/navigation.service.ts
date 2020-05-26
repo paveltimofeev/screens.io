@@ -24,8 +24,12 @@ export class NavigationService {
 
   /// JOB
 
+  openJob(jobId:string) {
+    this.router.navigate(['job', jobId])
+  }
   openScenarioHistory(scenarioId:string) {
 
+    /// scenarioId ???
     this.router.navigate(['job', scenarioId])
   }
   openComparer(jobId:string, caseIdx:number) {

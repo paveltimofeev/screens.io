@@ -6,6 +6,7 @@ import { favoriteScenarios, recentJobs, stats } from './store/overview.selectors
 import { cleanupNgrxStorage, refresh, runAllScenarios } from './store/overview.actions';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { runOneScenario } from '../dashboard/store/dashboard.actions';
+import { Filters } from '../../ui-kit/widget-run/widget-run.component';
 
 @Component({
   selector: 'app-overview',
@@ -20,7 +21,10 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   refresher$: Observable<any>;
 
-  constructor(private store: Store, private navigation:NavigationService) { }
+  constructor(
+    private store: Store,
+    private navigation: NavigationService
+  ) { }
 
   ngOnInit() {
 
@@ -71,7 +75,16 @@ export class OverviewComponent implements OnInit, OnDestroy {
     }
   }
 
-  testEventHandler(event) {
-    console.log(event)
+  recentRunClickHandler (jobId: string) {
+
+    this.navigation.openJob(jobId)
+  }
+
+  mostFragileCaseHandler ($event: string) {
+
+  }
+
+  runFilteredScenariosHandler ($event: Filters) {
+
   }
 }

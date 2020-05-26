@@ -1253,19 +1253,32 @@ app-data-action-button:first-child {
   display: none;
 }
 .morable input[type=checkbox]:checked ~ label > .more-box {
-  display: block;
-  position: absolute;
-  top: 1em;
-  left: 2em;
-}
-.morable input[type=checkbox]:checked ~ label > .more-box {
-  background: #000000aa;
+  background: #000000d5;
   color: #ffffff;
   padding: .75em 1em;
   font-size: 0.9em;
   line-height: 135%;
   box-shadow: 5px 5px 10px 0 rgba(0,0,0,.15);
   border-radius: 2px;
+  white-space: pre;
+}
+.morable input[type=checkbox]:checked ~ label > .more-box {
+  display: block;
+  position: absolute;
+  bottom: 0em;
+  left: 2em;
+  z-index: 100;
+}
+
+@media (max-width: 600px) {
+  .morable input[type=checkbox]:checked ~ label > .more-box {
+    display: block;
+    position: fixed;
+    top: initial;
+    bottom: 1em;
+    left: 1em;
+    right: 1em;
+  }
 }
 
 

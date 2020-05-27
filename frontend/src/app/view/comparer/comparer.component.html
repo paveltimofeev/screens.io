@@ -47,6 +47,7 @@
   <div class="data-actions-placeholder">
     <div>
       <app-data-action-button
+        *ngIf="(images$ | async).differenceImage"
         [label]="'Difference'"
         [icon]="'Difference'"
         [hideLabelOnXS]="true"
@@ -68,6 +69,7 @@
         (clicked)="changeDisplayedImageModeHandler('Reference')">
       </app-data-action-button>
       <app-data-action-button
+        *ngIf="(images$ | async).differenceImage"
         [label]="'Comparer'"
         [icon]="'Comparer'"
         [hideLabelOnXS]="true"

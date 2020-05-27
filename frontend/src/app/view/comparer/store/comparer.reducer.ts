@@ -47,7 +47,8 @@ const _reducer = createReducer(initState,
 
     return {
       ...state,
-      ...action.payload
+      ...action.payload,
+      displayedImageMode: action.payload.differenceImage ? 'Difference' : 'Test Result'
     }
   }),
 

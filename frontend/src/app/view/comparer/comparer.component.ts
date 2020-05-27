@@ -77,4 +77,23 @@ export class ComparerComponent implements OnInit, OnDestroy {
         testCaseIndex: this.testCaseIndex
     }}) )
   }
+
+
+  /* DATA ACTIONS */
+
+  showTestImageHandler () {
+
+  }
+  showReferenceImageHandler () {
+
+  }
+  showDifferenceImageHandler () {
+
+  }
+  fullSizeHandler () {
+
+  }
+  fitSizeHandler () {
+
+  }
 }

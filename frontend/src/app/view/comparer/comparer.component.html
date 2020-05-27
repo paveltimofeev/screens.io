@@ -51,19 +51,19 @@
         [label]="'Test Result'"
         [icon]="'Test'"
         [hideLabelOnXS]="true"
-        (clicked)="showTestImage()">
+        (clicked)="showTestImageHandler()">
       </app-data-action-button>
       <app-data-action-button
         [label]="'Reference'"
         [icon]="'Reference'"
         [hideLabelOnXS]="true"
-        (clicked)="showReferenceImage()">
+        (clicked)="showReferenceImageHandler()">
       </app-data-action-button>
       <app-data-action-button
         [label]="'Difference'"
         [icon]="'Difference'"
         [hideLabelOnXS]="true"
-        (clicked)="showDifferenceImage()">
+        (clicked)="showDifferenceImageHandler()">
       </app-data-action-button>
       <app-data-action-button
         [label]="'Comparer'"
@@ -79,7 +79,7 @@
         [label]="'Full Size'"
         [icon]="'Full Size'"
         [hideLabelOnXS]="true"
-        (clicked)="fullSize()">
+        (clicked)="fullSizeHandler()">
       </app-data-action-button>
 
       <app-data-action-button
@@ -87,7 +87,7 @@
         [label]="'Fit'"
         [icon]="'Fit'"
         [hideLabelOnXS]="true"
-        (clicked)="fitSize()">
+        (clicked)="fitSizeHandler()">
       </app-data-action-button>
 
     </div>
@@ -95,7 +95,11 @@
 
   <div class="data-placeholder">
 
-    <img [attr.src]="(images$ | async).referenceImage" alt="" width="100%">
+    <app-image-comparer
+      [firstImageUrl]="(images$ | async).differenceImage"
+      [secondImageUrl]="(images$ | async).referenceImage"
+    >
+    </app-image-comparer>
 
   </div>
 

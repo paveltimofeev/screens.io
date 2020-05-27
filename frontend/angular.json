@@ -25,9 +25,12 @@
             "styles": [
               "src/ag-grid-custom-theme.css",
               "src/styles.css",
-              "src/ui-kit.css"
+              "src/ui-kit.css",
+              "node_modules/juxtaposejs/build/css/juxtapose.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/juxtaposejs/build/js/juxtapose.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {

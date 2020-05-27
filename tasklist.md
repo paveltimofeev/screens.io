@@ -68,8 +68,9 @@
 -- Frontend: RESTYLE UI - Scenario edit view (New Scenario Mode)
 -- Frontend: RESTYLE UI - Responsive UI (support 1920/1600/1270/iPad)
 -- Frontend: RESTYLE UI - Comparer view - layout and data-binding
+-- Frontend: RESTYLE UI - Comparer view - ImagesComparerComponent
 
-- Frontend: RESTYLE UI - Comparer view - ComparerComponent
+- Frontend: Implement Page Actions, Data Actions and Search filter
 
 - Frontend: RESTYLE UI - Responsive UI (support mobile)
 - Frontend: Recent Runs table at Overview page - skip 'Approve' results and add AutoRefresh
@@ -77,7 +78,6 @@
 - Frontend: RESTYLE UI - Settings view (see uistructure.md for content)
 - Frontend: Hide actions and buttons that not going to be included in MVP, but place all of them into tasklist as items
 - Frontend: Implement Sidebar filters
-- Frontend: Implement Page Actions, Data Actions and Search filter
 - Frontend: RESTYLE UI - Improve Scenario edit view - add Viewports; add Overview(Summary) with reference image; add HasValues pin; add Description (commentary) for scenario, to make puprose of scenario clearer.
 - Frontend: show current username
 - Backend: Page Actions - Remove scenarios filtered by ids[]*viewports[]
@@ -92,6 +92,7 @@
 - LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
 - Do not use Login as userId, because it uses in path building and could allow user change directories, use user UID instead
 - Auth proxy should not store passwords in plain text
+- Use Master term instead of Reference?
 - **------------ MVP MILESTONE ------------**
 - [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy)
 - [Bug] Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
@@ -107,8 +108,8 @@
 - Frontend: Allow to choose Viewports for Scenario at Viewports Tab
 - Frontend: Show reference image at Scenario Overview tab
 - Frontend: Table view mode for scenarios list
-- [Featute+] Screenshot history & Comparation - ability to go back and forth through historical screenshots of Screnario with highlighting of difference. 
-- [Featute+] Compare any history record of scenario with refference ('master') or with any other record (like 2 branches in git).
+- [Feature+] Screenshot history & Comparation - ability to go back and forth through historical screenshots of Screnario with highlighting of difference. 
+- [Feature+] Compare any history record of scenario with refference ('master') or with any other record (like 2 branches in git).
 - [Feature] Run scenarios with overridden hostname (stage)
 - [Feature] Ability to set cookies. [Usecase] Test different looks of UI, dependent on cookie value, like 'covid', 'accept cookie' banners.
 - [Feature] Ability to set localStorage/sessionStorage values. [Usecase] Test user cutomized UIs.
@@ -159,7 +160,9 @@
 - Displaying Errors on load and save
 - [Feature] Other browsers: FF/IE?
 - [Feature] Collect logs
+- [Security] Check npm deps for vulnerabilities by npm audit at lease, and fix them
 - [Legal] FontAwsome can be used for commercial project?
+- [Legal] juxtaposejs can be used for commercial project?
 
 
 - DOCKERIZE AUTH-PROXY & BACKEND AND RUN THEM IN AWS

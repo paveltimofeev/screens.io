@@ -75,6 +75,7 @@ import { NavigationEffects } from './store/navigation/navigation.effects';
 import { comparerPageReducer } from './view/comparer/store/comparer.reducer';
 import { ComparerEffects } from './view/comparer/store/comparer.effects';
 import { MoreComponent } from './ui-kit/more/more.component';
+import { ImagesComparerComponent } from './ui-kit/images-comparer/images-comparer.component';
 
 
 @NgModule({
@@ -124,7 +125,8 @@ import { MoreComponent } from './ui-kit/more/more.component';
     SettingsComponent,
     CardLgComponent,
     InfoTableComponent,
-    MoreComponent
+    MoreComponent,
+    ImagesComparerComponent
   ],
   imports: [
     BrowserModule,

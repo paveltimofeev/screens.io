@@ -2,6 +2,16 @@
 @import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 
 
+
+.ag-cell-focus,.ag-cell-no-focus{
+  border:none !important;
+}
+.no-border.ag-cell:focus{
+  _border:none !important;
+  outline: none;
+}
+
+
 .ag-theme-alpine {
   -webkit-font-smoothing: antialiased;
   color: #6A6A6A;

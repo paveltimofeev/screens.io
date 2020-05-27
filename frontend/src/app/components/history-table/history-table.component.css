@@ -3,5 +3,5 @@
 }
 
 .table-container {
-  padding-bottom: 50px;
+  padding-bottom: var(--px50);
 }

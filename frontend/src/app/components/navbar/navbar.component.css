@@ -63,8 +63,12 @@ li + li {
   margin-left: var(--px70); /* 70px //75px; */
 }
 
-.app-account .icon {
+.signout-icon {
   margin-left: 13px;
+  outline: none;
+}
+.signout-icon:hover {
+  color: var(--color-blue);
 }
 
 .app-hamburger--opened ul {

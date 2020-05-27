@@ -10,7 +10,10 @@
       <li routerLinkActive="navbar-item--active" [routerLink]="['/settings']">Settings</li>
     </ul>
   </div>
-  <div class="app-account except-xs">Maddy Savage <i [routerLink]="['/signin']" class="icon material-icons">copyright</i></div>
+  <div class="app-account except-xs">
+    Maddy Savage
+    <app-icon class="signout-icon" [icon]="'Sign Out'" [routerLink]="['/login']"></app-icon>
+  </div>
 
   <div class="app-hamburger" [ngClass]="{ 'app-hamburger--opened': isMenuOpened }">
     <app-icon icon="Hamburger" (click)="openMenuHandler()"></app-icon>

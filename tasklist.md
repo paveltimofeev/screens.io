@@ -66,21 +66,22 @@
 -- Create Dumb Angular Components based on UI-Kit styles and markup
 -- Show the latest run image at ScenarioCards
 -- Frontend: RESTYLE UI - Scenario edit view (New Scenario Mode)
+-- Frontend: RESTYLE UI - Responsive UI (support 1920/1600/1270/iPad)
+-- Frontend: RESTYLE UI - Comparer view - layout and data-binding
 
-- Frontend: RESTYLE UI - Comparer view
-- Frontend: AutoRefresh should stop after user left page (on ngDestroy)
-- Frontend: RESTYLE UI - Responsive UI (support 1920/1600/1270/mobile/iPad)
+- Frontend: RESTYLE UI - Comparer view - ComparerComponent
+
+- Frontend: RESTYLE UI - Responsive UI (support mobile)
 - Frontend: Recent Runs table at Overview page - skip 'Approve' results and add AutoRefresh
-
-- [Bug] Clear text field - cleared field does not save changes on backend (Save Scenario / Hide Selectors field)
-- [Bug] Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
-- [Bug] Job will not fild a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 - Frontend: RESTYLE UI - Settings view (see uistructure.md for content)
 - Frontend: Hide actions and buttons that not going to be included in MVP, but place all of them into tasklist as items
 - Frontend: Implement Sidebar filters
 - Frontend: Implement Page Actions, Data Actions and Search filter
+- Frontend: RESTYLE UI - Improve Scenario edit view - add Viewports; add Overview(Summary) with reference image; add HasValues pin; add Description (commentary) for scenario, to make puprose of scenario clearer.
+- Frontend: show current username
 - Backend: Page Actions - Remove scenarios filtered by ids[]*viewports[]
+- [Bug] New user does not have any Viewports configured and do not have ability to add them.
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Frontend: SignIn/SignUp page RESTYLE
 - [Move to AWS: 1] STORE IMAGES AT AWS S3
@@ -92,6 +93,10 @@
 - Do not use Login as userId, because it uses in path building and could allow user change directories, use user UID instead
 - Auth proxy should not store passwords in plain text
 - **------------ MVP MILESTONE ------------**
+- [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy)
+- [Bug] Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
+- [Bug] Job will not fild a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
+- [Bug] Clear text field - cleared field does not save changes on backend (Save Scenario / Hide Selectors field)
 - [Costs] ability to quickly block or limit user (to protect from overbudget)
 - Define Metrics to collect (feature requests & feedback button)
 - [Feature] Create couple of examples scenarios demonstrating key features (for every new user)
@@ -99,11 +104,14 @@
 
 - Frontend: Not found views for scenario, job, comparer pages. Because they could be opened by Id, that does not exists.
 - Frontend: Read proof
-- [Feature] Frontend: RESTYLE UI - Scenario edit view - Viewports, Overview/Summary+Refs and HasValues pin.
 - Frontend: Allow to choose Viewports for Scenario at Viewports Tab
 - Frontend: Show reference image at Scenario Overview tab
 - Frontend: Table view mode for scenarios list
+- [Featute+] Screenshot history & Comparation - ability to go back and forth through historical screenshots of Screnario with highlighting of difference. 
+- [Featute+] Compare any history record of scenario with refference ('master') or with any other record (like 2 branches in git).
 - [Feature] Run scenarios with overridden hostname (stage)
+- [Feature] Ability to set cookies. [Usecase] Test different looks of UI, dependent on cookie value, like 'covid', 'accept cookie' banners.
+- [Feature] Ability to set localStorage/sessionStorage values. [Usecase] Test user cutomized UIs.
 - [Feature] To have several Valid References and test image against all of them to mitigate minor (insignificant) differences. To have actions like 'Add to Approved' and 'Override All Approved' instead of 'Approve'.
 - Frontend: Animate processes - approve button should be animated during approve process, run during run and other microinteractions.
 - Run Scenario(s) by Id, not by label, because different project should be able to have the same label sometimes.
@@ -130,7 +138,7 @@
 - [Feature] Bulk add scenarios (urls)
 - [Feature] Import scenarios from customer's backstopjs-config files (as well as from other framework/competitor configurations)
 - Disable Animation option for scenario
-- [Feature] Support work with sites protected with BasicAuth or ftp (user:pass)
+- [Feature] Support work with sites protected with Basic-Auth or ftp (user:pass); Creds should be stored encrypted, and shouldn't be passed to UI (to prevent leaks via hacked account)
 - Retry Policy for backend-db, backend-queue
 - AuthGuard to redirect unauthorized users to login page ASAP
 - [Costs] Backend: Remove all References and test Files on removing Scenarios or Viewports
@@ -150,7 +158,8 @@
 - Confirmation dialog for delete ops
 - Displaying Errors on load and save
 - [Feature] Other browsers: FF/IE?
-- FontAwsome can be used for commercial project?
+- [Feature] Collect logs
+- [Legal] FontAwsome can be used for commercial project?
 
 
 - DOCKERIZE AUTH-PROXY & BACKEND AND RUN THEM IN AWS

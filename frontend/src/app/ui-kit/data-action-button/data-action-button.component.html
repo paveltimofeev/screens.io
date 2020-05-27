@@ -1,5 +1,8 @@
 <button
   class="data-action"
+  [ngClass]="{
+    'data-action--active': selected
+  }"
   (click)="clicked.emit(label)">
   <app-icon [icon]="icon"></app-icon>
   <span [ngClass]="{ 'except-xs': hideLabelOnXS }">{{ label }}</span>

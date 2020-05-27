@@ -235,9 +235,14 @@ button, input {
   align-items: center;
   height: var(--px24); /* 24px; */
   outline: none;
+  border-bottom: 2px solid transparent;
 }
 .data-action:hover {
   color: var(--color-blue);
+}
+.data-action--active {
+  color: var(--color-blue);
+  border-bottom: 2px solid var(--color-blue);
 }
 .data-action + .data-action {
   margin-left: var(--px20); /* 20px */

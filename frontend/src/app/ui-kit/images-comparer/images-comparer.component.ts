@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 declare var juxtapose;
 
 @Component({
-  selector: 'app-image-comparer',
+  selector: 'app-images-comparer',
   templateUrl: './images-comparer.component.html',
   styleUrls: ['./images-comparer.component.css']
 })
@@ -15,21 +15,38 @@ export class ImagesComparerComponent {
 
   @Input()
   set firstImageUrl(value: string) {
-    this._firstImageUrl = value;
-    this.initSlider();
+
+    let changed = this._secondImageUrl !== value;
+    if (changed) {
+      this._firstImageUrl = value;
+      this.initSlider();
+    }
   }
 
   @Input()
   set secondImageUrl(value: string) {
-    this._secondImageUrl = value;
-    this.initSlider();
+
+    let changed = this._secondImageUrl !== value;
+    if (changed) {
+      this._secondImageUrl = value;
+      this.initSlider();
+    }
   }
 
-  constructor() { }
+  constructor() {
+    console.log('images-compare constructor')
+  }
+
+  @Input()
+  fitImageIntoContainer;
 
   initSlider() {
 
     if (!this._firstImageUrl || !this._secondImageUrl) {
+      return;
+    }
+
+    if (this.slider !== undefined) {
       return;
     }
 

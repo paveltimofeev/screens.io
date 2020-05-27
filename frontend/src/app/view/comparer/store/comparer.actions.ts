@@ -4,6 +4,8 @@ export const refresh = createAction('[Comparer Component] refresh', props<{paylo
 export const loaded = createAction( '[Comparer Component] loaded', props<{payload: any}>() );
 export const cleanupNgrxStorage = createAction('[Comparer Component] cleanupNgrxStorage');
 
+export const changeSizeMode = createAction('[Comparer Component] sizeMode', props<{payload:{mode:string}}>());
+
 export const approve = createAction(
   '[Comparer Component] approve',
   props<{

@@ -69,6 +69,7 @@
 -- Frontend: RESTYLE UI - Responsive UI (support 1920/1600/1270/iPad)
 -- Frontend: RESTYLE UI - Comparer view - layout and data-binding
 -- Frontend: RESTYLE UI - Comparer view - ImagesComparerComponent
+-- Frontend: Comparer view - Implement Fit/Fill Data Actions
 
 - Frontend: Implement Page Actions, Data Actions and Search filter
 

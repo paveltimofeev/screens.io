@@ -31,7 +31,7 @@ export let IconMapping:Map<string, string> = new Map(
     ['Difference', 'far fa-images'],
     ['Full Height', 'fas fa-arrows-alt-v'],
     ['Comparer', 'fas fa-columns'],
-    ['Full Size', 'fas fa-expand'],
+    ['Fill', 'fas fa-expand'],
     ['Fit', 'fas fa-compress-arrows-alt'],
 
     ['Delete', 'fas fa-trash'],

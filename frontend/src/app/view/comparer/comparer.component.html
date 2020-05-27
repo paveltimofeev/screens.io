@@ -76,18 +76,22 @@
     <div>
 
       <app-data-action-button
-        [label]="'Full Size'"
-        [icon]="'Full Size'"
-        [hideLabelOnXS]="true"
-        (clicked)="fullSizeHandler()">
-      </app-data-action-button>
-
-      <app-data-action-button
         [className]="'except-xs'"
         [label]="'Fit'"
         [icon]="'Fit'"
         [hideLabelOnXS]="true"
-        (clicked)="fitSizeHandler()">
+        (clicked)="changeSizeModeHandler('Fit')"
+        [selected]="(sizeMode$ | async) === 'Fit'"
+      >
+      </app-data-action-button>
+
+      <app-data-action-button
+        [label]="'Fill'"
+        [icon]="'Fill'"
+        [hideLabelOnXS]="true"
+        (clicked)="changeSizeModeHandler('Fill')"
+        [selected]="(sizeMode$ | async) === 'Fill'"
+      >
       </app-data-action-button>
 
     </div>
@@ -95,11 +99,11 @@
 
   <div class="data-placeholder">
 
-    <app-image-comparer
+    <app-images-comparer
       [firstImageUrl]="(images$ | async).differenceImage"
       [secondImageUrl]="(images$ | async).referenceImage"
     >
-    </app-image-comparer>
+    </app-images-comparer>
 
   </div>
 

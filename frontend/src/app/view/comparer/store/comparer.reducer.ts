@@ -17,7 +17,9 @@ export interface ComparerState {
   testImage: string;
 
   scenarios: string;
-  viewports: string[]
+  viewports: string[];
+
+  sizeMode: string;
 }
 
 export const initState = {
@@ -32,7 +34,9 @@ export const initState = {
   testImage: '',
 
   scenarios: '',
-  viewports: []
+  viewports: [],
+
+  sizeMode: 'Fit'
 };
 
 const _reducer = createReducer(initState,
@@ -42,6 +46,14 @@ const _reducer = createReducer(initState,
     return {
       ...state,
       ...action.payload
+    }
+  }),
+
+  on(actions.changeSizeMode, (state, action) => {
+
+    return {
+      ...state,
+      sizeMode: action.payload.mode
     }
   }),
 

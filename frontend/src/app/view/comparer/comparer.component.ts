@@ -2,9 +2,16 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { NavigationService } from '../../services/navigation.service';
-import { approve, cleanupNgrxStorage, refresh, runAgain } from './store/comparer.actions';
+import { approve, changeSizeMode, cleanupNgrxStorage, refresh, runAgain } from './store/comparer.actions';
 import { Observable } from 'rxjs';
-import { breadcrumbsInfo, descriptionInfo, images, jobTitle, pageActionsInfo } from './store/comparer.selectors';
+import {
+  breadcrumbsInfo,
+  descriptionInfo,
+  images,
+  jobTitle,
+  pageActionsInfo,
+  sizeMode
+} from './store/comparer.selectors';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -23,6 +30,8 @@ export class ComparerComponent implements OnInit, OnDestroy {
   pageActionsInfo$: Observable<any>;
   images$: Observable<any>;
 
+  sizeMode$: Observable<string>;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +46,8 @@ export class ComparerComponent implements OnInit, OnDestroy {
     this.breadcrumbsInfo$ = this.store.select( breadcrumbsInfo );
     this.pageActionsInfo$ = this.store.select( pageActionsInfo );
     this.images$ = this.store.select( images );
+
+    this.sizeMode$ = this.store.select( sizeMode );
 
     this.route.params.subscribe( params => {
 
@@ -90,10 +101,8 @@ export class ComparerComponent implements OnInit, OnDestroy {
   showDifferenceImageHandler () {
 
   }
-  fullSizeHandler () {
 
-  }
-  fitSizeHandler () {
-
+  changeSizeModeHandler (mode:string) {
+    this.store.dispatch( changeSizeMode({payload: {mode: mode}}) );
   }
 }

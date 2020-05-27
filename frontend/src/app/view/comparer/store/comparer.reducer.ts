@@ -37,7 +37,7 @@ export const initState = {
   scenarios: '',
   viewports: [],
 
-  displayedImageMode: 'Difference',
+  displayedImageMode: '',
   sizeMode: 'Fit'
 };
 

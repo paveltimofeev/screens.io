@@ -19,6 +19,7 @@ export interface ComparerState {
   scenarios: string;
   viewports: string[];
 
+  displayedImageMode: string;
   sizeMode: string;
 }
 
@@ -36,6 +37,7 @@ export const initState = {
   scenarios: '',
   viewports: [],
 
+  displayedImageMode: 'Difference',
   sizeMode: 'Fit'
 };
 
@@ -46,6 +48,14 @@ const _reducer = createReducer(initState,
     return {
       ...state,
       ...action.payload
+    }
+  }),
+
+  on(actions.changeDisplayedImageMode, (state, action) => {
+
+    return {
+      ...state,
+      displayedImageMode: action.payload.mode
     }
   }),
 

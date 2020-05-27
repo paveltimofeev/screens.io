@@ -43,6 +43,11 @@ export const images = createSelector(
   })
 );
 
+export const displayedImageMode = createSelector(
+  selectFeature,
+  (state: ComparerState) => state.displayedImageMode
+);
+
 export const sizeMode = createSelector(
   selectFeature,
   (state: ComparerState) => state.sizeMode

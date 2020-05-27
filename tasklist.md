@@ -70,6 +70,7 @@
 -- Frontend: RESTYLE UI - Comparer view - layout and data-binding
 -- Frontend: RESTYLE UI - Comparer view - ImagesComparerComponent
 -- Frontend: Comparer view - Implement Fit/Fill Data Actions
+-- Frontend: Comparer view - Implement Difference/Test Result/Reference/Comparer switch Data Actions
 
 - Frontend: Implement Page Actions, Data Actions and Search filter
 

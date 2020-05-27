@@ -46,30 +46,33 @@
 
   <div class="data-actions-placeholder">
     <div>
-
+      <app-data-action-button
+        [label]="'Difference'"
+        [icon]="'Difference'"
+        [hideLabelOnXS]="true"
+        [selected]="(displayedImageMode$ | async) === 'Difference'"
+        (clicked)="changeDisplayedImageModeHandler('Difference')">
+      </app-data-action-button>
       <app-data-action-button
         [label]="'Test Result'"
         [icon]="'Test'"
         [hideLabelOnXS]="true"
-        (clicked)="showTestImageHandler()">
+        [selected]="(displayedImageMode$ | async) === 'Test Result'"
+        (clicked)="changeDisplayedImageModeHandler('Test Result')">
       </app-data-action-button>
       <app-data-action-button
         [label]="'Reference'"
         [icon]="'Reference'"
         [hideLabelOnXS]="true"
-        (clicked)="showReferenceImageHandler()">
-      </app-data-action-button>
-      <app-data-action-button
-        [label]="'Difference'"
-        [icon]="'Difference'"
-        [hideLabelOnXS]="true"
-        (clicked)="showDifferenceImageHandler()">
+        [selected]="(displayedImageMode$ | async) === 'Reference'"
+        (clicked)="changeDisplayedImageModeHandler('Reference')">
       </app-data-action-button>
       <app-data-action-button
         [label]="'Comparer'"
         [icon]="'Comparer'"
         [hideLabelOnXS]="true"
-        (clicked)="showComparer()">
+        [selected]="(displayedImageMode$ | async) === 'Comparer'"
+        (clicked)="changeDisplayedImageModeHandler('Comparer')">
       </app-data-action-button>
 
     </div>
@@ -99,7 +102,25 @@
 
   <div class="data-placeholder">
 
+    <div
+      class="compare-images-container"
+      *ngIf="(displayedImageMode$ | async) !== 'Comparer'"
+    >
+      <img class="compare-image"
+           [ngClass]="{'compare-image--active': (displayedImageMode$ | async) === 'Test Result'}"
+           [attr.src]="(images$ | async).testImage">
+
+      <img class="compare-image"
+           [ngClass]="{'compare-image--active': (displayedImageMode$ | async) === 'Reference'}"
+           [attr.src]="(images$ | async).referenceImage">
+
+      <img class="compare-image"
+           [ngClass]="{'compare-image--active': (displayedImageMode$ | async) === 'Difference'}"
+           [attr.src]="(images$ | async).differenceImage">
+    </div>
+
     <app-images-comparer
+      *ngIf="(displayedImageMode$ | async) === 'Comparer'"
       [firstImageUrl]="(images$ | async).differenceImage"
       [secondImageUrl]="(images$ | async).referenceImage"
     >

@@ -1,0 +1,14 @@
+#comparer-container div.jx-control {
+  background-color: #b559b4;
+  box-shadow: 0 0 6px 0 #822d88b8;
+}
+#comparer-container div.jx-controller {
+  background-color: #b559b4;
+  box-shadow: 0 0 20px 0px #822d88b8;
+}
+#comparer-container div.jx-arrow.jx-left {
+  border-color: transparent #b559b4 transparent transparent;
+}
+#comparer-container div.jx-arrow.jx-right {
+  border-color: transparent transparent transparent #b559b4;
+}

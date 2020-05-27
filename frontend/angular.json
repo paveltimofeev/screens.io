@@ -26,7 +26,8 @@
               "src/ag-grid-custom-theme.css",
               "src/styles.css",
               "src/ui-kit.css",
-              "node_modules/juxtaposejs/build/css/juxtapose.css"
+              "node_modules/juxtaposejs/build/css/juxtapose.css",
+              "src/juxtapose-customization.css"
             ],
             "scripts": [
               "node_modules/juxtaposejs/build/js/juxtapose.js"

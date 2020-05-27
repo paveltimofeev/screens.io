@@ -1,4 +1,14 @@
 :host {
     height: 100%;
 }
-    
+
+.compare-images-container {}
+
+.compare-image {
+  opacity: 0;
+  position: absolute;
+}
+
+.compare-image--active {
+  opacity: 1;
+}

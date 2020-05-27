@@ -236,6 +236,11 @@ button, input {
   height: var(--px24); /* 24px; */
   outline: none;
   border-bottom: 2px solid transparent;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .data-action:hover {
   color: var(--color-blue);

@@ -11,7 +11,8 @@ export interface OverviewState {
     totalScenarios: number,
     totalViewports: number,
     lastRunTime: any,
-    totalState: string
+    totalState: string,
+    autoRefreshRun: boolean;
 }
 
 export const initState = {
@@ -21,7 +22,8 @@ export const initState = {
     totalScenarios: 0,
     totalViewports: 0,
     lastRunTime: -1,
-    totalState: ''
+    totalState: '',
+    autoRefreshRun: true
 };
 
 const _reducer = createReducer(initState,
@@ -34,9 +36,20 @@ const _reducer = createReducer(initState,
         }
     }),
 
+  on(actions.loadedRecentRuns, (state, action) => {
+
+    return {
+      ...state,
+      ...action.payload
+    }
+  }),
+
     on(actions.cleanupNgrxStorage, (state, action) => {
 
-      return initState
+      return {
+        ...initState,
+        autoRefreshRun: false
+      }
     })
 );
 

@@ -1,10 +1,12 @@
 <table class="info-table">
 
-  <tr *ngFor="let lp of labelsAndProps">
-    <td class="label-cell">{{ lp.label }}</td>
-    <td *ngIf="!lp.chips" class="value-cell">{{ items[ lp.prop ] }}</td>
-    <td *ngIf="lp.chips" class="value-cell">
-        <div class="chips" *ngFor="let v of items[ lp.prop ]">{{ v }}</div>
+  <tr *ngFor="let row of _labelsAndProps; let idx = $index">
+
+    <td *ngIf="!row.chips || (row.chips && items[ row.prop ].length > 0)" class="label-cell">{{ row.label }}</td>
+
+    <td class="value-cell" *ngIf="!row.chips">{{ items[ row.prop ] }}</td>
+    <td class="value-cell" *ngIf="row.chips && items[ row.prop ].length > 0">
+        <div class="chips" *ngFor="let v of items[ row.prop ]">{{ v }}</div>
     </td>
   </tr>
 

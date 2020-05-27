@@ -3,7 +3,7 @@ import { IBarItem } from '../../ui-kit/widget-timeline/widget-timeline.component
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { favoriteScenarios, recentJobs, stats } from './store/overview.selectors';
-import { cleanupNgrxStorage, refresh, runAllScenarios } from './store/overview.actions';
+import { cleanupNgrxStorage, refresh, refreshRecentRuns, runAllScenarios } from './store/overview.actions';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { runOneScenario } from '../dashboard/store/dashboard.actions';
 import { Filters } from '../../ui-kit/widget-run/widget-run.component';
@@ -33,6 +33,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
     this.stats$ = this.store.pipe(select(stats))
 
     this.store.dispatch(refresh())
+    this.store.dispatch(refreshRecentRuns())
 
     this.makeStubChart();
   }

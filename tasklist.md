@@ -71,11 +71,11 @@
 -- Frontend: RESTYLE UI - Comparer view - ImagesComparerComponent
 -- Frontend: Comparer view - Implement Fit/Fill Data Actions
 -- Frontend: Comparer view - Implement Difference/Test Result/Reference/Comparer switch Data Actions
+-- Frontend: Recent Runs table at Overview page - skip 'Approve' results and add AutoRefresh
 
 - Frontend: Implement Page Actions, Data Actions and Search filter
 
 - Frontend: RESTYLE UI - Responsive UI (support mobile)
-- Frontend: Recent Runs table at Overview page - skip 'Approve' results and add AutoRefresh
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 - Frontend: RESTYLE UI - Settings view (see uistructure.md for content)
 - Frontend: Hide actions and buttons that not going to be included in MVP, but place all of them into tasklist as items

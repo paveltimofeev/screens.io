@@ -312,13 +312,18 @@ class VRT {
 
         if (filter) {
 
-            const state = new SingleValueRule(filter.state, ['Passed', 'Failed'])
+            const state = new SingleValueRule(filter.state, ['Passed', 'Failed', 'Approved'])
+            const not_state = new SingleValueRule(filter.not_state, ['Passed', 'Failed', 'Approved'])
             const startedBy = new SingleValueRule(filter.startedBy, ['Run by me'])
             const viewports = new ArrayRule(filter.viewports)
             const startedSince = new SinceDateRule(filter.startedSince)
 
             if ( state.isValid() ) {
                 query.state = state.toQueryPart();
+            }
+
+            if ( not_state.isValid() ) {
+                query.state = { '$ne': not_state.toQueryPart() };
             }
 
             if ( startedBy.isValid() ) {

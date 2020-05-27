@@ -79,12 +79,13 @@ router.get('/test/history', async function(req, res) {
     tryWrapper(req, res, async () => {
 
         const state = req.query.state;
+        const not_state = req.query.not_state;
         const startedBy = req.query.startedBy;
         const startedSince = req.query.startedSince;
         const viewports = req.query.viewports;
         const limit = req.query.limit; // TODO: sanitize limit
 
-        const jobs = await VRT.create(req.context).getHistoryRecords({state, startedBy, startedSince, viewports}, limit)
+        const jobs = await VRT.create(req.context).getHistoryRecords({state, not_state, startedBy, startedSince, viewports}, limit)
         res.status(200).send( {jobs} )
     })
 });

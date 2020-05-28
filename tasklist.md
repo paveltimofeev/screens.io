@@ -88,6 +88,7 @@
 - Frontend: show current username
 - Backend: Page Actions - Remove scenarios filtered by ids[]*viewports[]
 - [Bug] New user does not have any Viewports configured and do not have ability to add them.
+- [Bug] LatestResults at card-sm does not work correctly
 - Frontend: SignIn/SignUp page RESTYLE
 - [Move to AWS: 1] STORE IMAGES AT AWS S3
 - [Move to AWS: 2] Run MongoDb on AWS VM
@@ -101,7 +102,7 @@
 - **------------ MVP MILESTONE ------------**
 - Backend: Hide internal path to the "not found ref image", in case of error when Ref not exists
 - [Bug] Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
-- [Bug] Job will not fild a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
+- [Bug] Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
 - [Bug] Clear text field - cleared field does not save changes on backend (Save Scenario / Hide Selectors field)
 - [Costs] ability to quickly block or limit user (to protect from overbudget)
 - Define Metrics to collect (feature requests & feedback button)

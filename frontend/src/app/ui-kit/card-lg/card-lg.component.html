@@ -2,7 +2,8 @@
   <div class="image"
        (click)="clickCard.emit(label)"
        [ngClass]="{
-        'mouse--over': switchOnMouseOver && hoverImageUrl
+        'mouse--over': switchOnMouseOver && hoverImageUrl,
+        'full--height': fullHeightModeOn
        }">
 
     <img class="main-image" [attr.src]="imageUrl" [attr.alt]="label">

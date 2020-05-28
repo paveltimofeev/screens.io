@@ -36,3 +36,12 @@ export const sidebarHeaderInfo = createSelector(
   })
 );
 
+export const fullHeightModeOn = createSelector(
+  selectFeature,
+  (state: JobPageState) => state.fullHeightModeOn
+);
+
+export const imageMode = createSelector(
+  selectFeature,
+  (state: JobPageState) => state.imageMode
+);

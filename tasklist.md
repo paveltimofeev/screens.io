@@ -72,6 +72,7 @@
 -- Frontend: Comparer view - Implement Fit/Fill Data Actions
 -- Frontend: Comparer view - Implement Difference/Test Result/Reference/Comparer switch Data Actions
 -- Frontend: Recent Runs table at Overview page - skip 'Approve' results and add AutoRefresh
+-- Frontend: Job Page - Implement Data Actions
 
 - Frontend: Implement Page Actions, Data Actions and Search filter
 
@@ -105,6 +106,7 @@
 - [Feature] Create couple of examples scenarios demonstrating key features (for every new user)
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- Frontend: Implement ListView for Scenarios and JobPage
 - Frontend: Not found views for scenario, job, comparer pages. Because they could be opened by Id, that does not exists.
 - Frontend: Read proof
 - Frontend: Allow to choose Viewports for Scenario at Viewports Tab

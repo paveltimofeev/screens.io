@@ -946,6 +946,10 @@ app-data-action-button:first-child {
   height: 100%;
   cursor: pointer;
 }
+.card-lg .full--height img,
+.card-lg .full--height img {
+  object-fit: contain;
+}
 .card-lg .hover-image {
   position: absolute;
   left: 0;
@@ -1035,6 +1039,7 @@ app-data-action-button:first-child {
   font-weight: bold;
   padding-right: 20px;
   white-space: nowrap;
+  vertical-align: top;
 }
 .info-table .value-cell { font-weight: 400;}
 .info-table .value-cell .chips {

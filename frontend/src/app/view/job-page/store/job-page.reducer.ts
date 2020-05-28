@@ -13,6 +13,9 @@ export interface JobPageState {
   failedCases: number;
   status: string;
   cases: any[];
+
+  fullHeightModeOn: boolean;
+  imageMode: string;
 }
 
 export const initState = {
@@ -24,6 +27,9 @@ export const initState = {
   failedCases: 0,
   status: '',
   cases: [],
+
+  fullHeightModeOn: false,
+  imageMode: 'Test Result'
 };
 
 const _reducer = createReducer(initState,
@@ -33,6 +39,23 @@ const _reducer = createReducer(initState,
     return {
       ...state,
       ...action.payload
+    }
+  }),
+
+  on(actions.switchFullHeightMode, (state, action) => {
+
+    return {
+      ...state,
+      fullHeightModeOn: !state.fullHeightModeOn
+    }
+  }),
+
+
+  on(actions.setImageMode, (state, action) => {
+
+    return {
+      ...state,
+      imageMode: action.payload.mode
     }
   }),
 

@@ -45,24 +45,23 @@
     <div>
 
       <app-data-action-button
-        [label]="'Reference'"
-        [icon]="'Reference'"
-        [hideLabelOnXS]="true"
-        (clicked)="showReferenceImage()">
-      </app-data-action-button>
-      <app-data-action-button
-        [label]="'Test'"
-        [icon]="'Test'"
-        [hideLabelOnXS]="true"
-        (clicked)="showTestImage()">
-      </app-data-action-button>
-      <app-data-action-button
         [label]="'Difference'"
         [icon]="'Difference'"
         [hideLabelOnXS]="true"
-        (clicked)="showDifferenceImage()">
+        (clicked)="setImageMode('Difference')"
+        [selected]="(imageMode$ | async) === 'Difference'"
+      >
+      </app-data-action-button>
+      <app-data-action-button
+        [label]="'Test Result'"
+        [icon]="'Test'"
+        [hideLabelOnXS]="true"
+        (clicked)="setImageMode('Test Result')"
+        [selected]="(imageMode$ | async) === 'Test Result'"
+      >
       </app-data-action-button>
 
+      <!-- TODO: enable later
       <app-data-action-button
         class="except-xs"
         [label]="'Group by Scenarios'"
@@ -70,21 +69,25 @@
         [hideLabelOnXS]="true"
         (clicked)="groupByScenarios()">
       </app-data-action-button>
+      -->
 
       <app-data-action-button
         class="except-xs"
         [label]="'Full Height'"
         [icon]="'Full Height'"
         [hideLabelOnXS]="true"
-        (clicked)="fullHeightMode()">
+        (clicked)="fullHeightMode()"
+        [selected]="(fullHeightModeOn$ | async) === true"
+      >
       </app-data-action-button>
 
+      <!-- TODO: enable later
       <app-data-action-button
         [label]="'List View'"
         [icon]="'List View'"
         (clicked)="listView()">
       </app-data-action-button>
-
+      -->
 
     </div>
   </div>
@@ -104,6 +107,7 @@
     <div class="app-card app-card--two-in-row xs12" *ngFor="let c of cases$ | async; index as idx">
 
       <app-card-lg
+        *ngIf="(imageMode$ | async) === 'Test Result'"
         [label]="c.label"
         [imageUrl]="c.test"
         [hoverImageUrl]="c.difference"
@@ -111,6 +115,23 @@
         [status]="c.status"
         [errorMessage]="c.error"
         [switchOnMouseOver]="true"
+        [fullHeightModeOn]="fullHeightModeOn$ | async"
+        (clickCard)="clickCardHandler(idx)"
+        (clickLabel)="clickLabelHandler(c.scenarioId)"
+        (clickApprove)="clickApproveHandler(c)"
+      >
+      </app-card-lg>
+
+      <app-card-lg
+        *ngIf="(imageMode$ | async) === 'Difference'"
+        [label]="c.label"
+        [imageUrl]="c.difference || c.test"
+        [hoverImageUrl]="c.test"
+        [viewports]="[c.viewport]"
+        [status]="c.status"
+        [errorMessage]="c.error"
+        [switchOnMouseOver]="true"
+        [fullHeightModeOn]="fullHeightModeOn$ | async"
         (clickCard)="clickCardHandler(idx)"
         (clickLabel)="clickLabelHandler(c.scenarioId)"
         (clickApprove)="clickApproveHandler(c)"

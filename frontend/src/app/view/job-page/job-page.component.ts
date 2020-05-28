@@ -1,9 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { refresh, cleanupNgrxStorage, approve } from './store/job-page.actions';
+import { refresh, cleanupNgrxStorage, approve, switchFullHeightMode, setImageMode } from './store/job-page.actions';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { cases, jobDescriptionInfo, jobTitle, sidebarHeaderInfo, viewports } from './store/job-page.selectors';
+import {
+  cases,
+  fullHeightModeOn, imageMode,
+  jobDescriptionInfo,
+  jobTitle,
+  sidebarHeaderInfo,
+  viewports
+} from './store/job-page.selectors';
 import { NavigationService } from '../../services/navigation.service';
 
 @Component({
@@ -20,6 +27,10 @@ export class JobPageComponent implements OnInit, OnDestroy {
   sidebarHeaderInfo$: Observable<any>;
   jobDescriptionInfo$: Observable<any>;
 
+  /* DATA ACTION STATES */
+  fullHeightModeOn$: Observable<boolean>;
+  imageMode$: Observable<string>;
+
   constructor(
     private route: ActivatedRoute,
     private store: Store,
@@ -35,6 +46,10 @@ export class JobPageComponent implements OnInit, OnDestroy {
     this.viewports$ = this.store.select( viewports );
     this.sidebarHeaderInfo$ = this.store.select( sidebarHeaderInfo );
     this.jobDescriptionInfo$ = this.store.select( jobDescriptionInfo );
+
+    /* DATA ACTION STATES */
+    this.fullHeightModeOn$ = this.store.select( fullHeightModeOn );
+    this.imageMode$ = this.store.select( imageMode );
 
     this.refreshView( this.jobId )
   }
@@ -100,8 +115,11 @@ export class JobPageComponent implements OnInit, OnDestroy {
   groupByScenarios () {
 
   }
+  setImageMode(mode:string) {
+    this.store.dispatch( setImageMode({payload:{mode}}) )
+  }
   fullHeightMode () {
-
+    this.store.dispatch( switchFullHeightMode() )
   }
   listView () {
 

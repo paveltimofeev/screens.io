@@ -17,3 +17,6 @@ export const approve = createAction('[Job Page Component] approve', props<
   }>());
 
 export const runAgain = createAction('[Job Page Component] runAgain', props<{payload:any}>());
+
+export const switchFullHeightMode = createAction( '[Job Page Component] switchFullHeightMode' );
+export const setImageMode = createAction( '[Job Page Component] setImageMode', props<{payload:{mode:string}}>());

@@ -23,8 +23,12 @@ export class CardLgComponent {
 
   @Input()
   hoverImageUrl: string;
+
   @Input()
   switchOnMouseOver: boolean = false;
+
+  @Input()
+  fullHeightModeOn: boolean = false;
 
 
   @Output()

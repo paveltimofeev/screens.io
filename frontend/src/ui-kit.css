@@ -942,13 +942,15 @@ app-data-action-button:first-child {
 }
 .card-lg .image img {
   object-fit: cover;
+  object-position: top;
   width: 100%;
   height: 100%;
   cursor: pointer;
 }
 .card-lg .full--height img,
 .card-lg .full--height img {
-  object-fit: contain;
+  object-fit: scale-down;
+  object-position: center;
 }
 .card-lg .hover-image {
   position: absolute;

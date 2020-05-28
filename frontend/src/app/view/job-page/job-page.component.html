@@ -75,11 +75,10 @@
 
       <app-data-action-button
         class="except-xs"
-        [label]="'Full Height'"
-        [icon]="'Full Height'"
+        [label]="'Fit mode'"
+        [icon]="(fullHeightModeOn$ | async) === true ? 'Fit' : 'Fill'"
         [hideLabelOnXS]="true"
         (clicked)="fullHeightMode()"
-        [selected]="(fullHeightModeOn$ | async) === true"
       >
       </app-data-action-button>
 

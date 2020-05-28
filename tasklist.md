@@ -75,12 +75,12 @@
 -- Frontend: Job Page - Implement Data Actions
 
 - Frontend: Implement Page Actions, Data Actions and Search filter
+- Frontend: Hide actions and buttons that not going to be included in MVP, but place all of them into tasklist as items
 
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 - Frontend: RESTYLE UI - Settings view (see uistructure.md for content)
 - Frontend: Implement Sidebar filters
 - Frontend: RESTYLE UI - Responsive UI (support mobile)
-- Frontend: Hide actions and buttons that not going to be included in MVP, but place all of them into tasklist as items
 - Frontend: RESTYLE UI - Improve Scenario edit view - add Viewports; add Overview(Summary) with reference image; add HasValues pin; add Description (commentary) for scenario, to make puprose of scenario clearer.
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Frontend: show current username
@@ -97,6 +97,7 @@
 - Auth proxy should not store passwords in plain text
 - Use Master term instead of Reference?
 - **------------ MVP MILESTONE ------------**
+- Backend: Hide internal path to the "not found ref image", in case of error when Ref not exists
 - [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage
 - [Bug] Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
 - [Bug] Job will not fild a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.

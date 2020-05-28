@@ -74,10 +74,10 @@
 -- Frontend: Recent Runs table at Overview page - skip 'Approve' results and add AutoRefresh
 -- Frontend: Job Page - Implement Data Actions
 -- Frontend: Implement all Data Actions
+-- Frontend: Hide actions and buttons that not going to be included in MVP, but place all of them into tasklist as items
 
 - [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage
 - Frontend: Implement Page Actions, and Search filter
-- Frontend: Hide actions and buttons that not going to be included in MVP, but place all of them into tasklist as items
 
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 - Frontend: RESTYLE UI - Settings view (see uistructure.md for content)
@@ -108,7 +108,9 @@
 - [Feature] Create couple of examples scenarios demonstrating key features (for every new user)
 - **------------ CLOSED BETA MILESTONE ------------**
 
-- Frontend: Implement ListView for Scenarios and JobPage
+- Frontend: Implement 'ListView' (table view) and 'Show Differences' for Scenarios
+- Frontend: Implement 'ListView' (table view) and 'Group by Scenarios' for JobPage
+- Frontend: Implement 'Group by Scenarios' for Jobs
 - Frontend: Not found views for scenario, job, comparer pages. Because they could be opened by Id, that does not exists.
 - Frontend: Read proof
 - Frontend: Allow to choose Viewports for Scenario at Viewports Tab

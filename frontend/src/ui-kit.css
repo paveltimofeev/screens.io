@@ -192,11 +192,14 @@ button, input {
   position: relative;
   box-shadow: 0 var(--px14) var(--px20) 0 #0000002e, 0 var(--px4) var(--px10) 0 #00000010;
   white-space: nowrap;
+
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
   outline: none;
+  transition: transform .2s ease-in-out;
 }
 .button:focus {
   outline: none;
@@ -205,7 +208,7 @@ button, input {
   filter: opacity(70%) hue-rotate(30deg);
 }
 .button:active {
-  filter: opacity(100%);
+  transform: scale(.95);
 }
 .button + .button {
   margin-left: 1em;
@@ -1420,11 +1423,12 @@ app-data-action-button:first-child {
   clip-path: polygon(100% 0%, 100% 90%, 100% 100%, 35% 100%, 0% 90%, 25% 0%);
   opacity: .5;
   filter: hue-rotate(30deg) grayscale(90%);
-  transition: opacity .3s ease-in-out, filter .3s ease-in-out;
+  transition: opacity .3s ease-in-out, filter .3s ease-in-out, transform 1s;
 }
 .fragile-preview:hover {
   opacity: 1;
   filter: hue-rotate(0deg) grayscale(0%);
+  transform: scale(1.05);
 }
 
 .stats-value {
@@ -1511,18 +1515,25 @@ app-data-action-button:first-child {
   display: inline-block;
   cursor: pointer;
   opacity: .3;
-  transition: opacity .2s ease-in-out, background-color .2s ease-in-out;
+  transition:
+    opacity .2s ease-in-out,
+    background-color .4s ease-in-out,
+    color .4s ease-in-out,
+    transform .2s ease-in-out;
 
   margin-left: var(--px4); /* 4px */
+
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
+.viewports-selector .viewport-toggle:active {
+  transform: scale(.95);
+}
 .viewports-selector .viewport-toggle--on {
   opacity: 1;
   color: #414141;
-  font-weight: 500;
 }
 .viewports-selector .viewport-toggle:hover {
   opacity: .6;

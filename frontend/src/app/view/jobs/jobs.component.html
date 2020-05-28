@@ -11,11 +11,14 @@
   </div>
 
   <div class="data-actions-placeholder">
+
     <div>
+
       <app-data-search-button
         [label]="'Search job'"
-        (changed)="testHandler($event, 'search changed')">
+        (changed)="searchHandler($event)">
       </app-data-search-button>
+
     </div>
     <div>
 
@@ -23,16 +26,17 @@
         [label]="'Refresh'"
         [icon]="'Refresh'"
         [hideLabelOnXS]="true"
-        (clicked)="testHandler($event)">
+        (clicked)="refreshHandler()">
       </app-data-action-button>
 
+      <!--
       <app-data-action-button
         [label]="'Group by Scenarios'"
         [icon]="'Group by Scenarios'"
         [hideLabelOnXS]="true"
-        (clicked)="testHandler($event)">
+        (clicked)="groupByScenariosHandler($event)">
       </app-data-action-button>
-
+      -->
     </div>
   </div>
 

@@ -73,8 +73,10 @@
 -- Frontend: Comparer view - Implement Difference/Test Result/Reference/Comparer switch Data Actions
 -- Frontend: Recent Runs table at Overview page - skip 'Approve' results and add AutoRefresh
 -- Frontend: Job Page - Implement Data Actions
+-- Frontend: Implement all Data Actions
 
-- Frontend: Implement Page Actions, Data Actions and Search filter
+- [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage
+- Frontend: Implement Page Actions, and Search filter
 - Frontend: Hide actions and buttons that not going to be included in MVP, but place all of them into tasklist as items
 
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
@@ -98,7 +100,6 @@
 - Use Master term instead of Reference?
 - **------------ MVP MILESTONE ------------**
 - Backend: Hide internal path to the "not found ref image", in case of error when Ref not exists
-- [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage
 - [Bug] Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
 - [Bug] Job will not fild a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
 - [Bug] Clear text field - cleared field does not save changes on backend (Save Scenario / Hide Selectors field)

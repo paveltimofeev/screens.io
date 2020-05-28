@@ -28,7 +28,9 @@
       <li class="title-actions-item">
         <button class="button button--white" (click)="runFilteredScenariosHandler()">Run All Again</button>
       </li>
-      <li class="title-actions-item">
+      <li class="title-actions-item"
+          *ngIf="(sidebarHeaderInfo$ | async).failedCases > 0"
+      >
         <button class="button button--dark" (click)="addScenarioHandler()">Approve All Failed Cases ({{(sidebarHeaderInfo$ | async).failedCases}})</button>
       </li>
     </ul>

@@ -76,6 +76,8 @@ import { comparerPageReducer } from './view/comparer/store/comparer.reducer';
 import { ComparerEffects } from './view/comparer/store/comparer.effects';
 import { MoreComponent } from './ui-kit/more/more.component';
 import { ImagesComparerComponent } from './ui-kit/images-comparer/images-comparer.component';
+import { jobsReducer } from './view/jobs/store/jobs.reducer';
+import { JobsEffects } from './view/jobs/store/jobs.effects';
 
 
 @NgModule({
@@ -138,6 +140,7 @@ import { ImagesComparerComponent } from './ui-kit/images-comparer/images-compare
       dashboard: dashboardReducer,
       configurationView: configurationReducer,
       historyTable: historyTableReducer,
+      jobs: jobsReducer,
       jobPage: jobPageReducer,
       scenarioPage: scenarioPageReducer,
       comparer: comparerPageReducer
@@ -153,6 +156,7 @@ import { ImagesComparerComponent } from './ui-kit/images-comparer/images-compare
       DashboardEffects,
       ConfigurationEffects,
       HistoryTableEffects,
+      JobsEffects,
       JobPageEffects,
       ScenarioPageEffects,
       ComparerEffects

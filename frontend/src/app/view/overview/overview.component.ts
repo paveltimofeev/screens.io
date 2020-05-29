@@ -3,7 +3,13 @@ import { IBarItem } from '../../ui-kit/widget-timeline/widget-timeline.component
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { favoriteScenarios, recentJobs, stats } from './store/overview.selectors';
-import { cleanupNgrxStorage, refresh, refreshRecentRuns, runAllScenarios } from './store/overview.actions';
+import {
+  cleanupNgrxStorage,
+  refresh,
+  refreshRecentRuns,
+  runAllScenarios,
+  stopAutoRefresh
+} from './store/overview.actions';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { runOneScenario } from '../dashboard/store/dashboard.actions';
 import { Filters } from '../../ui-kit/widget-run/widget-run.component';
@@ -18,8 +24,6 @@ export class OverviewComponent implements OnInit, OnDestroy {
   favoriteScenarios$: Observable<any[]>;
   recentJobs$: Observable<any[]>;
   stats$: Observable<any>;
-
-  refresher$: Observable<any>;
 
   constructor(
     private store: Store,
@@ -40,6 +44,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy () {
     this.store.dispatch(cleanupNgrxStorage())
+    this.store.dispatch(stopAutoRefresh())
   }
 
   openScenarioHandler (scenarioId:string) {

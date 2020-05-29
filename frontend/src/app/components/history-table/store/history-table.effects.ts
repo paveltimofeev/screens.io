@@ -20,7 +20,7 @@ export class HistoryTableEffects {
     //debounceTime(1000),
     mergeMap((action) => {
 
-      return this.api.getHistory( action.payload.filters, 1000 ).pipe(
+      return this.api.getHistory( action.payload.filters, 30 ).pipe(
         map( res => {
 
           let jobs = res.jobs.map( j => {

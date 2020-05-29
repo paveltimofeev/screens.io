@@ -75,6 +75,7 @@
 -- Frontend: Job Page - Implement Data Actions
 -- Frontend: Implement all Data Actions
 -- Frontend: Hide actions and buttons that not going to be included in MVP, but place all of them into tasklist as items
+-- Frontend: Job Page - Implement Sidebar Filters
 
 - [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage
 - Frontend: Implement Page Actions, and Search filter
@@ -111,6 +112,7 @@
 
 - Frontend: Implement 'ListView' (table view) and 'Show Differences' for Scenarios
 - Frontend: Implement 'ListView' (table view) and 'Group by Scenarios' for JobPage
+- Frontend: Show Difference value at Comparer and JobPages cards (table in ListView mode), to get user knowledge for tuning test sensitivity 
 - Frontend: Implement 'Group by Scenarios' for Jobs
 - Frontend: Not found views for scenario, job, comparer pages. Because they could be opened by Id, that does not exists.
 - Frontend: Read proof
@@ -157,7 +159,6 @@
 - Auth proxy - change password
 - Sanitize body and params in Auth proxy & Backend
 - [Feature] Frontend: Angular MultiLanguage support (i18n, l8n)
-- Show Difference value, to get user knowledge for tuning test sensitivity 
 - [Feature] API+APIKEY for running-with-parameters by posted config from body (Usecase: developer stores backstopjs-tests near the component, and post them to API to test against his host/params)
 - [Feature] API+APIKEY for comparing any posted screenshot against stored in DB (Usecase: dev team has environment for taking screenshots and uses API to validate them against approved, team also uses WenUI to approve cases, to monitor stability, and team uses notifications at Slack/Telegram)
 - [Feature] Unapprove: Review and turn back any previously approved results.
@@ -174,6 +175,7 @@
 - [Legal] juxtaposejs can be used for commercial project?
 
 
+- Screen-Git analogy
 - DOCKERIZE AUTH-PROXY & BACKEND AND RUN THEM IN AWS
 - AWS LAMBDA
 - AWS SQS
@@ -188,6 +190,7 @@
 - Tenant support (Tenant > Users + Scenarios + Results + Jobs)
 - [Feature] Project support (Tenant > Projects > Users + Scenarios + Results + Jobs). One project is a buch of scenarios.
 - (?) Refactoring Mode: Make change > Test > Approve Differences to Stage if no side-effects > Repeat > Ehe all done, Approve to Master
+- [Feature] Преимущетво перед обычным тестированием - проверка адаптивности и респонзивности.
 
 
 

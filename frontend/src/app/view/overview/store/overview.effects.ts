@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ApiAdapterService } from 'src/app/services/api-adapter.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { refresh, loaded, runAllScenarios, refreshRecentRuns, loadedRecentRuns } from './overview.actions';
+import {
+  refresh,
+  loaded,
+  runAllScenarios,
+  refreshRecentRuns,
+  loadedRecentRuns,
+  stopAutoRefresh, autoRefreshStopped
+} from './overview.actions';
 import { mergeMap, map, debounceTime } from 'rxjs/operators';
 import { forkJoin, of } from 'rxjs';
 import { DateService } from '../../../services/date.service';
@@ -86,10 +93,8 @@ export class OverviewEffects {
   autoRefreshRecentRuns$ = createEffect(() => this.actions$.pipe(
     ofType(loadedRecentRuns),
     debounceTime(5000),
-    mergeMap(() => {
+    mergeMap((action) => {
 
-      return of({
-        type: refreshRecentRuns.type
-      })
+        return of( {type: refreshRecentRuns.type} )
     })));
 }

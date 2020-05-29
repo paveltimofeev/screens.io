@@ -94,6 +94,17 @@ export class ApiAdapterService {
     return this.dataAccessService.get(
       environment.api + 'test/history?' + query);
   }
+  getHistoryWithFilters (filters?: {key:string, value:string}[], limit?:number): Observable<any> {
+
+    const getFiltersQuery = (ff:any[]) => {
+      return ff.map(f => (`${f.key}=${f.value}`))
+    };
+
+    const query = filters ? `${getFiltersQuery(filters).join('&')}&limit=${limit}` : `limit=${limit}`;
+
+    return this.dataAccessService.get(
+      environment.api + 'test/history?' + query);
+  }
 
   getScenarioHistory (scenarioId:string): Observable<any> {
 

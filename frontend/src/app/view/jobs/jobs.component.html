@@ -5,7 +5,8 @@
   <div class="page-actions-placeholder">
     <ul class="page-actions">
       <li class="title-actions-item">
-        <button class="button button--dark">Purge History</button>
+        <button class="button button--dark"
+        (click)="purgeHistoryHandler()">Purge History</button>
       </li>
     </ul>
   </div>
@@ -49,7 +50,7 @@
   <div class="sidebar-placeholder">
 
     <div class="sidebar-header">
-      <h2>112 Jobs <br><small>executed</small> </h2>
+      <h2>{{ (jobs$ | async).length }} Jobs <br><small>executed</small> </h2>
       <span>102 succeed</span>
       <span>3 running</span>
       <span>7 failed</span>
@@ -59,31 +60,31 @@
       <h3 class="filter-header">Filter by State</h3>
       <app-checkbox-field
         [label]="'Show Successfully Passed Jobs'"
-        (changed)="testHandler($event)">
+        (changed)="stateFilterHandler('Passed', $event)">
       </app-checkbox-field>
       <app-checkbox-field
         [label]="'Show Only Failed Jobs'"
-        (changed)="testHandler($event)">
+        (changed)="stateFilterHandler('Failed', $event)">
       </app-checkbox-field>
       <app-checkbox-field
         [label]="'Show Only Running'"
-        (changed)="testHandler($event)">
+        (changed)="stateFilterHandler('Running', $event)">
       </app-checkbox-field>
 
       <h3 class="filter-header">Filter by Starter</h3>
       <app-checkbox-field
         [label]="'Only Started by Me'"
-        (changed)="testHandler($event)">
+        (changed)="starterFilterHandler('me', $event)">
       </app-checkbox-field>
       <app-checkbox-field
         [label]="'Only Started by Schedule'"
-        (changed)="testHandler($event)">
+        (changed)="starterFilterHandler('schedule', $event)">
       </app-checkbox-field>
 
       <h3 class="filter-header">Filter by Date</h3>
       <app-checkbox-field
         [label]="'Show Run Today Only'"
-        (changed)="testHandler($event)">
+        (changed)="todayOnlyFilterHandler($event)">
       </app-checkbox-field>
 
 

@@ -21,7 +21,6 @@ export class JobsComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.jobs$ = this.store.pipe(select(jobs))
-
     this.store.dispatch( refresh() )
   }
 
@@ -59,12 +58,12 @@ export class JobsComponent implements OnInit, OnDestroy {
   }
   starterFilterHandler (starter: string, enable: boolean) {
 
-    let actionData = {payload: {key: 'starter', value: starter}};
+    let actionData = {payload: {key: 'startedBy', value: starter}};
     this.store.dispatch( enable ? setFilter( actionData ) : removeFilter( actionData ) );
   }
   todayOnlyFilterHandler (enable: boolean) {
 
-    let actionData = {payload: {key: 'today', value: 'true'}};
+    let actionData = {payload: {key: 'startedToday', value: 'true'}};
     this.store.dispatch( enable ? setFilter( actionData ) : removeFilter( actionData ) );
   }
 }

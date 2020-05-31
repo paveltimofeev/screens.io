@@ -312,8 +312,8 @@ class VRT {
 
         if (filter) {
 
-            const state = new SingleValueRule(filter.state, ['Passed', 'Failed', 'Approved'])
-            const not_state = new SingleValueRule(filter.not_state, ['Passed', 'Failed', 'Approved'])
+            const state = new SingleValueRule(filter.state, ['Passed', 'Failed', 'Running', 'Approved'])
+            const not_state = new SingleValueRule(filter.not_state, ['Passed', 'Failed', 'Running', 'Approved'])
             const startedBy = new SingleValueRule(filter.startedBy, ['Run by me'])
             const viewports = new ArrayRule(filter.viewports)
             const startedSince = new SinceDateRule(filter.startedSince)

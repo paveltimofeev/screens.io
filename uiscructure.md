@@ -111,6 +111,7 @@
 ### SETTINGS
     - Scheduler
     - Notifications: Email, Telegram, Slack, Webhooks
+    - Manage Users and Permissions
 
 ### SIGN-IN / SIGN-UP PAGE
     - Email address / Password / Remember me for a week

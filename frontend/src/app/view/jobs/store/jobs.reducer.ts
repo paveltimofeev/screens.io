@@ -12,12 +12,10 @@ export interface AppState {
 }
 
 export interface JobsState {
-  title: string,
   filters: IFilter[],
   jobs: any[]
 }
 export const initState = {
-  title: '',
   filters: [],
   jobs: []
 };
@@ -25,8 +23,6 @@ export const initState = {
 const _reducer = createReducer(initState,
 
   on(actions.loaded, (state, action) => {
-
-    console.log('loaded', action);
 
     return {
       ...state,

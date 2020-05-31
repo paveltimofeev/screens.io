@@ -1,6 +1,6 @@
 <div class="card-sm">
   <div class="image" [ngClass]="{ 'image--empty': !imageUrl }">
-    <img (click)="clickCard.emit(itemId)" [src]="imageUrl" [alt]="header">
+    <img (click)="clickCard.emit(itemId)" [src]="imageUrl" alt="">
   </div>
   <div class="info-panel">
     <div class="info">

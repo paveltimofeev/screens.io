@@ -79,6 +79,7 @@
 
 - [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage
 - Frontend: Implement Page Actions, and Search filter
+- Frontend: Remove old vews and components
 
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 - Frontend: RESTYLE UI - Settings view (see uistructure.md for content)

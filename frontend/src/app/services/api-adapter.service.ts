@@ -96,11 +96,33 @@ export class ApiAdapterService {
   }
   getHistoryWithFilters (filters?: {key:string, value:string}[], limit?:number): Observable<any> {
 
-    const getFiltersQuery = (ff:any[]) => {
-      return ff.map(f => (`${f.key}=${f.value}`))
-    };
+    let filtersAsObject = {};
 
-    const query = filters ? `${getFiltersQuery(filters).join('&')}&limit=${limit}` : `limit=${limit}`;
+    filters.forEach(f => {
+      if (filtersAsObject[f.key] === undefined) {
+        filtersAsObject[f.key] = [f.value]
+      }
+      else {
+        filtersAsObject[f.key].push(f.value)
+      }
+    })
+
+    let queryParts = Object
+      .keys(filtersAsObject)
+      .map(f => {
+        
+        if (Array.isArray(filtersAsObject[f])) {
+          return `${f}=${filtersAsObject[f].join(',')}`
+        }
+
+        return `${f}=${filtersAsObject[f]}`
+    })
+
+    if (limit) {
+      queryParts.push(`limit=${limit}`)
+    }
+
+    const query = queryParts.join('&');
 
     return this.dataAccessService.get(
       environment.api + 'test/history?' + query);

@@ -7,6 +7,7 @@ import { of } from 'rxjs';
 import * as historyTableActions from '../../../components/history-table/store/history-table.actions';
 import { Store } from '@ngrx/store';
 import { filters } from './jobs.selectors';
+import { DateService } from 'src/app/services/date.service';
 
 
 @Injectable()
@@ -15,6 +16,7 @@ export class JobsEffects {
   constructor (
     private actions$: Actions,
     private store: Store,
+    private date: DateService,
     private api: ApiAdapterService
   ) {}
 
@@ -26,10 +28,23 @@ export class JobsEffects {
       return this.api.getHistoryWithFilters(filters, 30).pipe(
         map( res => {
 
+          const jobsAdapter = (jobs:any[]) => {
+            return jobs.map( j => ({
+              _id: j._id,
+              runId: j.runId,
+              date: this.date.calendar(j.startedAt),
+              duration: j.finishedAt && j.startedAt ? `${((new Date(j.finishedAt) as any) - (new Date(j.startedAt) as any)) / 1000} sec` : 'running...',
+              status: j.state,
+              scope: (j.scenarios||[]).map( (x:any) => x.label).join(', '),
+              viewports: (j.viewports||[]).join(', '),
+              user: `by ${j.startedBy}`
+            }));
+          }
+
           return {
             type: loaded.type,
             payload: {
-              jobs: res.jobs
+              jobs: jobsAdapter(res.jobs)
             }
           }
 

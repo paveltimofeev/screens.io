@@ -17,7 +17,10 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
   _filters:IQueryFilter[];
 
   refresher$: any;
+  
+  @Input()
   jobs$: any;
+  
   gridApi: any;
 
   columnDefs = [
@@ -89,7 +92,7 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.jobs$ = this.store.pipe( select(selectHistoryTable));
+    //this.jobs$ = this.store.pipe( select(selectHistoryTable));
     this.refresh();
 
     if (this.enableAutoRefresh) {

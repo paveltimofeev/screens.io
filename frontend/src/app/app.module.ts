@@ -78,6 +78,8 @@ import { MoreComponent } from './ui-kit/more/more.component';
 import { ImagesComparerComponent } from './ui-kit/images-comparer/images-comparer.component';
 import { jobsReducer } from './view/jobs/store/jobs.reducer';
 import { JobsEffects } from './view/jobs/store/jobs.effects';
+import { scenariosReducer } from './view/scenarios/store/scenarios.reducer';
+import { ScenariosEffects } from './view/scenarios/store/scenarios.effects';
 
 
 @NgModule({
@@ -143,7 +145,8 @@ import { JobsEffects } from './view/jobs/store/jobs.effects';
       jobs: jobsReducer,
       jobPage: jobPageReducer,
       scenarioPage: scenarioPageReducer,
-      comparer: comparerPageReducer
+      comparer: comparerPageReducer,
+      scenarios: scenariosReducer
     }),
     // StoreDevtoolsModule should be imported after StoreModule
     StoreDevtoolsModule.instrument({
@@ -159,6 +162,7 @@ import { JobsEffects } from './view/jobs/store/jobs.effects';
       JobsEffects,
       JobPageEffects,
       ScenarioPageEffects,
+      ScenariosEffects,
       ComparerEffects
     ]),
     RouterModule.forRoot(routes),

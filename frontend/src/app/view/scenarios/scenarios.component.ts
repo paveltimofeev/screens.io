@@ -1,12 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
-import { NavigationService } from '../../services/navigation.service';
-import { selectLoading, selectScenarios, selectViewports } from '../configuration/store/configuration.selectors';
-import { deleteScenario, favoriteScenario, refresh } from '../configuration/store/configuration.actions';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { deleteScenario, favoriteScenario } from '../configuration/store/configuration.actions';
 import { runOneScenario } from '../dashboard/store/dashboard.actions';
-import { cleanupNgrxStorage } from '../configuration/store/configuration.actions';
+
+import { NavigationService } from '../../services/navigation.service';
+import { refresh, cleanupNgrxStorage } from './store/scenarios.actions';
+import { viewportsList, scenariosList } from './store/scenarios.selectors';
 
 @Component({
   selector: 'app-scenarios',
@@ -15,11 +18,8 @@ import { cleanupNgrxStorage } from '../configuration/store/configuration.actions
 })
 export class ScenariosComponent implements OnInit, OnDestroy {
 
-  url:string = "http://localhost";
-
-  isLoading$;
-  viewports$;
-  scenarios$;
+  viewports$: Observable<any>;
+  scenarios$: Observable<any>;
 
   constructor(private store: Store,
               private route: ActivatedRoute,
@@ -28,11 +28,10 @@ export class ScenariosComponent implements OnInit, OnDestroy {
 
   ngOnInit () {
 
-    this.isLoading$ = this.store.pipe(select(selectLoading));
-    this.viewports$ = this.store.pipe(select(selectViewports)).pipe(
+    this.viewports$ = this.store.pipe(select(viewportsList)).pipe(
       map( x => { return x.map( (s:any) => s.label) })
     );
-    this.scenarios$ = this.store.pipe(select(selectScenarios));
+    this.scenarios$ = this.store.pipe(select(scenariosList));
 
     this.refresh()
   }
@@ -40,58 +39,65 @@ export class ScenariosComponent implements OnInit, OnDestroy {
     this.store.dispatch(cleanupNgrxStorage())
   }
 
+
+  /* PAGE ACTIONS */
+
   addScenarioHandler () {
-    // this.modals.addScenarioModal.open();
-    console.log('addScenarioHandler')
     this.navigation.openNewScenario();
   }
   runFilteredScenariosHandler () {
-    console.log('runFilteredScenariosHandler')
+
   }
   removeFilteredScenariosHandler () {
-    console.log('removeFilteredScenariosHandler')
+
   }
 
+
+  /* DATA ACTIONS */
+
   search ($event) {
-    console.log('search', $event)
+
   }
   refresh () {
-    this.store.dispatch(refresh({payload: {id: null}}));
+    this.store.dispatch(refresh());
   }
   showDifference () {
-    console.log('showDifference')
+
   }
   listView () {
-    console.log('listView')
+
   }
+
+
+  /* DATA ITEM ACTIONS */
 
   selectScenarioHandler ($event) {
     this.navigation.openScenario($event);
   }
   runScenarioHandler ($event:any, label:string) {
-    console.log('runScenarioHandler', $event);
     this.store.dispatch(runOneScenario( {label: label}));
   }
   deleteScenarioHandler ($event) {
-    console.log('deleteScenarioHandler', $event);
     this.store.dispatch( deleteScenario({payload: {id:$event}}))
   }
   favoriteScenarioHandler ($event) {
-    console.log('favoriteScenarioHandler', $event);
     this.store.dispatch( favoriteScenario({payload: {id:$event}}))
   }
 
+
+  /* FILTER ACTIONS  */
+  
   changeStatusFilter_Passed ($event) {
-    console.log('changeStatusFilter_Passed', $event)
+
   }
   changeStatusFilter_Failed ($event) {
-    console.log('changeStatusFilter_Failed', $event)
+
   }
   changeViewportsFilter ($event) {
-    console.log('changeViewportsFilter', $event)
+
   }
 
   showMobileFilters () {
-    console.log('showMobileFilters')
+
   }
 }

@@ -109,6 +109,7 @@
     - Home Page, History, Scenario, Url, Switch to `1920 × 1080, 1600 × 900, 800 × 600`
     
 ### SETTINGS
+    - Account info, change password, change email
     - Scheduler
     - Notifications: Email, Telegram, Slack, Webhooks
     - Manage Users and Permissions

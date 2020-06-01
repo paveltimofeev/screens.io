@@ -953,7 +953,7 @@ app-data-action-button:first-child {
   cursor: pointer;
 }
 .card-lg .full--height img,
-.card-lg .full--height img {
+.card-md .full--height img {
   object-fit: scale-down;
   object-position: center;
 }

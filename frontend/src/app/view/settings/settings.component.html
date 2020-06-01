@@ -1,4 +1,179 @@
 <app-sidebar-page-layout
   [title]="'Settings'"
-  [description]="''">
+  [description]="''"
+  [hideSidebar]="true"
+>
+
+  <div class="data-actions-placeholder">
+    <div>
+      <app-data-search-button
+        [label]="'Search options'"
+        (changed)="searchHandler($event)">
+      </app-data-search-button>
+    </div>
+  </div>
+
+
+  <div class="data-placeholder">
+
+    <ul class="tabs-list except-xs">
+      <li (click)="tabSwitchHandler('Account Info')" [ngClass]="{ 'tab--active': currentTab === 'Account Info'}">
+        <div class="tab-title">Account Info</div>
+        <div class="tab-description">Update your account info</div>
+      </li>
+      <li (click)="tabSwitchHandler('Preferences')" [ngClass]="{ 'tab--active': currentTab === 'Preferences'}">
+        <div class="tab-title">Preferences</div>
+        <div class="tab-description">Language, Timezone, Dashboard</div>
+      </li>
+      <li (click)="tabSwitchHandler('Viewports')" [ngClass]="{ 'tab--active': currentTab === 'Viewports'}">
+        <div class="tab-title">Viewports</div>
+        <div class="tab-description">Customize Test Viewports</div>
+      </li>
+      <li (click)="tabSwitchHandler('Notification channels')" [ngClass]="{ 'tab--active': currentTab === 'Notification channels'}">
+        <div class="tab-title">Notification channels</div>
+        <div class="tab-description">Email/Slack/Telegram and so on</div>
+      </li>
+      <li (click)="tabSwitchHandler('Team Management')" [ngClass]="{ 'tab--active': currentTab === 'Team Management'}">
+        <div class="tab-title">Team Management</div>
+        <div class="tab-description">Manage Users and Permissions</div>
+      </li>
+      <li (click)="tabSwitchHandler('Schedulers')" [ngClass]="{ 'tab--active': currentTab === 'Schedulers'}">
+        <div class="tab-title">Schedulers</div>
+        <div class="tab-description">Manage Scheduled Runs</div>
+      </li>
+      <li (click)="tabSwitchHandler('API Access')" [ngClass]="{ 'tab--active': currentTab === 'API Access'}">
+        <div class="tab-title">API Access</div>
+        <div class="tab-description">Manage API Keys & Secrets</div>
+      </li>
+      <li (click)="tabSwitchHandler('Manage payment methods')" [ngClass]="{ 'tab--active': currentTab === 'Manage payment methods'}">
+        <div class="tab-title">Manage payment methods</div>
+        <div class="tab-description">Payment info & billing history</div>
+      </li>
+      <li (click)="tabSwitchHandler('Subscription')" [ngClass]="{ 'tab--active': currentTab === 'Subscription'}">
+        <div class="tab-title">Subscription</div>
+        <div class="tab-description">Manage Your Subscription Plan</div>
+      </li>
+    </ul>
+
+    <div class="tabs-content">
+
+      <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Account Info'}">
+        <h3 class="tabs-content-title">Account Info</h3>
+
+        <app-text-field
+          [label]="'User name'"
+          [fieldSize]="'500'"
+          [value]="accountInfo.username"
+          (valueChanged)="changeAccountInfoHandler($event, 'username')"
+        ></app-text-field>
+
+        <app-text-field
+          [label]="'Account email'"
+          [description]="''"
+          [fieldSize]="'500'"
+          [value]="accountInfo.email"
+          (valueChanged)="changeAccountInfoHandler($event, 'email')"
+        ></app-text-field>
+
+        <app-text-field
+          [label]="'Password'"
+          [description]="''"
+          [fieldSize]="'500'"
+          [value]="accountInfo.password"
+          (valueChanged)="changeAccountInfoHandler($event, 'password')"
+        ></app-text-field>
+        <app-text-field
+          [label]="'Confirm Password'"
+          [description]="''"
+          [fieldSize]="'500'"
+          [value]="accountInfo.confirmPassword"
+          (valueChanged)="changeAccountInfoHandler($event, 'confirmPassword')"
+        ></app-text-field>
+
+        <button>Change Password</button>
+        <hr>
+        <button>Delete Account</button>
+        <button>Save Changes</button>
+
+      </div>
+
+      <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Preferences'}">
+        <h3 class="tabs-content-title">Preferences</h3>
+      </div>
+
+      <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Viewports'}">
+        <h3 class="tabs-content-title">Viewports</h3>
+
+        <p>Select screen sizes to use in your test cases</p>
+
+        <h4 class="tabs-content-subtitle">Desktop Viewports</h4>
+        <app-viewports-selector
+          [viewports]="['1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080']"
+        >
+        </app-viewports-selector>
+
+        <h4 class="tabs-content-subtitle">Mobile Viewports</h4>
+        <app-viewports-selector
+          [viewports]="['1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080']"
+        >
+        </app-viewports-selector>
+
+        <h4 class="tabs-content-subtitle">Tablet Viewports</h4>
+        <app-viewports-selector
+          [viewports]="['1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080']"
+        >
+        </app-viewports-selector>
+
+        <h4 class="tabs-content-subtitle">Add custom</h4>
+
+        <app-text-field
+          [label]="'Width in pixels'"
+          [fieldSize]="'150'"
+          [placeholder]="'1980'"
+          [value]="customViewport.width"
+          (valueChanged)="changeAccountInfoHandler($event, 'email')"
+        ></app-text-field>
+
+        <app-text-field
+          [label]="'Height in pixels'"
+          [fieldSize]="'150'"
+          [placeholder]="'1080'"
+          [value]="customViewport.height"
+          (valueChanged)="changeAccountInfoHandler($event, 'email')"
+        ></app-text-field>
+
+        <button>Add Viewport</button>
+        <button>Save Changes</button>
+
+      </div>
+
+      <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Notification channels'}">
+        <h3 class="tabs-content-title">Notification channels</h3>
+      </div>
+
+      <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Team Management'}">
+        <h3 class="tabs-content-title">Team Management</h3>
+      </div>
+
+      <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Schedulers'}">
+        <h3 class="tabs-content-title">Schedulers</h3>
+      </div>
+
+      <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'API Access'}">
+        <h3 class="tabs-content-title">API Access</h3>
+      </div>
+
+      <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Manage payment methods'}">
+        <h3 class="tabs-content-title">Manage payment methods</h3>
+      </div>
+
+      <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Subscription'}">
+        <h3 class="tabs-content-title">Subscription</h3>
+      </div>
+
+    </div>
+
+  </div>
+
+
 </app-sidebar-page-layout>

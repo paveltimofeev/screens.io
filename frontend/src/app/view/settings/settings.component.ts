@@ -7,6 +7,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 })
 export class SettingsComponent implements OnInit, OnDestroy {
 
+  currentTab: string = 'Viewports';
+
+  accountInfo: any = {};
+  customViewport: any = {};
+
   constructor() { }
 
   ngOnInit() {
@@ -14,5 +19,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy () {
     //this.store.dispatch(cleanupNgrxStorage())
+  }
+
+  tabSwitchHandler (tab: string) {
+    this.currentTab = tab;
   }
 }

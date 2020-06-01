@@ -657,6 +657,14 @@ app-data-action-button:first-child {
   font-family: var(--font-header);
   line-height: 135%;
 }
+.tabs-content .tabs-content-subtitle {
+  font-weight: 400;
+  font-size: var(--px20); /* 24px; */
+  font-family: var(--font-header);
+  line-height: 135%;
+  margin-top: var(--px30);
+  margin-bottom: var(--px10);
+}
 .tabs-list .tab-description {
   font-size: var(--px14); /* 14px; */
   color: #B1B1B1;
@@ -1542,6 +1550,7 @@ app-data-action-button:first-child {
   opacity: .85;
 }
 
+.tabs-content .viewports-selector .viewport-toggle,
 .sidebar-placeholder .viewports-selector .viewport-toggle {
   font-size: var(--px16); /* 16px; */
   font-weight: normal;
@@ -1554,6 +1563,7 @@ app-data-action-button:first-child {
   margin-bottom: var(--px6); /* 6px */
   opacity: 1;
 }
+.tabs-content .viewports-selector .viewport-toggle--on
 .sidebar-placeholder .viewports-selector .viewport-toggle--on {
   background: var(--color-blue);
   color: var(--color-white);

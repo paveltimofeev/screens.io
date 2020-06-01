@@ -78,20 +78,21 @@
 -- Frontend: Job Page - Implement Sidebar Filters
 -- Frontend: FitMode for scenarios view
 
-- [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage
-- Frontend: Implement Page Actions, and Search filter
-- Frontend: Remove old vews and components
-
-- Run scenarios with overridden parameters (scenarios + viewports filtration)
 - Frontend: RESTYLE UI - Settings view (see uistructure.md for content)
+- [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage & Add Autorefresh for Jobs view
+
+- Frontend: RESTYLE UI - Sign-in/Sign-up view
+- Frontend: Implement Page Actions, and Search filter
+- [Bug] Overview - card-sm - LatestResults does not work correctly
+- Run scenarios with overridden parameters (scenarios + viewports filtration)
 - Frontend: Implement Sidebar filters
 - Frontend: RESTYLE UI - Responsive UI (support mobile)
 - Frontend: RESTYLE UI - Improve Scenario edit view - add Viewports; add Overview(Summary) with reference image; add HasValues pin; add Description (commentary) for scenario, to make puprose of scenario clearer.
+- Frontend: Remove old views and components
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Frontend: show current username
 - Backend: Page Actions - Remove scenarios filtered by ids[]*viewports[]
 - [Bug] New user does not have any Viewports configured and do not have ability to add them.
-- [Bug] LatestResults at card-sm does not work correctly
 - Frontend: SignIn/SignUp page RESTYLE
 - [Move to AWS: 1] STORE IMAGES AT AWS S3
 - [Move to AWS: 2] Run MongoDb on AWS VM
@@ -175,6 +176,7 @@
 - [Security] Check npm deps for vulnerabilities by npm audit at lease, and fix them
 - [Legal] FontAwsome can be used for commercial project?
 - [Legal] juxtaposejs can be used for commercial project?
+- [Frontend] Support dark theme based on 'prefers-color-scheme' css media function
 
 
 - Screen-Git analogy

@@ -109,14 +109,19 @@
     - Home Page, History, Scenario, Url, Switch to `1920 × 1080, 1600 × 900, 800 × 600`
     
 ### SETTINGS
-    - Account info, change password, change email
-    - Scheduler
-    - Notifications: Email, Telegram, Slack, Webhooks
-    - Manage Users and Permissions
+    - Account info: Username, Account email, change password, change email, delete account.
+    - Viewports: List of available and used vewports, Add custom viewport, Remove existing
+    - Schedulers:
+    - Notification channels: Email, Telegram, Slack, Webhooks x Notification types: onError, onSuccess, onApprove
+    - Manage Users and Permissions: List of users, Add new/Remove team user, set permissions: read/run/approve, set default hostname
+    - API Keys: List (safe - without key/secret), Create, Revoke, Consumption & Limits
+    - Payment info & billing history, manage payment methods
+    - Subscriptions/Manage Subscriptions: TTL/retention policy, Limits & Consumption info
+    - Preferences: language, timezone, dashboard widgets settings (e.g. daily/weakly), color-schema
 
 ### SIGN-IN / SIGN-UP PAGE
     - Email address / Password / Remember me for a week
-    - Name / Email address / Password / Confirm Password
+    - UserName / Email address / Password / Confirm Password
     - I forget my password
     - Logo/ Welcome back / Create Account (Get inside / Become more confident in dev / Become an expert / Become a master / Start testing / Become brave / Join us / Join Now / Join the Club / Join the Team / Get rid of mess / Get all ducks in row )
     - Sign in / Register 

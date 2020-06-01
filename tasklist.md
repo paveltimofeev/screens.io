@@ -76,6 +76,7 @@
 -- Frontend: Implement all Data Actions
 -- Frontend: Hide actions and buttons that not going to be included in MVP, but place all of them into tasklist as items
 -- Frontend: Job Page - Implement Sidebar Filters
+-- Frontend: FitMode for scenarios view
 
 - [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage
 - Frontend: Implement Page Actions, and Search filter

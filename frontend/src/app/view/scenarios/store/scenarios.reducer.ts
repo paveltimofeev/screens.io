@@ -12,14 +12,16 @@ export interface AppState {
 }
 
 export interface ScenariosState {
-  filters: IFilter[],
-  scenariosList: any[],
-  viewportsList: any[]
+  filters: IFilter[];
+  scenariosList: any[];
+  viewportsList: any[];
+  fullHeightModeOn: boolean;
 }
 export const initState = {
   filters: [],
   scenariosList: [],
-  viewportsList: []
+  viewportsList: [],
+  fullHeightModeOn: false
 };
 
 const _reducer = createReducer(initState,
@@ -29,6 +31,14 @@ const _reducer = createReducer(initState,
     return {
       ...state,
       ...action.payload
+    }
+  }),
+
+  on(actions.switchFullHeightMode, (state, action) => {
+
+    return {
+      ...state,
+      fullHeightModeOn: !state.fullHeightModeOn
     }
   }),
 

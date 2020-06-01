@@ -13,6 +13,11 @@ export const viewportsList = createSelector(
   (state: ScenariosState) => state.viewportsList
 );
 
+export const fullHeightModeOn = createSelector(
+  selectFeature,
+  (state: ScenariosState) => state.fullHeightModeOn
+);
+
 export const filters = createSelector(
   selectFeature,
   (state: ScenariosState) => state.filters

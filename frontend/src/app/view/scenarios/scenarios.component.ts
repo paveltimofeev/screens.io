@@ -8,8 +8,8 @@ import { deleteScenario, favoriteScenario } from '../configuration/store/configu
 import { runOneScenario } from '../dashboard/store/dashboard.actions';
 
 import { NavigationService } from '../../services/navigation.service';
-import { refresh, cleanupNgrxStorage } from './store/scenarios.actions';
-import { viewportsList, scenariosList } from './store/scenarios.selectors';
+import { refresh, cleanupNgrxStorage, switchFullHeightMode } from './store/scenarios.actions';
+import { viewportsList, scenariosList, fullHeightModeOn } from './store/scenarios.selectors';
 
 @Component({
   selector: 'app-scenarios',
@@ -20,6 +20,7 @@ export class ScenariosComponent implements OnInit, OnDestroy {
 
   viewports$: Observable<any>;
   scenarios$: Observable<any>;
+  fullHeightModeOn$: Observable<boolean>;
 
   constructor(private store: Store,
               private route: ActivatedRoute,
@@ -32,6 +33,7 @@ export class ScenariosComponent implements OnInit, OnDestroy {
       map( x => { return x.map( (s:any) => s.label) })
     );
     this.scenarios$ = this.store.pipe(select(scenariosList));
+    this.fullHeightModeOn$ = this.store.pipe(select(fullHeightModeOn));
 
     this.refresh()
   }
@@ -61,11 +63,8 @@ export class ScenariosComponent implements OnInit, OnDestroy {
   refresh () {
     this.store.dispatch(refresh());
   }
-  showDifference () {
-
-  }
-  listView () {
-
+  fullHeightMode () {
+    this.store.dispatch(switchFullHeightMode());
   }
 
 
@@ -86,7 +85,7 @@ export class ScenariosComponent implements OnInit, OnDestroy {
 
 
   /* FILTER ACTIONS  */
-  
+
   changeStatusFilter_Passed ($event) {
 
   }

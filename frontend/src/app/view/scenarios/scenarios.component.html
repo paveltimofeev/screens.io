@@ -32,6 +32,14 @@
         (clicked)="refresh()">
       </app-data-action-button>
 
+      <app-data-action-button
+        class="except-xs"
+        [label]="'Fit mode'"
+        [icon]="(fullHeightModeOn$ | async) === true ? 'Fit' : 'Fill'"
+        [hideLabelOnXS]="true"
+        (clicked)="fullHeightMode()">
+      </app-data-action-button>
+
       <!-- TODO: Enable later
       <app-data-action-button
         class="except-xs"
@@ -65,6 +73,7 @@
         [isFavorite]="scenario.meta_isFavorite"
         [imageUrl]="scenario.meta_referenceImageUrl || '/assets/images/stubs/screen11.png'"
         [runs]="[]"
+        [fullHeightModeOn]="fullHeightModeOn$ | async"
         (clickRun)="runScenarioHandler($event, scenario.label)"
         (clickFavorite)="favoriteScenarioHandler($event)"
         (clickCard)="selectScenarioHandler($event)"

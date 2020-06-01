@@ -4,7 +4,8 @@
         'image--passed': state === 'passed',
         'image--failed': state === 'failed',
         'image--running': state === 'running',
-        'image--never-run-before': state === ''
+        'image--never-run-before': state === '',
+        'full--height': fullHeightModeOn
        }"
   >
     <img (click)="clickCard.emit(itemId)" [src]="imageUrl" alt="">

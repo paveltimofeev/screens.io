@@ -22,6 +22,9 @@ export class CardMdComponent {
   isFavorite:boolean;
 
   @Input()
+  fullHeightModeOn: boolean = false;
+
+  @Input()
   runs:boolean[];
 
   @Output()

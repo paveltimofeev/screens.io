@@ -21,7 +21,7 @@ export class ViewportsSelectorComponent {
     this._viewports = value.map(v =>
       ({
         data: v,
-        label: v.replace(/\s/g, ''),
+        label: v, //.replace(/\s/g, ''),
         checked: false
       }))
   }

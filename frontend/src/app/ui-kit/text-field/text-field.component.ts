@@ -13,6 +13,12 @@ export class TextFieldComponent {
   tooltip:string;
 
   @Input()
+  error:string;
+
+  @Input()
+  isPasswordField: boolean;
+
+  @Input()
   description:string;
 
   @Input()

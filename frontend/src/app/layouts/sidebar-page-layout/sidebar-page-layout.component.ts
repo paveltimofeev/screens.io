@@ -20,6 +20,12 @@ export class SidebarPageLayoutComponent {
   breadcrumb:boolean;
 
   @Input()
+  hideDescription:boolean;
+
+  @Input()
+  hideDataActionsBar:boolean;
+
+  @Input()
   hideSidebar:boolean;
 
   constructor() { }

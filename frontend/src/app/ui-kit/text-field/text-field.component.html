@@ -16,7 +16,7 @@
         <span class="input-box-chips">value2 <app-icon icon="Close"></app-icon></span>
      -->
 
-    <input type="text"
+    <input [attr.type]="!isPasswordField ? 'text' : 'password'"
            [attr.placeholder]="placeholder"
            [(ngModel)]="value"
            (ngModelChange)="ngModelChangeHandler($event, val)"
@@ -33,17 +33,20 @@
     <!-- Reset Button -->
     <button
       *ngIf="defaultValue"
-      class="input-box-button"
+      class="input-box-button anim-bounce-on-click"
       (click)="resetValueHandler()"
     >Reset</button>
 
     <!-- Clear icon -->
     <app-icon
-      *ngIf="value != '' && !defaultValue && !fieldIcon"
+      *ngIf="value != '' && !!value && !defaultValue && !fieldIcon"
       (click)="value = ''"
       icon="Close"
       customClass="input-box-icon">
     </app-icon>
 
   </div>
+  <p class="error-message" *ngIf="error">
+    {{ error }}
+  </p>
 </div>

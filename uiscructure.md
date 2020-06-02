@@ -81,7 +81,6 @@
         Customize Viewport List
 
 
-
 ### HISTORY OF RUNS
 
 ### RUN REVIEW
@@ -118,6 +117,8 @@
     - Payment info & billing history, manage payment methods
     - Subscriptions/Manage Subscriptions: TTL/retention policy, Limits & Consumption info
     - Preferences: language, timezone, dashboard widgets settings (e.g. daily/weakly), color-schema
+    - Experimental Features: Enable/Disable new features available for premium users
+
 
 ### SIGN-IN / SIGN-UP PAGE
     - Email address / Password / Remember me for a week

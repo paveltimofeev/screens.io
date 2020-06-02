@@ -1,17 +1,9 @@
 <app-sidebar-page-layout
   [title]="'Settings'"
-  [description]="''"
   [hideSidebar]="true"
+  [hideDataActionsBar]="true"
+  [hideDescription]="true"
 >
-
-  <div class="data-actions-placeholder">
-    <div>
-      <app-data-search-button
-        [label]="'Search options'"
-        (changed)="searchHandler($event)">
-      </app-data-search-button>
-    </div>
-  </div>
 
 
   <div class="data-placeholder">
@@ -21,13 +13,14 @@
         <div class="tab-title">Account Info</div>
         <div class="tab-description">Update your account info</div>
       </li>
-      <li (click)="tabSwitchHandler('Preferences')" [ngClass]="{ 'tab--active': currentTab === 'Preferences'}">
-        <div class="tab-title">Preferences</div>
-        <div class="tab-description">Language, Timezone, Dashboard</div>
-      </li>
       <li (click)="tabSwitchHandler('Viewports')" [ngClass]="{ 'tab--active': currentTab === 'Viewports'}">
         <div class="tab-title">Viewports</div>
         <div class="tab-description">Customize Test Viewports</div>
+      </li>
+      <!--
+      <li (click)="tabSwitchHandler('Preferences')" [ngClass]="{ 'tab--active': currentTab === 'Preferences'}">
+        <div class="tab-title">Preferences</div>
+        <div class="tab-description">Language, Timezone, Dashboard</div>
       </li>
       <li (click)="tabSwitchHandler('Notification channels')" [ngClass]="{ 'tab--active': currentTab === 'Notification channels'}">
         <div class="tab-title">Notification channels</div>
@@ -53,6 +46,7 @@
         <div class="tab-title">Subscription</div>
         <div class="tab-description">Manage Your Subscription Plan</div>
       </li>
+      -->
     </ul>
 
     <div class="tabs-content">
@@ -61,89 +55,149 @@
         <h3 class="tabs-content-title">Account Info</h3>
 
         <app-text-field
-          [label]="'User name'"
-          [fieldSize]="'500'"
+          [label]="'Name'"
+          [description]="'Your name as other team members see it.'"
+          [fieldSize]="'350'"
           [value]="accountInfo.username"
           (valueChanged)="changeAccountInfoHandler($event, 'username')"
         ></app-text-field>
 
         <app-text-field
           [label]="'Account email'"
-          [description]="''"
-          [fieldSize]="'500'"
+          [description]="'This is your login. We also use this email address to request confirmations for important operations.'"
+          [fieldSize]="'350'"
           [value]="accountInfo.email"
           (valueChanged)="changeAccountInfoHandler($event, 'email')"
         ></app-text-field>
 
+        <button class="input-box-button input-box-button--primary anim-bounce-on-click">Update Account Info</button>
+        <hr class="separation-line">
+
+        <h3 class="tabs-content-title">Change password</h3>
+
         <app-text-field
-          [label]="'Password'"
-          [description]="''"
-          [fieldSize]="'500'"
+          [label]="'You current password'"
+          [isPasswordField]="true"
+          [fieldSize]="'350'"
+          [value]="updatePassword.currentPassword"
+          (valueChanged)="updatePasswordHandler($event, 'currentPassword')"
+        ></app-text-field>
+        <app-text-field
+          [label]="'New password'"
+          [isPasswordField]="true"
+          [fieldSize]="'350'"
+          [value]="updatePassword.newPassword"
+          (valueChanged)="updatePasswordHandler($event, 'newPassword')"
+        ></app-text-field>
+        <app-text-field
+          [label]="'Confirm new password'"
+          [isPasswordField]="true"
+          [fieldSize]="'350'"
+          [error]="updatePassword.confirmNewPasswordError"
+          [value]="updatePassword.confirmNewPassword"
+          (valueChanged)="updatePasswordHandler($event, 'confirmNewPassword')"
+        ></app-text-field>
+
+        <button class="input-box-button input-box-button--primary anim-bounce-on-click">Update Password</button>
+        <hr class="separation-line">
+
+        <h3 class="tabs-content-title">Delete Your Account</h3>
+
+        <p>
+          After you delete your account, you can't sign up again with the same username or add that username to another account. We can't reactivate deleted accounts.
+        </p>
+
+        <app-text-field
+          [label]="'Your password'"
+          [description]="'Enter your password to confirm operation'"
+          [isPasswordField]="true"
+          [fieldSize]="'350'"
           [value]="accountInfo.password"
           (valueChanged)="changeAccountInfoHandler($event, 'password')"
         ></app-text-field>
-        <app-text-field
-          [label]="'Confirm Password'"
-          [description]="''"
-          [fieldSize]="'500'"
-          [value]="accountInfo.confirmPassword"
-          (valueChanged)="changeAccountInfoHandler($event, 'confirmPassword')"
-        ></app-text-field>
 
-        <button>Change Password</button>
-        <hr>
-        <button>Delete Account</button>
-        <button>Save Changes</button>
+        <button class="input-box-button input-box-button--danger anim-bounce-on-click">Permanently delete my account</button>
 
       </div>
 
       <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Preferences'}">
         <h3 class="tabs-content-title">Preferences</h3>
+        <p>These options are not implemented yet</p>
       </div>
 
       <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Viewports'}">
         <h3 class="tabs-content-title">Viewports</h3>
 
-        <p>Select screen sizes to use in your test cases</p>
+        <p>Select screen sizes to use in all your test cases. You can override list of used viewports for particular scenario at its configuration page.</p>
 
-        <h4 class="tabs-content-subtitle">Desktop Viewports</h4>
+        <h4 class="tabs-content-subtitle">Popular Desktop Viewports</h4>
         <app-viewports-selector
-          [viewports]="['1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080']"
+          [viewports]="viewports.desktop"
+          (selectionChanged)="viewportsChangeHandler('desktop', $event)"
         >
         </app-viewports-selector>
 
-        <h4 class="tabs-content-subtitle">Mobile Viewports</h4>
+        <h4 class="tabs-content-subtitle">Popular Mobile Viewports</h4>
         <app-viewports-selector
-          [viewports]="['1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080']"
+          [viewports]="viewports.mobile"
+          (selectionChanged)="viewportsChangeHandler('mobile', $event)"
         >
         </app-viewports-selector>
 
-        <h4 class="tabs-content-subtitle">Tablet Viewports</h4>
+        <h4 class="tabs-content-subtitle">Popular Tablet Viewports</h4>
         <app-viewports-selector
-          [viewports]="['1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080', '1920 × 1080']"
+          [viewports]="viewports.tablet"
+          (selectionChanged)="viewportsChangeHandler('tablet', $event)"
         >
         </app-viewports-selector>
 
-        <h4 class="tabs-content-subtitle">Add custom</h4>
+        <h4 *ngIf="viewports.custom.length > 0" class="tabs-content-subtitle">Custom Viewports</h4>
+        <app-viewports-selector
+          *ngIf="viewports.custom.length > 0"
+          [(viewports)]="viewports.custom"
+          (selectionChanged)="viewportsChangeHandler('custom', $event)"
+        >
+        </app-viewports-selector>
+
+        <hr class="separation-line">
+
+        <h4 class="tabs-content-subtitle">Add Custom Viewport Size</h4>
 
         <app-text-field
-          [label]="'Width in pixels'"
-          [fieldSize]="'150'"
-          [placeholder]="'1980'"
-          [value]="customViewport.width"
-          (valueChanged)="changeAccountInfoHandler($event, 'email')"
+          [label]="'Name'"
+          [fieldSize]="'350'"
+          [placeholder]="'Custom Screen'"
+          [value]="viewports.createCustomViewport.name"
+          (valueChanged)="setCustomViewportHandler('name', $event)"
         ></app-text-field>
 
-        <app-text-field
-          [label]="'Height in pixels'"
-          [fieldSize]="'150'"
-          [placeholder]="'1080'"
-          [value]="customViewport.height"
-          (valueChanged)="changeAccountInfoHandler($event, 'email')"
-        ></app-text-field>
+        <div class="horizontal-fields-container">
+          <app-text-field
+            [label]="'Width in pixels'"
+            [fieldSize]="'150'"
+            [placeholder]="'1920'"
+            [value]="viewports.createCustomViewport.width"
+            (valueChanged)="setCustomViewportHandler('width', $event)"
+          ></app-text-field>
 
-        <button>Add Viewport</button>
-        <button>Save Changes</button>
+          <app-text-field
+            [label]="'Height in pixels'"
+            [fieldSize]="'150'"
+            [placeholder]="'1080'"
+            [value]="viewports.createCustomViewport.height"
+            (valueChanged)="setCustomViewportHandler('height', $event)"
+          ></app-text-field>
+        </div>
+
+        <button
+          class="input-box-button input-box-button--secondary anim-bounce-on-click"
+          (click)="addViewportHandler()"
+        >
+          Add Viewport
+        </button>
+
+        <hr class="separation-line">
+        <button class="input-box-button input-box-button--primary anim-bounce-on-click">Save Changes</button>
 
       </div>
 

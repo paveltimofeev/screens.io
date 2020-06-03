@@ -114,6 +114,7 @@
 - [Costs] ability to quickly block or limit user (to protect from overbudget)
 - Define Metrics to collect (feature requests & feedback button)
 - [Feature] Create couple of examples scenarios demonstrating key features (for every new user)
+- Check active operations with bad network / no network.
 - **------------ CLOSED BETA MILESTONE ------------**
 
 - Frontend: Implement 'ListView' (table view) and 'Show Differences' for Scenarios

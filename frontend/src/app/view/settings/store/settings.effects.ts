@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiAdapterService } from 'src/app/services/api-adapter.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { mergeMap, map, concatMap, concatMapTo, take, tap, delay, debounceTime } from 'rxjs/operators';
+import { mergeMap, map, concatMap, concatMapTo, take, tap, delay, debounceTime, catchError } from 'rxjs/operators';
 import { forkJoin, of } from 'rxjs';
 import { DateService } from '../../../services/date.service';
 import { environment } from '../../../../environments/environment';
@@ -136,19 +136,22 @@ export class SettingsEffects {
     ofType(updateViewports),
     mergeMap((action) => {
 
-      console.table(action.payload.viewports)
+      let result = {
+        type: operationCompleted.type,
+        payload: {
+          correlationId: action.payload.correlationId
+        }
+      };
+
       return this.api
         .updateViewports(action.payload.viewports)
         .pipe(
-          delay(3000),
           map( () => {
-
-            return {
-              type: operationCompleted.type,
-              payload: {
-                correlationId: action.payload.correlationId
-              }
-            }
+            return result;
+          }),
+          catchError((err) => {
+            console.log('error', err);
+            return of(result)
           })
         );
     })));

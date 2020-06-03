@@ -77,6 +77,10 @@
   --px400: 20.833vw;
   --px416: 21.667vw;
   --px608: 31.667vw;
+
+  --px150: 7.813vw;
+  --px350: 18.229vw;
+  --px500: 26.042vw;
 }
 
 @media (max-width: 600px) {
@@ -116,6 +120,10 @@
     --px400: 400px;
     --px416: 416px;
     --px608: 608px;
+
+    --px150: 150px;
+    --px350: 350px;
+    --px500: 500px;
   }
 }
 
@@ -159,6 +167,9 @@ body {
 }
 button, input {
   font-family: inherit;
+}
+p {
+  font-size: var(--px16);
 }
 
 /* ANIMATIONS */
@@ -405,19 +416,19 @@ app-data-action-button:first-child {
 .text-field {
   display: flex;
   flex-direction: column;
-  margin-bottom: 24px;
+  margin-bottom: var(--px24);
   font-family: var(--font-normal);
 }
 .text-field--150 {
-  width: 150px;
+  width: var(--px150);
   max-width: 100%;
 }
 .text-field--350 {
-  width: 350px;
+  width: var(--px350);
   max-width: 100%;
 }
 .text-field--500 {
-  width: 500px;
+  width: var(--px500);
   max-width: 100%;
 }
 .text-field--full {
@@ -454,13 +465,13 @@ app-data-action-button:first-child {
   line-height: 150%;
 }
 .text-field .input-box  {
-  margin-top: 10px;
+  margin-top: var(--px10);
   display: flex;
   align-items: center;
   border: 1px solid #DBDBDB;
   background: #FBFBFB;
   border-radius: 3px;
-  height: 36px;
+  height: var(--px36);
   overflow: hidden;
 }
 
@@ -471,8 +482,8 @@ app-data-action-button:first-child {
   color: #535353;
   font-family: var(--font-normal);
   font-size: var(--px16); /* 16px; */
-  padding-left: 11px;
-  padding-right: 11px;
+  padding-left: var(--px11);
+  padding-right: var(--px11);
   width: 100%;
   outline: none;
 }
@@ -494,13 +505,13 @@ app-data-action-button:first-child {
   padding-top: 2px;
 }
 .text-field .input-box .input-box-chips {
-  height: 30px;
+  height: var(--px30);
   background: #e8e8e8;
   color: #535353;
   border: none;
-  border-radius: 20px;
-  padding-left: 16px;
-  padding-right: 12px;
+  border-radius: var(--px20);
+  padding-left: var(--px16);
+  padding-right: var(--px12);
   font-family: var(--font-normal);
   font-size: var(--px14); /* 14px; */
   font-weight: 400;

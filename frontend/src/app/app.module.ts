@@ -80,6 +80,8 @@ import { jobsReducer } from './view/jobs/store/jobs.reducer';
 import { JobsEffects } from './view/jobs/store/jobs.effects';
 import { scenariosReducer } from './view/scenarios/store/scenarios.reducer';
 import { ScenariosEffects } from './view/scenarios/store/scenarios.effects';
+import { settingsReducer } from './view/settings/store/settings.reducer';
+import { SettingsEffects } from './view/settings/store/settings.effects';
 
 
 @NgModule({
@@ -146,7 +148,8 @@ import { ScenariosEffects } from './view/scenarios/store/scenarios.effects';
       jobPage: jobPageReducer,
       scenarioPage: scenarioPageReducer,
       comparer: comparerPageReducer,
-      scenarios: scenariosReducer
+      scenarios: scenariosReducer,
+      settings: settingsReducer
     }),
     // StoreDevtoolsModule should be imported after StoreModule
     StoreDevtoolsModule.instrument({
@@ -163,7 +166,8 @@ import { ScenariosEffects } from './view/scenarios/store/scenarios.effects';
       JobPageEffects,
       ScenarioPageEffects,
       ScenariosEffects,
-      ComparerEffects
+      ComparerEffects,
+      SettingsEffects
     ]),
     RouterModule.forRoot(routes),
     AgGridModule.withComponents([])

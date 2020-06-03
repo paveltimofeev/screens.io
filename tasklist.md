@@ -77,6 +77,8 @@
 -- Frontend: Hide actions and buttons that not going to be included in MVP, but place all of them into tasklist as items
 -- Frontend: Job Page - Implement Sidebar Filters
 -- Frontend: FitMode for scenarios view
+-- Frontend: RESTYLE UI - Settings view store
+-- Frontend: operations with Correlation Id
 
 - Frontend: RESTYLE UI - Settings view (see uistructure.md for content)
 - [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage & Add Autorefresh for Jobs view
@@ -91,6 +93,7 @@
 - Frontend: Remove old views and components
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Frontend: show current username
+- Frontend: Make header fixed, it must be always visible.
 - Backend: Page Actions - Remove scenarios filtered by ids[]*viewports[]
 - [Bug] New user does not have any Viewports configured and do not have ability to add them.
 - Frontend: SignIn/SignUp page RESTYLE

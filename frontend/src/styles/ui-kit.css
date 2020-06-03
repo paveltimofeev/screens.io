@@ -21,6 +21,8 @@
   --color-passed: #89CB8C;
   --color-failed: var(--color-red);
   --color-accent: #FFD600;
+  --color-disabled: #E6EAEE;
+
   --color-upic: #6087AB;
   --color-headers-text: #1F1F1F;
   --color-cell-text: #565656;
@@ -641,6 +643,18 @@ app-data-action-button:first-child {
   filter: opacity(70%);
 }
 
+.input-box-button--disabled {
+  background: var(--color-disabled);
+}
+.input-box-button--in-progress,
+.input-box-button--in-progress:hover,
+.input-box-button--in-progress:active {
+  background: var(--color-accent);
+  cursor: default;
+  opacity: 1;
+  transform: scale(1);
+}
+
 .separation-line {
   border-style: solid;
   border-top: none;
@@ -1185,8 +1199,8 @@ app-data-action-button:first-child {
   content: ' ';
   position: absolute;
   top: 0;
-  left: -var(--px16); /* -16px */
-  right: -var(--px16); /* -16px */
+  left: var(--px16); /* -16px */
+  right: var(--px16); /* -16px */
   bottom: 0;
   z-index: -1;
   border-radius: 4px;

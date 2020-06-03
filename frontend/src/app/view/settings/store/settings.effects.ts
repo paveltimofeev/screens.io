@@ -2,7 +2,18 @@ import { Injectable } from '@angular/core';
 import { ApiAdapterService } from 'src/app/services/api-adapter.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { mergeMap, map, concatMap, concatMapTo, take, tap, delay, debounceTime, catchError } from 'rxjs/operators';
+import {
+  mergeMap,
+  map,
+  concatMap,
+  concatMapTo,
+  take,
+  tap,
+  delay,
+  debounceTime,
+  catchError,
+  withLatestFrom
+} from 'rxjs/operators';
 import { forkJoin, of } from 'rxjs';
 import { DateService } from '../../../services/date.service';
 import { environment } from '../../../../environments/environment';
@@ -19,6 +30,8 @@ import {
   refreshViewports,
   updateAccountInfo, updatePassword, updateViewports
 } from './settings.actions';
+import { Store } from '@ngrx/store';
+import { selectedViewportsData } from './settings.selectors';
 
 
 @Injectable()
@@ -29,6 +42,7 @@ export class SettingsEffects {
     private api: ApiAdapterService,
     private date: DateService,
     private navigate: NavigationService,
+    private store: Store,
     private filtersStv: FiltersService
   ) {}
 
@@ -134,7 +148,8 @@ export class SettingsEffects {
 
   updateViewports$ = createEffect(() => this.actions$.pipe(
     ofType(updateViewports),
-    mergeMap((action) => {
+    withLatestFrom(this.store.select(selectedViewportsData)),
+    mergeMap(([action, selectedViewportsData]) => {
 
       let result = {
         type: operationCompleted.type,
@@ -144,7 +159,7 @@ export class SettingsEffects {
       };
 
       return this.api
-        .updateViewports(action.payload.viewports)
+        .updateViewports(selectedViewportsData)
         .pipe(
           map( () => {
             return result;

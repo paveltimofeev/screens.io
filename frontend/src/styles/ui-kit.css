@@ -665,6 +665,12 @@ app-data-action-button:first-child {
   margin-block-end: var(--px20);
 }
 
+.error-alert {
+  background: var(--color-failed);
+  color: var(--color-white);
+  padding: var(--px10) var(--px16);
+}
+
 /* CHECKBOXES */
 /* ???
 .checkbox, .switch, .toggle {

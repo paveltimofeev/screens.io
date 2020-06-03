@@ -37,7 +37,11 @@ export const addCustomViewport = createAction(
   '[Settings Component] addCustomViewport',
   props<{ payload: IViewport }>()
 );
+export const selectViewports = createAction(
+  '[Settings Component] selectViewports',
+  props<{ payload: { viewports:any[] } }>()
+);
 export const updateViewports = createAction(
   '[Settings Component] updateViewports',
-  props<{ payload: { viewports:any[], correlationId: string } }>()
+  props<{ payload: { correlationId: string } }>()
 );

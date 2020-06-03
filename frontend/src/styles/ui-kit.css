@@ -729,7 +729,7 @@ app-data-action-button:first-child {
   font-weight: 400;
 }
 .tabs-content {
-  flex: 1;
+  flex: .75; /* to make forms and fields narrower */
   padding-bottom: var(--px32);
 }
 .tabs-content .tab-content--hidden {

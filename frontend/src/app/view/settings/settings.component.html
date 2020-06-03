@@ -165,6 +165,7 @@
         >
         </app-viewports-selector>
 
+        <!--
         <h4 *ngIf="viewports.custom.length > 0" class="tabs-content-subtitle">Custom Viewports</h4>
         <app-viewports-selector
           *ngIf="viewports.custom.length > 0"
@@ -173,7 +174,6 @@
         >
         </app-viewports-selector>
 
-        <!--
         <hr class="separation-line">
         <h4 class="tabs-content-subtitle">Add Custom Viewport Size</h4>
 
@@ -212,7 +212,13 @@
         -->
 
         <hr class="separation-line">
-        <button class="input-box-button input-box-button--primary anim-bounce-on-click">Save Changes</button>
+        <button
+          class="input-box-button input-box-button--primary anim-bounce-on-click"
+          [ngClass]="{
+          'input-box-button--in-progress': updatingViewportsList
+          }"
+          (click)="updateViewportsListHandler()"
+        >Update Viewports List</button>
 
       </div>
 

@@ -136,9 +136,9 @@ export class SettingsEffects {
     ofType(updateViewports),
     mergeMap((action) => {
 
-      // this.api.createViewport()
-
-      return of({})
+      console.table(action.payload.viewports)
+      return this.api
+        .updateViewports(action.payload.viewports)
         .pipe(
           delay(3000),
           map( () => {

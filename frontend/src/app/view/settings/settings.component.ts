@@ -5,11 +5,11 @@ import { Observable } from 'rxjs';
 import { accountInfo, viewports, operationCorrelationId } from './store/settings.selectors';
 import {
   addCustomViewport,
-  cleanupNgrxStorage,
+  cleanupNgrxStorage, operationCompleted,
   refreshAccountInfo,
   refreshViewports,
   updateAccountInfo,
-  updatePassword
+  updatePassword, updateViewports
 } from './store/settings.actions';
 import { filter, take } from 'rxjs/operators';
 
@@ -51,8 +51,7 @@ const wellknownViewports = {
 })
 export class SettingsComponent implements OnInit, OnDestroy {
 
-  // currentTab: string = 'Account Info';
-  currentTab: string = 'Viewports';
+  currentTab: string = 'Account Info';
 
   accountInfo$: Observable<any>;
   viewports$: Observable<any>;
@@ -193,8 +192,15 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.viewports.createCustomViewport[prop] = $event;
   }
 
-  viewportsChangeHandler (tablet: string, $event: string[]) {
+  selectedViewports:any = {
+    desktop: [],
+    mobile: [],
+    tablet: []
+  };
 
+  viewportsChangeHandler (type: string, $event: string[]) {
+
+    this.selectedViewports[type] = $event;
   }
 
   addViewportHandler () {
@@ -220,6 +226,39 @@ export class SettingsComponent implements OnInit, OnDestroy {
     }
     else {
       this.viewports.createCustomViewport.error = `Viewport "${newViewport}" already exists`;
+    }
+  }
+
+  updatingViewportsList:boolean = false;
+  updateViewportsListHandler () {
+
+    if (!this.updatingViewportsList) {
+
+      let desktop = wellknownViewports.desktop.filter(viewport => this.selectedViewports.desktop.find(selected => viewport.name === selected));
+      let mobile = wellknownViewports.mobile.filter(viewport => this.selectedViewports.mobile.find(selected => viewport.name === selected));
+      let tablet = wellknownViewports.tablet.filter(viewport => this.selectedViewports.tablet.find(selected => viewport.name === selected));
+
+      let corId = `${Math.random()}`;
+
+      this.store.pipe(
+        select(operationCorrelationId),
+        filter(x => x === corId),
+        take(1)
+      ).subscribe(() => {
+        this.updatingViewportsList = false;
+      });
+
+      let payload = {
+        correlationId: corId,
+        viewports: [
+          ...desktop,
+          ...mobile,
+          ...tablet
+        ]
+      };
+
+      this.updatingViewportsList = true;
+      this.store.dispatch(updateViewports({payload}));
     }
   }
 }

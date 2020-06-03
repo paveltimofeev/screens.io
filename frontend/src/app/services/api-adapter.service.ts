@@ -110,7 +110,7 @@ export class ApiAdapterService {
     let queryParts = Object
       .keys(filtersAsObject)
       .map(f => {
-        
+
         if (Array.isArray(filtersAsObject[f])) {
           return `${f}=${filtersAsObject[f].join(',')}`
         }
@@ -165,6 +165,13 @@ export class ApiAdapterService {
 
     return this.dataAccessService.get(
       environment.api + 'test/viewports')
+  }
+
+  /* UPSERT */
+  updateViewports(viewports:any[]):Observable<any> {
+
+    return this.dataAccessService.put(
+      environment.api + 'test/viewports', viewports)
   }
 
   deleteViewport(viewport:any): Observable<any> {

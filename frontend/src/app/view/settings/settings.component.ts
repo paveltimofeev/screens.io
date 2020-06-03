@@ -5,7 +5,7 @@ import {
   accountInfo,
   viewports,
   selectedViewports,
-  operationCorrelationId
+  operationCorrelationId, updateViewportsError
 } from './store/settings.selectors';
 import {
   addCustomViewport,
@@ -32,6 +32,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   accountInfo$: Observable<any>;
   viewports$: Observable<any>;
   selectedViewports$: Observable<any>;
+  updateViewportsError$: Observable<string>;
 
   constructor(
     private store: Store
@@ -42,6 +43,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.accountInfo$ = this.store.pipe(select( accountInfo ));
     this.viewports$ = this.store.pipe(select( viewports ));
     this.selectedViewports$ = this.store.pipe(select( selectedViewports ));
+    this.updateViewportsError$ = this.store.pipe(select( updateViewportsError ));
 
     this.store.dispatch( refreshAccountInfo() );
     this.store.dispatch( refreshViewports() );

@@ -17,6 +17,7 @@ export interface AppState {
 export interface SettingsState {
   accountInfo: any;
   viewports: string[];
+  updateViewportsError: string;
   selectedViewports: string[];
   selectedViewportsData: IViewport[];
   customViewports: IViewport[];
@@ -26,6 +27,7 @@ export interface SettingsState {
 export const initState = {
   accountInfo: {},
   viewports: [],
+  updateViewportsError: null,
   selectedViewports: [],
   selectedViewportsData: [],
   customViewports: [],
@@ -78,6 +80,22 @@ const _reducer = createReducer(initState,
     }
   }),
 
+  on(actions.updateViewportsError, (state, action) => {
+
+    return {
+      ...state,
+      updateViewportsError: action.payload.errorMessage
+    }
+  }),
+
+  on(actions.cleanupUpdateViewportsError, (state, action) => {
+
+    return {
+      ...state,
+      updateViewportsError: null
+    }
+  }),
+
   on(actions.selectViewports, (state, action) => {
 
     return {
@@ -104,7 +122,8 @@ const _reducer = createReducer(initState,
 
     return {
       ...state,
-      operationCorrelationId: action.payload.correlationId
+      operationCorrelationId: action.payload.correlationId,
+      updateViewportsError: null
     }
   }),
 

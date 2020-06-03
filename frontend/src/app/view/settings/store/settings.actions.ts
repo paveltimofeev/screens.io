@@ -45,3 +45,14 @@ export const updateViewports = createAction(
   '[Settings Component] updateViewports',
   props<{ payload: { correlationId: string } }>()
 );
+
+export const updateViewportsError = createAction(
+  '[Settings Component] updateViewportsError',
+  props<{ payload: { errorMessage: string } }>()
+);
+
+export const cleanupUpdateViewportsError = createAction(
+  '[Settings Component] cleanupUpdateViewportsError'
+);
+
+

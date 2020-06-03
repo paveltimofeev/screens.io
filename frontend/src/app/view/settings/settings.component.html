@@ -167,6 +167,25 @@
 -->
 
 
+        <hr class="separation-line">
+
+        <p class="error-alert" *ngIf="updateViewportsError$ | async">
+          {{ updateViewportsError$ | async}}
+        </p>
+
+        <p class="error-alert" *ngIf="(selectedViewports$ | async).length === 0">
+          You have to have at least one viewport to run tests.
+        </p>
+
+        <button
+          *ngIf="(selectedViewports$ | async).length > 0"
+          class="input-box-button input-box-button--primary anim-bounce-on-click"
+          [ngClass]="{
+          'input-box-button--in-progress': updatingViewportsList
+          }"
+          (click)="updateViewportsListHandler()"
+        >Update Viewports List</button>
+
         <!--
         <h4 *ngIf="viewports.custom.length > 0" class="tabs-content-subtitle">Custom Viewports</h4>
         <app-viewports-selector
@@ -213,18 +232,6 @@
         </button>
         -->
 
-        <hr class="separation-line">
-        <p class="error-alert" *ngIf="(selectedViewports$ | async).length === 0">
-          You have to have at least one viewport to run tests.
-        </p>
-        <button
-          *ngIf="(selectedViewports$ | async).length > 0"
-          class="input-box-button input-box-button--primary anim-bounce-on-click"
-          [ngClass]="{
-          'input-box-button--in-progress': updatingViewportsList
-          }"
-          (click)="updateViewportsListHandler()"
-        >Update Viewports List</button>
 
       </div>
 

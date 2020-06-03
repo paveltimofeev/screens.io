@@ -14,7 +14,7 @@ import {
   catchError,
   withLatestFrom
 } from 'rxjs/operators';
-import { forkJoin, of } from 'rxjs';
+import { concat, forkJoin, of } from 'rxjs';
 import { DateService } from '../../../services/date.service';
 import { environment } from '../../../../environments/environment';
 import { NavigationService } from '../../../services/navigation.service';
@@ -23,12 +23,13 @@ import { Filters } from '../../../ui-kit/widget-run/widget-run.component';
 import { FiltersService, IQueryFilter, QueryFilter, QueryFilterType } from '../../../services/filters.service';
 import { openScenarioPage } from '../../../store/navigation/navigation.actions';
 import {
+  cleanupUpdateViewportsError,
   deleteAccount,
   loadedAccountInfo,
   loadedViewports, operationCompleted,
   refreshAccountInfo,
   refreshViewports,
-  updateAccountInfo, updatePassword, updateViewports
+  updateAccountInfo, updatePassword, updateViewports, updateViewportsError
 } from './settings.actions';
 import { Store } from '@ngrx/store';
 import { selectedViewportsData } from './settings.selectors';
@@ -166,8 +167,25 @@ export class SettingsEffects {
           }),
           catchError((err) => {
             console.log('error', err);
-            return of(result)
+
+            let error = {
+              type: updateViewportsError.type,
+              payload: {
+                errorMessage: err
+              }
+            };
+
+            return concat([result, error])
           })
         );
     })));
+
+  updateViewportsError$ = createEffect(() => this.actions$.pipe(
+    ofType(updateViewportsError),
+    delay(5000),
+    mergeMap(() => {
+
+      return of({type: cleanupUpdateViewportsError.type})
+    }))
+  );
 }

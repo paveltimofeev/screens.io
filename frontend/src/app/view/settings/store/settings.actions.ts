@@ -1,11 +1,12 @@
 import { createAction, props } from '@ngrx/store';
+import { IViewport } from './settings.reducer';
 
 
 export const refreshAccountInfo = createAction('[Settings Component] refreshAccountInfo');
 export const refreshViewports = createAction('[Settings Component] refreshViewports');
 
 export const loadedAccountInfo = createAction('[Settings Component] loadedAccountInfo', props<{payload:any}>());
-export const loadedViewports = createAction('[Settings Component] loadedViewports', props<{payload:any[]}>());
+export const loadedViewports = createAction('[Settings Component] loadedViewports', props<{payload:IViewport[]}>());
 
 export const cleanupNgrxStorage = createAction('[Settings Component] cleanupNgrxStorage');
 
@@ -32,9 +33,9 @@ export const deleteAccount = createAction(
 );
 
 
-export const addViewport = createAction(
-  '[Settings Component] addViewport',
-  props<{ payload: { name:string, width:number, height: number } }>()
+export const addCustomViewport = createAction(
+  '[Settings Component] addCustomViewport',
+  props<{ payload: IViewport }>()
 );
 export const updateViewports = createAction(
   '[Settings Component] updateViewports',

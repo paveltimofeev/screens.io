@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Filters } from '../widget-run/widget-run.component';
 
 export class ViewportItem {
   data:string;
@@ -13,7 +12,18 @@ export class ViewportItem {
 })
 export class ViewportsSelectorComponent {
 
-  _viewports: ViewportItem[];
+  _selected: string[] = [];
+  _viewports: ViewportItem[] = [];
+
+  @Input()
+  set selected(value:string[]){
+
+    this._selected = value||[];
+
+    this._viewports.forEach( (x:ViewportItem) => {
+      x.checked = this._selected.indexOf(x.label) > -1
+    })
+  }
 
   @Input()
   set viewports(value: string[]) {
@@ -21,8 +31,8 @@ export class ViewportsSelectorComponent {
     this._viewports = value.map(v =>
       ({
         data: v,
-        label: v, //.replace(/\s/g, ''),
-        checked: false
+        label: v,
+        checked: this._selected.indexOf(v) > -1
       }))
   }
 

@@ -144,6 +144,7 @@
         <h4 class="tabs-content-subtitle">Popular Desktop Viewports</h4>
         <app-viewports-selector
           [viewports]="viewports.desktop"
+          [selected]="viewports.desktop_selected"
           (selectionChanged)="viewportsChangeHandler('desktop', $event)"
         >
         </app-viewports-selector>
@@ -151,6 +152,7 @@
         <h4 class="tabs-content-subtitle">Popular Mobile Viewports</h4>
         <app-viewports-selector
           [viewports]="viewports.mobile"
+          [selected]="viewports.mobile_selected"
           (selectionChanged)="viewportsChangeHandler('mobile', $event)"
         >
         </app-viewports-selector>
@@ -158,6 +160,7 @@
         <h4 class="tabs-content-subtitle">Popular Tablet Viewports</h4>
         <app-viewports-selector
           [viewports]="viewports.tablet"
+          [selected]="viewports.tablet_selected"
           (selectionChanged)="viewportsChangeHandler('tablet', $event)"
         >
         </app-viewports-selector>
@@ -170,8 +173,8 @@
         >
         </app-viewports-selector>
 
+        <!--
         <hr class="separation-line">
-
         <h4 class="tabs-content-subtitle">Add Custom Viewport Size</h4>
 
         <app-text-field
@@ -206,6 +209,7 @@
         >
           Add Viewport
         </button>
+        -->
 
         <hr class="separation-line">
         <button class="input-box-button input-box-button--primary anim-bounce-on-click">Save Changes</button>

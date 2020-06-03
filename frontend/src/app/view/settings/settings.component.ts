@@ -4,6 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { accountInfo, viewports, operationCorrelationId } from './store/settings.selectors';
 import {
+  addCustomViewport,
   cleanupNgrxStorage,
   refreshAccountInfo,
   refreshViewports,
@@ -12,6 +13,37 @@ import {
 } from './store/settings.actions';
 import { filter, take } from 'rxjs/operators';
 
+
+const wellknownViewports = {
+  desktop: [
+    { name: '2560 × 1440' , width: 2560, height: 1440 },
+    { name: '1920 × 1080' , width: 1920, height: 1080 },
+    { name: '1600 × 900' , width: 1600, height: 900 },
+    { name: '1536 × 864' , width: 1536, height: 864 },
+    { name: '1366 × 768' , width: 1366, height: 768 },
+    { name: '1280 × 1024' , width: 1280, height: 1024 },
+    { name: '1024 × 768', width: 1024, height: 768 },
+  ],
+  mobile: [
+    { name: '3200 × 1440 - Galaxy S20',  width: 3200, height: 1440 },
+    { name: '2688 × 1242 - iPhone 11 Pro Max',  width: 2688, height: 1242 },
+    { name: '2436 × 1125 - iPhone XS',  width: 2436, height: 1125 },
+    { name: '2160 × 1080 - LG Q6',  width: 2160, height: 1080 },
+    { name: '1600 × 720 - Honor 9A',  width: 1600, height: 720 },
+    { name: '1520 × 720 - Xiaomi Redmi 8',  width: 1520, height: 720 },
+    { name: '1440 × 720 - Honor 9S',  width: 1440, height: 720 },
+    { name: '1334 × 750 - iPhone 8', width: 1334, height: 750 },
+  ],
+  tablet: [
+    { name: '2732 × 2048 - iPad Pro 12.9 (2020)', width: 2732, height: 2048 },
+    { name: '2388 × 1668 - iPad Pro 11', width: 2388, height: 1668 },
+    { name: '2160 × 1620 - iPad 10.2', width: 2160, height: 1620 },
+    { name: '1920 × 1200 - Galaxy Tab A 10.1', width: 1920, height: 1200 },
+    { name: '1280 ×  800 - Galaxy Tab A 8.0', width: 1280, height: 800 },
+  ]
+};
+
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -19,15 +51,19 @@ import { filter, take } from 'rxjs/operators';
 })
 export class SettingsComponent implements OnInit, OnDestroy {
 
-  currentTab: string = 'Account Info';
+  // currentTab: string = 'Account Info';
+  currentTab: string = 'Viewports';
 
   accountInfo$: Observable<any>;
   viewports$: Observable<any>;
 
   viewports: {
     desktop: string[];
+    desktop_selected: string[];
     mobile: string[];
+    mobile_selected: string[];
     tablet: string[];
+    tablet_selected: string[];
     custom: string[];
     createCustomViewport: {
       name?: string,
@@ -36,32 +72,12 @@ export class SettingsComponent implements OnInit, OnDestroy {
       error?: string
     };
   } = {
-    desktop: [
-      '2560 × 1440',
-      '1920 × 1080',
-      '1600 × 900',
-      '1536 × 864',
-      '1366 × 768',
-      '1280 × 1024',
-      '1024 × 768'
-    ],
-    mobile: [
-      '3200 × 1440 - Galaxy S20',
-      '2688 × 1242 - iPhone 11 Pro Max',
-      '2436 × 1125 - iPhone XS',
-      '2160 × 1080 - LG Q6',
-      '1600 × 720 - Honor 9A',
-      '1520 × 720 - Xiaomi Redmi 8',
-      '1440 × 720 - Honor 9S',
-      '1334 × 750 - iPhone 8'
-    ],
-    tablet: [
-      '2732 × 2048 - iPad Pro 12.9 (2020)',
-      '2388 × 1668 - iPad Pro 11',
-      '2160 × 1620 - iPad 10.2',
-      '1920 × 1200 - Galaxy Tab A 10.1',
-      '1280 ×  800 - Galaxy Tab A 8.0',
-    ],
+    desktop: [],
+    desktop_selected: [],
+    mobile: [],
+    mobile_selected: [],
+    tablet: [],
+    tablet_selected: [],
     custom: [],
     createCustomViewport: {}
   };
@@ -76,6 +92,19 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.viewports$ = this.store.pipe(select( viewports ));
     this.store.dispatch( refreshAccountInfo() );
     this.store.dispatch( refreshViewports() );
+
+    this.viewports$.subscribe( viewports => {
+      if (viewports.length > 0) {
+
+        this.viewports.desktop_selected = viewports.map(x => x.name);
+        this.viewports.mobile_selected = viewports.map(x => x.name);
+        this.viewports.tablet_selected = viewports.map(x => x.name);
+      }
+    });
+
+    this.viewports.desktop = wellknownViewports.desktop.map(x => x.name);
+    this.viewports.mobile = wellknownViewports.mobile.map(x => x.name);
+    this.viewports.tablet = wellknownViewports.tablet.map(x => x.name);
   }
 
   ngOnDestroy () {
@@ -171,6 +200,15 @@ export class SettingsComponent implements OnInit, OnDestroy {
   addViewportHandler () {
 
     let vp = this.viewports.createCustomViewport;
+
+    this.store.dispatch( addCustomViewport({
+      payload: {
+        name: `${vp.width} × ${vp.height}`,
+        width: +vp.width,
+        height: +vp.height
+      }
+    }));
+
     let newViewport = `${vp.width} × ${vp.height}`;
     if (vp.name && vp.name !== '') {
       newViewport += `- ${vp.name}`

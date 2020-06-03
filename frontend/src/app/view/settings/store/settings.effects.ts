@@ -60,7 +60,11 @@ export class SettingsEffects {
 
           return {
             type: loadedViewports.type,
-            payload: res.data
+            payload: res.data.map(x => ({
+              name: x.label,
+              width: x.width,
+              height: x.height
+            }))
           }
         })
       );
@@ -114,6 +118,8 @@ export class SettingsEffects {
           delay(4000),
           map( () => {
 
+            this.navigate.singOut();
+
             return {
               type: operationCompleted.type,
               payload: {
@@ -122,12 +128,15 @@ export class SettingsEffects {
             }
           })
         );
-    })));
+    })),
+    {dispatch: false});
 
 
   updateViewports$ = createEffect(() => this.actions$.pipe(
     ofType(updateViewports),
     mergeMap((action) => {
+
+      // this.api.createViewport()
 
       return of({})
         .pipe(

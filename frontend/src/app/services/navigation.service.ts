@@ -38,6 +38,12 @@ export class NavigationService {
   }
 
 
+  /// SIGNOUT
+
+  singOut() {
+    this.router.navigate(['login'])
+  }
+
   /// OTHER
 
   openExternalUrl(url:string) {

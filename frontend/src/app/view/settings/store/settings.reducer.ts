@@ -1,10 +1,14 @@
 import { createReducer, on } from '@ngrx/store';
 import * as actions from './settings.actions'
 import { operationCompleted } from './settings.actions';
+import { addCustomViewport } from './settings.actions';
 
 export interface IAccountInfo {
 }
 export interface IViewport {
+  name: string;
+  width: number;
+  height: number;
 }
 
 export interface AppState {
@@ -12,13 +16,15 @@ export interface AppState {
 }
 export interface SettingsState {
   accountInfo: any;
-  viewports: any[];
+  viewports: IViewport[];
+  customViewports: IViewport[];
   operationCorrelationId: string;
 }
 
 export const initState = {
   accountInfo: {},
   viewports: [],
+  customViewports: [],
   operationCorrelationId: null
 };
 
@@ -37,6 +43,18 @@ const _reducer = createReducer(initState,
     return {
       ...state,
       viewports: action.payload
+    }
+  }),
+  on(actions.addCustomViewport, (state, action) => {
+
+    // state.customViewports.filter( (x:IViewport) => x.name === action.payload.name )
+
+    return {
+      ...state,
+      customViewports: [
+        ...state.customViewports,
+        action.payload
+      ]
     }
   }),
 

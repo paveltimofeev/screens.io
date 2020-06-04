@@ -66,17 +66,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
     if (!this.updatingAccountInfo) {
 
-      const corId = `${Math.random()}`;
-
-      this.store.pipe(
-        select(operationCorrelationId),
-        filter(x => x === corId),
-        take(1)
-      ).subscribe(_ => {
-        this.updatingAccountInfo = false;
-      });
-
-      this.updatingAccountInfo = true;
+      let corId = this.longOp(
+        () => { this.updatingAccountInfo = true; },
+        () => { this.updatingAccountInfo = false; }
+      );
 
       this.store.dispatch(updateAccountInfo({
         payload: {
@@ -110,17 +103,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
     if (!this.updatingPassword && !this.updatingPasswordDisabled) {
 
-      const corId = `${Math.random()}`;
-
-      this.store.pipe(
-        select(operationCorrelationId),
-        filter(x => x === corId),
-        take(1)
-      ).subscribe(_ => {
-        this.updatingPassword = false;
-      });
-
-      this.updatingPassword = true;
+      let corId = this.longOp(
+        () => { this.updatingPassword = true; },
+        () => { this.updatingPassword = false; }
+      );
 
       this.store.dispatch(updatePassword({
         payload: {
@@ -142,22 +128,31 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
     if (!this.updatingViewportsList) {
 
-      let corId = `${Math.random()}`;
-
-      this.store.pipe(
-        select(operationCorrelationId),
-        filter(x => x === corId),
-        take(1)
-      ).subscribe(() => {
-        this.updatingViewportsList = false;
-      });
+      let corId = this.longOp(
+        () => { this.updatingViewportsList = true; },
+        () => { this.updatingViewportsList = false; }
+       );
 
       let payload = {
         correlationId: corId,
       };
 
-      this.updatingViewportsList = true;
       this.store.dispatch(updateViewports({payload}));
     }
+  }
+
+  longOp(before, after):string {
+
+    before();
+
+    let corId = `${Math.random()}`;
+
+    this.store.pipe(
+      select(operationCorrelationId),
+      filter(x => x === corId),
+      take(1)
+    ).subscribe(after);
+
+    return corId;
   }
 }

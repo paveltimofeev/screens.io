@@ -102,8 +102,9 @@
           (valueChanged)="updatePasswordPropHandler($event, 'confirmNewPassword')"
         ></app-text-field>
 
-        <button class="input-box-button input-box-button--primary anim-bounce-on-click"
+        <button class="input-box-button input-box-button--primary"
                 [ngClass]="{
+                  'anim-bounce-on-click': !updatingPassword && !updatingPasswordDisabled,
                   'input-box-button--in-progress': updatingPassword,
                   'input-box-button--disabled': updatingPasswordDisabled
                 }"

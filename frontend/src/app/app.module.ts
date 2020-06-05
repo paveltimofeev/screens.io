@@ -30,14 +30,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { DashboardEffects } from './view/dashboard/store/dashboard.effects';
-import { HistoryTableEffects } from './components/history-table/store/history-table.effects';
-import { historyTableReducer } from './components/history-table/store/history-table.reducer';
 import { ConfigurationEffects } from './view/configuration/store/configuration.effects';
 import { configurationReducer } from './view/configuration/store/configuration.reducer';
 import { FormsModule } from '@angular/forms';
 import { HistoryRecordComponent } from './view/history-record/history-record.component';
 import { LoginComponent } from './view/login/login.component';
-import { AgCellButtonComponent } from './components/history-table/ag-cell-button/ag-cell-button.component';
 import { ReportComponent } from './view/report/report.component';
 import { routes } from './app.routes';
 import { OverviewComponent } from './view/overview/overview.component';
@@ -105,7 +102,6 @@ import { FormButtonComponent } from './ui-kit/form-button/form-button.component'
     MenuSectionComponent,
     HistoryRecordComponent,
     LoginComponent,
-    AgCellButtonComponent,
     ReportComponent,
     OverviewComponent,
     ScenariosComponent,
@@ -145,7 +141,6 @@ import { FormButtonComponent } from './ui-kit/form-button/form-button.component'
       overview: overviewReducer,
       dashboard: dashboardReducer,
       configurationView: configurationReducer,
-      historyTable: historyTableReducer,
       jobs: jobsReducer,
       jobPage: jobPageReducer,
       scenarioPage: scenarioPageReducer,
@@ -163,7 +158,6 @@ import { FormButtonComponent } from './ui-kit/form-button/form-button.component'
       OverviewEffects,
       DashboardEffects,
       ConfigurationEffects,
-      HistoryTableEffects,
       JobsEffects,
       JobPageEffects,
       ScenarioPageEffects,
@@ -174,9 +168,7 @@ import { FormButtonComponent } from './ui-kit/form-button/form-button.component'
     RouterModule.forRoot(routes),
     AgGridModule.withComponents([])
   ],
-  entryComponents: [
-    AgCellButtonComponent
-  ],
+  entryComponents: [],
   providers: [],
   bootstrap: [AppComponent]
 })

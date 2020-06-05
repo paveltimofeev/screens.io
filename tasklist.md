@@ -82,10 +82,12 @@
 -- Frontend: add form button component
 -- Backend: Bulk Upsert viewports for Settings vew
 
+- Frontend: Remove old views and components
 - Click on job history row should navigate to job history record
 - Paging for job history
 - Frontend: Implement Page Actions, and Search filter
 - Frontend: RESTYLE UI - Sign-in/Sign-up view
+- Show correct values at stats section of sidebar (Scenarios/Jobs)
 - [Bug] Overview - card-sm - LatestResults does not work correctly
 - [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage & Add Autorefresh for Jobs view
 
@@ -93,7 +95,6 @@
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 - Frontend: Implement Sidebar filters
 - Frontend: RESTYLE UI - Improve Scenario edit view - add Viewports; add Overview(Summary) with reference image; add HasValues pin; add Description (commentary) for scenario, to make puprose of scenario clearer.
-- Frontend: Remove old views and components
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Frontend: show current username
 - Frontend: Make header fixed, it must be always visible.

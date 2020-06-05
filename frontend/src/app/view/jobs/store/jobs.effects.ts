@@ -4,7 +4,6 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { loaded, purgeHistory, refresh, removeFilter, setFilter } from './jobs.actions';
 import { mergeMap, map, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
-import * as historyTableActions from '../../../components/history-table/store/history-table.actions';
 import { Store } from '@ngrx/store';
 import { filters } from './jobs.selectors';
 import { DateService } from 'src/app/services/date.service';
@@ -56,10 +55,8 @@ export class JobsEffects {
     mergeMap((action) => {
 
       return of({
-        type: historyTableActions.refresh.type,
-        payload: {
-          filters: []
-        }
+        type: refresh.type,
+        payload: {}
       })
 
     })));

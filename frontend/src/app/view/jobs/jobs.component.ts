@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { cleanupNgrxStorage, purgeHistory, refresh, removeFilter, setFilter } from './store/jobs.actions';
-import * as historyTableActions from '../../components/history-table/store/history-table.actions';
 import { jobs } from './store/jobs.selectors';
 import { Observable } from 'rxjs';
 
@@ -39,7 +38,7 @@ export class JobsComponent implements OnInit, OnDestroy {
   /* DATA ACTIONS */
 
   refreshHandler () {
-    this.store.dispatch( historyTableActions.refresh( {payload: {filters: []}} ))
+    this.store.dispatch( refresh())
   }
   searchHandler ($event: string) {
 

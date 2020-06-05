@@ -1,10 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { cleanupNgrxStorage, refresh } from './store/history-table.actions';
-import { selectHistoryTable } from './store/history-table.selectors';
-import { interval } from 'rxjs';
-import { AgCellButtonComponent } from './ag-cell-button/ag-cell-button.component';
-import { IQueryFilter } from '../../services/filters.service';
+import { Component, Input } from '@angular/core';
 import { statusCellRenderer } from './cell-renderers/status-cell';
 
 @Component({
@@ -12,15 +6,11 @@ import { statusCellRenderer } from './cell-renderers/status-cell';
   templateUrl: './history-table.component.html',
   styleUrls: ['./history-table.component.css']
 })
-export class HistoryTableComponent implements OnInit, OnDestroy {
+export class HistoryTableComponent {
 
-  _filters:IQueryFilter[];
-
-  refresher$: any;
-  
   @Input()
   jobs$: any;
-  
+
   gridApi: any;
 
   columnDefs = [
@@ -43,69 +33,13 @@ export class HistoryTableComponent implements OnInit, OnDestroy {
     { field: 'viewports', colId:'viewports', filter: true },
     { field: 'duration', colId:'duration', filter: true },
     { headerName: 'Run by', field: 'user', sortable: true, filter: true, resizable: true },
-    {
-      headerName:'',
-      field: 'action',
-      cellRendererFramework: AgCellButtonComponent,
-      width: 60,
-      suppressSizeToFit: true
-    }
   ];
 
-  @Input()
-  set filters (value:IQueryFilter[]) {
-
-    this._filters = value;
-    this.refresh();
-  }
-  get filters(): IQueryFilter[] {
-
-    return this._filters;
-  }
-
-  @Input()
-  enableAutoRefresh:boolean = false;
-
-  actionClickHandler (event) {
-    console.log('actionClickHandler', event)
-  }
-
   onGridReady(params) {
-
-    // this.gridColumnApi = params.columnApi;
-    // this.gridColumnApi.autoSizeColumns(['scope']);
 
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
     this.gridApi.setDomLayout('autoHeight');
   }
 
-  refresh() {
-
-    this.store.dispatch( refresh({
-      payload: { filters: this._filters }
-    }));
-  }
-
-
-  constructor(private store: Store) {}
-
-  ngOnInit() {
-
-    //this.jobs$ = this.store.pipe( select(selectHistoryTable));
-    this.refresh();
-
-    if (this.enableAutoRefresh) {
-      this.refresher$ = interval(5000).subscribe(this.refresh)
-    }
-  }
-
-  ngOnDestroy (): void {
-
-    if (this.refresher$) {
-      this.refresher$.unsubscribe()
-    }
-
-    this.store.dispatch(cleanupNgrxStorage());
-  }
 }

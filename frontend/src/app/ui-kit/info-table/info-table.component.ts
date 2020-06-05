@@ -18,10 +18,6 @@ export class InfoTableComponent {
 
   @Input()
   set labelsAndProps( value: IInfoTableRow[]) {
-
-    console.log(this.items)
-    console.log(value)
-
     this._labelsAndProps = value;
   }
 

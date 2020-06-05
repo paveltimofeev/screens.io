@@ -7,11 +7,10 @@ import {
   cleanupNgrxStorage,
   refresh,
   refreshRecentRuns,
-  runAllScenarios,
+  runAllScenarios, runOneScenario,
   stopAutoRefresh
 } from './store/overview.actions';
 import { NavigationService } from 'src/app/services/navigation.service';
-import { runOneScenario } from '../dashboard/store/dashboard.actions';
 import { Filters } from '../../ui-kit/widget-run/widget-run.component';
 
 @Component({

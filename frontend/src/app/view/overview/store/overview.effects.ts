@@ -7,7 +7,7 @@ import {
   runAllScenarios,
   refreshRecentRuns,
   loadedRecentRuns,
-  stopAutoRefresh, autoRefreshStopped
+  stopAutoRefresh, autoRefreshStopped, runOneScenario
 } from './overview.actions';
 import { mergeMap, map, debounceTime } from 'rxjs/operators';
 import { forkJoin, of } from 'rxjs';
@@ -33,6 +33,19 @@ export class OverviewEffects {
         .pipe(
           map( res => ({ type: refresh.type }) )
         )
+    })
+  ));
+
+  runOneScenario$ = createEffect(() => this.actions$.pipe(
+    ofType(runOneScenario),
+    mergeMap((data) => {
+
+      return this.api.run( {filter: data.label} ).pipe(
+        map( res => {
+          return {type:refresh.type};
+        })
+      );
+
     })
   ));
 

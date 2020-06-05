@@ -11,3 +11,7 @@ export const stopAutoRefresh = createAction('[Overview Component] stopAutoRefres
 export const autoRefreshStopped = createAction('[Overview Component] autoRefreshStopped');
 
 export const runAllScenarios = createAction('[Overview Component] runAllScenarios');
+export const runOneScenario = createAction(
+  '[Dashboard Component] runOneScenario',
+  props<{label:string}>()
+);

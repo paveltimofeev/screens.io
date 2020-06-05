@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiAdapterService } from 'src/app/services/api-adapter.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { loaded, refresh, removeFilter, setFilter } from './scenarios.actions';
+import { deleteScenario, favoriteScenario, loaded, refresh, removeFilter, setFilter } from './scenarios.actions';
 import { mergeMap, map, withLatestFrom } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { DateService } from 'src/app/services/date.service';
@@ -50,5 +50,30 @@ export class ScenariosEffects {
 
     })
     ));
+
+  deleteScenario$ = createEffect(() => this.actions$.pipe(
+    ofType(deleteScenario),
+    mergeMap( action => {
+
+      return this.api.deleteScenario(action.payload.id).pipe(
+        map( res => {
+          return { type: refresh.type }
+        })
+      );
+    })
+  ));
+
+  switchScenarioFavorite$ = createEffect(() => this.actions$.pipe(
+    ofType(favoriteScenario),
+    mergeMap(action => {
+
+      console.log('switchScenarioFavorite$', action)
+
+      return this.api.switchScenarioFavorite(action.payload.id)
+        .pipe(
+          map(res => { return {type: refresh.type, payload: false} })
+        );
+    })
+  ));
 
 }

@@ -81,8 +81,8 @@
 -- Frontend: operations with Correlation Id
 -- Frontend: add form button component
 -- Backend: Bulk Upsert viewports for Settings vew
+-- Frontend: Remove old views and components
 
-- Frontend: Remove old views and components
 - Click on job history row should navigate to job history record
 - Paging for job history
 - Frontend: Implement Page Actions, and Search filter

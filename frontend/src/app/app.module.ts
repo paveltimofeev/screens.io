@@ -5,37 +5,18 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
-import { DashboardComponent } from './view/dashboard/dashboard.component';
-import { ConfigurationComponent } from './view/configuration/configuration.component';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { PageHeaderComponent } from './components/page-header/page-header.component';
-import { SectionHeaderComponent } from './components/section-header/section-header.component';
-import { SectionSubheaderComponent } from './components/section-subheader/section-subheader.component';
-import { TopMenuComponent } from './components/top-menu/top-menu.component';
-import { ScenarioCardComponent } from './components/scenario-card/scenario-card.component';
-import { InputBoxComponent } from './components/input-box/input-box.component';
-import { SelectorsBoxComponent } from './components/selectors-box/selectors-box.component';
-import { AddScenarioButtonComponent } from './components/add-scenario-button/add-scenario-button.component';
 import { HistoryTableComponent } from './components/history-table/history-table.component';
 import { AgGridModule } from 'ag-grid-angular';
-import { StatsComponent } from './components/stats/stats.component';
-import { MenuSectionComponent } from './components/menu-section/menu-section.component';
+
 
 import { StoreModule } from '@ngrx/store';
 import { appReducer } from './store/reducer';
-import { dashboardReducer } from './view/dashboard/store/dashboard.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import { DashboardEffects } from './view/dashboard/store/dashboard.effects';
-import { ConfigurationEffects } from './view/configuration/store/configuration.effects';
-import { configurationReducer } from './view/configuration/store/configuration.reducer';
 import { FormsModule } from '@angular/forms';
-import { HistoryRecordComponent } from './view/history-record/history-record.component';
-import { LoginComponent } from './view/login/login.component';
-import { ReportComponent } from './view/report/report.component';
 import { routes } from './app.routes';
 import { OverviewComponent } from './view/overview/overview.component';
 import { ScenariosComponent } from './view/scenarios/scenarios.component';
@@ -80,29 +61,15 @@ import { ScenariosEffects } from './view/scenarios/store/scenarios.effects';
 import { settingsReducer } from './view/settings/store/settings.reducer';
 import { SettingsEffects } from './view/settings/store/settings.effects';
 import { FormButtonComponent } from './ui-kit/form-button/form-button.component';
+import { LoginComponent } from './view/login/login.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
-    ConfigurationComponent,
     NavbarComponent,
-    SidebarComponent,
-    PageHeaderComponent,
-    SectionHeaderComponent,
-    SectionSubheaderComponent,
-    TopMenuComponent,
-    ScenarioCardComponent,
-    InputBoxComponent,
-    SelectorsBoxComponent,
-    AddScenarioButtonComponent,
     HistoryTableComponent,
-    StatsComponent,
-    MenuSectionComponent,
-    HistoryRecordComponent,
     LoginComponent,
-    ReportComponent,
     OverviewComponent,
     ScenariosComponent,
     OverviewLayoutComponent,
@@ -139,8 +106,6 @@ import { FormButtonComponent } from './ui-kit/form-button/form-button.component'
     StoreModule.forRoot({
       app: appReducer,
       overview: overviewReducer,
-      dashboard: dashboardReducer,
-      configurationView: configurationReducer,
       jobs: jobsReducer,
       jobPage: jobPageReducer,
       scenarioPage: scenarioPageReducer,
@@ -156,8 +121,6 @@ import { FormButtonComponent } from './ui-kit/form-button/form-button.component'
     EffectsModule.forRoot([
       NavigationEffects,
       OverviewEffects,
-      DashboardEffects,
-      ConfigurationEffects,
       JobsEffects,
       JobPageEffects,
       ScenarioPageEffects,

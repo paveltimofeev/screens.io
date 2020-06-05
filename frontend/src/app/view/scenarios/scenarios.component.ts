@@ -4,12 +4,16 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { deleteScenario, favoriteScenario } from '../configuration/store/configuration.actions';
-import { runOneScenario } from '../dashboard/store/dashboard.actions';
-
 import { NavigationService } from '../../services/navigation.service';
-import { refresh, cleanupNgrxStorage, switchFullHeightMode } from './store/scenarios.actions';
+import {
+  refresh,
+  cleanupNgrxStorage,
+  switchFullHeightMode,
+  deleteScenario,
+  favoriteScenario
+} from './store/scenarios.actions';
 import { viewportsList, scenariosList, fullHeightModeOn } from './store/scenarios.selectors';
+import { runOneScenario } from '../overview/store/overview.actions';
 
 @Component({
   selector: 'app-scenarios',

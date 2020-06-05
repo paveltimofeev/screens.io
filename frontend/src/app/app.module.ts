@@ -82,6 +82,7 @@ import { scenariosReducer } from './view/scenarios/store/scenarios.reducer';
 import { ScenariosEffects } from './view/scenarios/store/scenarios.effects';
 import { settingsReducer } from './view/settings/store/settings.reducer';
 import { SettingsEffects } from './view/settings/store/settings.effects';
+import { FormButtonComponent } from './ui-kit/form-button/form-button.component';
 
 
 @NgModule({
@@ -132,7 +133,8 @@ import { SettingsEffects } from './view/settings/store/settings.effects';
     CardLgComponent,
     InfoTableComponent,
     MoreComponent,
-    ImagesComparerComponent
+    ImagesComparerComponent,
+    FormButtonComponent
   ],
   imports: [
     BrowserModule,

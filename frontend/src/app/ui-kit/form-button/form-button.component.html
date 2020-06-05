@@ -1,0 +1,14 @@
+<button class="input-box-button"
+        [ngClass]="{
+
+          'input-box-button--primary': isPrimary,
+          'input-box-button--danger': isDanger,
+          'input-box-button--secondary': !isPrimary && !isDanger,
+          'input-box-button--disabled': isDisabled,
+
+          'anim-bounce-on-click': !inProgress && !isDisabled,
+          'input-box-button--in-progress': inProgress
+        }"
+        (click)="click.emit(null)">
+  <ng-content></ng-content>
+</button>

@@ -82,22 +82,23 @@
 -- Frontend: add form button component
 -- Backend: Bulk Upsert viewports for Settings vew
 
-- Backend: Store/update data of Settings view
+- Click on job history row should navigate to job history record
+- Paging for job history
+- Frontend: Implement Page Actions, and Search filter
+- Frontend: RESTYLE UI - Sign-in/Sign-up view
+- [Bug] Overview - card-sm - LatestResults does not work correctly
 - [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage & Add Autorefresh for Jobs view
 
-- Frontend: RESTYLE UI - Sign-in/Sign-up view
-- Frontend: Implement Page Actions, and Search filter
-- [Bug] Overview - card-sm - LatestResults does not work correctly
+- Backend: Store/update data for AccountInfo at Settings view
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 - Frontend: Implement Sidebar filters
-- Frontend: RESTYLE UI - Responsive UI (support mobile)
 - Frontend: RESTYLE UI - Improve Scenario edit view - add Viewports; add Overview(Summary) with reference image; add HasValues pin; add Description (commentary) for scenario, to make puprose of scenario clearer.
 - Frontend: Remove old views and components
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Frontend: show current username
 - Frontend: Make header fixed, it must be always visible.
-- Backend: Page Actions - Remove scenarios filtered by ids[]*viewports[]
-- [Bug] New user does not have any Viewports configured and do not have ability to add them.
+- Frontend: RESTYLE UI - Responsive UI (support mobile)
+- [Bug] New User Init Process: New user does not have any Viewports configured and do not have ability to add them.
 - Frontend: SignIn/SignUp page RESTYLE
 - [Move to AWS: 1] STORE IMAGES AT AWS S3
 - [Move to AWS: 2] Run MongoDb on AWS VM
@@ -110,6 +111,7 @@
 - Use Master term instead of Reference?
 - **------------ MVP MILESTONE ------------**
 - Backend: Hide internal path to the "not found ref image", in case of error when Ref not exists
+- Backend: Scenarios Page Actions - Run anf Remove scenarios filtered by ids[]*viewports[]
 - [Bug] Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
 - [Bug] Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
 - [Bug] Clear text field - cleared field does not save changes on backend (Save Scenario / Hide Selectors field)

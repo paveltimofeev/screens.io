@@ -70,14 +70,13 @@
           (valueChanged)="changeAccountInfoPropHandler($event, 'email')"
         ></app-text-field>
 
-        <button class="input-box-button input-box-button--primary anim-bounce-on-click"
-                [ngClass]="{
-                  'input-box-button--in-progress': updatingAccountInfo
-                }"
-                (click)="updateAccountInfoHandler()"
-        >
+        <app-form-button
+          [isPrimary]="true"
+          [inProgress]="updatingAccountInfo"
+          (click)="updateAccountInfoHandler()">
           Update Account Info
-        </button>
+        </app-form-button>
+
         <hr class="separation-line">
 
         <h3 class="tabs-content-title">Change password</h3>
@@ -102,16 +101,14 @@
           (valueChanged)="updatePasswordPropHandler($event, 'confirmNewPassword')"
         ></app-text-field>
 
-        <button class="input-box-button input-box-button--primary"
-                [ngClass]="{
-                  'anim-bounce-on-click': !updatingPassword && !updatingPasswordDisabled,
-                  'input-box-button--in-progress': updatingPassword,
-                  'input-box-button--disabled': updatingPasswordDisabled
-                }"
-                (click)="updatePasswordHandler()"
-        >
+        <app-form-button
+          [isPrimary]="true"
+          [inProgress]="updatingPassword"
+          [isDisabled]="updatingPasswordDisabled"
+          (click)="updatePasswordHandler()">
           Update Password
-        </button>
+        </app-form-button>
+
         <hr class="separation-line">
 
         <h3 class="tabs-content-title">Delete Your Account</h3>
@@ -128,7 +125,10 @@
           (valueChanged)="changeAccountInfoHandler($event, 'password')"
         ></app-text-field>
 
-        <button class="input-box-button input-box-button--danger anim-bounce-on-click">Permanently delete my account</button>
+        <app-form-button
+          [isDanger]="true">
+          Permanently delete my account
+        </app-form-button>
 
       </div>
 
@@ -178,14 +178,12 @@
           You have to have at least one viewport to run tests.
         </p>
 
-        <button
-          *ngIf="(selectedViewports$ | async).length > 0"
-          class="input-box-button input-box-button--primary anim-bounce-on-click"
-          [ngClass]="{
-          'input-box-button--in-progress': updatingViewportsList
-          }"
-          (click)="updateViewportsListHandler()"
-        >Update Viewports List</button>
+        <app-form-button
+          [isPrimary]="true"
+          [inProgress]="updatingViewportsList"
+          (click)="updateViewportsListHandler()">
+          Update Viewports List
+        </app-form-button>
 
         <!--
         <h4 *ngIf="viewports.custom.length > 0" class="tabs-content-subtitle">Custom Viewports</h4>
@@ -224,6 +222,12 @@
             (valueChanged)="setCustomViewportHandler('height', $event)"
           ></app-text-field>
         </div>
+
+        <app-form-button
+          [inProgress]="updatingViewportsList"
+          (click)="addViewportHandler()">
+          Add Viewport
+        </app-form-button>
 
         <button
           class="input-box-button input-box-button--secondary anim-bounce-on-click"

@@ -241,12 +241,12 @@ router.get('/test/viewports', async function(req, res) {
     })
 });
 
-// Get viewport
+// Bulk upsert viewports
 router.put('/test/viewports', async function(req, res) {
 
     tryWrapper(req, res, async () => {
 
-        const data = await VRT.create(req.context).updateViewports(req.body)
+        const data = await VRT.create(req.context).upsertViewports(req.body)
         res.status(200).send( {data} )
     })
 });

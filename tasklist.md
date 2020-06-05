@@ -80,6 +80,7 @@
 -- Frontend: RESTYLE UI - Settings view store
 -- Frontend: operations with Correlation Id
 -- Frontend: add form button component
+-- Backend: Bulk Upsert viewports for Settings vew
 
 - Backend: Store/update data of Settings view
 - [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage & Add Autorefresh for Jobs view
@@ -203,6 +204,4 @@
 
 - (?) Refactoring Mode: Make change > Test > Approve Differences to Stage if no side-effects > Repeat > Ehe all done, Approve to Master
 - (?) Build community around this: disccussions, comments, approve requests/declines, viewsbase - storage of reference views and controls
-
-
-
+- (?) Create scenario from template/example

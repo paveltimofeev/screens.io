@@ -54,6 +54,11 @@ class Storage {
         Object.keys(data).forEach(x => entry[x] = data[x])
         return await entry.save()
     }
+    async _bulkUpsert (database, collection, schema, bulkOps) {
+
+        let entity = this._createEntity(database, collection, schema);
+        return await entity.bulkWrite(bulkOps);
+    }
     async _getAll (database, collection, schema) {
         return await this._getByQuery(database, collection, schema, {})
     }
@@ -174,6 +179,20 @@ class Storage {
     }
     async getViewports (database, query) {
         return await this._getByQuery(database, 'Viewport', viewportSchema, query)
+    }
+    async bulkWriteViewports (database, viewports, upsert) {
+
+        // https://stackoverflow.com/questions/39988848/trying-to-do-a-bulk-upsert-with-mongoose-whats-the-cleanest-way-to-do-this
+
+        var bulkOps = viewports.map( viewport => ({
+            'updateOne': {
+                'filter': { _id: viewport._id },
+                'update': viewport,
+                'upsert': upsert // true | false
+            }
+        }));
+
+        return await  this._bulkUpsert(database, 'Viewport', viewportSchema, bulkOps);
     }
     async createViewport (database, data) {
 

@@ -425,6 +425,9 @@ class VRT {
     async getViewports (query) {
         return await storage.getViewports(this._userId, query)
     }
+    async upsertViewports (viewports) {
+        return await storage.bulkWriteViewports(this._userId, viewports, true)
+    }
     async createViewport (data) {
         return await storage.createViewport(this._userId, data)
     }

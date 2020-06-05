@@ -79,8 +79,9 @@
 -- Frontend: FitMode for scenarios view
 -- Frontend: RESTYLE UI - Settings view store
 -- Frontend: operations with Correlation Id
+-- Frontend: add form button component
 
-- Frontend: RESTYLE UI - Settings view (see uistructure.md for content)
+- Backend: Store/update data of Settings view
 - [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage & Add Autorefresh for Jobs view
 
 - Frontend: RESTYLE UI - Sign-in/Sign-up view
@@ -190,16 +191,18 @@
 - CLOUD MONGODB
 - [Feature] TELEGRAM BOT
 - [Feature] SLACK BOT
+- [Feature] GITTER WEBHOOKS
 - [Feature] SCHEDULER FOR RUNS
 - PAYMENT & TRIAL-ACCOUNTS
 - COMPARE WITH COMPETITORS: diffy.website, screenster.io, percy.io
     - ON DEMAND AGENT (MANAGED BY SERVER) TO MAKE SCREENSHOTS (WITHOUT AUTH/OF LOCALHOST) AND SEND THEM TO THE BACKEND
-    - [Feature] GITHUB/CIRCLECI INTEGRATION like DIFFY, AutoSearch links to other pages
+    - [Feature] GITHUB/CIRCLECI/APPVEYOR INTEGRATION like DIFFY, AutoSearch links to other pages
 - Tenant support (Tenant > Users + Scenarios + Results + Jobs)
 - [Feature] Project support (Tenant > Projects > Users + Scenarios + Results + Jobs). One project is a buch of scenarios.
-- (?) Refactoring Mode: Make change > Test > Approve Differences to Stage if no side-effects > Repeat > Ehe all done, Approve to Master
 - [Feature] Преимущетво перед обычным тестированием - проверка адаптивности и респонзивности.
 
+- (?) Refactoring Mode: Make change > Test > Approve Differences to Stage if no side-effects > Repeat > Ehe all done, Approve to Master
+- (?) Build community around this: disccussions, comments, approve requests/declines, viewsbase - storage of reference views and controls
 
 
 

@@ -90,7 +90,7 @@ export class DataAccessService {
     );
   }
 
-  delete (url:string): Observable<any> {
+  delete (url:string, body?:any): Observable<any> {
     return this.http.delete(url, {withCredentials: true}).pipe(
       take(1),
       retryWhen(genericRetryStrategy(this.retryOpts)),

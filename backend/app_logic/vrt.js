@@ -222,7 +222,7 @@ class VRT {
     /// shared
     async getConfig( scenariosFilter ) {
 
-        const viewports = await storage.getViewports(this._userId)
+        const viewports = await storage.getViewports(this._userId, { enabled:true })
         const scenarios = await storage.getScenarios(this._userId, scenariosFilter )
 
         return engine.buildConfig(
@@ -422,8 +422,8 @@ class VRT {
     async getViewportById (id) {
         return await storage.getViewportById(this._userId, id)
     }
-    async getViewports () {
-        return await storage.getViewports(this._userId)
+    async getViewports (query) {
+        return await storage.getViewports(this._userId, query)
     }
     async createViewport (data) {
         return await storage.createViewport(this._userId, data)

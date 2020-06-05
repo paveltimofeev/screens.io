@@ -172,9 +172,8 @@ class Storage {
     async getViewportById (database, id) {
         return await this._getById(database, 'Viewport', viewportSchema, id)
     }
-    async getViewports (database) {
-
-        return await this._getAll(database, 'Viewport', viewportSchema)
+    async getViewports (database, query) {
+        return await this._getByQuery(database, 'Viewport', viewportSchema, query)
     }
     async createViewport (database, data) {
 

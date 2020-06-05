@@ -14,7 +14,7 @@ import {
   catchError,
   withLatestFrom
 } from 'rxjs/operators';
-import { concat, forkJoin, of } from 'rxjs';
+import { concat, forkJoin, Observable, of } from 'rxjs';
 import { DateService } from '../../../services/date.service';
 import { environment } from '../../../../environments/environment';
 import { NavigationService } from '../../../services/navigation.service';
@@ -32,7 +32,7 @@ import {
   updateAccountInfo, updatePassword, updateViewports, updateViewportsError
 } from './settings.actions';
 import { Store } from '@ngrx/store';
-import { selectedViewportsData } from './settings.selectors';
+import { viewportsData } from './settings.selectors';
 
 
 @Injectable()
@@ -47,11 +47,34 @@ export class SettingsEffects {
     private filtersStv: FiltersService
   ) {}
 
+  createSuccessAction(correlationId) {
+
+    return {
+      type: operationCompleted.type,
+      payload: { correlationId }
+    }
+  }
+
+  createErrorCaseActions(errorMessage, correlationId): Observable<any> {
+
+    return concat(
+      [
+        this.createSuccessAction(correlationId),
+        {
+          type: updateViewportsError.type,
+          payload: { errorMessage, correlationId }
+        }
+      ]
+    )
+  }
+
+
+
   refreshAccountInfo$ = createEffect(() => this.actions$.pipe(
     ofType(refreshAccountInfo),
     mergeMap((action) => {
 
-      return this.api.getViewports().pipe(
+      return this.api.getAllViewports().pipe(
         map( res => {
 
           return {
@@ -70,15 +93,17 @@ export class SettingsEffects {
     ofType(refreshViewports),
     mergeMap((action) => {
 
-      return this.api.getViewports().pipe(
+      return this.api.getAllViewports().pipe(
         map( res => {
 
           return {
             type: loadedViewports.type,
             payload: res.data.map(x => ({
-              name: x.label,
+              _id: x._id,
+              label: x.label,
               width: x.width,
-              height: x.height
+              height: x.height,
+              enabled: x.enabled
             }))
           }
         })
@@ -90,57 +115,47 @@ export class SettingsEffects {
     ofType(updateAccountInfo),
     mergeMap((action) => {
 
-      return of({})
-        .pipe(
-          delay(3000),
-          map( () => {
+      const corId = action.payload.correlationId;
 
-          return {
-            type: operationCompleted.type,
-            payload: {
-              correlationId: action.payload.correlationId
-            }
-          }
-        })
-      );
+      return this.api.updateAccountInfo(action.payload)
+        .pipe(
+          map( () => this.createSuccessAction(corId)),
+          catchError(err => {
+            return this.createErrorCaseActions(err, corId)
+          })
+        );
     })));
 
   updatePassword$ = createEffect(() => this.actions$.pipe(
     ofType(updatePassword),
     mergeMap((action) => {
 
-      return of({})
-        .pipe(
-          delay(2000),
-          map( () => {
+      const corId = action.payload.correlationId;
 
-            return {
-              type: operationCompleted.type,
-              payload: {
-                correlationId: action.payload.correlationId
-              }
-            }
+      return this.api.updatePassword(action.payload)
+        .pipe(
+          map( () => this.createSuccessAction(corId)),
+          catchError(err => {
+            return this.createErrorCaseActions(err, corId)
           })
         );
+
     })));
 
   deleteAccount$ = createEffect(() => this.actions$.pipe(
     ofType(deleteAccount),
     mergeMap((action) => {
 
-      return of({})
+      const corId = action.payload.correlationId;
+
+      return this.api.deleteAccount(action.payload)
         .pipe(
-          delay(4000),
           map( () => {
-
             this.navigate.singOut();
-
-            return {
-              type: operationCompleted.type,
-              payload: {
-                correlationId: action.payload.correlationId
-              }
-            }
+            return this.createSuccessAction(corId);
+          }),
+          catchError(err => {
+            return this.createErrorCaseActions(err, corId)
           })
         );
     })),
@@ -149,33 +164,17 @@ export class SettingsEffects {
 
   updateViewports$ = createEffect(() => this.actions$.pipe(
     ofType(updateViewports),
-    withLatestFrom(this.store.select(selectedViewportsData)),
-    mergeMap(([action, selectedViewportsData]) => {
+    withLatestFrom(this.store.select(viewportsData)),
+    mergeMap(([action, viewportsData]) => {
 
-      let result = {
-        type: operationCompleted.type,
-        payload: {
-          correlationId: action.payload.correlationId
-        }
-      };
+      const corId = action.payload.correlationId;
 
       return this.api
-        .updateViewports(selectedViewportsData)
+        .updateViewports(viewportsData)
         .pipe(
-          map( () => {
-            return result;
-          }),
-          catchError((err) => {
-            console.log('error', err);
-
-            let error = {
-              type: updateViewportsError.type,
-              payload: {
-                errorMessage: err
-              }
-            };
-
-            return concat([result, error])
+          map( () => this.createSuccessAction(corId) ),
+          catchError(err => {
+            return this.createErrorCaseActions(err, corId)
           })
         );
     })));

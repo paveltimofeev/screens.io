@@ -230,7 +230,23 @@ router.get('/test/viewports', async function(req, res) {
 
     tryWrapper(req, res, async () => {
 
-        const data = await VRT.create(req.context).getViewports()
+        let query = {};
+
+        if (req.query.enabled) {
+            query.enabled = req.query.enabled === 'true';
+        }
+
+        const data = await VRT.create(req.context).getViewports( query )
+        res.status(200).send( {data} )
+    })
+});
+
+// Get viewport
+router.put('/test/viewports', async function(req, res) {
+
+    tryWrapper(req, res, async () => {
+
+        const data = await VRT.create(req.context).updateViewports(req.body)
         res.status(200).send( {data} )
     })
 });
@@ -245,6 +261,7 @@ router.post('/test/viewport', async function(req, res) {
     })
 });
 
+// TODO: UNUSED?
 // Update viewport
 router.put('/test/viewport/:id', async function(req, res) {
 

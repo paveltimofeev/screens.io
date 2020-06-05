@@ -27,7 +27,7 @@ export class ScenariosEffects {
 
       let requests = [
         this.api.getScenarios(),
-        this.api.getViewports()
+        this.api.getEnabledViewports()
       ];
 
       return forkJoin( requests ).pipe(

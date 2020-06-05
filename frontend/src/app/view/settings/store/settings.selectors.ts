@@ -13,14 +13,14 @@ export const viewports = createSelector(
   (state: SettingsState) => state.viewports
 );
 
+export const viewportsData = createSelector(
+  selectFeature,
+  (state: SettingsState) => state.viewportsData
+);
+
 export const selectedViewports = createSelector(
   selectFeature,
   (state: SettingsState) => state.selectedViewports
-);
-
-export const selectedViewportsData = createSelector(
-  selectFeature,
-  (state: SettingsState) => state.selectedViewportsData
 );
 
 export const operationCorrelationId = createSelector(

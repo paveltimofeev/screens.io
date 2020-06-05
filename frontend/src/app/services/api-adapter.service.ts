@@ -161,7 +161,13 @@ export class ApiAdapterService {
       environment.api + 'test/viewport', viewport)
   }
 
-  getViewports(): Observable<any> {
+  getEnabledViewports(): Observable<any> {
+
+    return this.dataAccessService.get(
+      environment.api + 'test/viewports?enabled=true')
+  }
+
+  getAllViewports(): Observable<any> {
 
     return this.dataAccessService.get(
       environment.api + 'test/viewports')
@@ -275,6 +281,23 @@ export class ApiAdapterService {
 
     return this.dataAccessService.delete(
       environment.api + 'test/scenario/' + scenarioId)
+  }
+
+  /// Account Management Adapter?
+  updateAccountInfo(accountInfo:any): Observable<any> {
+
+    return this.dataAccessService.put(
+      environment.api + 'mgt/account/info', accountInfo)
+  }
+  updatePassword(passwordInfo:any): Observable<any> {
+
+    return this.dataAccessService.put(
+      environment.api + 'mgt/account/password', passwordInfo)
+  }
+  deleteAccount(accountInfo:any): Observable<any> {
+
+    return this.dataAccessService.delete(
+      environment.api + 'mgt/account/', accountInfo)
   }
 
   signup (user, password): Observable<any> {

@@ -198,11 +198,11 @@
         <h4 class="tabs-content-subtitle">Add Custom Viewport Size</h4>
 
         <app-text-field
-          [label]="'Name'"
+          [label]="'Label'"
           [fieldSize]="'350'"
           [placeholder]="'Custom Screen'"
-          [value]="viewports.createCustomViewport.name"
-          (valueChanged)="setCustomViewportHandler('name', $event)"
+          [value]="viewports.createCustomViewport.label"
+          (valueChanged)="setCustomViewportHandler('label', $event)"
         ></app-text-field>
 
         <div class="horizontal-fields-container">

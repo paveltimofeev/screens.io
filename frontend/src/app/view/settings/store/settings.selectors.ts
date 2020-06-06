@@ -23,13 +23,8 @@ export const selectedViewports = createSelector(
   (state: SettingsState) => state.selectedViewports
 );
 
-export const operationCorrelationId = createSelector(
+export const operationResult = createSelector(
   selectFeature,
-  (state: SettingsState) => state.operationCorrelationId
-);
-
-export const updateViewportsError = createSelector(
-  selectFeature,
-  (state: SettingsState) => state.updateViewportsError
+  (state: SettingsState) => state.operationResult
 );
 

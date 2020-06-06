@@ -5,7 +5,7 @@ import {
   accountInfo,
   viewports,
   selectedViewports,
-  operationCorrelationId, updateViewportsError
+  operationResult
 } from './store/settings.selectors';
 import {
   addCustomViewport,
@@ -17,7 +17,6 @@ import {
   updatePassword, updateViewports
 } from './store/settings.actions';
 import { filter, take } from 'rxjs/operators';
-
 
 
 @Component({
@@ -32,7 +31,11 @@ export class SettingsComponent implements OnInit, OnDestroy {
   accountInfo$: Observable<any>;
   viewports$: Observable<any>;
   selectedViewports$: Observable<any>;
-  updateViewportsError$: Observable<string>;
+  
+  updateAccountInfoError: string;
+  updatePasswordError: string;
+  deleteAccountError: string;
+  updateViewportsError: string;
 
   constructor(
     private store: Store
@@ -43,7 +46,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.accountInfo$ = this.store.pipe(select( accountInfo ));
     this.viewports$ = this.store.pipe(select( viewports ));
     this.selectedViewports$ = this.store.pipe(select( selectedViewports ));
-    this.updateViewportsError$ = this.store.pipe(select( updateViewportsError ));
 
     this.store.dispatch( refreshAccountInfo() );
     this.store.dispatch( refreshViewports() );
@@ -67,8 +69,14 @@ export class SettingsComponent implements OnInit, OnDestroy {
     if (!this.updatingAccountInfo) {
 
       let corId = this.longOp(
-        () => { this.updatingAccountInfo = true; },
-        () => { this.updatingAccountInfo = false; }
+        () => { 
+          this.updatingAccountInfo = true;
+          this.updateAccountInfoError = null; 
+        },
+        (result) => { 
+          this.updatingAccountInfo = false;
+          this.updateAccountInfoError = result.error;
+         }
       );
 
       this.store.dispatch(updateAccountInfo({
@@ -104,8 +112,14 @@ export class SettingsComponent implements OnInit, OnDestroy {
     if (!this.updatingPassword && !this.updatingPasswordDisabled) {
 
       let corId = this.longOp(
-        () => { this.updatingPassword = true; },
-        () => { this.updatingPassword = false; }
+        () => { 
+          this.updatingPassword = true;
+          this.updatePasswordError = null; 
+        },
+        (result) => { 
+          this.updatingPassword = false;
+          this.updatePasswordError = result.error; 
+        }
       );
 
       this.store.dispatch(updatePassword({
@@ -129,8 +143,15 @@ export class SettingsComponent implements OnInit, OnDestroy {
     if (!this.updatingViewportsList) {
 
       let corId = this.longOp(
-        () => { this.updatingViewportsList = true; },
-        () => { this.updatingViewportsList = false; }
+        () => { 
+          this.updatingViewportsList = true; 
+          this.updateViewportsError = null;
+        },
+        (result) => {
+          console.log(result)
+          this.updatingViewportsList = false;
+          this.updateViewportsError = result.error;
+        }
        );
 
       let payload = {
@@ -141,15 +162,15 @@ export class SettingsComponent implements OnInit, OnDestroy {
     }
   }
 
-  longOp(before, after):string {
+  longOp(before:Function, after):string {
 
     before();
 
     let corId = `${Math.random()}`;
 
     this.store.pipe(
-      select(operationCorrelationId),
-      filter(x => x === corId),
+      select(operationResult),
+      filter(x => x.correlationId === corId),
       take(1)
     ).subscribe(after);
 

@@ -1,6 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
 import * as actions from './settings.actions'
-import { operationCompleted } from './settings.actions';
 import { addCustomViewport } from './settings.actions';
 
 export interface IAccountInfo {
@@ -21,11 +20,14 @@ export interface SettingsState {
   viewports: string[];
   viewportsData: IViewport[];
 
-  updateViewportsError: string;
   selectedViewports: string[];
 
   customViewports: IViewport[];
-  operationCorrelationId: string;
+  operationResult: {
+    correlationId: string,
+    success: boolean,
+    error?: any
+  }
 }
 
 export const initState = {
@@ -33,11 +35,10 @@ export const initState = {
   viewports: [],
   viewportsData: [],
 
-  updateViewportsError: null,
   selectedViewports: [],
 
   customViewports: [],
-  operationCorrelationId: null
+  operationResult: {}
 };
 
 const wellknownViewports =  [
@@ -89,14 +90,6 @@ const _reducer = createReducer(initState,
     }
   }),
 
-  on(actions.updateViewportsError, (state, action) => {
-
-    return {
-      ...state,
-      updateViewportsError: action.payload.errorMessage
-    }
-  }),
-
   on(actions.cleanupUpdateViewportsError, (state, action) => {
 
     return {
@@ -121,8 +114,6 @@ const _reducer = createReducer(initState,
 
   on(actions.addCustomViewport, (state, action) => {
 
-    // state.customViewports.filter( (x:IViewport) => x.label === action.payload.label )
-
     return {
       ...state,
       customViewports: [
@@ -136,8 +127,7 @@ const _reducer = createReducer(initState,
 
     return {
       ...state,
-      operationCorrelationId: action.payload.correlationId,
-      updateViewportsError: null
+      operationResult: action.payload
     }
   }),
 

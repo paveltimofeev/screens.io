@@ -86,6 +86,7 @@
 -- Frontend: Make header fixed, it must be always visible.
 -- Click on job history row should navigate to job history record
 -- [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage & Add Autorefresh for Jobs view
+-- Frontend: Refactor and simplify longOp (Request-Reply pattern)
 
 - Frontend: Implement Page Actions, and Search filter
 - Show correct values at stats section of sidebar (Scenarios/Jobs)

@@ -24,7 +24,7 @@ export const genericRetryStrategy = ({ maxRetryAttempts = 3, scalingDuration = 1
       }
 
       let delay = (retryAttempt + Math.random()) * scalingDuration;
-      console.log(`Attempt ${retryAttempt}: retrying in ${delay}ms`);
+      console.log(`Attempt ${retryAttempt}/${maxRetryAttempts}: retrying in ${delay}ms`);
 
       return timer(delay);
     }),
@@ -41,7 +41,7 @@ export const genericRetryStrategy = ({ maxRetryAttempts = 3, scalingDuration = 1
 export class DataAccessService {
 
   retryOpts = {
-    maxRetryAttempts: 20,
+    maxRetryAttempts: 10,
     scalingDuration: 2000,
     excludedStatusCodes: [401, 403, 404, 409, 500, 502, 503, 523, 525, 526]
   };
@@ -52,18 +52,20 @@ export class DataAccessService {
   handleError (error: HttpErrorResponse) {
 
     if (error.error instanceof ErrorEvent) {
-      console.log('client side or network error')
+      console.error('client side or network error')
     }
     else {
-      console.log(`Response error: StatusCode ${error.status}, ${error.message} `)
+      console.error(`Response error: StatusCode ${error.status}, ${error.message} `)
 
       if (error.status === 401) {
 
         this.router.navigate(['/login'])
       }
+
+      return throwError(`Network error. StatusCode ${error.status}`);
     }
 
-    return throwError('Network error');
+    return throwError(`Network error`);
   }
 
   get (url:string): Observable<any> {

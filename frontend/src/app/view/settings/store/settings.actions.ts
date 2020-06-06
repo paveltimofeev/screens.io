@@ -12,7 +12,13 @@ export const cleanupNgrxStorage = createAction('[Settings Component] cleanupNgrx
 
 export const operationCompleted = createAction(
   '[Settings Component] operationCompleted',
-  props<{payload:{correlationId:string}}>()
+  props<{
+    payload: {
+      correlationId: string,
+      success: boolean,
+      error?: any
+    }
+  }>()
 );
 
 
@@ -46,10 +52,7 @@ export const updateViewports = createAction(
   props<{ payload: { correlationId: string } }>()
 );
 
-export const updateViewportsError = createAction(
-  '[Settings Component] updateViewportsError',
-  props<{ payload: { errorMessage: string } }>()
-);
+
 
 export const cleanupUpdateViewportsError = createAction(
   '[Settings Component] cleanupUpdateViewportsError'

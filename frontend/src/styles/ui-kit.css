@@ -13,7 +13,7 @@
 
   /* DOMAIN COLORS */
 
-  --color-navbar-background: var(--color-white);
+  --color-navbar-background: #fffffff0;
   --color-page-background: var(--color-white);
   --color-sidebar-background: #F7F7F6;
   --color-mobile-menu-background: var(--color-white);

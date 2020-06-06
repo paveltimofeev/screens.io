@@ -176,8 +176,6 @@ export class ApiAdapterService {
   /* UPSERT */
   updateViewports(viewports:any[]):Observable<any> {
 
-    console.table(viewports);
-
     return this.dataAccessService.put(
       environment.api + 'test/viewports', viewports)
   }

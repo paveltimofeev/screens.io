@@ -13,13 +13,12 @@ import { concat, Observable, of } from 'rxjs';
 import { DateService } from '../../../services/date.service';
 import { NavigationService } from '../../../services/navigation.service';
 import {
-  cleanupUpdateViewportsError,
   deleteAccount,
   loadedAccountInfo,
   loadedViewports, operationCompleted,
   refreshAccountInfo,
   refreshViewports,
-  updateAccountInfo, updatePassword, updateViewports, updateViewportsError
+  updateAccountInfo, updatePassword, updateViewports
 } from './settings.actions';
 import { Store } from '@ngrx/store';
 import { viewportsData } from './settings.selectors';
@@ -36,25 +35,12 @@ export class SettingsEffects {
     private store: Store
   ) {}
 
-  createSuccessAction(correlationId) {
+  operationCompletedAction(correlationId: string, error:any =null) {
 
     return {
       type: operationCompleted.type,
-      payload: { correlationId }
+      payload: { correlationId, success: !error, error }
     }
-  }
-
-  createErrorCaseActions(errorMessage, correlationId): Observable<any> {
-
-    return concat(
-      [
-        this.createSuccessAction(correlationId),
-        {
-          type: updateViewportsError.type,
-          payload: { errorMessage, correlationId }
-        }
-      ]
-    )
   }
 
 
@@ -108,9 +94,9 @@ export class SettingsEffects {
 
       return this.api.updateAccountInfo(action.payload)
         .pipe(
-          map( () => this.createSuccessAction(corId)),
+          map( () => this.operationCompletedAction(corId)),
           catchError(err => {
-            return this.createErrorCaseActions(err, corId)
+            return of(this.operationCompletedAction(corId, err));
           })
         );
     })));
@@ -123,9 +109,9 @@ export class SettingsEffects {
 
       return this.api.updatePassword(action.payload)
         .pipe(
-          map( () => this.createSuccessAction(corId)),
+          map( () => this.operationCompletedAction(corId)),
           catchError(err => {
-            return this.createErrorCaseActions(err, corId)
+            return of(this.operationCompletedAction(corId, err));
           })
         );
 
@@ -141,10 +127,10 @@ export class SettingsEffects {
         .pipe(
           map( () => {
             this.navigate.singOut();
-            return this.createSuccessAction(corId);
+            return this.operationCompletedAction(corId);
           }),
           catchError(err => {
-            return this.createErrorCaseActions(err, corId)
+            return of(this.operationCompletedAction(corId, err));
           })
         );
     })),
@@ -161,19 +147,11 @@ export class SettingsEffects {
       return this.api
         .updateViewports(viewportsData)
         .pipe(
-          map( () => this.createSuccessAction(corId) ),
+          map( () => this.operationCompletedAction(corId) ),
           catchError(err => {
-            return this.createErrorCaseActions(err, corId)
+            return of(this.operationCompletedAction(corId, err));
           })
         );
     })));
 
-  updateViewportsError$ = createEffect(() => this.actions$.pipe(
-    ofType(updateViewportsError),
-    delay(5000),
-    mergeMap(() => {
-
-      return of({type: cleanupUpdateViewportsError.type})
-    }))
-  );
 }

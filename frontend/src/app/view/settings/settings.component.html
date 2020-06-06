@@ -70,6 +70,10 @@
           (valueChanged)="changeAccountInfoPropHandler($event, 'email')"
         ></app-text-field>
 
+        <p class="error-alert" *ngIf="updateAccountInfoError">
+          {{ updateAccountInfoError }}
+        </p>
+
         <app-form-button
           [isPrimary]="true"
           [inProgress]="updatingAccountInfo"
@@ -101,6 +105,9 @@
           (valueChanged)="updatePasswordPropHandler($event, 'confirmNewPassword')"
         ></app-text-field>
 
+        <p class="error-alert" *ngIf="updatePasswordError">
+          {{ updatePasswordError }}
+        </p>
         <app-form-button
           [isPrimary]="true"
           [inProgress]="updatingPassword"
@@ -124,6 +131,10 @@
           [fieldSize]="'350'"
           (valueChanged)="changeAccountInfoHandler($event, 'password')"
         ></app-text-field>
+
+        <p class="error-alert" *ngIf="deleteAccountError">
+          {{ deleteAccountError }}
+        </p>
 
         <app-form-button
           [isDanger]="true">
@@ -170,8 +181,8 @@
 
         <hr class="separation-line">
 
-        <p class="error-alert" *ngIf="updateViewportsError$ | async">
-          {{ updateViewportsError$ | async}}
+        <p class="error-alert" *ngIf="updateViewportsError">
+          {{ updateViewportsError}}
         </p>
 
         <p class="error-alert" *ngIf="(selectedViewports$ | async).length === 0">

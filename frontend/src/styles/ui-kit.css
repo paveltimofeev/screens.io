@@ -364,11 +364,11 @@ app-data-action-button:first-child {
   font-weight: 500;
 }
 .sidebar-header span {
-  font-size: var(--px24); /* 24px; */
+  font-size: var(--px18);
   font-weight: 500;
 }
 .sidebar-header span + span {
-  margin-left: var(--px32); /* 32px */
+  margin-left: var(--px20);
 }
 
 .filter-header {

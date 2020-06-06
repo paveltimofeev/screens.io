@@ -37,6 +37,7 @@ html, body {
 }
 
 nav {
+  position: fixed;
   height: var(--navbar-size);
   width: 100%;
   display: flex;
@@ -65,6 +66,7 @@ nav .app-hamburger { display: none; }
 
 
 main {
+  margin-top: var(--px70);
   width: 100%;
   flex: 1;
   display: flex;

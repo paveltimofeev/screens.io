@@ -9,13 +9,10 @@ import {
   deleteScenario,
   cloneScenario, saveScenario, refreshScenarioHistory, createScenario
 } from './scenario-page.actions';
-import { mergeMap, map, concatMap, concatMapTo, take, tap, delay, debounceTime } from 'rxjs/operators';
-import { forkJoin, of } from 'rxjs';
+import { mergeMap, map, take, tap, delay, debounceTime } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { DateService } from '../../../services/date.service';
-import { environment } from '../../../../environments/environment';
 import { NavigationService } from '../../../services/navigation.service';
-import { updateScenario } from '../../configuration/store/configuration.actions';
-import { Filters } from '../../../ui-kit/widget-run/widget-run.component';
 import { FiltersService, IQueryFilter, QueryFilter, QueryFilterType } from '../../../services/filters.service';
 import { openScenarioPage } from '../../../store/navigation/navigation.actions';
 

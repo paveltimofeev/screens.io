@@ -5,23 +5,13 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   mergeMap,
   map,
-  concatMap,
-  concatMapTo,
-  take,
-  tap,
   delay,
-  debounceTime,
   catchError,
   withLatestFrom
 } from 'rxjs/operators';
-import { concat, forkJoin, Observable, of } from 'rxjs';
+import { concat, Observable, of } from 'rxjs';
 import { DateService } from '../../../services/date.service';
-import { environment } from '../../../../environments/environment';
 import { NavigationService } from '../../../services/navigation.service';
-import { updateScenario } from '../../configuration/store/configuration.actions';
-import { Filters } from '../../../ui-kit/widget-run/widget-run.component';
-import { FiltersService, IQueryFilter, QueryFilter, QueryFilterType } from '../../../services/filters.service';
-import { openScenarioPage } from '../../../store/navigation/navigation.actions';
 import {
   cleanupUpdateViewportsError,
   deleteAccount,
@@ -43,8 +33,7 @@ export class SettingsEffects {
     private api: ApiAdapterService,
     private date: DateService,
     private navigate: NavigationService,
-    private store: Store,
-    private filtersStv: FiltersService
+    private store: Store
   ) {}
 
   createSuccessAction(correlationId) {

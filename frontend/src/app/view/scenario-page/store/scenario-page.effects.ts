@@ -7,9 +7,9 @@ import {
   runScenario,
   loadedScenarioHistory,
   deleteScenario,
-  cloneScenario, saveScenario, refreshScenarioHistory, createScenario
+  cloneScenario, saveScenario, refreshScenarioHistory, createScenario, cleanupNgrxStorage
 } from './scenario-page.actions';
-import { mergeMap, map, take, tap, delay, debounceTime } from 'rxjs/operators';
+import { mergeMap, map, take, tap, delay, debounceTime, filter } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { DateService } from '../../../services/date.service';
 import { NavigationService } from '../../../services/navigation.service';
@@ -44,14 +44,15 @@ export class ScenarioPageEffects {
     })));
 
     autoRefreshScenarioHistory$ = createEffect(() => this.actions$.pipe(
-      ofType(loadedScenarioHistory),
+      ofType(loadedScenarioHistory, cleanupNgrxStorage),
       debounceTime(5000),
+      filter(x => x.type === x.type),
       mergeMap((action) => {
 
         return of({
           type: refreshScenarioHistory.type,
           payload: {
-            id: action.payload.id
+            id: (action as any).payload.id
           }
         })
       })));

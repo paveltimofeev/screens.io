@@ -7,13 +7,13 @@ import {
   runAllScenarios,
   refreshRecentRuns,
   loadedRecentRuns,
-  stopAutoRefresh, autoRefreshStopped, runOneScenario
+  runOneScenario, 
+  cleanupNgrxStorage
 } from './overview.actions';
-import { mergeMap, map, debounceTime } from 'rxjs/operators';
-import { forkJoin, of } from 'rxjs';
+import { mergeMap, map, debounceTime, filter } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { DateService } from '../../../services/date.service';
 import { environment } from '../../../../environments/environment';
-import { loadedScenarioHistory, refreshScenarioHistory } from '../../scenario-page/store/scenario-page.actions';
 
 
 @Injectable()
@@ -104,10 +104,11 @@ export class OverviewEffects {
   ));
 
   autoRefreshRecentRuns$ = createEffect(() => this.actions$.pipe(
-    ofType(loadedRecentRuns),
+    ofType(loadedRecentRuns, cleanupNgrxStorage),
     debounceTime(5000),
+    filter( x => x.type === loadedRecentRuns.type),
     mergeMap((action) => {
-
+ 
         return of( {type: refreshRecentRuns.type} )
     })));
 }

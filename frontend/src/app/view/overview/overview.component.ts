@@ -7,8 +7,7 @@ import {
   cleanupNgrxStorage,
   refresh,
   refreshRecentRuns,
-  runAllScenarios, runOneScenario,
-  stopAutoRefresh
+  runAllScenarios, runOneScenario
 } from './store/overview.actions';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { Filters } from '../../ui-kit/widget-run/widget-run.component';
@@ -43,7 +42,6 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy () {
     this.store.dispatch(cleanupNgrxStorage())
-    this.store.dispatch(stopAutoRefresh())
   }
 
   openScenarioHandler (scenarioId:string) {

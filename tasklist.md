@@ -85,8 +85,8 @@
 -- [Bug] Overview - card-sm - LatestResults does not work correctly *removed LatestResults button, because history available from scenario page*
 -- Frontend: Make header fixed, it must be always visible.
 -- Click on job history row should navigate to job history record
+-- [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage & Add Autorefresh for Jobs view
 
-- [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage & Add Autorefresh for Jobs view
 - Frontend: Implement Page Actions, and Search filter
 - Show correct values at stats section of sidebar (Scenarios/Jobs)
 - Frontend: RESTYLE UI - Responsive UI (support mobile)

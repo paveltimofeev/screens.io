@@ -8,7 +8,6 @@ export const loadedRecentRuns = createAction( '[Overview Component] loadedRecent
 
 export const cleanupNgrxStorage = createAction('[Overview Component] cleanupNgrxStorage');
 export const stopAutoRefresh = createAction('[Overview Component] stopAutoRefresh');
-export const autoRefreshStopped = createAction('[Overview Component] autoRefreshStopped');
 
 export const runAllScenarios = createAction('[Overview Component] runAllScenarios');
 export const runOneScenario = createAction(

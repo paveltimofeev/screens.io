@@ -14,6 +14,7 @@ export interface JobPageState {
   status: string;
   cases: any[];
 
+  searchFilter: string;
   fullHeightModeOn: boolean;
   imageMode: string;
 }
@@ -28,6 +29,7 @@ export const initState = {
   status: '',
   cases: [],
 
+  searchFilter: '',
   fullHeightModeOn: false,
   imageMode: 'Test Result'
 };
@@ -42,6 +44,14 @@ const _reducer = createReducer(initState,
     }
   }),
 
+  on(actions.setSearchFilter, (state, action) => {
+
+    return {
+      ...state,
+      searchFilter: (action.payload.filter || '').toLowerCase()
+    }
+  }),
+  
   on(actions.switchFullHeightMode, (state, action) => {
 
     return {

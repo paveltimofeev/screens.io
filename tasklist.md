@@ -87,8 +87,9 @@
 -- Click on job history row should navigate to job history record
 -- [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage & Add Autorefresh for Jobs view
 -- Frontend: Refactor and simplify longOp (Request-Reply pattern)
+-- Frontend: Implement Search filter
 
-- Frontend: Implement Page Actions, and Search filter
+- Frontend: Implement Page Actions (Purge History, Run All Again, Approve All Failed Tests)
 - Show correct values at stats section of sidebar (Scenarios/Jobs)
 - Frontend: RESTYLE UI - Responsive UI (support mobile)
 - Paging for job history: next/prev buttons based on skip + limit=30 and total_count of records
@@ -132,6 +133,7 @@
 - Frontend: Allow to choose Viewports for Scenario at Viewports Tab
 - Frontend: Show reference image at Scenario Overview tab
 - Frontend: Table view mode for scenarios list
+- Frontend: Implement Scenariod view page actions (Run Filtered, Remove Filtered)
 - [Feature+] Screenshot history & Comparation - ability to go back and forth through historical screenshots of Screnario with highlighting of difference. 
 - [Feature+] Compare any history record of scenario with refference ('master') or with any other record (like 2 branches in git).
 - [Feature] Run scenarios with overridden hostname (stage)

@@ -10,6 +10,7 @@ export const removFiltered = createAction('[Scenarios Component] removFiltered')
 export const runFiltered = createAction('[Scenarios Component] runFiltered');
 
 /* COMMANDS: DATA ACTIONS*/
+export const setSearchFilter = createAction('[Scenarios Component] setSearchFilter', props<{payload:{filter:string}}>());
 export const switchFullHeightMode = createAction('[Scenarios Component] switchFullHeightMode');
 
 /* COMMANDS: FILTERS ACTIONS */

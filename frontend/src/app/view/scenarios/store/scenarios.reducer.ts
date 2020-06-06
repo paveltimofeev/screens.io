@@ -13,12 +13,14 @@ export interface AppState {
 
 export interface ScenariosState {
   filters: IFilter[];
+  searchFilter: string;
   scenariosList: any[];
   viewportsList: any[];
   fullHeightModeOn: boolean;
 }
 export const initState = {
   filters: [],
+  searchFilter: '',
   scenariosList: [],
   viewportsList: [],
   fullHeightModeOn: false
@@ -31,6 +33,14 @@ const _reducer = createReducer(initState,
     return {
       ...state,
       ...action.payload
+    }
+  }),
+
+  on(actions.setSearchFilter, (state, action) => {
+
+    return {
+      ...state,
+      searchFilter: (action.payload.filter || '').toLowerCase()
     }
   }),
 

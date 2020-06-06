@@ -5,7 +5,9 @@ export const selectFeature = (state:AppState) => state.scenarios;
 
 export const scenariosList = createSelector(
   selectFeature,
-  (state: ScenariosState) => state.scenariosList
+  (state: ScenariosState) => state.scenariosList.filter( x => {
+    return state.searchFilter === '' || x.label.toLowerCase().indexOf(state.searchFilter) > -1
+  })
 );
 
 export const viewportsList = createSelector(

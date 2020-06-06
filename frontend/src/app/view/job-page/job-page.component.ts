@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { refresh, cleanupNgrxStorage, approve, switchFullHeightMode, setImageMode } from './store/job-page.actions';
+import { refresh, cleanupNgrxStorage, approve, switchFullHeightMode, setImageMode, setSearchFilter } from './store/job-page.actions';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
@@ -100,8 +100,8 @@ export class JobPageComponent implements OnInit, OnDestroy {
 
   /* DATA ACTIONS */
 
-  search ($event: string) {
-
+  searchCaseHandler (filter: string) {
+    this.store.dispatch( setSearchFilter({payload:{filter}}) );
   }
   showDifferenceImage () {
 

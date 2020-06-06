@@ -10,7 +10,9 @@ export const jobTitle = createSelector(
 
 export const cases = createSelector(
   selectFeature,
-  (state: JobPageState) => state.cases
+  (state: JobPageState) => state.cases.filter( x => {
+    return state.searchFilter === '' || x.label.toLowerCase().indexOf(state.searchFilter) > -1
+  })
 );
 
 export const viewports = createSelector(

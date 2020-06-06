@@ -10,7 +10,8 @@ import {
   cleanupNgrxStorage,
   switchFullHeightMode,
   deleteScenario,
-  favoriteScenario
+  favoriteScenario,
+  setSearchFilter
 } from './store/scenarios.actions';
 import { viewportsList, scenariosList, fullHeightModeOn } from './store/scenarios.selectors';
 import { runOneScenario } from '../overview/store/overview.actions';
@@ -60,9 +61,8 @@ export class ScenariosComponent implements OnInit, OnDestroy {
 
 
   /* DATA ACTIONS */
-
-  search ($event) {
-
+  searchScenarioHandler (filter: string) {
+    this.store.dispatch( setSearchFilter({payload:{filter}}) );
   }
   refresh () {
     this.store.dispatch(refresh());

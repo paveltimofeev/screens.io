@@ -90,10 +90,13 @@
 -- Frontend: Implement Search filter
 
 - Frontend: Implement Page Actions (Purge History, Run All Again, Approve All Failed Tests)
+- Frontend: Change password
+- Frontend: Change name and email
 - Show correct values at stats section of sidebar (Scenarios/Jobs)
 - Frontend: RESTYLE UI - Responsive UI (support mobile)
 - Paging for job history: next/prev buttons based on skip + limit=30 and total_count of records
 
+- Frontend: Fix Comparer view Fit/Full mode
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 - Backend: Store/update data for AccountInfo at Settings view
 - Frontend: show current username

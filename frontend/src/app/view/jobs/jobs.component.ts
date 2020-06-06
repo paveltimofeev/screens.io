@@ -3,6 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { cleanupNgrxStorage, purgeHistory, refresh, removeFilter, setFilter } from './store/jobs.actions';
 import { jobs } from './store/jobs.selectors';
 import { Observable } from 'rxjs';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-jobs',
@@ -14,7 +15,8 @@ export class JobsComponent implements OnInit, OnDestroy {
   jobs$: Observable<any[]>;
 
   constructor(
-    private store: Store
+    private store: Store,
+    private navigate: NavigationService
   ) { }
 
   ngOnInit() {
@@ -64,5 +66,16 @@ export class JobsComponent implements OnInit, OnDestroy {
 
     let actionData = {payload: {key: 'startedToday', value: 'true'}};
     this.store.dispatch( enable ? setFilter( actionData ) : removeFilter( actionData ) );
+  }
+
+
+  /* DATA GRID */
+
+  clickOnRowHandler (job:any) {
+
+    const hasReport = !!job.runId && job.status != "Approved";
+    if (!!job._id && hasReport) {
+      this.navigate.openJob(job._id);
+    }
   }
 }

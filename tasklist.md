@@ -84,21 +84,21 @@
 -- Frontend: Remove old views and components
 -- [Bug] Overview - card-sm - LatestResults does not work correctly *removed LatestResults button, because history available from scenario page*
 -- Frontend: Make header fixed, it must be always visible.
+-- Click on job history row should navigate to job history record
 
-- Click on job history row should navigate to job history record
 - [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage & Add Autorefresh for Jobs view
-- Paging for job history: next/prev buttons based on skip + limit=30 and total_count of records
 - Frontend: Implement Page Actions, and Search filter
 - Show correct values at stats section of sidebar (Scenarios/Jobs)
+- Frontend: RESTYLE UI - Responsive UI (support mobile)
+- Paging for job history: next/prev buttons based on skip + limit=30 and total_count of records
 
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 - Backend: Store/update data for AccountInfo at Settings view
+- Frontend: show current username
 - Frontend: Implement Sidebar filters
 - Frontend: RESTYLE UI - Sign-in/Sign-up view
 - Frontend: RESTYLE UI - Improve Scenario edit view - add Viewports; add Overview(Summary) with reference image; add HasValues pin; add Description (commentary) for scenario, to make puprose of scenario clearer.
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
-- Frontend: show current username
-- Frontend: RESTYLE UI - Responsive UI (support mobile)
 - [Bug] New User Init Process: New user does not have any Viewports configured and do not have ability to add them.
 - Frontend: SignIn/SignUp page RESTYLE
 - [Move to AWS: 1] STORE IMAGES AT AWS S3

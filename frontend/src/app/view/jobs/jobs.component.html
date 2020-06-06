@@ -45,6 +45,7 @@
 
     <app-history-table
     [jobs$]="jobs$"
+    (clickOnRow)="clickOnRowHandler($event)"
     >
     </app-history-table>
 

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { statusCellRenderer } from './cell-renderers/status-cell';
 
 @Component({
@@ -35,11 +35,19 @@ export class HistoryTableComponent {
     { headerName: 'Run by', field: 'user', sortable: true, filter: true, resizable: true },
   ];
 
-  onGridReady(params) {
+  @Output()
+  clickOnRow: EventEmitter<string> = new EventEmitter()
+
+  onGridReadyHandler(params) {
 
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
     this.gridApi.setDomLayout('autoHeight');
   }
 
+  rowClickedHandler(event) {
+    if (event && event.data) {
+      this.clickOnRow.emit(event.data);
+    }
+  }
 }

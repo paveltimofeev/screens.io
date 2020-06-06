@@ -8,7 +8,9 @@
     [rowHeight]="68"
     [rowData]="jobs$ | async"
     [columnDefs]="columnDefs"
-    (gridReady)="onGridReady($event)">
+    (gridReady)="onGridReadyHandler($event)"
+    (rowClicked)="rowClickedHandler($event)"
+    >
   </ag-grid-angular>
 
 </div>

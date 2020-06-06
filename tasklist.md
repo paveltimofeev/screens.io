@@ -82,13 +82,13 @@
 -- Frontend: add form button component
 -- Backend: Bulk Upsert viewports for Settings vew
 -- Frontend: Remove old views and components
+-- [Bug] Overview - card-sm - LatestResults does not work correctly *removed LatestResults button, because history available from scenario page*
 
 - Click on job history row should navigate to job history record
-- Paging for job history
+- [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage & Add Autorefresh for Jobs view
+- Paging for job history: next/prev buttons based on skip + limit=30 and total_count of records
 - Frontend: Implement Page Actions, and Search filter
 - Show correct values at stats section of sidebar (Scenarios/Jobs)
-- [Bug] Overview - card-sm - LatestResults does not work correctly
-- [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage & Add Autorefresh for Jobs view
 
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 - Backend: Store/update data for AccountInfo at Settings view

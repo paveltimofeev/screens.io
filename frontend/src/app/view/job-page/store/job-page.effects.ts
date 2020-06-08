@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ApiAdapterService } from 'src/app/services/api-adapter.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { refresh, loaded, approve } from './job-page.actions';
-import { mergeMap, map } from 'rxjs/operators';
+import { refresh, loaded, approve, approveAllFailedCases, runFailed } from './job-page.actions';
+import { mergeMap, map, withLatestFrom } from 'rxjs/operators';
 import { DateService } from '../../../services/date.service';
 import { environment } from '../../../../environments/environment';
+import { Store } from '@ngrx/store';
+import { failedCases } from './job-page.selectors';
+import { concat, of } from 'rxjs';
 
 
 @Injectable()
@@ -13,17 +16,9 @@ export class JobPageEffects {
   constructor(
     private actions$: Actions,
     private api: ApiAdapterService,
-    private date: DateService
+    private date: DateService,
+    private store: Store
   ){}
-
-  approve$ = createEffect(() => this.actions$.pipe(
-    ofType(approve),
-    mergeMap((action) => {
-
-      return this.api.approveCase(action.payload.testCase).pipe(
-        map( res => ({ type: refresh.type, payload: { id: action.payload.jobId }}))
-      )
-    })));
 
   refresh$ = createEffect(() => this.actions$.pipe(
     ofType(refresh),
@@ -96,4 +91,60 @@ export class JobPageEffects {
 
     })
   ));
+
+
+  approve$ = createEffect(() => this.actions$.pipe(
+    ofType(approve),
+    mergeMap((action) => {
+
+      console.log('approve', action);
+
+      return this.api.approveCase(action.payload.testCase).pipe(
+        map( res => ({ type: refresh.type, payload: { id: action.payload.jobId }}))
+      )
+    })));
+
+
+  /* PAGE ACTIONS*/
+
+  runFailedHandler$ = createEffect(() => this.actions$.pipe(
+    ofType(runFailed),
+    withLatestFrom(this.store.select(failedCases)),
+    mergeMap( ([action, cases]) => {
+
+      const opts = { filter: cases.map( x => `[${x.label}]` ).join('|') };
+
+      return this.api.run(opts).pipe(
+        map( res => ({ type: refresh.type, payload: { id: action.payload.jobId }}))
+      )
+    })));
+
+  approveAllFailedCases$ = createEffect(() => this.actions$.pipe(
+    ofType(approveAllFailedCases),
+    withLatestFrom(this.store.select(failedCases)),
+    mergeMap(([action, cases]) => {
+
+      const actions = cases.map( x => ({
+          type: approve.type,
+          payload: {
+            jobId: action.payload.jobId,
+            testCase: {
+              reportId: x.reportId,
+              label: x.label,
+              viewportLabel: x.viewport
+            }
+          }
+        }
+      ));
+
+      console.log(actions);
+
+      return concat(actions)
+
+      // return of({type: 'null'});
+
+      // return this.api.approveCase(action.payload.testCase).pipe(
+      //   map( res => ({ type: refresh.type, payload: { id: action.payload.jobId }}))
+      // )
+    })));
 }

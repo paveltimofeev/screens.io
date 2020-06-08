@@ -15,6 +15,13 @@ export const cases = createSelector(
   })
 );
 
+export const failedCases = createSelector(
+  selectFeature,
+  (state: JobPageState) => state.cases.filter( x => {
+    return x.status === 'fail'
+  })
+);
+
 export const viewports = createSelector(
   selectFeature,
   (state: JobPageState) => state.viewports

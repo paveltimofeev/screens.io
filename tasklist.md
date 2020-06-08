@@ -90,8 +90,9 @@
 -- Frontend: Implement Search filter
 -- Frontend: Jobs view Page Actions (Purge History)
 -- Frontend: Comparer view Page Actions (Run Again, Approve)
+-- Frontend: JobPage view Page Actions (Run Failed, Approve Failed Cases)
 
-- Frontend: JobPage view Page Actions (Run All Again, Approve All Failed Tests)
+- Backend: Run scenarios by filter - JobPage view Page Action (Run Failed)
 - Frontend: Change password
 - Frontend: Change name and email
 - Show correct values at stats section of sidebar (Scenarios/Jobs)
@@ -129,6 +130,7 @@
 - Check active operations with bad network / no network.
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- Frontend & Backend: approveAllFailedCases action produces N approve actions, that leed to N backend requests and N*x MongoDb requests, queues and backend operations. It could be replaced with one smart filter on backend.
 - Frontend: Page Actions (like Run All Again, Approve All Failed Tests) should be a request-reply operations
 - Frontend: Implement 'ListView' (table view) and 'Show Differences' for Scenarios
 - Frontend: Implement 'ListView' (table view) and 'Group by Scenarios' for JobPage

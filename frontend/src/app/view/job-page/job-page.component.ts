@@ -1,6 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { refresh, cleanupNgrxStorage, approve, switchFullHeightMode, setImageMode, setSearchFilter } from './store/job-page.actions';
+import {
+  refresh,
+  cleanupNgrxStorage,
+  approve,
+  switchFullHeightMode,
+  setImageMode,
+  setSearchFilter,
+  runFailed,
+  approveAllFailedCases
+} from './store/job-page.actions';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
@@ -69,11 +78,15 @@ export class JobPageComponent implements OnInit, OnDestroy {
 
   /* PAGE ACTIONS */
 
-  addScenarioHandler () {
+  runFailedHandler () {
 
+    const payload = {jobId: this.jobId};
+    this.store.dispatch( runFailed({payload}) )
   }
-  runFilteredScenariosHandler () {
+  approveAllFailedCasesHandler () {
 
+    const payload = {jobId: this.jobId};
+    this.store.dispatch( approveAllFailedCases({payload}) )
   }
 
 

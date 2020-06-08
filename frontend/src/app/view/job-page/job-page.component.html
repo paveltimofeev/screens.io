@@ -26,12 +26,12 @@
 
     <ul class="page-actions">
       <li class="title-actions-item">
-        <button class="button button--white" (click)="runFilteredScenariosHandler()">Run All Again</button>
+        <button class="button button--white" (click)="runFailedHandler()">Run Failed ({{(sidebarHeaderInfo$ | async).failedCases}})</button>
       </li>
       <li class="title-actions-item"
           *ngIf="(sidebarHeaderInfo$ | async).failedCases > 0"
       >
-        <button class="button button--dark" (click)="addScenarioHandler()">Approve All Failed Cases ({{(sidebarHeaderInfo$ | async).failedCases}})</button>
+        <button class="button button--dark" (click)="approveAllFailedCasesHandler()">Approve Failed Cases ({{(sidebarHeaderInfo$ | async).failedCases}})</button>
       </li>
     </ul>
 

@@ -16,8 +16,14 @@ export const approve = createAction('[Job Page Component] approve', props<
     }
   }>());
 
-export const runAgain = createAction('[Job Page Component] runAgain', props<{payload:any}>());
 
+/* PAGE ACTIONS */
+
+export const runFailed = createAction('[Job Page Component] runFailed', props<{payload: {jobId: string}}>());
+export const approveAllFailedCases = createAction('[Job Page Component] approveAllFailedCases', props<{payload: {jobId: string}}>());
+
+
+/* DATA ACTIONS */
 
 export const setSearchFilter = createAction('[Job Page Component] setSearchFilter', props<{payload:{filter:string}}>());
 export const switchFullHeightMode = createAction( '[Job Page Component] switchFullHeightMode' );

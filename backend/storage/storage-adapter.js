@@ -213,8 +213,22 @@ class Storage {
     }
     async getReportByRunId (database, runId) {
 
+        const postProcess = (report) => {
+
+            report.tests.forEach( t => {
+                if ( t.pair.error
+                  && t.pair.error.startsWith('Reference file not found ')
+                ){
+                    t.pair.error = 'NO_REFERENCE' //There is no approved reference for this scenario and viewport.
+                }
+            })
+        }
+
         let entity = this._createEntity(database, 'Report', reportSchema)
-        return await entity.findOne( {runId: runId} )
+
+        let report = await entity.findOne( {runId: runId} )
+        postProcess(report)
+        return report
     }
     async createReport (database, data) {
 

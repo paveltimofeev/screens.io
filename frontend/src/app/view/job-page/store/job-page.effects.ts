@@ -73,7 +73,7 @@ export class JobPageEffects {
                     scenarioId: getScenarioId(job, x.pair.label),
                     label: x.pair.label,
                     status: x.status,
-                    error: x.pair.error,
+                    error: x.pair.error === 'NO_REFERENCE' ? 'There\'s no approved reference for this scenario and viewport' : x.pair.error,
                     viewport: x.pair.viewportLabel,
 
                     reference: getMediaUrls(x.pair.reference),

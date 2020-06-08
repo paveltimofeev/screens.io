@@ -92,6 +92,7 @@
 -- Frontend: Comparer view Page Actions (Run Again, Approve)
 -- Frontend: JobPage view Page Actions (Run Failed, Approve Failed Cases)
 -- Backend: Run several scenarios by filter - JobPage view Page Action (Run Failed)
+-- Backend: Hide internal path to the "not found ref image", in case of error when Ref not exists
 
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 
@@ -122,7 +123,6 @@ BackLog
 - Auth proxy should not store passwords in plain text
 - Use Master term instead of Reference?
 - **------------ MVP MILESTONE ------------**
-- Backend: Hide internal path to the "not found ref image", in case of error when Ref not exists
 - Backend: Scenarios Page Actions - Run anf Remove scenarios filtered by ids[]*viewports[]
 - [Bug] Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
 - [Bug] Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
@@ -146,7 +146,7 @@ BackLog
 - Frontend: Table view mode for scenarios list
 - Frontend: Implement Scenariod view page actions (Run Filtered, Remove Filtered)
 - [Feature+] Screenshot history & Comparation - ability to go back and forth through historical screenshots of Screnario with highlighting of difference. 
-- [Feature+] Compare any history record of scenario with refference ('master') or with any other record (like 2 branches in git).
+- [Feature+] Build and use git-analogy: **Screenhub/Diffhub**: Compare any history record of scenario with reference ('master') or with any other record (like 2 branches in git).
 - [Feature] Run scenarios with overridden hostname (stage)
 - [Feature] Ability to set cookies. [Usecase] Test different looks of UI, dependent on cookie value, like 'covid', 'accept cookie' banners.
 - [Feature] Ability to set localStorage/sessionStorage values. [Usecase] Test user cutomized UIs.

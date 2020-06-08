@@ -816,8 +816,10 @@ app-data-action-button:first-child {
   _width: 435px;
   height: var(--px165); /* 165px; */
   padding: 8px;
-  background: #FDFDFD;
-  margin-bottom: 8px;
+  _background: #FDFDFD;
+  background: #eeeeee6c;
+  margin-right: 16px;
+  border-radius: 4px;
 }
 .card-sm .image {
   width: 205px;

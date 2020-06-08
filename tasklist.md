@@ -111,7 +111,7 @@ BackLog
 - Frontend: RESTYLE UI - Sign-in/Sign-up view
 - Frontend: RESTYLE UI - Improve Scenario edit view - add Viewports; add Overview(Summary) with reference image; add HasValues pin; add Description (commentary) for scenario, to make puprose of scenario clearer.
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
-- [Bug] New User Init Process: New user does not have any Viewports configured and do not have ability to add them.
+- [Bug] **New User Init Process**: New user does not have any Viewports configured and do not have ability to add them.
 - Frontend: SignIn/SignUp page RESTYLE
 - [Move to AWS: 1] STORE IMAGES AT AWS S3
 - [Move to AWS: 2] Run MongoDb on AWS VM
@@ -133,6 +133,7 @@ BackLog
 - Check active operations with bad network / no network.
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- Frontend: [Bug/Usecase] If scenario was removed, user still can open it from old Job Page. Either we should show 'Not found' page here, or we should not remove it completely (mark as deleted to skip on runs and display, but allow to open it by direct link for read only without ability to change and run)
 - Frontend & Backend: approveAllFailedCases action produces N approve actions, that leed to N backend requests and N*x MongoDb requests, queues and backend operations. It could be replaced with one smart filter on backend.
 - Frontend: Page Actions (like Run All Again, Approve All Failed Tests) should be a request-reply operations
 - Frontend: Implement 'ListView' (table view) and 'Show Differences' for Scenarios

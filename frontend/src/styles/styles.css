@@ -280,6 +280,7 @@ main {
 .app-card--sm {
   width: 50%;
   height: 160px;
+  margin-bottom: 22px;
 }
 @media (max-width: 600px)  {
   .app-card--sm {

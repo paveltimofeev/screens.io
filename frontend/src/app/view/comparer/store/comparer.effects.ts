@@ -47,6 +47,7 @@ export class ComparerEffects {
                   title: `${testCase.label} ${testCase.viewportLabel}`,
                   status: status,
 
+                  reportId: res.report._id,
                   job: this.date.calendar(job.startedAt),
                   scenarioId: job.scenarios.filter( x => x.label === testCase.label).map(x => x.id)[0],
                   scenario: testCase.label,
@@ -78,21 +79,52 @@ export class ComparerEffects {
 
       console.log(action);
 
-      return of({
-        type: loaded.type,
-        payload: {}
-      })
+      let testCase = {
+        reportId: action.payload.reportId,
+        label: action.payload.scenario,
+        viewportLabel: action.payload.viewport
+      };
+
+      return this.api.approveCase(testCase)
+        .pipe(
+          map( res => {
+
+            console.log(res);
+
+            return {
+              type: refresh.type,
+              payload: {
+                jobId: action.payload.jobId,
+                testCaseIndex: action.payload.testCaseIndex
+              }}
+
+          })
+        );
+
     })));
 
   runAgain$ = createEffect(() => this.actions$.pipe(
     ofType(runAgain),
     mergeMap((action) => {
 
-      console.log(action);
+      const opts = {
+        filter: action.payload.scenario,
+        viewport: action.payload.viewport
+      };
 
-      return of({
-        type: loaded.type,
-        payload: {}
-      })
+      return this.api.run(opts)
+        .pipe(
+          map( (res) => {
+            console.log(res);
+
+            return {
+              type: refresh.type,
+              payload: {
+                jobId: action.payload.jobId,
+                testCaseIndex: action.payload.testCaseIndex
+              }}
+          })
+        );
+
     })));
 }

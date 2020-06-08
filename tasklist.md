@@ -89,9 +89,9 @@
 -- Frontend: Refactor and simplify longOp (Request-Reply pattern)
 -- Frontend: Implement Search filter
 -- Frontend: Jobs view Page Actions (Purge History)
+-- Frontend: Comparer view Page Actions (Run Again, Approve)
 
 - Frontend: JobPage view Page Actions (Run All Again, Approve All Failed Tests)
-- Frontend: Comparer view Page Actions (Run Again, Approve)
 - Frontend: Change password
 - Frontend: Change name and email
 - Show correct values at stats section of sidebar (Scenarios/Jobs)
@@ -129,6 +129,7 @@
 - Check active operations with bad network / no network.
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- Frontend: Page Actions (like Run All Again, Approve All Failed Tests) should be a request-reply operations
 - Frontend: Implement 'ListView' (table view) and 'Show Differences' for Scenarios
 - Frontend: Implement 'ListView' (table view) and 'Group by Scenarios' for JobPage
 - Frontend: Show Difference value at Comparer and JobPages cards (table in ListView mode), to get user knowledge for tuning test sensitivity 

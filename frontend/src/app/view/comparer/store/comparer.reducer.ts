@@ -7,6 +7,7 @@ export interface AppState {
 export interface ComparerState {
   title: string;
   job: string;
+  reportId: string;
   scenarioId: string;
   scenario: string;
   viewport: string;
@@ -26,6 +27,7 @@ export interface ComparerState {
 export const initState = {
   title: '',
   job: '',
+  reportId: '',
   scenarioId: '',
   scenario: '',
   viewport: '',
@@ -72,7 +74,7 @@ const _reducer = createReducer(initState,
 
     return initState
   })
-);
+)
 
 export function comparerPageReducer (state, action) {
 

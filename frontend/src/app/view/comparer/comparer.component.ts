@@ -16,7 +16,7 @@ import {
   descriptionInfo, displayedImageMode,
   images,
   jobTitle,
-  pageActionsInfo,
+  pageActionsInfo, runScenarioInfo,
   sizeMode
 } from './store/comparer.selectors';
 import { take } from 'rxjs/operators';
@@ -83,19 +83,36 @@ export class ComparerComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe( info => { this.navigation.openExternalUrl(info.url) })
   }
+
   approveHandler () {
 
-    this.store.dispatch( approve({ payload: {
-        jobId: this.jobId,
-        testCaseIndex: this.testCaseIndex
-    }}) )
+    this.store.select( runScenarioInfo )
+      .pipe(take(1))
+      .subscribe( (info: {reportId:string, scenario:string, viewport:string}) => {
+
+        this.store.dispatch( approve({ payload: {
+            jobId: this.jobId,
+            testCaseIndex: this.testCaseIndex,
+            ...info
+          }
+        }))
+      })
   }
+
   runAgainHandler () {
 
-    this.store.dispatch( runAgain({ payload: {
-        jobId: this.jobId,
-        testCaseIndex: this.testCaseIndex
-    }}) )
+    this.store.select( runScenarioInfo )
+      .pipe(take(1))
+      .subscribe( (info: {scenario:string, viewport:string}) => {
+
+        this.store.dispatch( runAgain({
+            payload: {
+              ...info,
+              jobId: this.jobId,
+              testCaseIndex: this.testCaseIndex,
+            }
+        }))
+      })
   }
 
 

@@ -18,6 +18,15 @@ export const breadcrumbsInfo = createSelector(
   })
 );
 
+export const runScenarioInfo = createSelector(
+  selectFeature,
+  (state: ComparerState) => ({
+    scenario: state.scenario,
+    viewport: state.viewport,
+    reportId: state.reportId
+  })
+);
+
 export const descriptionInfo = createSelector(
   selectFeature,
   (state: ComparerState) => ({

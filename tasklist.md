@@ -91,16 +91,19 @@
 -- Frontend: Jobs view Page Actions (Purge History)
 -- Frontend: Comparer view Page Actions (Run Again, Approve)
 -- Frontend: JobPage view Page Actions (Run Failed, Approve Failed Cases)
+-- Backend: Run several scenarios by filter - JobPage view Page Action (Run Failed)
 
-- Backend: Run scenarios by filter - JobPage view Page Action (Run Failed)
+- Run scenarios with overridden parameters (scenarios + viewports filtration)
+
+TechDept
 - Frontend: Change password
 - Frontend: Change name and email
+- Frontend: Fix Comparer view Fit/Full mode
+
+BackLog
 - Show correct values at stats section of sidebar (Scenarios/Jobs)
 - Frontend: RESTYLE UI - Responsive UI (support mobile)
 - Paging for job history: next/prev buttons based on skip + limit=30 and total_count of records
-
-- Frontend: Fix Comparer view Fit/Full mode
-- Run scenarios with overridden parameters (scenarios + viewports filtration)
 - Backend: Store/update data for AccountInfo at Settings view
 - Frontend: show current username
 - Frontend: Implement Sidebar filters
@@ -125,7 +128,7 @@
 - [Bug] Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
 - [Bug] Clear text field - cleared field does not save changes on backend (Save Scenario / Hide Selectors field)
 - [Costs] ability to quickly block or limit user (to protect from overbudget)
-- Define Metrics to collect (feature requests & feedback button)
+- Define Metrics to collect (feature requests & feedback button) [cost of each user, typical ways to work]
 - [Feature] Create couple of examples scenarios demonstrating key features (for every new user)
 - Check active operations with bad network / no network.
 - **------------ CLOSED BETA MILESTONE ------------**

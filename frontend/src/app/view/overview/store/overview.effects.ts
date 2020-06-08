@@ -7,7 +7,7 @@ import {
   runAllScenarios,
   refreshRecentRuns,
   loadedRecentRuns,
-  runOneScenario, 
+  runOneScenario,
   cleanupNgrxStorage
 } from './overview.actions';
 import { mergeMap, map, debounceTime, filter } from 'rxjs/operators';
@@ -40,7 +40,9 @@ export class OverviewEffects {
     ofType(runOneScenario),
     mergeMap((data) => {
 
-      return this.api.run( {filter: data.label} ).pipe(
+      const opts = { scenarios: [data.label] };
+
+      return this.api.run(opts).pipe(
         map( res => {
           return {type:refresh.type};
         })
@@ -108,7 +110,7 @@ export class OverviewEffects {
     debounceTime(5000),
     filter( x => x.type === loadedRecentRuns.type),
     mergeMap((action) => {
- 
+
         return of( {type: refreshRecentRuns.type} )
     })));
 }

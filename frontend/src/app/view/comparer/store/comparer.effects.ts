@@ -108,12 +108,11 @@ export class ComparerEffects {
     mergeMap((action) => {
 
       const opts = {
-        filter: action.payload.scenario,
-        viewport: action.payload.viewport
+        scenarios: [action.payload.scenario],
+        viewports: [action.payload.viewport]
       };
 
-      return this.api.run(opts)
-        .pipe(
+      return this.api.run(opts).pipe(
           map( (res) => {
             console.log(res);
 

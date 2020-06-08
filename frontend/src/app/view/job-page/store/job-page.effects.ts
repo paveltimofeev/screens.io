@@ -112,7 +112,7 @@ export class JobPageEffects {
     withLatestFrom(this.store.select(failedCases)),
     mergeMap( ([action, cases]) => {
 
-      const opts = { filter: cases.map( x => `[${x.label}]` ).join('|') };
+      const opts = { scenarios: cases.map( x => x.label) };
 
       return this.api.run(opts).pipe(
         map( res => ({ type: refresh.type, payload: { id: action.payload.jobId }}))

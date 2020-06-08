@@ -220,10 +220,10 @@ class VRT {
 
 
     /// shared
-    async getConfig( scenariosFilter ) {
+    async getConfig( scenariosQuery, viewportsQuery ) {
 
-        const viewports = await storage.getViewports(this._userId, { enabled:true })
-        const scenarios = await storage.getScenarios(this._userId, scenariosFilter )
+        const viewports = await storage.getViewports(this._userId, viewportsQuery || { enabled:true })
+        const scenarios = await storage.getScenarios(this._userId, scenariosQuery )
 
         return engine.buildConfig(
           this._tenantId,
@@ -240,7 +240,30 @@ class VRT {
 
         const runId = uuidv4()
 
-        let config = await this.getConfig( opts.filter ? {label: opts.filter } : undefined )
+        let scenariosQuery
+        let viewportsQuery
+
+        if ( opts.scenarios
+          && Array.isArray(opts.scenarios)
+          && opts.scenarios.every( x => typeof(x) === 'string' )
+        ){
+            scenariosQuery = { label: {$in: opts.scenarios }};
+        }
+
+        if ( opts.viewports
+          && Array.isArray(opts.viewports)
+          && opts.viewports.every( x => typeof(x) === 'string' )
+        ){
+            viewportsQuery = {
+                $and: [
+                    { enabled:true },
+                    { label: { $in: opts.viewports }}
+                ]
+            }
+        }
+
+        console.log('viewportsQuery', viewportsQuery);
+        let config = await this.getConfig( scenariosQuery, viewportsQuery )
 
         config.paths.json_report = path.join(
           config.paths.json_report,
@@ -254,7 +277,11 @@ class VRT {
             userId: this._userId
         })
 
-        return { enqueuedSuccessfully: true }
+        return {
+            enqueuedSuccessfully: true,
+            scenariosCount: config.scenarios.length,
+            viewportsCount: config.viewports.length
+        }
     }
     async enqueueApproveCase (testCase) {
 

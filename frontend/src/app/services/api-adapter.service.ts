@@ -30,7 +30,10 @@ export class ApiAdapterService {
   [put] /api/test/config        <-  { error, data }
   */
 
-  run (opts:any): Observable<any> {
+  run (opts: {
+    scenarios?: string[],
+    viewports?: string[]
+  }): Observable<any> {
 
     return this.dataAccessService.post(
       environment.api + 'test/run', opts);

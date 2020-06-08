@@ -96,7 +96,7 @@ export class ScenarioPageEffects {
     ofType(runScenario),
     mergeMap((action) => {
 
-      let opts = { filter: action.payload.label };
+      let opts = { scenarios: [action.payload.label] };
 
       return this.api.run(opts).pipe(
         delay(500),

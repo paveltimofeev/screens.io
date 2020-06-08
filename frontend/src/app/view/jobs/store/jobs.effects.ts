@@ -54,10 +54,14 @@ export class JobsEffects {
     ofType(purgeHistory),
     mergeMap((action) => {
 
-      return of({
-        type: refresh.type,
-        payload: {}
-      })
+      return this.api.deleteAllHistoryRecords()
+        .pipe(
+          map( (res) => {
+
+            console.log(res);
+            return { type: refresh.type }
+          })
+        );
 
     })));
 }

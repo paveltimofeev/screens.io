@@ -88,8 +88,10 @@
 -- [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage & Add Autorefresh for Jobs view
 -- Frontend: Refactor and simplify longOp (Request-Reply pattern)
 -- Frontend: Implement Search filter
+-- Frontend: Jobs view Page Actions (Purge History)
 
-- Frontend: Implement Page Actions (Purge History, Run All Again, Approve All Failed Tests)
+- Frontend: JobPage view Page Actions (Run All Again, Approve All Failed Tests)
+- Frontend: Comparer view Page Actions (Run Again, Approve)
 - Frontend: Change password
 - Frontend: Change name and email
 - Show correct values at stats section of sidebar (Scenarios/Jobs)

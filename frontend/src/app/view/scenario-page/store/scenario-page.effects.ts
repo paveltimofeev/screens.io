@@ -46,7 +46,7 @@ export class ScenarioPageEffects {
     autoRefreshScenarioHistory$ = createEffect(() => this.actions$.pipe(
       ofType(loadedScenarioHistory, cleanupNgrxStorage),
       debounceTime(5000),
-      filter(x => x.type === x.type),
+      filter(x => x.type === loadedScenarioHistory.type),
       mergeMap((action) => {
 
         return of({

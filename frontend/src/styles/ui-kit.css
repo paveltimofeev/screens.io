@@ -71,9 +71,12 @@
   --px70: 3.646vw;
   --px72: 3.750vw;
   --px80: 4.167vw;
+  --px87: 4.531vw;
+  --px120: 6.250vw;
   --px160: 8.333vw;
   --px165: 8.594vw;
   --px200: 10.417vw;
+  --px216: 11.250vw;
   --px311: 16.198vw;
   --px380: 19.792vw;
   --px400: 20.833vw;
@@ -114,9 +117,12 @@
     --px70: 70px;
     --px72: 72px;
     --px80: 80px;
+    --px87: 87px;
+    --px120: 120px;
     --px160: 160px;
     --px165: 165px;
     --px200: 200px;
+    --px216: 216px;
     --px311: 311px;
     --px380: 380px;
     --px400: 400px;
@@ -818,7 +824,7 @@ app-data-action-button:first-child {
   padding: 8px;
   _background: #FDFDFD;
   background: #eeeeee6c;
-  margin-right: 16px;
+  margin-right: var(--px16);
   border-radius: 4px;
 }
 .card-sm .image {
@@ -1716,7 +1722,7 @@ app-data-action-button:first-child {
 
 }
 .widget-label--xl .state {
-  font-size: 7.4vh;
+  font-size: var(--px80);
   font-weight: bold;
   margin-bottom: var(--px36); /* 36px */
   border-radius: 8px;

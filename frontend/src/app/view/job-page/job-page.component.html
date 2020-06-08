@@ -153,10 +153,15 @@
     <div class="sidebar-header">
 
       <div class="widget-label widget-label--xl">
-        <div class="header header--semibold">
+        <div class="header header--semibold"
+             *ngIf="(sidebarHeaderInfo$ | async).failedCases > 0">
           {{ (sidebarHeaderInfo$ | async).failedCases }}
           of {{ (sidebarHeaderInfo$ | async).totalCases }}
           Test Cases
+        </div>
+        <div class="header header--semibold"
+             *ngIf="(sidebarHeaderInfo$ | async).failedCases === 0">
+          All Tests
         </div>
         <div
           class="state"

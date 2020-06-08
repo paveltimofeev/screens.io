@@ -3,7 +3,7 @@
   --navbar-size-xs: var(--px20);
   --sidebar-size: 25vw;
 
-  --card-height: 20vh;
+  --card-height: var(--px216);
 
   --humburger-width: 90%;
   --humburger-pos-right: 0px;
@@ -17,7 +17,7 @@
   --xs-title-actions-left: 0px;
   --xs-title-actions-bottom: 0px;
 
-  --xs-data-placeholder-margin-bottom: 6vh;
+  --xs-data-placeholder-margin-bottom: var(--px64);
 }
 
 * {
@@ -219,7 +219,6 @@ main {
 }
 .app-widgets-row {
   justify-content: space-evenly;
-  /* height: 53vh; */
   position: relative;
   z-index: 1;
 }
@@ -232,19 +231,17 @@ main {
   _background: #F7F7F6;
   background: #eee;
   z-index: -1;
-  _bottom: 25%;
-  bottom: 11vh;
+  bottom: var(--px120);
 }
 .app-widgets-row .action {
   position: absolute;
-  _bottom: calc(25% - 20px);
-  bottom: calc(11vh - 20px);
+  bottom: calc(var(--px120) - 20px);
 }
 .app-widgets-row .app-widgets-column {
   _height: 100%;
   width: 100%;
   position: relative;
-  padding-top: 8vh; /* 87px */
+  padding-top: var(--px87); /* 87px */
 }
 .app-widgets-row .app-widgets-column .widgets-center-placeholder {
   margin-left: 5vw;
@@ -279,8 +276,7 @@ main {
 
 .app-card--sm {
   width: 50%;
-  height: 160px;
-  margin-bottom: 22px;
+  margin-bottom: var(--px16);
 }
 @media (max-width: 600px)  {
   .app-card--sm {

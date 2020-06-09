@@ -9,6 +9,6 @@
           'anim-bounce-on-click': !inProgress && !isDisabled,
           'input-box-button--in-progress': inProgress
         }"
-        (click)="click.emit(null)">
+        (click)="clickHandler()">
   <ng-content></ng-content>
 </button>

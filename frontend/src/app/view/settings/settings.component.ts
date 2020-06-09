@@ -9,7 +9,7 @@ import {
 } from './store/settings.selectors';
 import {
   addCustomViewport,
-  cleanupNgrxStorage,
+  cleanupNgrxStorage, deleteAccount,
   refreshAccountInfo,
   refreshViewports,
   selectViewports,
@@ -160,6 +160,35 @@ export class SettingsComponent implements OnInit, OnDestroy {
       };
 
       this.store.dispatch(updateViewports({payload}));
+    }
+  }
+
+  deleteAccountPassword: string;
+  deleteAccountDisabled: boolean = true;
+  deletingAccount: boolean;
+
+  deleteAccountConfirmHandler ($event: string) {
+    this.deleteAccountPassword = $event;
+    this.deleteAccountDisabled = !($event.length > 0);
+  }
+
+  deleteAccountHandler () {
+
+    if (!this.deleteAccountDisabled) {
+
+      const corId = this.longOp(
+        () => { this.deletingAccount = true; },
+        (result) => {
+          console.log(result)
+          this.deletingAccount = false;
+          this.deleteAccountError = result.error;
+        })
+
+      this.store.dispatch( deleteAccount({
+        payload: {
+          password: this.deleteAccountPassword,
+          correlationId: corId
+        }}));
     }
   }
 

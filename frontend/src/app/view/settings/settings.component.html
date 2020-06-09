@@ -77,7 +77,7 @@
         <app-form-button
           [isPrimary]="true"
           [inProgress]="updatingAccountInfo"
-          (click)="updateAccountInfoHandler()">
+          (clickButton)="updateAccountInfoHandler()">
           Update Account Info
         </app-form-button>
 
@@ -112,7 +112,7 @@
           [isPrimary]="true"
           [inProgress]="updatingPassword"
           [isDisabled]="updatingPasswordDisabled"
-          (click)="updatePasswordHandler()">
+          (clickButton)="updatePasswordHandler()">
           Update Password
         </app-form-button>
 
@@ -129,7 +129,7 @@
           [description]="'Enter your password to confirm operation'"
           [isPasswordField]="true"
           [fieldSize]="'350'"
-          (valueChanged)="changeAccountInfoHandler($event, 'password')"
+          (valueChanged)="deleteAccountConfirmHandler($event)"
         ></app-text-field>
 
         <p class="error-alert" *ngIf="deleteAccountError">
@@ -137,7 +137,10 @@
         </p>
 
         <app-form-button
-          [isDanger]="true">
+          [isDanger]="true"
+          [isDisabled]="deleteAccountDisabled"
+          (clickButton)="deleteAccountHandler()"
+        >
           Permanently delete my account
         </app-form-button>
 

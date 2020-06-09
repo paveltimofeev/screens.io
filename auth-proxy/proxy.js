@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const MemoryStore = require('memorystore')(session)
 const cors = require('./cors');
-const {clearHeaders, checkAuth, signup, signin, signout, changePassword} = require('./utils')
+const {clearHeaders, checkAuth, signup, signin, signout, changePassword, deleteAccount} = require('./utils')
 const config = require('./config')
 const { connectToDb } = require('./storage-adapter')
 
@@ -71,7 +71,20 @@ app.put('/manage/account/password', async (req,res) => {
     res.status(result.status).send({})
   }
   catch(error) {
-    console.log('ERROR /mgt/account/password', error)
+    console.log('ERROR changePassword', error)
+    res.status(500).send( { message: 'Operation failed' })
+  }
+})
+
+app.delete('/manage/account', async (req,res) => {
+
+  try {
+
+    const result = await deleteAccount(req, res)
+    res.status(result.status).send({})
+  }
+  catch(error) {
+    console.log('ERROR deleteAccount', error)
     res.status(500).send( { message: 'Operation failed' })
   }
 })

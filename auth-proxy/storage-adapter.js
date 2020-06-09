@@ -48,6 +48,10 @@ class StorageAdapter {
 
   async updateUserPassword (user, currentPassword, newPassword) {
 
+    if (!user || !currentPassword || !newPassword) {
+      return { status : 400 }
+    }
+
     const record = await this.userModel.findOne( { user, password:currentPassword } );
     if( record ) {
       record.password = newPassword;
@@ -57,6 +61,22 @@ class StorageAdapter {
     else {
       return { status: 404 }
     }
+  }
+
+  async deleteUser (user, password) {
+
+    if (!user || !password) {
+      return { status : 400 }
+    }
+
+    const result = await this.userModel.deleteOne( { user, password } );
+    console.log(`delete account "${user}" result`, result)
+
+    if (result.deletedCount > 1) {
+      console.error('ERROR: deleteUser - Delete more than one account', { user, password, result })
+    }
+
+    return { status: result.ok === 1 && result.deletedCount === 1 ? 200 : 500 }
   }
 
     convertToObject (entry) {

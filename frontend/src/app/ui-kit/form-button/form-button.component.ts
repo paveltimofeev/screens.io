@@ -19,5 +19,10 @@ export class FormButtonComponent {
   isDanger: any;
 
   @Output()
-  click: EventEmitter<any> = new EventEmitter();
+  clickButton: EventEmitter<any> = new EventEmitter();
+
+  clickHandler () {
+
+    this.clickButton.emit()
+  }
 }

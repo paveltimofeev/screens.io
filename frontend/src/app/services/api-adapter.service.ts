@@ -295,7 +295,7 @@ export class ApiAdapterService {
     return this.dataAccessService.put(
       environment.auth + '/manage/account/password', passwordInfo)
   }
-  deleteAccount(accountInfo:any): Observable<any> {
+  deleteAccount(accountInfo:{ password:string}): Observable<any> {
 
     return this.dataAccessService.delete(
       environment.auth + '/manage/account/', accountInfo)

@@ -123,7 +123,7 @@ export class SettingsEffects {
 
       const corId = action.payload.correlationId;
 
-      return this.api.deleteAccount(action.payload)
+      return this.api.deleteAccount({password: action.payload.password})
         .pipe(
           map( () => {
             this.navigate.singOut();

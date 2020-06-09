@@ -95,13 +95,15 @@
 -- Backend: Hide internal path to the "not found ref image", in case of error when Ref not exists
 -- Frontend: Get rid of vh in styles
 -- Frontend & Proxy: Change password  
+-- Frontend & Proxy: Delete account  
 
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 
 TechDept
-- Frontend: Change name and email
+- Frontend & Proxy: Change name and email
 - Frontend: Fix Comparer view Fit/Full mode
 - Frontend: Do not close menu at mobile view after click, and do not cover header
+- check username injection: create user "name*" and delete it
 
 BackLog
 - Show correct values at stats section of sidebar (Scenarios/Jobs)

@@ -46,7 +46,20 @@ class StorageAdapter {
     }
   }
 
-  convertToObject (entry) {
+  async updateUserPassword (user, currentPassword, newPassword) {
+
+    const record = await this.userModel.findOne( { user, password:currentPassword } );
+    if( record ) {
+      record.password = newPassword;
+      await record.save();
+      return { status: 200 }
+    }
+    else {
+      return { status: 404 }
+    }
+  }
+
+    convertToObject (entry) {
 
     delete entry._id;
     delete entry.__v;

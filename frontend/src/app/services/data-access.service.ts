@@ -19,7 +19,8 @@ export const genericRetryStrategy = ({ maxRetryAttempts = 3, scalingDuration = 1
 
       const retryAttempt = i + 1;
 
-      if (retryAttempt > maxRetryAttempts || excludedStatusCodes.find(e => e === error.status)) {
+      if (retryAttempt > maxRetryAttempts || excludedStatusCodes.find(e => e === error.status) || error.name === "SyntaxError") {
+        console.error(error.message, error);
         return throwError(error);
       }
 
@@ -55,12 +56,11 @@ export class DataAccessService {
       console.error('client side or network error')
     }
     else {
-      console.error(`Response error: StatusCode ${error.status}, ${error.message} `)
 
       if (error.status === 401) {
-
         this.router.navigate(['/login'])
       }
+      console.error(`Response error: StatusCode ${error.status}, ${error.message} `)
 
       return throwError(`Network error. StatusCode ${error.status}`);
     }

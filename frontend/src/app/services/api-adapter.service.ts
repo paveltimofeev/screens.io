@@ -288,17 +288,17 @@ export class ApiAdapterService {
   updateAccountInfo(accountInfo:any): Observable<any> {
 
     return this.dataAccessService.put(
-      environment.api + 'mgt/account/info', accountInfo)
+      environment.api + '/manage/account/info', accountInfo)
   }
-  updatePassword(passwordInfo:any): Observable<any> {
+  updatePassword(passwordInfo: { currentPassword: string, newPassword: string }): Observable<any> {
 
     return this.dataAccessService.put(
-      environment.auth + 'mgt/account/password', passwordInfo)
+      environment.auth + '/manage/account/password', passwordInfo)
   }
   deleteAccount(accountInfo:any): Observable<any> {
 
     return this.dataAccessService.delete(
-      environment.auth + 'mgt/account/', accountInfo)
+      environment.auth + '/manage/account/', accountInfo)
   }
 
   signup (user, password): Observable<any> {

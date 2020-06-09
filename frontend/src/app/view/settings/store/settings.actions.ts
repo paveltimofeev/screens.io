@@ -31,7 +31,11 @@ export const updateAccountInfo = createAction(
 );
 export const updatePassword = createAction(
   '[Settings Component] updatePassword',
-  props<{ payload: { updatedPassword: any, correlationId: string } }>()
+  props<{ payload: {
+      currentPassword: string,
+      newPassword: string,
+      correlationId: string
+  }}>()
 );
 export const deleteAccount = createAction(
   '[Settings Component] deleteAccount',

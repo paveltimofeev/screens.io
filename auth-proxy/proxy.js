@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const MemoryStore = require('memorystore')(session)
 const cors = require('./cors');
-const {clearHeaders, checkAuth, signup, signin, signout} = require('./utils')
+const {clearHeaders, checkAuth, signup, signin, signout, changePassword} = require('./utils')
 const config = require('./config')
 const { connectToDb } = require('./storage-adapter')
 
@@ -44,6 +44,7 @@ app.use(session({
 
 /// Check authorized session
 app.use(config.proxyPath, checkAuth)
+app.use('mgt/account', checkAuth)
 
 
 /// Proxy backend calls
@@ -62,6 +63,18 @@ app.use(config.proxyPath, createProxyMiddleware({
 /// SHOULD BE USED AFTER(!) PROXY! TO AVOID FREEZING ON POST/PUT REQUESTS
 app.use(express.json())
 
+app.put('/manage/account/password', async (req,res) => {
+
+  try {
+
+    const result = await changePassword(req, res)
+    res.status(result.status).send({})
+  }
+  catch(error) {
+    console.log('ERROR /mgt/account/password', error)
+    res.status(500).send( { message: 'Operation failed' })
+  }
+})
 
 app.post('/signup-client', async (req,res) => {
 
@@ -103,12 +116,12 @@ if (config.showWebUI) {
     var {user} = req.signedCookies;
     res.render('index', {user, message:''})
   })
-  
+
   app.post('/signup', async (req,res) => {
 
     try {
       const userData = await signup(req, res)
-      res.render('index', { message: 'Signed up successfully', user: userData.user})    
+      res.render('index', { message: 'Signed up successfully', user: userData.user})
     }
     catch ( error ) {
       res.render( 'index', { message : 'Sign-Up failed', user : '' } )

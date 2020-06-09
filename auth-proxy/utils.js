@@ -37,7 +37,7 @@ const signup = async (req, res) => {
 
   const userCheck = _isValidUser(user);
   const passwordCheck = _isValidPassword(password);
-  
+
   if (!userCheck || !passwordCheck) {
     console.log('Username check:', _isValidUser(user));
     console.log('Password check:', _isValidUser(password));
@@ -114,6 +114,36 @@ const signin = async (req, res, success, fail) => {
   }
 }
 
+const changePassword = async (req, res) => {
+
+  const user = req.session.user;
+  const currentPassword = req.body.currentPassword;
+  const newPassword = req.body.newPassword;
+
+  const userCheck = _isValidUser(user);
+  const passwordCheck = _isValidPassword(currentPassword);
+  const newPasswordCheck = _isValidPassword(newPassword);
+
+  if (!userCheck || !passwordCheck || !newPasswordCheck || currentPassword === newPassword ) {
+    console.log('Username check:', _isValidUser(user));
+    console.log('Current password check:', _isValidUser(passwordCheck));
+    console.log('New password check:', _isValidUser(newPasswordCheck));
+    console.log('Current password equals New password check:', _isValidUser(newPasswordCheck));
+    let error = new Error('Invalid username or password');
+    error.status = 403;
+    throw error;
+  }
+
+  try {
+    return await storage.updateUserPassword(user, currentPassword, newPassword)
+  }
+  catch ( error ) {
+
+    console.error('[Utils] ERROR getUser', error)
+    throw error;
+  }
+}
+
 const signout = (req, res, cb) => {
 
   console.log('Logout. Destroy session of user:', req.session.user);
@@ -162,5 +192,6 @@ module.exports = {
   checkAuth,
   signup,
   signin,
-  signout
+  signout,
+  changePassword
 }

@@ -31,7 +31,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   accountInfo$: Observable<any>;
   viewports$: Observable<any>;
   selectedViewports$: Observable<any>;
-  
+
   updateAccountInfoError: string;
   updatePasswordError: string;
   deleteAccountError: string;
@@ -69,11 +69,11 @@ export class SettingsComponent implements OnInit, OnDestroy {
     if (!this.updatingAccountInfo) {
 
       let corId = this.longOp(
-        () => { 
+        () => {
           this.updatingAccountInfo = true;
-          this.updateAccountInfoError = null; 
+          this.updateAccountInfoError = null;
         },
-        (result) => { 
+        (result) => {
           this.updatingAccountInfo = false;
           this.updateAccountInfoError = result.error;
          }
@@ -112,19 +112,20 @@ export class SettingsComponent implements OnInit, OnDestroy {
     if (!this.updatingPassword && !this.updatingPasswordDisabled) {
 
       let corId = this.longOp(
-        () => { 
+        () => {
           this.updatingPassword = true;
-          this.updatePasswordError = null; 
+          this.updatePasswordError = null;
         },
-        (result) => { 
+        (result) => {
           this.updatingPassword = false;
-          this.updatePasswordError = result.error; 
+          this.updatePasswordError = result.error;
         }
       );
 
       this.store.dispatch(updatePassword({
         payload: {
-          updatedPassword: this.updatedPassword,
+          currentPassword: this.updatedPassword.currentPassword,
+          newPassword: this.updatedPassword.newPassword,
           correlationId: corId
         }
       }))
@@ -143,8 +144,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
     if (!this.updatingViewportsList) {
 
       let corId = this.longOp(
-        () => { 
-          this.updatingViewportsList = true; 
+        () => {
+          this.updatingViewportsList = true;
           this.updateViewportsError = null;
         },
         (result) => {

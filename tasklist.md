@@ -94,11 +94,11 @@
 -- Backend: Run several scenarios by filter - JobPage view Page Action (Run Failed)
 -- Backend: Hide internal path to the "not found ref image", in case of error when Ref not exists
 -- Frontend: Get rid of vh in styles
+-- Frontend & Proxy: Change password  
 
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 
 TechDept
-- Frontend: Change password
 - Frontend: Change name and email
 - Frontend: Fix Comparer view Fit/Full mode
 - Frontend: Do not close menu at mobile view after click, and do not cover header

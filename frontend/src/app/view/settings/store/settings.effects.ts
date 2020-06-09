@@ -107,7 +107,7 @@ export class SettingsEffects {
 
       const corId = action.payload.correlationId;
 
-      return this.api.updatePassword(action.payload)
+      return this.api.updatePassword({currentPassword: action.payload.currentPassword, newPassword:action.payload.newPassword})
         .pipe(
           map( () => this.operationCompletedAction(corId)),
           catchError(err => {

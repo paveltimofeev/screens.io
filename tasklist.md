@@ -186,6 +186,7 @@ BackLog
 - AuthGuard to redirect unauthorized users to login page ASAP
 - [Costs] Backend: Remove all References and test Files on removing Scenarios or Viewports
 - [Costs] Backend: Remove test result Files and Report after remove history record
+- [Costs & Security] Backend: Remove all files and storage database after user Delete his account (TeamOwner account)
 - [Costs] Backend: TTL for test result files and db history records & reports
 - Auth proxy - change password
 - Sanitize body and params in Auth proxy & Backend

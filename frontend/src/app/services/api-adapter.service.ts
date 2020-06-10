@@ -285,10 +285,15 @@ export class ApiAdapterService {
   }
 
   /// Account Management Adapter?
+  getAccountInfo(): Observable<any> {
+
+    return this.dataAccessService.get(
+      environment.auth + '/manage/account')
+  }
   updateAccountInfo(accountInfo:any): Observable<any> {
 
     return this.dataAccessService.put(
-      environment.api + '/manage/account/info', accountInfo)
+      environment.auth + '/manage/account', accountInfo)
   }
   updatePassword(passwordInfo: { currentPassword: string, newPassword: string }): Observable<any> {
 

@@ -8,10 +8,13 @@ class StorageAdapter {
     this.userModel = new model(
       usersCollectionName,
       new Schema({
-        "tenant": String,
-        "user":     { "type": String, "required": true, "unique": true },
-        "password": { "type": String, "required": true },
-        "enabled": Boolean
+        "tenant":         String,
+        "user":           { "type": String, "required": true, "unique": true },
+        "password":       { "type": String, "required": true },
+        "name":           { "type": String },
+        "email":          { "type": String, "required": false, "unique": true },
+        "emailConfirmed": { "type": Boolean, "default": false },
+        "enabled":        { "type": Boolean, "default": true },
       })
     );
   }
@@ -21,8 +24,9 @@ class StorageAdapter {
     const account = new this.userModel({
       user,
       password,
+      name: user,
       tenant: 'test-tenant',
-      enabled: true
+      // email: 'email@domain.com'
     })
 
     return await account.save()
@@ -43,6 +47,51 @@ class StorageAdapter {
 
     } catch ( error ) {
       console.error( '[Utils] ERROR getUser', error )
+    }
+  }
+
+  async getAccountInfo (user) {
+
+    try {
+      const record = await this.userModel.findOne( { user } );
+
+      if( record ) {
+        let { user, name, email, emailConfirmed } = record.toObject();
+        return { user, name, email, emailConfirmed };
+      }
+      else {
+        return undefined;
+      }
+
+    } catch ( error ) {
+      console.error( '[Utils] ERROR getAccountInfo', error )
+    }
+  }
+
+  /**
+   *
+   * @param user
+   * @param password
+   * @param accountInfo
+   * @returns {Promise<{status: number}>}
+   */
+  async updateAccountInfo (user, password, accountInfo) {
+
+    if (!user || !password || !accountInfo) {
+      return { status : 400 }
+    }
+
+    const record = await this.userModel.findOne( { user, password } );
+    if( record ) {
+
+      record.name = accountInfo.name || record.name;
+      record.email = accountInfo.email || record.email;
+
+      await record.save();
+      return { status: 200 }
+    }
+    else {
+      return { status: 404 }
     }
   }
 
@@ -79,7 +128,7 @@ class StorageAdapter {
     return { status: result.ok === 1 && result.deletedCount === 1 ? 200 : 500 }
   }
 
-    convertToObject (entry) {
+  convertToObject (entry) {
 
     delete entry._id;
     delete entry.__v;

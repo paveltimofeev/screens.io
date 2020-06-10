@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const MemoryStore = require('memorystore')(session)
 const cors = require('./cors');
-const {clearHeaders, checkAuth, signup, signin, signout, changePassword, deleteAccount} = require('./utils')
+const {clearHeaders, checkAuth, signup, signin, signout, changePassword, getAccountInfo, updateAccountInfo, deleteAccount} = require('./utils')
 const config = require('./config')
 const { connectToDb } = require('./storage-adapter')
 
@@ -63,6 +63,40 @@ app.use(config.proxyPath, createProxyMiddleware({
 /// SHOULD BE USED AFTER(!) PROXY! TO AVOID FREEZING ON POST/PUT REQUESTS
 app.use(express.json())
 
+app.get('/manage/account', async (req,res) => {
+
+  try {
+    const result = await getAccountInfo(req, res)
+    res.status(result.status).send(result.data)
+  }
+  catch(error) {
+    console.log('ERROR getAccountInfo', error)
+    res.status(500).send( { message: 'Operation failed' })
+  }
+})
+app.put('/manage/account', async (req,res) => {
+
+  try {
+    const result = await updateAccountInfo(req, res)
+    res.status(result.status).send(result.data)
+  }
+  catch(error) {
+    console.log('ERROR updateAccountInfo', error)
+    res.status(500).send( { message: 'Operation failed' })
+  }
+})
+app.delete('/manage/account', async (req,res) => {
+
+  try {
+
+    const result = await deleteAccount(req, res)
+    res.status(result.status).send({})
+  }
+  catch(error) {
+    console.log('ERROR deleteAccount', error)
+    res.status(500).send( { message: 'Operation failed' })
+  }
+})
 app.put('/manage/account/password', async (req,res) => {
 
   try {
@@ -76,18 +110,6 @@ app.put('/manage/account/password', async (req,res) => {
   }
 })
 
-app.delete('/manage/account', async (req,res) => {
-
-  try {
-
-    const result = await deleteAccount(req, res)
-    res.status(result.status).send({})
-  }
-  catch(error) {
-    console.log('ERROR deleteAccount', error)
-    res.status(500).send( { message: 'Operation failed' })
-  }
-})
 
 app.post('/signup-client', async (req,res) => {
 

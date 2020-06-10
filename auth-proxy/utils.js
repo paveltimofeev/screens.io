@@ -144,6 +144,54 @@ const changePassword = async (req, res) => {
   }
 }
 
+const getAccountInfo = async(req, res) => {
+
+  const user = req.session.user;
+  const userCheck = _isValidUser(user);
+  if (!userCheck) {
+    let error = new Error('Invalid user');
+    error.status = 403;
+    throw error;
+  }
+
+  try {
+
+    return {
+      data: await storage.getAccountInfo(user),
+      status: 200
+    }
+  }
+  catch ( error ) {
+
+    console.error('[Utils] ERROR deleteUser', error)
+    throw error;
+  }
+}
+
+const updateAccountInfo = async(req, res) => {
+
+  const user = req.session.user;
+  const password = req.body.password;
+  const userCheck = _isValidUser(user);
+  const passwordCheck = _isValidPassword(password);
+
+  if (!userCheck || !passwordCheck) {
+    let error = new Error('Invalid user or password');
+    error.status = 403;
+    throw error;
+  }
+
+  try {
+
+    return await storage.updateAccountInfo(user, password, req.body);
+  }
+  catch ( error ) {
+
+    console.error('[Utils] ERROR deleteUser', error)
+    throw error;
+  }
+}
+
 const deleteAccount = async (req, res) => {
 
   const user = req.session.user;
@@ -220,5 +268,7 @@ module.exports = {
   signin,
   signout,
   changePassword,
+  getAccountInfo,
+  updateAccountInfo,
   deleteAccount
 }

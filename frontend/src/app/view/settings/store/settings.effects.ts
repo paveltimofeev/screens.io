@@ -49,16 +49,12 @@ export class SettingsEffects {
     ofType(refreshAccountInfo),
     mergeMap((action) => {
 
-      return this.api.getAllViewports().pipe(
+      return this.api.getAccountInfo().pipe(
         map( res => {
 
           return {
             type: loadedAccountInfo.type,
-            // payload: res.data
-            payload: {
-              name: 'Djordje Kluni',
-              email: 'djordje.kluni@imeil.com'
-            }
+            payload: res
           }
         })
       );
@@ -92,7 +88,7 @@ export class SettingsEffects {
 
       const corId = action.payload.correlationId;
 
-      return this.api.updateAccountInfo(action.payload)
+      return this.api.updateAccountInfo(action.payload.accountInfo)
         .pipe(
           map( () => this.operationCompletedAction(corId)),
           catchError(err => {

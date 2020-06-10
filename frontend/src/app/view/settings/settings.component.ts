@@ -61,12 +61,14 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   changedAccountInfo: any = {};
   updatingAccountInfo:boolean = false;
+  updateAccountInfoDisabled:boolean = true;
   changeAccountInfoPropHandler ($event: string, prop: string) {
     this.changedAccountInfo[prop] = $event;
+    this.updateAccountInfoDisabled = !this.changedAccountInfo.password || this.changedAccountInfo.password.length === 0
   }
   updateAccountInfoHandler () {
 
-    if (!this.updatingAccountInfo) {
+    if (!this.updatingAccountInfo && !this.updateAccountInfoDisabled) {
 
       let corId = this.longOp(
         () => {

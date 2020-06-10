@@ -70,6 +70,14 @@
           (valueChanged)="changeAccountInfoPropHandler($event, 'email')"
         ></app-text-field>
 
+        <app-text-field
+          [label]="'Your password'"
+          [description]="'Enter your password to confirm operation'"
+          [isPasswordField]="true"
+          [fieldSize]="'350'"
+          (valueChanged)="changeAccountInfoPropHandler($event, 'password')"
+        ></app-text-field>
+
         <p class="error-alert" *ngIf="updateAccountInfoError">
           {{ updateAccountInfoError }}
         </p>
@@ -77,6 +85,7 @@
         <app-form-button
           [isPrimary]="true"
           [inProgress]="updatingAccountInfo"
+          [isDisabled]="updateAccountInfoDisabled"
           (clickButton)="updateAccountInfoHandler()">
           Update Account Info
         </app-form-button>

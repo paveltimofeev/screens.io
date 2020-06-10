@@ -96,11 +96,11 @@
 -- Frontend: Get rid of vh in styles
 -- Frontend & Proxy: Change password  
 -- Frontend & Proxy: Delete account  
+-- Frontend & Proxy: Change name and email
 
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 
 TechDept
-- Frontend & Proxy: Change name and email
 - Frontend: Fix Comparer view Fit/Full mode
 - Frontend: Do not close menu at mobile view after click, and do not cover header
 - check username injection: create user "name*" and delete it
@@ -228,3 +228,5 @@ BackLog
 - (?) Refactoring Mode: Make change > Test > Approve Differences to Stage if no side-effects > Repeat > Ehe all done, Approve to Master
 - (?) Build community around this: disccussions, comments, approve requests/declines, viewsbase - storage of reference views and controls
 - (?) Create scenario from template/example
+- (?) [Feature+] Allow user to stub/mock some queries to its backend
+

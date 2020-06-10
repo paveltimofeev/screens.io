@@ -78,6 +78,9 @@
           (valueChanged)="changeAccountInfoPropHandler($event, 'password')"
         ></app-text-field>
 
+        <p class="success-alert" *ngIf="updateAccountInfoSuccess">
+          Account information has been updated
+        </p>
         <p class="error-alert" *ngIf="updateAccountInfoError">
           {{ updateAccountInfoError }}
         </p>
@@ -114,6 +117,9 @@
           (valueChanged)="updatePasswordPropHandler($event, 'confirmNewPassword')"
         ></app-text-field>
 
+        <p class="success-alert" *ngIf="updatePasswordSuccess">
+          Password has been changed
+        </p>
         <p class="error-alert" *ngIf="updatePasswordError">
           {{ updatePasswordError }}
         </p>
@@ -193,10 +199,12 @@
 
         <hr class="separation-line">
 
+        <p class="success-alert" *ngIf="updateViewportsSuccess">
+          Viewports list has been updated
+        </p>
         <p class="error-alert" *ngIf="updateViewportsError">
           {{ updateViewportsError}}
         </p>
-
         <p class="error-alert" *ngIf="(selectedViewports$ | async).length === 0">
           You have to have at least one viewport to run tests.
         </p>

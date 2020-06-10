@@ -62,7 +62,13 @@ export class SettingsComponent implements OnInit, OnDestroy {
   changedAccountInfo: any = {};
   updatingAccountInfo:boolean = false;
   updateAccountInfoDisabled:boolean = true;
+  updateAccountInfoSuccess: boolean = false;
+
   changeAccountInfoPropHandler ($event: string, prop: string) {
+
+    this.updateAccountInfoSuccess = false;
+    this.updateAccountInfoError = '';
+
     this.changedAccountInfo[prop] = $event;
     this.updateAccountInfoDisabled = !this.changedAccountInfo.password || this.changedAccountInfo.password.length === 0
   }
@@ -78,6 +84,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         (result) => {
           this.updatingAccountInfo = false;
           this.updateAccountInfoError = result.error;
+          this.updateAccountInfoSuccess = result.success
          }
       );
 
@@ -93,7 +100,11 @@ export class SettingsComponent implements OnInit, OnDestroy {
   updatedPassword: any = {};
   updatingPassword: boolean = false;
   updatingPasswordDisabled: boolean = true;
+  updatePasswordSuccess: boolean = false;
   updatePasswordPropHandler ($event: string, prop: string) {
+
+    this.updatePasswordSuccess = false;
+    this.updatePasswordError = '';
 
     this.updatedPassword[prop] = $event;
 
@@ -121,6 +132,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         (result) => {
           this.updatingPassword = false;
           this.updatePasswordError = result.error;
+          this.updatePasswordSuccess = result.success;
         }
       );
 
@@ -137,10 +149,14 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   viewportsChangeHandler (type: string, $event: string[]) {
 
+    this.updateViewportsSuccess = false;
+    this.updateViewportsError = '';
+
     this.store.dispatch( selectViewports({payload:{viewports: $event }}) );
   }
 
   updatingViewportsList:boolean = false;
+  updateViewportsSuccess:boolean = false;
   updateViewportsListHandler () {
 
     if (!this.updatingViewportsList) {
@@ -154,6 +170,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
           console.log(result)
           this.updatingViewportsList = false;
           this.updateViewportsError = result.error;
+          this.updateViewportsSuccess = result.success;
         }
        );
 

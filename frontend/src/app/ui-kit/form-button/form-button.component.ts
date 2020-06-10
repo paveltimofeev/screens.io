@@ -23,6 +23,8 @@ export class FormButtonComponent {
 
   clickHandler () {
 
-    this.clickButton.emit()
+    if (!this.isDisabled) {
+      this.clickButton.emit()
+    }
   }
 }

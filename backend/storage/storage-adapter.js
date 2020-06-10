@@ -10,9 +10,14 @@ class Storage {
 
     convertToObject (entry) {
 
-        delete entry._id;
-        delete entry.__v;
-        return JSON.parse(JSON.stringify(entry))
+        if (!entry) {
+            return null;
+        }
+
+        let obj = entry.toObject();
+        delete obj._id;
+        delete obj.__v;
+        return obj;
     }
 
     _createEntity (database, collection, schema) {

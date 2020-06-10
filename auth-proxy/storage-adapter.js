@@ -50,13 +50,18 @@ class StorageAdapter {
     }
   }
 
+  /**
+   * Get Account Info
+   * @param user
+   * @returns {Promise<{ user:string, name:string, email:string, emailConfirmed: boolean }>}
+   */
   async getAccountInfo (user) {
 
     try {
       const record = await this.userModel.findOne( { user } );
 
       if( record ) {
-        let { user, name, email, emailConfirmed } = record.toObject();
+        let { user, name, email, emailConfirmed } = this.convertToObject(record);
         return { user, name, email, emailConfirmed };
       }
       else {
@@ -69,10 +74,10 @@ class StorageAdapter {
   }
 
   /**
-   *
+   * Update 'name' and 'email' of user
    * @param user
    * @param password
-   * @param accountInfo
+   * @param accountInfo <{name:string, email:string}>
    * @returns {Promise<{status: number}>}
    */
   async updateAccountInfo (user, password, accountInfo) {
@@ -130,9 +135,14 @@ class StorageAdapter {
 
   convertToObject (entry) {
 
-    delete entry._id;
-    delete entry.__v;
-    return JSON.parse(JSON.stringify(entry))
+    if (!entry) {
+      return null;
+    }
+
+    let obj = entry.toObject();
+    delete obj._id;
+    delete obj.__v;
+    return obj
   }
 }
 

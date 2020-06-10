@@ -116,19 +116,18 @@ const signin = async (req, res, success, fail) => {
 
 const changePassword = async (req, res) => {
 
-  const user = req.session.user;
+  const user = getAndValidateUserFromSession(req);
   const currentPassword = req.body.currentPassword;
   const newPassword = req.body.newPassword;
 
-  const userCheck = _isValidUser(user);
   const passwordCheck = _isValidPassword(currentPassword);
   const newPasswordCheck = _isValidPassword(newPassword);
 
-  if (!userCheck || !passwordCheck || !newPasswordCheck || currentPassword === newPassword ) {
-    console.log('Username check:', _isValidUser(user));
-    console.log('Current password check:', _isValidUser(passwordCheck));
-    console.log('New password check:', _isValidUser(newPasswordCheck));
-    console.log('Current password equals New password check:', _isValidUser(newPasswordCheck));
+  if (!passwordCheck || !newPasswordCheck || currentPassword === newPassword ) {
+
+    console.log('Current password check:', _isValidPassword(passwordCheck));
+    console.log('New password check:', _isValidPassword(newPasswordCheck));
+    console.log('Current password equals New password check:', _isValidPassword(newPasswordCheck));
     let error = new Error('Invalid username or password');
     error.status = 403;
     throw error;
@@ -144,75 +143,73 @@ const changePassword = async (req, res) => {
   }
 }
 
-const getAccountInfo = async(req, res) => {
+
+const getAndValidateUserFromSession = (req) => {
 
   const user = req.session.user;
   const userCheck = _isValidUser(user);
   if (!userCheck) {
-    let error = new Error('Invalid user');
+    let error = new Error('Invalid user or password');
     error.status = 403;
     throw error;
   }
 
-  try {
+  return user;
+}
 
+const getAndValidatePasswordFromBody = (req, fieldName) => {
+
+  const password = req.body[fieldName||'password'];
+  const passwordCheck = _isValidPassword(password);
+
+  if (!passwordCheck) {
+    let error = new Error('Invalid user or password');
+    error.status = 403;
+    throw error;
+  }
+
+  return password;
+}
+
+const getAccountInfo = async(req, res) => {
+
+  const user = getAndValidateUserFromSession(req);
+
+  try {
     return {
       data: await storage.getAccountInfo(user),
       status: 200
     }
   }
   catch ( error ) {
-
-    console.error('[Utils] ERROR deleteUser', error)
+    console.error('[Utils] ERROR getAccountInfo', error)
     throw error;
   }
 }
 
 const updateAccountInfo = async(req, res) => {
 
-  const user = req.session.user;
-  const password = req.body.password;
-  const userCheck = _isValidUser(user);
-  const passwordCheck = _isValidPassword(password);
-
-  if (!userCheck || !passwordCheck) {
-    let error = new Error('Invalid user or password');
-    error.status = 403;
-    throw error;
-  }
+  const user = getAndValidateUserFromSession(req);
+  const password = getAndValidatePasswordFromBody(req, 'password');
 
   try {
-
     return await storage.updateAccountInfo(user, password, req.body);
   }
   catch ( error ) {
-
-    console.error('[Utils] ERROR deleteUser', error)
+    console.error('[Utils] ERROR updateAccountInfo', error)
     throw error;
   }
 }
 
 const deleteAccount = async (req, res) => {
 
-  const user = req.session.user;
-  const password = req.body.password;
-
-  const userCheck = _isValidUser(user);
-  const passwordCheck = _isValidPassword(password);
-
-  if (!userCheck || !passwordCheck ) {
-    console.log('Username check:', _isValidUser(user));
-    console.log('Password check:', _isValidUser(passwordCheck));
-    let error = new Error('Invalid username or password');
-    error.status = 403;
-    throw error;
-  }
+  const user = getAndValidateUserFromSession(req);
+  const password = getAndValidatePasswordFromBody(req, 'password');
 
   try {
     return await storage.deleteUser(user, password)
   }
   catch ( error ) {
-
     console.error('[Utils] ERROR deleteUser', error)
     throw error;
   }

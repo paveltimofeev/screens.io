@@ -99,13 +99,15 @@
 -- Frontend & Proxy: Change name and email
 -- Frontend: show current username
 -- Frontend: Move AccountApi Ops into the separate actions/reducer/effects/selectors & extract IAccountInfo model
+-- Frontend: Refresh account info after update
 
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 
 TechDept
+- Frontend: Cannot change form field value again after submit data
 - Frontend: Fix Comparer view Fit/Full mode
 - Frontend: Do not close menu at mobile view after click, and do not cover header
-- check username injection: create user "name*" and delete it
+- check username/password/... injection: create user "name*" and delete it. Do not allow to create usernames in [a-zA-Z] range or clean out restricted symbols
 
 BackLog
 - Show correct values at stats section of sidebar (Scenarios/Jobs)

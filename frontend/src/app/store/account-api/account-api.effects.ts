@@ -11,7 +11,7 @@ import {
 } from './account-api.actions';
 import { NavigationService } from '../../services/navigation.service';
 
-import { of } from 'rxjs';
+import { concat, of } from 'rxjs';
 import { ApiAdapterService } from '../../services/api-adapter.service';
 import { DateService } from '../../services/date.service';
 import { Store } from '@ngrx/store';
@@ -59,7 +59,13 @@ export class AccountApiEffects {
 
       return this.api.updateAccountInfo(action.payload.accountInfo)
         .pipe(
-          map( () => operationCompletedAction(corId)),
+          mergeMap( () => {
+             return concat([
+               operationCompletedAction(corId),
+               { type: refreshAccountInfo.type }
+             ])
+            }
+          ),
           catchError(err => {
             return of(operationCompletedAction(corId, err));
           })

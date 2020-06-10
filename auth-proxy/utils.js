@@ -91,6 +91,7 @@ const signin = async (req, res, success, fail) => {
       req.session.authorized = true;
       req.session.user = userData.user;
       req.session.tenant = userData.tenant;
+      req.session.username = userData.name;
 
       res.cookie('user', user, {signed:true, sameSite:true, maxAge: config.maxAge});
 

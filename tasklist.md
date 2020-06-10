@@ -140,6 +140,7 @@ BackLog
 - Check active operations with bad network / no network.
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- Proxy: Refactor utils and storage-adapter.
 - Frontend: [Bug/Usecase] If scenario was removed, user still can open it from old Job Page. Either we should show 'Not found' page here, or we should not remove it completely (mark as deleted to skip on runs and display, but allow to open it by direct link for read only without ability to change and run)
 - Frontend & Backend: approveAllFailedCases action produces N approve actions, that leed to N backend requests and N*x MongoDb requests, queues and backend operations. It could be replaced with one smart filter on backend.
 - Frontend: Page Actions (like Run All Again, Approve All Failed Tests) should be a request-reply operations

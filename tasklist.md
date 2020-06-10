@@ -97,6 +97,8 @@
 -- Frontend & Proxy: Change password  
 -- Frontend & Proxy: Delete account  
 -- Frontend & Proxy: Change name and email
+-- Frontend: show current username
+-- Frontend: Move AccountApi Ops into the separate actions/reducer/effects/selectors & extract IAccountInfo model
 
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 
@@ -110,7 +112,6 @@ BackLog
 - Frontend: RESTYLE UI - Responsive UI (support mobile)
 - Paging for job history: next/prev buttons based on skip + limit=30 and total_count of records
 - Backend: Store/update data for AccountInfo at Settings view
-- Frontend: show current username
 - Frontend: Implement Sidebar filters
 - Frontend: RESTYLE UI - Sign-in/Sign-up view
 - Frontend: RESTYLE UI - Improve Scenario edit view - add Viewports; add Overview(Summary) with reference image; add HasValues pin; add Description (commentary) for scenario, to make puprose of scenario clearer.

@@ -2,21 +2,24 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
-  accountInfo,
   viewports,
   selectedViewports,
   operationResult
 } from './store/settings.selectors';
 import {
-  addCustomViewport,
-  cleanupNgrxStorage, deleteAccount,
-  refreshAccountInfo,
+  cleanupNgrxStorage,
   refreshViewports,
   selectViewports,
-  updateAccountInfo,
-  updatePassword, updateViewports
+  updateViewports
 } from './store/settings.actions';
 import { filter, take } from 'rxjs/operators';
+import * as accountSelectors from '../../store/account-api/account-api.selectors';
+import {
+  deleteAccountOp,
+  refreshAccountInfo,
+  updateAccountInfoOp,
+  updatePasswordOp
+} from '../../store/account-api/account-api.actions';
 
 
 @Component({
@@ -43,7 +46,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.accountInfo$ = this.store.pipe(select( accountInfo ));
+    this.accountInfo$ = this.store.pipe(select( accountSelectors.accountInfo ));
     this.viewports$ = this.store.pipe(select( viewports ));
     this.selectedViewports$ = this.store.pipe(select( selectedViewports ));
 
@@ -76,7 +79,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
     if (!this.updatingAccountInfo && !this.updateAccountInfoDisabled) {
 
-      let corId = this.longOp(
+      let corId = this.accountsOp(
         () => {
           this.updatingAccountInfo = true;
           this.updateAccountInfoError = null;
@@ -88,7 +91,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
          }
       );
 
-      this.store.dispatch(updateAccountInfo({
+      this.store.dispatch(updateAccountInfoOp({
         payload: {
           accountInfo: this.changedAccountInfo,
           correlationId: corId
@@ -124,7 +127,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
     if (!this.updatingPassword && !this.updatingPasswordDisabled) {
 
-      let corId = this.longOp(
+      let corId = this.accountsOp(
         () => {
           this.updatingPassword = true;
           this.updatePasswordError = null;
@@ -136,7 +139,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         }
       );
 
-      this.store.dispatch(updatePassword({
+      this.store.dispatch(updatePasswordOp({
         payload: {
           currentPassword: this.updatedPassword.currentPassword,
           newPassword: this.updatedPassword.newPassword,
@@ -195,7 +198,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
     if (!this.deleteAccountDisabled) {
 
-      const corId = this.longOp(
+      const corId = this.accountsOp(
         () => { this.deletingAccount = true; },
         (result) => {
           console.log(result)
@@ -203,7 +206,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
           this.deleteAccountError = result.error;
         })
 
-      this.store.dispatch( deleteAccount({
+      this.store.dispatch( deleteAccountOp({
         payload: {
           password: this.deleteAccountPassword,
           correlationId: corId
@@ -219,6 +222,21 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
     this.store.pipe(
       select(operationResult),
+      filter(x => x.correlationId === corId),
+      take(1)
+    ).subscribe(after);
+
+    return corId;
+  }
+
+  accountsOp(before:Function, after):string {
+
+    before();
+
+    let corId = `${Math.random()}`;
+
+    this.store.pipe(
+      select(accountSelectors.operationResult),
       filter(x => x.correlationId === corId),
       take(1)
     ).subscribe(after);

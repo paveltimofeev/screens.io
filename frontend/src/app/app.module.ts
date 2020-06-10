@@ -62,6 +62,8 @@ import { settingsReducer } from './view/settings/store/settings.reducer';
 import { SettingsEffects } from './view/settings/store/settings.effects';
 import { FormButtonComponent } from './ui-kit/form-button/form-button.component';
 import { LoginComponent } from './view/login/login.component';
+import { accountApiReducer, AccountApiState } from './store/account-api/account-api.reducer';
+import { AccountApiEffects } from './store/account-api/account-api.effects';
 
 
 @NgModule({
@@ -105,12 +107,13 @@ import { LoginComponent } from './view/login/login.component';
     FormsModule,
     StoreModule.forRoot({
       app: appReducer,
+      accountApi: accountApiReducer,
       overview: overviewReducer,
+      scenarios: scenariosReducer,
+      scenarioPage: scenarioPageReducer,
       jobs: jobsReducer,
       jobPage: jobPageReducer,
-      scenarioPage: scenarioPageReducer,
       comparer: comparerPageReducer,
-      scenarios: scenariosReducer,
       settings: settingsReducer
     }),
     // StoreDevtoolsModule should be imported after StoreModule
@@ -119,12 +122,13 @@ import { LoginComponent } from './view/login/login.component';
       logOnly: environment.production
     }),
     EffectsModule.forRoot([
+      AccountApiEffects,
       NavigationEffects,
       OverviewEffects,
+      ScenariosEffects,
+      ScenarioPageEffects,
       JobsEffects,
       JobPageEffects,
-      ScenarioPageEffects,
-      ScenariosEffects,
       ComparerEffects,
       SettingsEffects
     ]),

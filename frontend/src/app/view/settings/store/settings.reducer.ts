@@ -1,9 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as actions from './settings.actions'
-import { addCustomViewport } from './settings.actions';
 
-export interface IAccountInfo {
-}
 export interface IViewport {
   _id?: string;
   label: string;
@@ -16,7 +13,7 @@ export interface AppState {
   settings: SettingsState
 }
 export interface SettingsState {
-  accountInfo: any;
+
   viewports: string[];
   viewportsData: IViewport[];
 
@@ -31,7 +28,7 @@ export interface SettingsState {
 }
 
 export const initState = {
-  accountInfo: {},
+
   viewports: [],
   viewportsData: [],
 
@@ -69,14 +66,6 @@ const wellknownViewports =  [
 
 const _reducer = createReducer(initState,
 
-  on(actions.loadedAccountInfo, (state, action) => {
-
-    return {
-      ...state,
-      accountInfo: action.payload
-    }
-  }),
-
   on(actions.loadedViewports, (state, action) => {
 
     return {
@@ -90,13 +79,6 @@ const _reducer = createReducer(initState,
     }
   }),
 
-  on(actions.cleanupUpdateViewportsError, (state, action) => {
-
-    return {
-      ...state,
-      updateViewportsError: null
-    }
-  }),
 
   on(actions.selectViewports, (state, action) => {
 

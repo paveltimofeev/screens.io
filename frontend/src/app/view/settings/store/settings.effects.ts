@@ -5,20 +5,16 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   mergeMap,
   map,
-  delay,
   catchError,
   withLatestFrom
 } from 'rxjs/operators';
-import { concat, Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { DateService } from '../../../services/date.service';
 import { NavigationService } from '../../../services/navigation.service';
 import {
-  deleteAccount,
-  loadedAccountInfo,
   loadedViewports, operationCompleted,
-  refreshAccountInfo,
   refreshViewports,
-  updateAccountInfo, updatePassword, updateViewports
+  updateViewports
 } from './settings.actions';
 import { Store } from '@ngrx/store';
 import { viewportsData } from './settings.selectors';
@@ -43,23 +39,6 @@ export class SettingsEffects {
     }
   }
 
-
-
-  refreshAccountInfo$ = createEffect(() => this.actions$.pipe(
-    ofType(refreshAccountInfo),
-    mergeMap((action) => {
-
-      return this.api.getAccountInfo().pipe(
-        map( res => {
-
-          return {
-            type: loadedAccountInfo.type,
-            payload: res
-          }
-        })
-      );
-    })));
-
   refreshViewports$ = createEffect(() => this.actions$.pipe(
     ofType(refreshViewports),
     mergeMap((action) => {
@@ -80,58 +59,6 @@ export class SettingsEffects {
         })
       );
     })));
-
-
-  updateAccountInfo$ = createEffect(() => this.actions$.pipe(
-    ofType(updateAccountInfo),
-    mergeMap((action) => {
-
-      const corId = action.payload.correlationId;
-
-      return this.api.updateAccountInfo(action.payload.accountInfo)
-        .pipe(
-          map( () => this.operationCompletedAction(corId)),
-          catchError(err => {
-            return of(this.operationCompletedAction(corId, err));
-          })
-        );
-    })));
-
-  updatePassword$ = createEffect(() => this.actions$.pipe(
-    ofType(updatePassword),
-    mergeMap((action) => {
-
-      const corId = action.payload.correlationId;
-
-      return this.api.updatePassword({currentPassword: action.payload.currentPassword, newPassword:action.payload.newPassword})
-        .pipe(
-          map( () => this.operationCompletedAction(corId)),
-          catchError(err => {
-            return of(this.operationCompletedAction(corId, err));
-          })
-        );
-
-    })));
-
-  deleteAccount$ = createEffect(() => this.actions$.pipe(
-    ofType(deleteAccount),
-    mergeMap((action) => {
-
-      const corId = action.payload.correlationId;
-
-      return this.api.deleteAccount({password: action.payload.password})
-        .pipe(
-          map( () => {
-            this.navigate.singOut();
-            return this.operationCompletedAction(corId);
-          }),
-          catchError(err => {
-            return of(this.operationCompletedAction(corId, err));
-          })
-        );
-    })),
-    {dispatch: false});
-
 
   updateViewports$ = createEffect(() => this.actions$.pipe(
     ofType(updateViewports),

@@ -11,7 +11,7 @@
     </ul>
   </div>
   <div class="app-account except-xs">
-    Maddy Savage
+    {{ (accountInfo$ | async).name }}
     <app-icon class="signout-icon" [icon]="'Sign Out'" [routerLink]="['/login']"></app-icon>
   </div>
 

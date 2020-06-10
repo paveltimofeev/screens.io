@@ -93,10 +93,15 @@ export class DataAccessService {
   }
 
   delete (url:string, body?:any): Observable<any> {
-    return this.http.delete(url, {withCredentials: true, body}).pipe(
-      take(1),
-      retryWhen(genericRetryStrategy(this.retryOpts)),
-      catchError(this.handleError.bind(this))
-    );
+
+    return this.http.request(
+        'delete',
+        url,
+        {withCredentials: true, body}
+      ).pipe(
+        take(1),
+        retryWhen(genericRetryStrategy(this.retryOpts)),
+        catchError(this.handleError.bind(this))
+      );
   }
 }

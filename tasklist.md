@@ -105,16 +105,19 @@
 
 TechDept
 - Frontend: Cannot change form field value again after submit data
+- Frontend: AuthGuard to redirect unauthorized users to login page ASAP
 - Frontend: Fix Comparer view Fit/Full mode
+- Frontend: Fix filters at Jobs view
 - Frontend: Do not close menu at mobile view after click, and do not cover header
-- check username/password/... injection: create user "name*" and delete it. Do not allow to create usernames in [a-zA-Z] range or clean out restricted symbols
 
 BackLog
+- [Feature+] Replace innerText with stub value. **Usecase**: user setup scenario for some card component at live server where card's header text changing periodacally (i.e. like news title). To avoid fails every time, he would like to configule scenario to replace text content of `.header` with some stub value.
+- Frontend: Implement Sidebar filters for Scenario, Job Page
 - Show correct values at stats section of sidebar (Scenarios/Jobs)
 - Frontend: RESTYLE UI - Responsive UI (support mobile)
+- check username/password/... injection: create user "name*" and delete it. Do not allow to create usernames in [a-zA-Z] range or clean out restricted symbols
 - Paging for job history: next/prev buttons based on skip + limit=30 and total_count of records
 - Backend: Store/update data for AccountInfo at Settings view
-- Frontend: Implement Sidebar filters
 - Frontend: RESTYLE UI - Sign-in/Sign-up view
 - Frontend: RESTYLE UI - Improve Scenario edit view - add Viewports; add Overview(Summary) with reference image; add HasValues pin; add Description (commentary) for scenario, to make puprose of scenario clearer.
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
@@ -140,7 +143,7 @@ BackLog
 - Check active operations with bad network / no network.
 - **------------ CLOSED BETA MILESTONE ------------**
 
-- Proxy: Refactor utils and storage-adapter.
+- Proxy: To refactor utils and storage-adapter at proxy.
 - Frontend: [Bug/Usecase] If scenario was removed, user still can open it from old Job Page. Either we should show 'Not found' page here, or we should not remove it completely (mark as deleted to skip on runs and display, but allow to open it by direct link for read only without ability to change and run)
 - Frontend & Backend: approveAllFailedCases action produces N approve actions, that leed to N backend requests and N*x MongoDb requests, queues and backend operations. It could be replaced with one smart filter on backend.
 - Frontend: Page Actions (like Run All Again, Approve All Failed Tests) should be a request-reply operations
@@ -187,7 +190,6 @@ BackLog
 - Disable Animation option for scenario
 - [Feature] Support work with sites protected with Basic-Auth or ftp (user:pass); Creds should be stored encrypted, and shouldn't be passed to UI (to prevent leaks via hacked account)
 - Retry Policy for backend-db, backend-queue
-- AuthGuard to redirect unauthorized users to login page ASAP
 - [Costs] Backend: Remove all References and test Files on removing Scenarios or Viewports
 - [Costs] Backend: Remove test result Files and Report after remove history record
 - [Costs & Security] Backend: Remove all files and storage database after user Delete his account (TeamOwner account)

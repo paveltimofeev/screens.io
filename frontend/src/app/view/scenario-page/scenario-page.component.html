@@ -66,6 +66,10 @@
           <div class="tab-title">Page Modification</div>
           <div class="tab-description">optional</div>
         </li>
+        <li (click)="tabSwitchHandler('Stab Content')" [ngClass]="{ 'tab--active': currentTab === 'Stab Content'}">
+          <div class="tab-title">Stab Content</div>
+          <div class="tab-description">optional</div>
+        </li>
         <li (click)="tabSwitchHandler('Interaction')" [ngClass]="{ 'tab--active': currentTab === 'Interaction'}">
           <div class="tab-title">Interaction</div>
           <div class="tab-description">optional</div>
@@ -216,6 +220,50 @@
             [value]="scenario.removeSelectors"
             (valueChange)="changeFieldHandler($event, 'removeSelectors')"
           ></app-text-field>
+
+        </div>
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Stab Content'}">
+          <h3 class="tabs-content-title">Stab Content</h3>
+
+          <div class="horizontal-fields-container">
+            <app-text-field
+              [label]="'Elements selector'"
+              [description]="'Selector for elements that should be stubbed'"
+              [fieldSize]="'full'"
+              [placeholder]="'.class | #id | tag'"
+              [(value)]="stubRule.selector"
+            ></app-text-field>
+
+            <app-text-field
+              [label]="'Stub value for innerText'"
+              [description]="'Value that will replace original content of elements'"
+              [fieldSize]="'full'"
+              [placeholder]="'any text'"
+              [(value)]="stubRule.value"
+            ></app-text-field>
+          </div>
+
+          <app-form-button
+            (clickButton)="addStubRuleHandler(stubRule)"
+          >Add stub</app-form-button>
+
+          <hr class="separation-line">
+
+          <table>
+            <tr *ngFor="let rule of this.scenario.stubInnerTextSelectors">
+              <td>{{ rule.selector }}</td>
+              <td>{{ rule.value }}</td>
+              <td></td>
+            </tr>
+          </table>
+
+          <app-form-button
+            *ngIf="scenario.stubInnerTextSelectors && scenario.stubInnerTextSelectors.length > 0"
+            [isDanger]="true"
+            (clickButton)="scenario.stubInnerTextSelectors = []">
+            Remove all stubs
+          </app-form-button>
 
         </div>
 

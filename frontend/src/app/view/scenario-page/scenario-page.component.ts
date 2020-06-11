@@ -23,8 +23,11 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
 
   id: string;
   scenario: any;
+  stubRule:{selector:string, value:string} = {selector: '', value: ''};
+
   routeData: {createMode?: boolean} = {};
-  currentTab: string = 'General';
+  currentTab: string = 'Stab Content';
+  // currentTab: string = 'General';
 
   title$: Observable<string>;
   scenario$: Observable<any>;
@@ -40,7 +43,7 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
 
     this.title$ = this.store.select( title );
     this.scenario$ = this.store.select( scenario );
-    this.scenario$.subscribe(scenario => this.scenario = scenario);
+    this.scenario$.subscribe(scenario => this.scenario = Object.assign({}, scenario));
     this.scenarioHistory$ = this.store.select( scenarioHistory );
 
     this.route.data.subscribe( data => {
@@ -89,6 +92,22 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
       ...change
     };
   }
+  addStubRuleHandler (stubRule: { selector: string; value: string }) {
+
+    if (!this.scenario.stubInnerTextSelectors) {
+      this.scenario = {
+        ...this.scenario,
+        stubInnerTextSelectors: []
+      }
+    }
+
+    const rule = Object.assign({}, stubRule);
+
+    this.scenario.stubInnerTextSelectors = [
+      ...this.scenario.stubInnerTextSelectors,
+      rule
+    ];
+  }
   saveHandler () {
 
     this.store.dispatch( saveScenario( {payload:{
@@ -124,4 +143,5 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
       this.navigation.openScenarioHistory(jobId)
     }
   }
+
 }

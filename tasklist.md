@@ -100,10 +100,12 @@
 -- Frontend: show current username
 -- Frontend: Move AccountApi Ops into the separate actions/reducer/effects/selectors & extract IAccountInfo model
 -- Frontend: Refresh account info after update
+-- [Feature+] Replace innerText with stub value. **Usecase**: user setup scenario for some card component at live server where card's header text changing periodically (i.e. like news title). To avoid fails every time, he would like to configure scenario to replace text content of `.header` with some stub value.
 
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 
 TechDept
+- Frontend: Tune styles of Stub Rules table & support deletion (and edit) of rule
 - Frontend: Cannot change form field value again after submit data
 - Frontend: AuthGuard to redirect unauthorized users to login page ASAP
 - Frontend: Fix Comparer view Fit/Full mode
@@ -111,7 +113,6 @@ TechDept
 - Frontend: Do not close menu at mobile view after click, and do not cover header
 
 BackLog
-- [Feature+] Replace innerText with stub value. **Usecase**: user setup scenario for some card component at live server where card's header text changing periodacally (i.e. like news title). To avoid fails every time, he would like to configule scenario to replace text content of `.header` with some stub value.
 - Frontend: Implement Sidebar filters for Scenario, Job Page
 - Show correct values at stats section of sidebar (Scenarios/Jobs)
 - Frontend: RESTYLE UI - Responsive UI (support mobile)

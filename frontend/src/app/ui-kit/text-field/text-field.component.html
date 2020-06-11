@@ -19,7 +19,7 @@
     <input [attr.type]="!isPasswordField ? 'text' : 'password'"
            [attr.placeholder]="placeholder"
            [(ngModel)]="value"
-           (ngModelChange)="ngModelChangeHandler($event, val)"
+           (ngModelChange)="ngModelChangeHandler($event, value)"
            #val>
 
     <app-icon
@@ -40,7 +40,7 @@
     <!-- Clear icon -->
     <app-icon
       *ngIf="value != '' && !!value && !defaultValue && !fieldIcon"
-      (click)="value = ''"
+      (click)="clearValueHandler()"
       icon="Close"
       customClass="input-box-icon">
     </app-icon>

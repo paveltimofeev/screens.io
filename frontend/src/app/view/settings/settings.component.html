@@ -59,7 +59,7 @@
           [description]="'Your name as other team members see it.'"
           [fieldSize]="'350'"
           [value]="(accountInfo$ | async).name"
-          (valueChanged)="changeAccountInfoPropHandler($event, 'name')"
+          (valueChange)="changeAccountInfoPropHandler($event, 'name')"
         ></app-text-field>
 
         <app-text-field
@@ -67,7 +67,7 @@
           [description]="'This is your login. We also use this email address to request confirmations for important operations.'"
           [fieldSize]="'350'"
           [value]="(accountInfo$ | async).email"
-          (valueChanged)="changeAccountInfoPropHandler($event, 'email')"
+          (valueChange)="changeAccountInfoPropHandler($event, 'email')"
         ></app-text-field>
 
         <app-text-field
@@ -75,7 +75,7 @@
           [description]="'Enter your password to confirm operation'"
           [isPasswordField]="true"
           [fieldSize]="'350'"
-          (valueChanged)="changeAccountInfoPropHandler($event, 'password')"
+          (valueChange)="changeAccountInfoPropHandler($event, 'password')"
         ></app-text-field>
 
         <p class="success-alert" *ngIf="updateAccountInfoSuccess">
@@ -101,20 +101,20 @@
           [label]="'You current password'"
           [isPasswordField]="true"
           [fieldSize]="'350'"
-          (valueChanged)="updatePasswordPropHandler($event, 'currentPassword')"
+          (valueChange)="updatePasswordPropHandler($event, 'currentPassword')"
         ></app-text-field>
         <app-text-field
           [label]="'New password'"
           [isPasswordField]="true"
           [fieldSize]="'350'"
-          (valueChanged)="updatePasswordPropHandler($event, 'newPassword')"
+          (valueChange)="updatePasswordPropHandler($event, 'newPassword')"
         ></app-text-field>
         <app-text-field
           [label]="'Confirm new password'"
           [isPasswordField]="true"
           [fieldSize]="'350'"
           [error]="updatedPassword.confirmNewPasswordError"
-          (valueChanged)="updatePasswordPropHandler($event, 'confirmNewPassword')"
+          (valueChange)="updatePasswordPropHandler($event, 'confirmNewPassword')"
         ></app-text-field>
 
         <p class="success-alert" *ngIf="updatePasswordSuccess">
@@ -144,7 +144,7 @@
           [description]="'Enter your password to confirm operation'"
           [isPasswordField]="true"
           [fieldSize]="'350'"
-          (valueChanged)="deleteAccountConfirmHandler($event)"
+          (valueChange)="deleteAccountConfirmHandler($event)"
         ></app-text-field>
 
         <p class="error-alert" *ngIf="deleteAccountError">
@@ -233,7 +233,7 @@
           [fieldSize]="'350'"
           [placeholder]="'Custom Screen'"
           [value]="viewports.createCustomViewport.label"
-          (valueChanged)="setCustomViewportHandler('label', $event)"
+          (valueChange)="setCustomViewportHandler('label', $event)"
         ></app-text-field>
 
         <div class="horizontal-fields-container">
@@ -242,7 +242,7 @@
             [fieldSize]="'150'"
             [placeholder]="'1920'"
             [value]="viewports.createCustomViewport.width"
-            (valueChanged)="setCustomViewportHandler('width', $event)"
+            (valueChange)="setCustomViewportHandler('width', $event)"
           ></app-text-field>
 
           <app-text-field
@@ -250,7 +250,7 @@
             [fieldSize]="'150'"
             [placeholder]="'1080'"
             [value]="viewports.createCustomViewport.height"
-            (valueChanged)="setCustomViewportHandler('height', $event)"
+            (valueChange)="setCustomViewportHandler('height', $event)"
           ></app-text-field>
         </div>
 

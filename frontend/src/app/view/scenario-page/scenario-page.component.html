@@ -99,7 +99,7 @@
             [label]="'Scenario name'"
             [fieldSize]="'500'"
             [value]="scenario.label"
-            (valueChanged)="changeFieldHandler($event, 'label')"
+            (valueChange)="changeFieldHandler($event, 'label')"
           ></app-text-field>
 
           <app-text-field
@@ -110,7 +110,7 @@
             [fieldIcon]="'External Link'"
             (iconClick)="openExternalUrlHandler($event)"
             [value]="scenario.url"
-            (valueChanged)="changeFieldHandler($event, 'url')"
+            (valueChange)="changeFieldHandler($event, 'url')"
           ></app-text-field>
 
           <app-text-field
@@ -120,7 +120,7 @@
             [fieldSize]="'350'"
             [value]="scenario.misMatchThreshold"
             [defaultValue]="'0.1'"
-            (valueChanged)="changeFieldHandler($event, 'misMatchThreshold')"
+            (valueChange)="changeFieldHandler($event, 'misMatchThreshold')"
           ></app-text-field>
         </div>
 
@@ -133,7 +133,7 @@
             [fieldSize]="'full'"
             [placeholder]="'.class, #id, tag'"
             [value]="scenario.selectors"
-            (valueChanged)="changeFieldHandler($event, 'selectors')"
+            (valueChange)="changeFieldHandler($event, 'selectors')"
           ></app-text-field>
 
           <app-text-field
@@ -143,7 +143,7 @@
             [placeholder]="'0 - means disabled'"
             [defaultValue]="' '"
             [value]="scenario.expect"
-            (valueChanged)="changeFieldHandler($event, 'expect')"
+            (valueChange)="changeFieldHandler($event, 'expect')"
           ></app-text-field>
 
           <div class="text-field text-field--500">
@@ -173,7 +173,7 @@
             [fieldSize]="'full'"
             [placeholder]="'.class | #id | tag'"
             [value]="scenario.readySelector"
-            (valueChanged)="changeFieldHandler($event, 'readySelector')"
+            (valueChange)="changeFieldHandler($event, 'readySelector')"
           ></app-text-field>
 
 
@@ -182,7 +182,7 @@
             [description]="'Wait until this string has been logged to the console'"
             [fieldSize]="'350'"
             [value]="scenario.readyEvent"
-            (valueChanged)="changeFieldHandler($event, 'readyEvent')"
+            (valueChange)="changeFieldHandler($event, 'readyEvent')"
           ></app-text-field>
 
           <app-text-field
@@ -191,7 +191,7 @@
             [fieldSize]="'350'"
             [placeholder]="'0ms'"
             [value]="scenario.delay"
-            (valueChanged)="changeFieldHandler($event, 'delay')"
+            (valueChange)="changeFieldHandler($event, 'delay')"
           ></app-text-field>
 
         </div>
@@ -205,7 +205,7 @@
             [fieldSize]="'full'"
             [placeholder]="'.class | #id | tag'"
             [value]="scenario.hideSelectors"
-            (valueChanged)="changeFieldHandler($event, 'hideSelectors')"
+            (valueChange)="changeFieldHandler($event, 'hideSelectors')"
           ></app-text-field>
 
           <app-text-field
@@ -214,7 +214,7 @@
             [fieldSize]="'full'"
             [placeholder]="'.class | #id | tag'"
             [value]="scenario.removeSelectors"
-            (valueChanged)="changeFieldHandler($event, 'removeSelectors')"
+            (valueChange)="changeFieldHandler($event, 'removeSelectors')"
           ></app-text-field>
 
         </div>
@@ -228,7 +228,7 @@
             [fieldSize]="'full'"
             [placeholder]="'.class, #id, tag'"
             [value]="scenario.clickSelectors"
-            (valueChanged)="changeFieldHandler($event, 'clickSelectors')"
+            (valueChange)="changeFieldHandler($event, 'clickSelectors')"
           ></app-text-field>
 
           <app-text-field
@@ -237,7 +237,7 @@
             [fieldSize]="'full'"
             [placeholder]="'.class, #id, tag'"
             [value]="scenario.hoverSelectors"
-            (valueChanged)="changeFieldHandler($event, 'hoverSelectors')"
+            (valueChange)="changeFieldHandler($event, 'hoverSelectors')"
           ></app-text-field>
 
           <app-text-field
@@ -246,7 +246,7 @@
             [fieldSize]="'full'"
             [placeholder]="'.class | #id | tag'"
             [value]="scenario.scrollToSelector"
-            (valueChanged)="changeFieldHandler($event, 'scrollToSelector')"
+            (valueChange)="changeFieldHandler($event, 'scrollToSelector')"
           ></app-text-field>
 
           <app-text-field
@@ -255,7 +255,7 @@
             [fieldSize]="'350'"
             [placeholder]="'0ms'"
             [value]="scenario.postInteractionWait"
-            (valueChanged)="changeFieldHandler($event, 'postInteractionWait')"
+            (valueChange)="changeFieldHandler($event, 'postInteractionWait')"
           ></app-text-field>
 
         </div>

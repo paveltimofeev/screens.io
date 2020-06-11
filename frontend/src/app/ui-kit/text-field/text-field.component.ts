@@ -28,23 +28,36 @@ export class TextFieldComponent {
   fieldIcon:string;
 
   @Input()
-  value:string;
-
-  @Input()
   defaultValue:string;
 
   @Input()
   fieldSize: string = '350'; // 150 | 350 | 500 | full
 
-
   @Output()
   iconClick:EventEmitter<string> = new EventEmitter();
 
+
+  /**
+   * To implement two-way binding there should be pair of Input and Output props,
+   * and Output prop should have the same name as Input plus 'Change' suffix,
+   * like this:
+   *  input - 'value', output - 'valueChange',
+   * In this case value property could be used as [(value)], like: '<app-text-field [(value)]="someField"></app-text-field>'
+   * */
+  @Input()
+  value:string;
+
   @Output()
-  valueChanged:EventEmitter<string> = new EventEmitter();
+  valueChange:EventEmitter<string> = new EventEmitter();
+
 
   ngModelChangeHandler(e) {
-    this.valueChanged.emit(e)
+    this.valueChange.emit(this.value)
+  }
+
+  clearValueHandler () {
+    this.value = '';
+    this.ngModelChangeHandler(this.value);
   }
 
   resetValueHandler () {

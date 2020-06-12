@@ -2,6 +2,7 @@
   [title]="!routeData.createMode ? 'Edit: ' + (title$ | async) : 'Create New Scenario'"
   [description]="'Each scenario will test one page, component or action against one or many viewport sizes'"
   [breadcrumb]="true"
+  [hideDataActionsBar]="true"
   [hideSidebar]="routeData.createMode"
 >
 
@@ -226,6 +227,8 @@
         <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Stab Content'}">
           <h3 class="tabs-content-title">Stab Content</h3>
 
+          <p>You can define stub values for any DOM element by selector</p>
+
           <div class="horizontal-fields-container">
             <app-text-field
               [label]="'Elements selector'"
@@ -245,25 +248,33 @@
           </div>
 
           <app-form-button
+            [isPrimary]="true"
             (clickButton)="addStubRuleHandler(stubRule)"
-          >Add stub</app-form-button>
+          >Add new stub</app-form-button>
 
-          <hr class="separation-line">
-
-          <table>
-            <tr *ngFor="let rule of this.scenario.stubInnerTextSelectors">
-              <td>{{ rule.selector }}</td>
-              <td>{{ rule.value }}</td>
-              <td></td>
-            </tr>
-          </table>
-
-          <app-form-button
+          <div
             *ngIf="scenario.stubInnerTextSelectors && scenario.stubInnerTextSelectors.length > 0"
-            [isDanger]="true"
-            (clickButton)="scenario.stubInnerTextSelectors = []">
-            Remove all stubs
-          </app-form-button>
+          >
+
+            <hr class="separation-line">
+
+            <h3 class="tabs-content-title">Added Stabs</h3>
+
+            <div class="rules-table">
+              <div class="rules-table-row"
+                   *ngFor="let rule of this.scenario.stubInnerTextSelectors">
+                <span class="rules-table-col1">{{ rule.selector }}</span>
+                <span class="rules-table-col2">{{ rule.value }}</span>
+              </div>
+            </div>
+
+            <app-form-button
+              [isDanger]="true"
+              (clickButton)="scenario.stubInnerTextSelectors = []">
+              Remove all stubs
+            </app-form-button>
+
+          </div>
 
         </div>
 

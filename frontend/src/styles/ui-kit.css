@@ -757,8 +757,8 @@ app-data-action-button:first-child {
   width: 100%;
 }
 .tabs-list {
-  width: 300px;
-  padding-right: 50px;
+  width: var(--px311);
+  padding-right: var(--px50);
 
   list-style-type: none;
   margin-block-start: 0;
@@ -769,8 +769,8 @@ app-data-action-button:first-child {
 }
 .tabs-list li {
   color: #989898;
-  padding-top: 14px;
-  padding-bottom: 14px;
+  padding-top: var(--px14);
+  padding-bottom: var(--px14);
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -788,7 +788,7 @@ app-data-action-button:first-child {
   color: #1F1F1F;
 }
 .tabs-content .tabs-content-title {
-  margin-top: 14px;
+  margin-top: var(--px14);
 }
 .tabs-content .tabs-content-title,
 .tabs-list .tab-title {
@@ -1205,6 +1205,41 @@ app-data-action-button:first-child {
   display: inline-block;
   margin-bottom: 2px;
   margin-top: 2px;
+}
+
+
+.rules-table {
+  margin-bottom: var(--px24);
+}
+.rules-table-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--px10);
+  font-size: var(--px14);
+}
+.rules-table-row + .rules-table-row {
+  border-top: 1px solid #EEEEEE;
+}
+.rules-table-row:hover {
+  background: #FBFBFB;
+}
+.rules-table-col1 {
+  background: #f3f3f3;
+  height: fit-content;
+  padding: 3px 6px;
+  margin-bottom: var(--px10);
+  margin-right: var(--px10);
+  border-radius: 4px;
+  font-weight: 500;
+  color: #1F1F1F;
+  line-height: 140%;
+}
+.rules-table-col2 {
+  margin-bottom: var(--px10);
+  color: #1F1F1F;
+  line-height: 140%;
 }
 
 

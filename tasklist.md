@@ -101,11 +101,12 @@
 -- Frontend: Move AccountApi Ops into the separate actions/reducer/effects/selectors & extract IAccountInfo model
 -- Frontend: Refresh account info after update
 -- [Feature+] Replace innerText with stub value. **Usecase**: user setup scenario for some card component at live server where card's header text changing periodically (i.e. like news title). To avoid fails every time, he would like to configure scenario to replace text content of `.header` with some stub value.
+-- Frontend: Tune styles of Stub Rules table
 
 - Run scenarios with overridden parameters (scenarios + viewports filtration)
 
 TechDept
-- Frontend: Tune styles of Stub Rules table & support deletion (and edit) of rule
+- Frontend: support deletion (and edit) of stub rules
 - Frontend: Cannot change form field value again after submit data
 - Frontend: AuthGuard to redirect unauthorized users to login page ASAP
 - Frontend: Fix Comparer view Fit/Full mode
@@ -213,7 +214,7 @@ BackLog
 - [Legal] FontAwsome can be used for commercial project?
 - [Legal] juxtaposejs can be used for commercial project?
 - [Frontend] Support dark theme based on 'prefers-color-scheme' css media function
-
+- Invalid css-selector could crash test
 
 - Screen-Git analogy
 - DOCKERIZE AUTH-PROXY & BACKEND AND RUN THEM IN AWS

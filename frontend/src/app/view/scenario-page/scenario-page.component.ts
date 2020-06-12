@@ -9,10 +9,10 @@ import {
   refreshScenarioHistory,
   runScenario, saveScenario, deleteScenario, initNewScenario, createScenario
 } from './store/scenario-page.actions';
-import { Observable, interval } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IScenarioHistory } from './store/scenario-page.reducer';
 import { title, scenario, scenarioHistory } from './store/scenario-page.selectors';
-import { map, take, tap, delay } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-scenario-page',
@@ -26,8 +26,7 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
   stubRule:{selector:string, value:string} = {selector: '', value: ''};
 
   routeData: {createMode?: boolean} = {};
-  currentTab: string = 'Stab Content';
-  // currentTab: string = 'General';
+  currentTab: string = 'General';
 
   title$: Observable<string>;
   scenario$: Observable<any>;

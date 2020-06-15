@@ -64,6 +64,8 @@ import { FormButtonComponent } from './ui-kit/form-button/form-button.component'
 import { LoginComponent } from './view/login/login.component';
 import { accountApiReducer, AccountApiState } from './store/account-api/account-api.reducer';
 import { AccountApiEffects } from './store/account-api/account-api.effects';
+import { appApiReducer } from './store/app-api/app-api.reducer';
+import { AppApiEffects } from './store/app-api/app-api.effects';
 
 
 @NgModule({
@@ -107,6 +109,7 @@ import { AccountApiEffects } from './store/account-api/account-api.effects';
     FormsModule,
     StoreModule.forRoot({
       app: appReducer,
+      appApi: appApiReducer,
       accountApi: accountApiReducer,
       overview: overviewReducer,
       scenarios: scenariosReducer,
@@ -122,6 +125,7 @@ import { AccountApiEffects } from './store/account-api/account-api.effects';
       logOnly: environment.production
     }),
     EffectsModule.forRoot([
+      AppApiEffects,
       AccountApiEffects,
       NavigationEffects,
       OverviewEffects,

@@ -103,11 +103,11 @@
 -- [Feature+] Replace innerText with stub value. **Usecase**: user setup scenario for some card component at live server where card's header text changing periodically (i.e. like news title). To avoid fails every time, he would like to configure scenario to replace text content of `.header` with some stub value.
 -- Frontend: Tune styles of Stub Rules table
 -- Frontend: support deletion of stub rules
+-- Frontend: Cannot change form field value again after submit data [Not confirm anymore]
+-- Frontend: Run scenarios with overridden parameters (scenarios + viewports filtration)
 
-- Run scenarios with overridden parameters (scenarios + viewports filtration)
 
 TechDept
-- Frontend: Cannot change form field value again after submit data
 - Frontend: AuthGuard to redirect unauthorized users to login page ASAP
 - Frontend: Fix Comparer view Fit/Full mode
 - Frontend: Fix filters at Jobs view

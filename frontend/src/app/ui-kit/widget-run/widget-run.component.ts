@@ -1,8 +1,8 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 export class Filters {
-  scenariosFilter:string;
-  viewports:string[]
+  scenarios: string[];
+  viewports: string[]
 }
 
 @Component({
@@ -13,17 +13,24 @@ export class WidgetRunComponent {
 
   filters:Filters = new Filters();
 
-  @ViewChild('scenariosFilter')
-  scenariosFilter:ElementRef;
+  scenariosFilter: string;
+  viewportsFilter: string[];
 
   @Input()
-  viewports;
+  scenarios:string[];
+
+  @Input()
+  viewports:string[];
+
+  @Input()
+  isRunning: boolean;
 
   @Output()
   clickRunFiltered: EventEmitter<Filters> = new EventEmitter();
 
-  scenariosFilterChanged (scenariosFilter) {
-    this.filters.scenariosFilter = scenariosFilter;
+  scenariosFilterChanged () {
+
+    this.filters.scenarios = this.scenarios.filter( x => x.toLowerCase().indexOf(this.scenariosFilter.toLowerCase()) > -1 )
   }
 
   viewportSelectionChanged (viewports) {
@@ -32,6 +39,15 @@ export class WidgetRunComponent {
 
   clickRunFilteredHandler () {
 
-    this.clickRunFiltered.emit(this.filters);
+    if (!this.isRunning) {
+      this.clickRunFiltered.emit(this.filters);
+    }
+  }
+
+  resetHandler () {
+    this.filters.scenarios = [];
+    this.filters.viewports = [];
+    this.scenariosFilter = '';
+    this.viewportsFilter = [];
   }
 }

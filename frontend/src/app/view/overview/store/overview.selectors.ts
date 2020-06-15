@@ -23,4 +23,11 @@ export const stats = createSelector(
     }}
 );
 
-  
+
+export const runFilteredWidgetData = createSelector(
+  selectFeature,
+  (state: OverviewState) => { return {
+    scenarios: state.scenariosLabels,
+    viewports: state.viewportsLabels,
+  }}
+);

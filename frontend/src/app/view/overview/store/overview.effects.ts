@@ -11,7 +11,7 @@ import {
   cleanupNgrxStorage
 } from './overview.actions';
 import { mergeMap, map, debounceTime, filter } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { DateService } from '../../../services/date.service';
 import { environment } from '../../../../environments/environment';
 
@@ -55,17 +55,26 @@ export class OverviewEffects {
     ofType(refresh),
     mergeMap(() => {
 
-      return this.api.getFavoriteScenarios()
-        .pipe(
+      return forkJoin(
+        this.api.getScenarios(),
+        this.api.getEnabledViewports(),
+        this.api.getFavoriteScenarios()
+      ).pipe(
 
-        map( res => {
-          return { type: loaded.type, payload: {
+        map( ([scenarios, viewports, favorites]) => {
 
-              //scenarios: res.data
-              favoriteScenarios: res.data.map( x => ({...x, meta_referenceImageUrl: `${environment.media}${x.meta_referenceImageUrl}`})),
+          return {
+            type: loaded.type,
+            payload: {
 
-              totalScenarios: 0,
-              totalViewports: 0,
+              favoriteScenarios: favorites.data.map( x => ({...x, meta_referenceImageUrl: `${environment.media}${x.meta_referenceImageUrl}`})),
+
+              totalScenarios: scenarios.data.length,
+              totalViewports: viewports.data.length,
+
+              scenariosLabels: scenarios.data.map(x => x.label),
+              viewportsLabels: viewports.data.map(x => x.label),
+
               lastRunTime: -1,
               totalState: ''
             }}

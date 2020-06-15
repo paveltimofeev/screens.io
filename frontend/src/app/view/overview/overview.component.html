@@ -76,7 +76,9 @@
   <div class="widgets-right-placeholder">
 
     <app-widget-run
-      [viewports]="['1920 × 1080', '1600 × 900', '1270 × 768', '800 × 600']"
+      [viewports]="(runFilteredWidgetData$ | async).viewports"
+      [scenarios]="(runFilteredWidgetData$ | async).scenarios"
+      [isRunning]="runFilteredInProgress"
       (clickRunFiltered)="runFilteredScenariosHandler($event)"
     >
     </app-widget-run>

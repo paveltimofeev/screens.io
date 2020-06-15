@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IBarItem } from '../../ui-kit/widget-timeline/widget-timeline.component';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { favoriteScenarios, recentJobs, stats } from './store/overview.selectors';
+import { favoriteScenarios, recentJobs, runFilteredWidgetData, stats } from './store/overview.selectors';
 import {
   cleanupNgrxStorage,
   refresh,
@@ -11,6 +11,10 @@ import {
 } from './store/overview.actions';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { Filters } from '../../ui-kit/widget-run/widget-run.component';
+import * as accountSelectors from '../../store/account-api/account-api.selectors';
+import { filter, take } from 'rxjs/operators';
+import { operationResult } from '../../store/app-api/app-api.selectors';
+import { runFilteredScenariosOp } from '../../store/app-api/app-api.actions';
 
 @Component({
   selector: 'app-overview',
@@ -22,6 +26,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
   favoriteScenarios$: Observable<any[]>;
   recentJobs$: Observable<any[]>;
   stats$: Observable<any>;
+  runFilteredWidgetData$: Observable<any>;
 
   constructor(
     private store: Store,
@@ -33,6 +38,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
     this.favoriteScenarios$ = this.store.pipe(select(favoriteScenarios))
     this.recentJobs$ = this.store.pipe(select(recentJobs))
     this.stats$ = this.store.pipe(select(stats))
+    this.runFilteredWidgetData$ = this.store.pipe(select(runFilteredWidgetData))
 
     this.store.dispatch(refresh())
     this.store.dispatch(refreshRecentRuns())
@@ -87,7 +93,39 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   }
 
+  runFilteredInProgress:boolean = false;
+
   runFilteredScenariosHandler ($event: Filters) {
 
+    const corId = this.appOp(
+      () => { this.runFilteredInProgress = true; },
+      (res) => {
+        console.log('completed', res);
+        this.runFilteredInProgress = false;
+      }
+    );
+
+    this.store.dispatch( runFilteredScenariosOp({
+        payload: {
+          correlationId: corId,
+          scenarios: $event.scenarios,
+          viewports: $event.viewports
+        }
+      }))
+  }
+
+  appOp(before:Function, after):string {
+
+    before();
+
+    let corId = `${Math.random()}`;
+
+    this.store.pipe(
+      select(operationResult),
+      filter(x => x.correlationId === corId),
+      take(1)
+    ).subscribe(after);
+
+    return corId;
   }
 }

@@ -18,6 +18,8 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { FormsModule } from '@angular/forms';
 import { routes } from './app.routes';
+import { LoggedIn } from './guards/logged-in.guard';
+
 import { OverviewComponent } from './view/overview/overview.component';
 import { ScenariosComponent } from './view/scenarios/scenarios.component';
 import { OverviewLayoutComponent } from './layouts/overview-layout/overview-layout.component';
@@ -62,7 +64,7 @@ import { settingsReducer } from './view/settings/store/settings.reducer';
 import { SettingsEffects } from './view/settings/store/settings.effects';
 import { FormButtonComponent } from './ui-kit/form-button/form-button.component';
 import { LoginComponent } from './view/login/login.component';
-import { accountApiReducer, AccountApiState } from './store/account-api/account-api.reducer';
+import { accountApiReducer } from './store/account-api/account-api.reducer';
 import { AccountApiEffects } from './store/account-api/account-api.effects';
 import { appApiReducer } from './store/app-api/app-api.reducer';
 import { AppApiEffects } from './store/app-api/app-api.effects';
@@ -140,7 +142,7 @@ import { AppApiEffects } from './store/app-api/app-api.effects';
     AgGridModule.withComponents([])
   ],
   entryComponents: [],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ LoggedIn ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

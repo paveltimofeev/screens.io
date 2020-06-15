@@ -30,10 +30,13 @@ export class LoginComponent {
 
   signinHandler (form: NgForm) {
 
-    if (form.valid) {      
+    if (form.valid) {
       this.api
         .signin(form.value.user, form.value.password)
         .subscribe(() => {
+
+          var ss = window.sessionStorage;
+          ss.setItem('li', '1');
 
           this.router.navigate(['/']);
         });
@@ -45,6 +48,10 @@ export class LoginComponent {
     this.api
       .signout()
       .subscribe( () => {
+
+        var ss = window.sessionStorage;
+        ss.clear();
+
         console.log('singout completed')
         this.router.navigate(['/login']);
       });

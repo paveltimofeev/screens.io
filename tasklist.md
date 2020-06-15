@@ -105,10 +105,10 @@
 -- Frontend: support deletion of stub rules
 -- Frontend: Cannot change form field value again after submit data [Not confirm anymore]
 -- Frontend: Run scenarios with overridden parameters (scenarios + viewports filtration)
+-- Frontend: AuthGuard to redirect unauthorized users to login page ASAP
 
 
 TechDept
-- Frontend: AuthGuard to redirect unauthorized users to login page ASAP
 - Frontend: Fix Comparer view Fit/Full mode
 - Frontend: Fix filters at Jobs view
 - Frontend: Close menu at mobile view after click, and do not cover header

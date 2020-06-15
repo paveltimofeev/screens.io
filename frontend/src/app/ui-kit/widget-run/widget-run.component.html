@@ -12,8 +12,10 @@
     >
     </app-text-field>
 
-    <small *ngIf="filters.scenarios && filters.scenarios.length > 0 && filters.scenarios.length !== this.scenarios.length">
-      Filtered ({{filters.scenarios.length}}): {{filters.scenarios}}
+    <small
+      class="filter-text"
+      *ngIf="filters.scenarios && scenariosFilter.length > 0 && filters.scenarios.length !== this.scenarios.length">
+      Filtered ({{filters.scenarios.length}}): {{filters.scenarios.join(', ')}}
     </small>
 
     <span class="viewports-selector-header">Viewports</span>

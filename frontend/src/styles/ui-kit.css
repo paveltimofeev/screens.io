@@ -63,6 +63,7 @@
   --px32: 1.667vw;
   --px36: 1.875vw;
   --px40: 2.083vw;
+  --px46: 2.396vw;
   --px48: 2.500vw;
   --px50: 2.604vw;
   --px60: 3.125vw;
@@ -109,6 +110,7 @@
     --px32: 32px;
     --px36: 36px;
     --px40: 40px;
+    --px46: 46px;
     --px48: 48px;
     --px50: 50px;
     --px60: 60px;
@@ -1690,7 +1692,14 @@ app-data-action-button:first-child {
   align-items: flex-end;
   justify-content: flex-end;
 }
-
+.widget-run .run-form .text-field {
+  margin-bottom: var(--px14);
+}
+.widget-run .run-form .filter-text {
+  margin-bottom: var(--px16);
+  height: var(--px46);
+  overflow: hidden;
+}
 
 /* VIEWPORTS SELECTOR */
 

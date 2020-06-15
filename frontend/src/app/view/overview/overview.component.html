@@ -6,8 +6,8 @@
 
     <app-widget-label
       [state]="'passed'"
-      [scenarios]="72"
-      [viewports]="3"
+      [scenarios]="(stats$ | async).totalScenarios"
+      [viewports]="(stats$ | async).totalViewports"
       [lastRun]="'2h 36min ago'">
     </app-widget-label>
 
@@ -21,10 +21,8 @@
         [title]="'Today'"
         [isLargeContent]="true"
         [bgColor]="'blue'">
-
         Nothing broken<br>
         <app-icon icon="Nothing broken"></app-icon>
-
       </app-widget>
 
       <app-widget
@@ -40,8 +38,8 @@
         [title]="'This week'"
         [passedPercent]="52"
         [delta]="'+7'"
-        [chartData]="weeklyPassed"
-      ></app-widget-timeline>
+        [chartData]="weeklyPassed">
+      </app-widget-timeline>
 
     </div>
     <div class="widgets-center-row">
@@ -52,8 +50,8 @@
         [scenarioName]="'Home Page / Navigation Bar Component'"
         [failsPercent]="73"
         [imageUrl]="'assets/images/stubs/screen9.png'"
-        (clickOnImage)="mostFragileCaseHandler($event)"
-      ></app-widget-fragiled>
+        (clickOnImage)="mostFragileCaseHandler($event)">
+      </app-widget-fragiled>
 
       <app-widget
         [title]="'Already'"
@@ -66,7 +64,7 @@
         [title]="'Test cases'"
         [isAccentValue]="true"
         [bgColor]="'white'">
-        <span><em>72</em><br>37 are stable</span>
+        <span><em>{{ (stats$ | async).totalScenarios }}</em><br>3 are stable</span>
       </app-widget>
 
     </div>

@@ -7,27 +7,25 @@ export interface AppState {
 export interface OverviewState {
   favoriteScenarios: any[];
   recentJobs: any[];
-
   totalScenarios: number;
   totalViewports: number;
   viewportsLabels: string[];
   scenariosLabels: string[];
+
   lastRunTime: any;
-  totalState: string;
-  autoRefreshRun: boolean;
+  totalState: string
 }
 
 export const initState = {
   favoriteScenarios: [],
   recentJobs: [],
-
   totalScenarios: 0,
   totalViewports: 0,
   scenariosLabels: [],
   viewportsLabels: [],
+
   lastRunTime: -1,
-  totalState: '',
-  autoRefreshRun: true
+  totalState: ''
 };
 
 const _reducer = createReducer(initState,
@@ -51,8 +49,7 @@ const _reducer = createReducer(initState,
     on(actions.cleanupNgrxStorage, (state, action) => {
 
       return {
-        ...initState,
-        autoRefreshRun: false
+        ...initState
       }
     })
 );

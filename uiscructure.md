@@ -152,6 +152,8 @@
         https://grayic.com/demos/shade/s04/index.html
     interactive shapes
     Images for storytelling and avatars:
+        - https://ui8.net/delightdesign/products/business-administration-illustration-delight (free)
+        - https://ui8.net/pixel-true-designs/products/70-beautiful-free-illustrations (free)
         - https://ui8.net/wowdesign/products/moiety-illustrations
         - https://ui8.net/wowdesign/products/placid-illustrations
         - https://ui8.net/foxy-vector/products/sticker-pack (make it right before tonight)
@@ -161,6 +163,7 @@
         
         (with) UI layout examples
         - https://ui8.net/ui-files/products/wireframer-web-kit
+        - https://ui8.net/twri/products/e-learning-education-vol-2 (free)
         - https://ui8.net/coursademy/products/wiresketch-ui-kit (free)
         - https://ui8.net/designtech/products/startupio---saas-web-landing-page-ui-kit (free)
         - https://ui8.net/elawulansari/products/seo-and-development

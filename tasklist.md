@@ -107,6 +107,7 @@
 -- Frontend: Run scenarios with overridden parameters (scenarios + viewports filtration)
 -- Frontend: AuthGuard to redirect unauthorized users to login page ASAP
 
+- Frontend: RESTYLE UI - Sign-in/Sign-up view
 
 TechDept
 - Frontend: Fix Comparer view Fit/Full mode
@@ -120,7 +121,6 @@ BackLog
 - check username/password/... injection: create user "name*" and delete it. Do not allow to create usernames in [a-zA-Z] range or clean out restricted symbols
 - Paging for job history: next/prev buttons based on skip + limit=30 and total_count of records
 - Backend: Store/update data for AccountInfo at Settings view
-- Frontend: RESTYLE UI - Sign-in/Sign-up view
 - Frontend: RESTYLE UI - Improve Scenario edit view - add Viewports; add Overview(Summary) with reference image; add HasValues pin; add Description (commentary) for scenario, to make puprose of scenario clearer.
 - Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - [Bug] **New User Init Process**: New user does not have any Viewports configured and do not have ability to add them.

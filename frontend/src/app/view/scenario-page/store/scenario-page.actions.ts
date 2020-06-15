@@ -32,3 +32,18 @@ export const createScenario = createAction(
   '[Scenario Page Component] createScenario',
   props<{ payload: { scenario:any } }>()
 );
+
+export const setScenarioProp = createAction(
+  '[Scenario Page Component] setScenarioProp',
+  props<{ payload: { field:string, value:any, isArray?:boolean } }>()
+);
+
+export const removeScenarioArrayValue = createAction(
+  '[Scenario Page Component] removeScenarioArrayValue',
+  props<{ payload: { field:string, index:any } }>()
+);
+
+export const resetScenarioArrayValue = createAction(
+  '[Scenario Page Component] resetScenarioArrayValue',
+  props<{ payload: { field:string } }>()
+);

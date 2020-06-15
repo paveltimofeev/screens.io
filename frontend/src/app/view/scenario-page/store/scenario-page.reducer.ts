@@ -59,6 +59,60 @@ const _reducer = createReducer(initState,
     }
   }),
 
+  on(actions.setScenarioProp, (state, action) => {
+
+    let change = {};
+
+    if (!action.payload.isArray) {
+
+      change[action.payload.field] = action.payload.value;
+    }
+    else {
+
+      change[action.payload.field] = [
+        ...(state.scenario[action.payload.field] || []),
+        ...action.payload.value
+      ]
+    }
+
+    return {
+      ...state,
+      scenario: {
+        ...state.scenario,
+        ...change
+      }
+    }
+  }),
+
+  on(actions.removeScenarioArrayValue, (state, action) => {
+
+    let field = state.scenario[action.payload.field];
+    let change = {};
+    change[action.payload.field] = field.filter( x => x != field[action.payload.index]);
+
+    return {
+      ...state,
+      scenario: {
+        ...state.scenario,
+        ...change
+      }
+    }
+  }),
+
+  on(actions.resetScenarioArrayValue, (state, action) => {
+
+    let change = {};
+    change[action.payload.field] = [];
+
+    return {
+      ...state,
+      scenario: {
+        ...state.scenario,
+        ...change
+      }
+    }
+  }),
+
   on(actions.cleanupNgrxStorage, (state, action) => {
 
     return initState

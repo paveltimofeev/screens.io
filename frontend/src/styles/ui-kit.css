@@ -1215,7 +1215,7 @@ app-data-action-button:first-child {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   padding-top: var(--px10);
   font-size: var(--px14);
 }
@@ -1240,6 +1240,25 @@ app-data-action-button:first-child {
   margin-bottom: var(--px10);
   color: #1F1F1F;
   line-height: 140%;
+
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  min-width: 50%;
+  text-align: right;
+}
+.rules-table-col2 > span:first-child {
+  flex: 1;
+}
+.rules-table-col2 > span + * {
+  margin-left: var(--px16);
+  margin-right: var(--px10);
+  height: fit-content;
+  color: var(--color-green);
+}
+.rules-table-col2 > span + *:hover {
+  color: var(--color-green-dark);
+  cursor: pointer;
 }
 
 

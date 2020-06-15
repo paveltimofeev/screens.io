@@ -7,7 +7,14 @@ import {
   cloneScenario,
   refresh,
   refreshScenarioHistory,
-  runScenario, saveScenario, deleteScenario, initNewScenario, createScenario
+  runScenario,
+  saveScenario,
+  deleteScenario,
+  initNewScenario,
+  createScenario,
+  removeScenarioArrayValue,
+  setScenarioProp,
+  resetScenarioArrayValue
 } from './store/scenario-page.actions';
 import { Observable } from 'rxjs';
 import { IScenarioHistory } from './store/scenario-page.reducer';
@@ -42,7 +49,7 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
 
     this.title$ = this.store.select( title );
     this.scenario$ = this.store.select( scenario );
-    this.scenario$.subscribe(scenario => this.scenario = Object.assign({}, scenario));
+    this.scenario$.subscribe(scenario => this.scenario = scenario);
     this.scenarioHistory$ = this.store.select( scenarioHistory );
 
     this.route.data.subscribe( data => {
@@ -81,32 +88,38 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
       //this.store.dispatch( refreshScenarioHistory({payload:{id:this.id}}) );
     })
   }
+
   changeFieldHandler ($event, field) {
 
-    let change = {};
-    change[field] = $event;
-
-    this.scenario = {
-      ...this.scenario,
-      ...change
-    };
+    this.store.dispatch( setScenarioProp({payload:
+        {
+          field,
+          value: $event
+        }}))
   }
   addStubRuleHandler (stubRule: { selector: string; value: string }) {
 
-    if (!this.scenario.stubInnerTextSelectors) {
-      this.scenario = {
-        ...this.scenario,
-        stubInnerTextSelectors: []
-      }
-    }
-
-    const rule = Object.assign({}, stubRule);
-
-    this.scenario.stubInnerTextSelectors = [
-      ...this.scenario.stubInnerTextSelectors,
-      rule
-    ];
+    this.store.dispatch( setScenarioProp({payload:
+        {
+          field: 'stubContentRules',
+          value: Object.assign({}, stubRule),
+          isArray: true
+        }}))
   }
+  removeStubRuleHandler (index: number) {
+
+    this.store.dispatch( removeScenarioArrayValue({payload:
+        {
+          field: 'stubContentRules',
+          index
+        }}))
+  }
+  removeAllStubRulesHandler () {
+
+    this.store.dispatch( resetScenarioArrayValue(
+      {payload: { field: 'stubContentRules' }}))
+  }
+
   saveHandler () {
 
     this.store.dispatch( saveScenario( {payload:{
@@ -142,5 +155,4 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
       this.navigation.openScenarioHistory(jobId)
     }
   }
-
 }

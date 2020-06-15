@@ -227,7 +227,7 @@
         <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Stab Content'}">
           <h3 class="tabs-content-title">Stab Content</h3>
 
-          <p>You can define stub values for any DOM element by selector</p>
+          <p>You can replace innerText of any DOM element with stub values defined below</p>
 
           <div class="horizontal-fields-container">
             <app-text-field
@@ -253,7 +253,7 @@
           >Add new stub</app-form-button>
 
           <div
-            *ngIf="scenario.stubInnerTextSelectors && scenario.stubInnerTextSelectors.length > 0"
+            *ngIf="scenario.stubContentRules && scenario.stubContentRules.length > 0"
           >
 
             <hr class="separation-line">
@@ -262,15 +262,18 @@
 
             <div class="rules-table">
               <div class="rules-table-row"
-                   *ngFor="let rule of this.scenario.stubInnerTextSelectors">
+                   *ngFor="let rule of this.scenario.stubContentRules; index as idx">
                 <span class="rules-table-col1">{{ rule.selector }}</span>
-                <span class="rules-table-col2">{{ rule.value }}</span>
+                <span class="rules-table-col2">
+                  <span>{{ rule.value }}</span>
+                  <app-icon [icon]="'Close'" (click)="removeStubRuleHandler(idx)"></app-icon>
+                </span>
               </div>
             </div>
 
             <app-form-button
               [isDanger]="true"
-              (clickButton)="scenario.stubInnerTextSelectors = []">
+              (clickButton)="removeAllStubRulesHandler()">
               Remove all stubs
             </app-form-button>
 

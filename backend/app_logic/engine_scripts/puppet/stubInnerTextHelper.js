@@ -1,6 +1,6 @@
 module.exports = async (page, scenario) => {
 
-  const stubs = scenario.stubInnerTextSelectors || []; // [ { selector:string, value:string } ]
+  const stubs = scenario.stubContentRules || []; // [ { selector:string, value:string } ]
 
   if (stubs && stubs.length > 0) {
 

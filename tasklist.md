@@ -143,6 +143,7 @@ BackLog
 - Use Master term instead of Reference?
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- Use masked images for signin/signup page
 - Register user by email/gmail and promocode with email confirmation.
 - Proxy: To refactor utils and storage-adapter at proxy.
 - check username/password/... injection: create user "name*" and delete it. Do not allow to create usernames in [a-zA-Z] range or clean out restricted symbols
@@ -213,6 +214,8 @@ BackLog
 - [Security] Check npm deps for vulnerabilities by npm audit at lease, and fix them
 - [Legal] FontAwsome can be used for commercial project?
 - [Legal] juxtaposejs can be used for commercial project?
+- [Legal] Unsplush images can be used for commercial project?
+- [Legal] Terms of Service, Privacy Policy, Cookie Policy and Beta Service Agreement - what needed?
 - [Frontend] Support dark theme based on 'prefers-color-scheme' css media function
 - Invalid css-selector could crash test
 

@@ -1,14 +1,27 @@
-<div class="hero except-xs">
-  <img *ngIf="(mode$ | async) === 'signin'" src="assets/images/hero/signin.jpg" alt="Welcome back">
-  <img *ngIf="(mode$ | async) === 'signup'" src="assets/images/hero/signup.jpg" alt="Welcome back">
+<div class="hero-section except-xs">
+  <img
+    class="hero-image"
+    [ngClass]="{
+    'hero-image--shown': !signUpMode,
+    'hero-image--hidden': signUpMode
+    }"
+    src="assets/images/hero/signin.jpg" alt="Welcome back">
+  <img
+    class="hero-image"
+    [ngClass]="{
+    'hero-image--shown': signUpMode,
+    'hero-image--hidden': !signUpMode
+    }"
+    src="assets/images/hero/signup.jpg" alt="Welcome back">
 </div>
+
 <div class="main-container">
 
-  <div class="logo">
-    <img src="/assets/images/logo.svg" alt="Home">
+  <div class="logo-section">
+    <img class="logo-image" src="/assets/images/logo.svg" alt="">
   </div>
 
-  <div class="form" *ngIf="(mode$ | async) === 'signin'">
+  <div class="form-section" *ngIf="!signUpMode">
 
     <h3>Account Login</h3>
 
@@ -16,12 +29,14 @@
 
       <app-text-field
         [label]="'Email address'"
+        [fieldSize]="'full'"
         [(value)]="signInForm.email"
       >
       </app-text-field>
 
       <app-text-field
         [label]="'Password'"
+        [fieldSize]="'full'"
         [isPasswordField]="true"
         [(value)]="signInForm.password"
       >
@@ -33,22 +48,11 @@
 
   </div>
 
-  <div class="form" *ngIf="(mode$ | async) !== 'signin'">
+  <div class="form-section" *ngIf="signUpMode">
 
     <h3>Create Account</h3>
 
     <div class="fields-container">
-
-      <!--
-      <form (ngSubmit)="signupHandler(signupForm)" #signupForm="ngForm">
-        <input type="text" name="name" placeholder="name" ngModel required><br>
-        <input type="text" name="user" placeholder="username" ngModel required><br>
-        <input type="password" name="password" placeholder="password" ngModel required><br>
-        <input type="password" name="passwordRepeat" placeholder="repeat password" ngModel required><br>
-        <button type="submit" [disabled]="!signupForm.valid">Sign Up</button>
-      </form>
-      -->
-
 
       <app-text-field
         [label]="'Name'"
@@ -90,18 +94,19 @@
     </div>
   </div>
 
-  <div class="switch">
+  <div class="switch-section">
 
-    <span *ngIf="(mode$ | async) === 'signin'">
-      Not registered? <a [routerLink]="['/account', 'signup']">Create an account →</a>
+    <span *ngIf="!signUpMode">
+      <!--Not registered? <a [routerLink]="['/account', 'signup']">Create an account →</a>-->
+      Not registered? <a (click)="signUpMode = true">Create an account →</a>
     </span>
 
-    <span *ngIf="(mode$ | async) !== 'signin'">
-      Already registered? <a [routerLink]="['/account', 'signin']">Sign in →</a>
+    <span *ngIf="signUpMode">
+      <!--Already registered? <a [routerLink]="['/account', 'signin']">Sign in →</a>-->
+      Already registered? <a (click)="signUpMode = false">Sign in →</a>
     </span>
 
   </div>
-
 
 </div>
 

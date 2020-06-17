@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ApiAdapterService } from '../../services/api-adapter.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +16,7 @@ export class LoginComponent implements OnInit{
     private route: ActivatedRoute
   ){}
 
-  mode$: Observable<string>;
+  signUpMode:boolean = false;
 
   signInForm:any = {
     email: null,
@@ -34,9 +32,9 @@ export class LoginComponent implements OnInit{
 
   ngOnInit () {
 
-    this.mode$ = this.route.params.pipe(
-      map(params => params.mode)
-    )
+    this.route.params.subscribe(params => {
+      this.signUpMode = params.mode === 'signup';
+    })
   }
 
   signUpButtonHandler (form: NgForm) {

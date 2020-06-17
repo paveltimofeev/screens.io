@@ -70,6 +70,7 @@
       <app-text-field
         [label]="'Email address'"
         [fieldSize]="'full'"
+        [error]="signUpForm.emailError"
         [(value)]="signUpForm.email"
       >
       </app-text-field>
@@ -78,6 +79,7 @@
         [label]="'Password'"
         [fieldSize]="'full'"
         [isPasswordField]="true"
+        [error]="signUpForm.passwordError"
         [(value)]="signUpForm.password"
       >
       </app-text-field>
@@ -86,6 +88,7 @@
         [label]="'Confirm Password'"
         [fieldSize]="'full'"
         [isPasswordField]="true"
+        [error]="signUpForm.confirmPasswordError"
         [(value)]="signUpForm.confirmPassword"
       >
       </app-text-field>
@@ -93,6 +96,10 @@
       <p>
         Creating an account means you’re okay with our <a href="">Terms of Service</a>, <a href="">Privacy Policy</a> and
         <a href="">Beta Service Agreement</a>
+      </p>
+
+      <p class="error-alert" *ngIf="signUpForm.responseError">
+        {{ signUpForm.responseError }}
       </p>
 
       <button class="button button--dark button--lg" (click)="signUpButtonHandler()">Sign Up</button>

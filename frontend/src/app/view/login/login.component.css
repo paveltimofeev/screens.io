@@ -65,14 +65,15 @@
   width: 164px;
 }
 
-.fields-container {
-  width: 50%;
-}
-.fields-container h3 {
+h3 {
   font-family: 'Oswald', sans-serif;
   font-weight: 400;
   font-size: var(--px36);
   margin-bottom: var(--px60);
+}
+
+.fields-container {
+  width: 50%;
 }
 .fields-container p {
   width: 100%;;
@@ -96,6 +97,19 @@
   cursor: pointer;
 }
 
+.form-section {
+  animation: .5s ease slideup;
+}
+@keyframes slideup {
+  from {
+    transform: translateY(10px);
+    opacity: .1;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
 
 @media (max-width: 600px) {
 
@@ -110,6 +124,9 @@
 
   .logo-section {
     margin-bottom: 20px;
+  }
+  .form-section {
+    animation: none;
   }
   .switch-section {
     padding: 50px 0;

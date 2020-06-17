@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit{
     private route: ActivatedRoute
   ){}
 
-  signUpMode:boolean = false;
+  signUpMode:boolean = true;
 
   signInForm:any = {
     email: '',
@@ -30,31 +30,19 @@ export class LoginComponent implements OnInit{
   signUpForm:any = {
     name: null,
     email: null,
+    emailError: null,
     password: null,
-    confirmPassword: null
+    passwordError: null,
+    confirmPassword: null,
+    confirmPasswordError: null,
+
+    responseError: null
   };
 
   ngOnInit () {
-
     this.route.params.subscribe(params => {
       this.signUpMode = params.mode === 'signup';
     })
-  }
-
-  signUpButtonHandler (form: NgForm) {
-
-    if (this.signUpForm.name && this.signUpForm.email && this.signUpForm.password) {
-
-      if (this.signUpForm.password === this.signUpForm.confirmPassword) {
-
-        this.api
-          .signup(this.signUpForm.name, this.signUpForm.password)
-          .subscribe(() => {
-
-            this.router.navigate(['/']);
-          });
-      }
-    }
   }
 
   signinHandler (form: NgForm) {
@@ -81,21 +69,63 @@ export class LoginComponent implements OnInit{
         var ss = window.sessionStorage;
         ss.clear();
 
-        console.log('singout completed')
         this.router.navigate(['/account', 'signin']);
       });
   }
 
+  isValidEmailFormat (email:string): boolean {
+
+    return email && !email.trim().match(/^.+@.+\..+$/)
+  }
+  validateEmail (form:{email:string, emailError:string}): boolean {
+
+    let email = form.email;
+    form.emailError = null;
+
+    if (!!!email || email.trim().length === 0) {
+      form.emailError = 'Email required';
+    }
+    else if ( this.isValidEmailFormat(email) ) {
+      form.emailError = 'Wrong email format';
+    }
+
+    return form.emailError === null;
+  }
+  validatePassword (form:{password:string, passwordError:string}, minLength?:number): boolean {
+
+    form.passwordError = null;
+
+    form.passwordError = !!!form.password ? 'Password required' : null;
+
+    if (minLength) {
+      form.passwordError = form.password && form.password.trim().length < minLength ?
+        'Your password must be at least 6 characters' :
+        form.passwordError;
+    }
+
+    return form.passwordError === null;
+  }
+  validatePasswordConfirm (form:{password:string, confirmPassword:string, confirmPasswordError:string}): boolean {
+
+    form.confirmPasswordError = null;
+
+    form.confirmPasswordError = form.password !== form.confirmPassword ? 'Passwords does not match' : null;
+    return form.confirmPasswordError === null;
+  }
+
   signInButtonHandler () {
 
-    if (this.signInForm.email && this.signInForm.email.indexOf('@') > -1 && this.signInForm.password) {
+    let form = this.signInForm;
+    form.responseError = null;
 
-      this.signInForm.responseError = null;
-      this.signInForm.emailError = null;
-      this.signInForm.passwordError = null;
+    const isValidEmail = this.validateEmail(form);
+    const isValidPassword = this.validatePassword(form);
+
+    if (isValidEmail && isValidPassword) {
+
 
       this.api
-        .signin(this.signInForm.email, this.signInForm.password)
+        .signin(form.email, form.password)
         .subscribe(
           (res) => {
             var ss = window.sessionStorage;
@@ -103,27 +133,34 @@ export class LoginComponent implements OnInit{
             this.router.navigate(['/']);
           },
           (err) => {
-            console.log(err);
-            this.signInForm.responseError = 'Login failed';
+            console.error(err);
+            form.responseError = 'Login failed';
           }
         );
     }
-    else {
+  }
 
-      this.signInForm.responseError = null;
-      this.signInForm.emailError = null;
-      this.signInForm.passwordError = null;
+  signUpButtonHandler () {
 
-      this.signInForm.passwordError = !!!this.signInForm.password ? 'Password required' : null;
+    let form = this.signUpForm;
+    form.responseError = null;
 
-      let email = this.signInForm.email;
+    const isValidEmail = this.validateEmail(form);
+    const isValidPassword = this.validatePassword(form, 6);
+    const isValidPasswordConfirm = this.validatePasswordConfirm(form);
 
-      if (!!!email || email.trim().length === 0) {
-        this.signInForm.emailError = 'Email required';
-      }
-      if (email.trim().length > 0 && (email.trim().length < 5 || email.indexOf('@') < 0)) {
-        this.signInForm.emailError = 'Wrong email format';
-      }
+    if (isValidEmail && isValidPassword && isValidPasswordConfirm) {
+
+      this.api
+        .signup(form.name, form.password)
+        .subscribe(
+          () => {
+            this.router.navigate(['/']);
+          },
+          (err) => {
+            console.error(err);
+            form.responseError = 'Operation failed';
+          });
     }
   }
 }

@@ -23,6 +23,7 @@ export const routes:Route[] = [
   { canActivate: [LoggedIn], path: 'settings', component: SettingsComponent,  },
 
   { path: 'login', component: LoginComponent },
+  { path: 'account/:mode', component: LoginComponent },
 
   { canActivate: [LoggedIn], path: 'ui-kit-preview', component: UiKitPreviewComponent,  },
   { canActivate: [LoggedIn], path: '', component: OverviewComponent,  },

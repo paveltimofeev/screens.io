@@ -12,7 +12,7 @@ export class LoggedIn implements CanActivate {
     const loggedIn = window.sessionStorage.getItem('li') === '1';
 
     if (!loggedIn) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/account', 'signin']);
     }
 
     return loggedIn;

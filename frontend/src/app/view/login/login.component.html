@@ -1,27 +1,107 @@
+<div class="hero except-xs">
+  <img *ngIf="(mode$ | async) === 'signin'" src="assets/images/hero/signin.jpg" alt="Welcome back">
+  <img *ngIf="(mode$ | async) === 'signup'" src="assets/images/hero/signup.jpg" alt="Welcome back">
+</div>
 <div class="main-container">
 
-  <h3>Login</h3>
+  <div class="logo">
+    <img src="/assets/images/logo.svg" alt="Home">
+  </div>
 
-  <form (ngSubmit)="signinHandler(signinForm)" #signinForm="ngForm">
-    <input type="text" name="user" placeholder="username" ngModel required><br>
-    <input type="password" name="password" placeholder="password" ngModel required><br>
-    <button type="submit" [disabled]="!signinForm.valid">Login</button>
-  </form>
+  <div class="form" *ngIf="(mode$ | async) === 'signin'">
 
-  <h3>Logout</h3>
-  
-  <form (ngSubmit)="signoutHandler()">
-    <button type="submit">Logout</button>
-  </form>
+    <h3>Account Login</h3>
 
-  <h3>Create New Account</h3>
+    <div class="fields-container">
 
-  <form (ngSubmit)="signupHandler(signupForm)" #signupForm="ngForm">
-    <input type="text" name="user" placeholder="username" ngModel required><br>
-    <input type="password" name="password" placeholder="password" ngModel required><br>
-    <input type="password" name="passwordRepeat" placeholder="repeat password" ngModel required><br>
-    <button type="submit" [disabled]="!signupForm.valid">Create</button>
-  </form>  
+      <app-text-field
+        [label]="'Email address'"
+        [(value)]="signInForm.email"
+      >
+      </app-text-field>
+
+      <app-text-field
+        [label]="'Password'"
+        [isPasswordField]="true"
+        [(value)]="signInForm.password"
+      >
+      </app-text-field>
+
+      <button class="button button--dark button--lg" (click)="signInButtonHandler()">Sign In</button>
+
+    </div>
+
+  </div>
+
+  <div class="form" *ngIf="(mode$ | async) !== 'signin'">
+
+    <h3>Create Account</h3>
+
+    <div class="fields-container">
+
+      <!--
+      <form (ngSubmit)="signupHandler(signupForm)" #signupForm="ngForm">
+        <input type="text" name="name" placeholder="name" ngModel required><br>
+        <input type="text" name="user" placeholder="username" ngModel required><br>
+        <input type="password" name="password" placeholder="password" ngModel required><br>
+        <input type="password" name="passwordRepeat" placeholder="repeat password" ngModel required><br>
+        <button type="submit" [disabled]="!signupForm.valid">Sign Up</button>
+      </form>
+      -->
+
+
+      <app-text-field
+        [label]="'Name'"
+        [fieldSize]="'full'"
+        [(value)]="signUpForm.name"
+      >
+      </app-text-field>
+
+      <app-text-field
+        [label]="'Email address'"
+        [fieldSize]="'full'"
+        [(value)]="signUpForm.email"
+      >
+      </app-text-field>
+
+      <app-text-field
+        [label]="'Password'"
+        [fieldSize]="'full'"
+        [isPasswordField]="true"
+        [(value)]="signUpForm.password"
+      >
+      </app-text-field>
+
+      <app-text-field
+        [label]="'Confirm Password'"
+        [fieldSize]="'full'"
+        [isPasswordField]="true"
+        [(value)]="signUpForm.confirmPassword"
+      >
+      </app-text-field>
+
+      <p>
+        Creating an account means you’re okay with our <a href="">Terms of Service</a>, <a href="">Privacy Policy</a> and
+        <a href="">Beta Service Agreement</a>
+      </p>
+
+      <button class="button button--dark button--lg" (click)="signUpButtonHandler()">Sign Up</button>
+
+    </div>
+  </div>
+
+  <div class="switch">
+
+    <span *ngIf="(mode$ | async) === 'signin'">
+      Not registered? <a [routerLink]="['/account', 'signup']">Create an account →</a>
+    </span>
+
+    <span *ngIf="(mode$ | async) !== 'signin'">
+      Already registered? <a [routerLink]="['/account', 'signin']">Sign in →</a>
+    </span>
+
+  </div>
+
 
 </div>
 

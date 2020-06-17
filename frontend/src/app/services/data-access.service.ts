@@ -58,7 +58,7 @@ export class DataAccessService {
     else {
 
       if (error.status === 401) {
-        this.router.navigate(['/login'])
+        this.router.navigate(['/account', 'signin'])
       }
       console.error(`Response error: StatusCode ${error.status}, ${error.message} `)
 

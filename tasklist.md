@@ -106,8 +106,9 @@
 -- Frontend: Cannot change form field value again after submit data [Not confirm anymore]
 -- Frontend: Run scenarios with overridden parameters (scenarios + viewports filtration)
 -- Frontend: AuthGuard to redirect unauthorized users to login page ASAP
+-- Backend: Store/update data for AccountInfo at Settings view
+-- Frontend: RESTYLE UI - Sign-in/Sign-up view
 
-- Frontend: RESTYLE UI - Sign-in/Sign-up view
 
 TechDept
 - Frontend: Fix Comparer view Fit/Full mode
@@ -116,24 +117,19 @@ TechDept
 
 BackLog
 - Frontend: Implement Sidebar filters for Scenario, Job Page
-- Show correct values at stats section of sidebar (Scenarios/Jobs)
+- Frontend: (?) Show correct values at stats section of sidebar (Scenarios/Jobs)
 - Frontend: RESTYLE UI - Responsive UI (support mobile)
-- check username/password/... injection: create user "name*" and delete it. Do not allow to create usernames in [a-zA-Z] range or clean out restricted symbols
-- Paging for job history: next/prev buttons based on skip + limit=30 and total_count of records
-- Backend: Store/update data for AccountInfo at Settings view
 - Frontend: RESTYLE UI - Improve Scenario edit view - add Viewports; add Overview(Summary) with reference image; add HasValues pin; add Description (commentary) for scenario, to make puprose of scenario clearer.
-- Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
+- Frontend: Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
+- Frontend & Backend: Paging for job history: "Load more" or "next/prev" buttons based on skip + limit=30 and total_count of records
+- Backend: Do not use Login as userId, because it uses in path building and could allow user change directories, use user UID instead
+- Backend: Auth proxy should not store passwords in plain text
 - [Bug] **New User Init Process**: New user does not have any Viewports configured and do not have ability to add them.
-- Frontend: SignIn/SignUp page RESTYLE
 - [Move to AWS: 1] STORE IMAGES AT AWS S3
 - [Move to AWS: 2] Run MongoDb on AWS VM
 - [Move to AWS: 3] Run backend on AWS VM
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name
-- Register user by email/gmail and promocode with email confirmation.
 - LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
-- Do not use Login as userId, because it uses in path building and could allow user change directories, use user UID instead
-- Auth proxy should not store passwords in plain text
-- Use Master term instead of Reference?
 - **------------ MVP MILESTONE ------------**
 - Backend: Scenarios Page Actions - Run anf Remove scenarios filtered by ids[]*viewports[]
 - [Bug] Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
@@ -143,9 +139,12 @@ BackLog
 - Define Metrics to collect (feature requests & feedback button) [cost of each user, typical ways to work]
 - [Feature] Create couple of examples scenarios demonstrating key features (for every new user)
 - Check active operations with bad network / no network.
+- Use Master term instead of Reference?
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- Register user by email/gmail and promocode with email confirmation.
 - Proxy: To refactor utils and storage-adapter at proxy.
+- check username/password/... injection: create user "name*" and delete it. Do not allow to create usernames in [a-zA-Z] range or clean out restricted symbols
 - Frontend: [Bug/Usecase] If scenario was removed, user still can open it from old Job Page. Either we should show 'Not found' page here, or we should not remove it completely (mark as deleted to skip on runs and display, but allow to open it by direct link for read only without ability to change and run)
 - Frontend & Backend: approveAllFailedCases action produces N approve actions, that leed to N backend requests and N*x MongoDb requests, queues and backend operations. It could be replaced with one smart filter on backend.
 - Frontend: Page Actions (like Run All Again, Approve All Failed Tests) should be a request-reply operations

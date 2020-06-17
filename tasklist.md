@@ -131,6 +131,7 @@ BackLog
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name
 - LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
 - **------------ MVP MILESTONE ------------**
+- Terms of Service, Privacy Policy and Beta Service Agreement (links and docs)
 - Backend: Scenarios Page Actions - Run anf Remove scenarios filtered by ids[]*viewports[]
 - [Bug] Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
 - [Bug] Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.

@@ -32,11 +32,11 @@ class StorageAdapter {
     return await account.save()
   }
 
-  async getUser (user, password) {
+  async getUser (email, password) {
 
     try {
 
-      const record = await this.userModel.findOne( { user, password, enabled : true } );
+      const record = await this.userModel.findOne( { email, password, enabled : true } );
 
       if( record ) {
         return this.convertToObject( record );

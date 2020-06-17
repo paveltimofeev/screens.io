@@ -58,16 +58,16 @@ const signup = async (req, res) => {
 
 const signin = async (req, res, success, fail) => {
 
-  const user = req.body.user;
+  const email = (req.body.email||'').toLowerCase();
   const password = req.body.password;
 
-  const userCheck = _isValidUser(user);
+  const emailCheck = _isValidEmail(email);
   const passwordCheck = _isValidPassword(password);
 
-  if (!userCheck || !passwordCheck) {
-    console.log('Username check:', _isValidUser(user));
+  if (!emailCheck || !passwordCheck) {
+    console.log('Email check:', _isValidEmail(email));
     console.log('Password check:', _isValidUser(password));
-    logout(req, res, fail);
+    signout(req, res, fail);
 
     let error = new Error('Invalid username or password');
     error.status = 403;
@@ -76,24 +76,28 @@ const signin = async (req, res, success, fail) => {
 
   try {
 
-    const userData = await storage.getUser(user, password)
+    const userData = await storage.getUser(email, password);
 
     if (!userData) {
-      let error = new Error('Wrong username or password');
+      let error = new Error('Wrong user email or password');
       error.status = 403;
       throw error;
     }
 
-    if (userData.user === user && userData.password === password) {
+    if (userData.email === email && userData.password === password) {
 
       console.log('Login success ', `${userData.tenant}/${userData.user}`);
 
       req.session.authorized = true;
+      req.session.userid = userData._id;
       req.session.user = userData.user;
+      req.session.email = userData.email;
       req.session.tenant = userData.tenant;
       req.session.username = userData.name;
 
-      res.cookie('user', user, {signed:true, sameSite:true, maxAge: config.maxAge});
+      // res.cookie('user', email, {signed:true, sameSite:true, maxAge: config.maxAge});
+      res.cookie('user', userData.user, {signed:true, sameSite:true, maxAge: config.maxAge});
+      res.cookie('_id', userData._id, {signed:true, sameSite:true, maxAge: config.maxAge});
 
       return {
         user: userData.user,
@@ -245,6 +249,17 @@ const _isValidUser = (val) => {
     typeof(val) === 'string' &&
     val.length > 3 &&
     !illegalChars.test(val)
+};
+
+const _isValidEmail = (val) => {
+
+  var legal = /^.+@.+\..+$/;
+
+  return val !== null &&
+    val !== undefined &&
+    typeof(val) === 'string' &&
+    val.length > 3 &&
+    legal.test(val)
 };
 
 const _isValidPassword = (val) => {

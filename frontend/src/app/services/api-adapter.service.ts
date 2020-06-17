@@ -313,11 +313,11 @@ export class ApiAdapterService {
         {user, password});
   }
 
-  signin (user, password): Observable<any> {
+  signin (email, password): Observable<any> {
 
     return this.dataAccessService
       .post(environment.auth + '/signin-client',
-        {user, password});
+        {email, password});
   }
 
   signout (): Observable<any> {

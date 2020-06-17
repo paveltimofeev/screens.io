@@ -306,18 +306,18 @@ export class ApiAdapterService {
       environment.auth + '/manage/account/', accountInfo)
   }
 
-  signup (user, password): Observable<any> {
+  signup (user:string, email:string, password:string): Observable<any> {
 
     return this.dataAccessService
       .post(environment.auth + '/signup-client',
-        {user, password});
+        {user: user.trim(), email: email.trim(), password: password.trim()});
   }
 
-  signin (email, password): Observable<any> {
+  signin (email:string, password:string): Observable<any> {
 
     return this.dataAccessService
       .post(environment.auth + '/signin-client',
-        {email, password});
+        {email: email.trim(), password: password.trim()});
   }
 
   signout (): Observable<any> {

@@ -28,12 +28,13 @@ export class LoginComponent implements OnInit{
   };
 
   signUpForm:any = {
-    name: null,
-    email: null,
+    name: '',
+    nameError: null,
+    email: '',
     emailError: null,
-    password: null,
+    password: '',
     passwordError: null,
-    confirmPassword: null,
+    confirmPassword: '',
     confirmPasswordError: null,
 
     responseError: null
@@ -91,6 +92,14 @@ export class LoginComponent implements OnInit{
 
     return form.emailError === null;
   }
+  validateName (form:{name:string, nameError:string}): boolean {
+
+    form.nameError = null;
+
+    form.nameError = !/^[a-zA-Z0-9]+$/.test(form.name) ? 'Invalid name, please use only letters and digits' : null;
+    form.nameError = !form.name ? 'Name required' : form.nameError;
+    return form.nameError === null;
+  }
   validatePassword (form:{password:string, passwordError:string}, minLength?:number): boolean {
 
     form.passwordError = null;
@@ -145,6 +154,7 @@ export class LoginComponent implements OnInit{
     let form = this.signUpForm;
     form.responseError = null;
 
+    const isValidName = this.validateName(form);
     const isValidEmail = this.validateEmail(form);
     const isValidPassword = this.validatePassword(form, 6);
     const isValidPasswordConfirm = this.validatePasswordConfirm(form);
@@ -152,7 +162,7 @@ export class LoginComponent implements OnInit{
     if (isValidEmail && isValidPassword && isValidPasswordConfirm) {
 
       this.api
-        .signup(form.name, form.password)
+        .signup(form.name, form.email, form.password)
         .subscribe(
           () => {
             this.router.navigate(['/']);

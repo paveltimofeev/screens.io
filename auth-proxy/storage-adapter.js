@@ -19,14 +19,14 @@ class StorageAdapter {
     );
   }
 
-  async createUser (user, password) {
+  async createUser (user, email, password) {
 
     const account = new this.userModel({
       user,
+      email,
       password,
       name: user,
-      tenant: 'test-tenant',
-      // email: 'email@domain.com'
+      tenant: 'test-tenant'
     })
 
     return await account.save()
@@ -140,7 +140,6 @@ class StorageAdapter {
     }
 
     let obj = entry.toObject();
-    delete obj._id;
     delete obj.__v;
     return obj
   }

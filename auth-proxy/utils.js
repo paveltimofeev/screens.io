@@ -33,12 +33,15 @@ const signup = async (req, res) => {
 
   console.log('signup', req.body)
   const user = req.body.user;
+  const email = (req.body.email||'').toLowerCase();
   const password = req.body.password;
 
   const userCheck = _isValidUser(user);
+  const emailCheck = _isValidEmail(email);
   const passwordCheck = _isValidPassword(password);
 
-  if (!userCheck || !passwordCheck) {
+  if (!userCheck || !emailCheck || !passwordCheck) {
+    console.log('Email check:', _isValidEmail(email));
     console.log('Username check:', _isValidUser(user));
     console.log('Password check:', _isValidUser(password));
 
@@ -47,7 +50,10 @@ const signup = async (req, res) => {
   }
   else {
 
-    const userData = await storage.createUser(user, password)
+    const userData = await storage.createUser(user, email, password)
+
+    console.log('Signup success ', `${userData.tenant}/${userData.user}`);
+    _createSessionOnSuccess(req, res, userData);
 
     return {
       user: userData.user,
@@ -86,18 +92,8 @@ const signin = async (req, res, success, fail) => {
 
     if (userData.email === email && userData.password === password) {
 
-      console.log('Login success ', `${userData.tenant}/${userData.user}`);
-
-      req.session.authorized = true;
-      req.session.userid = userData._id;
-      req.session.user = userData.user;
-      req.session.email = userData.email;
-      req.session.tenant = userData.tenant;
-      req.session.username = userData.name;
-
-      // res.cookie('user', email, {signed:true, sameSite:true, maxAge: config.maxAge});
-      res.cookie('user', userData.user, {signed:true, sameSite:true, maxAge: config.maxAge});
-      res.cookie('_id', userData._id, {signed:true, sameSite:true, maxAge: config.maxAge});
+      console.log('Signin success ', `${userData.tenant}/${userData.user}`);
+      _createSessionOnSuccess(req, res, userData);
 
       return {
         user: userData.user,
@@ -118,6 +114,20 @@ const signin = async (req, res, success, fail) => {
     throw error;
   }
 }
+
+const _createSessionOnSuccess = (req, res, userData) => {
+
+  req.session.authorized = true;
+  req.session.userid = userData._id;
+  req.session.user = userData.user;
+  req.session.email = userData.email;
+  req.session.tenant = userData.tenant;
+  req.session.username = userData.name;
+
+  res.cookie('user', userData.user, {signed:true, sameSite:true, maxAge: config.maxAge});
+  res.cookie('_id', userData._id, {signed:true, sameSite:true, maxAge: config.maxAge});
+}
+
 
 const changePassword = async (req, res) => {
 

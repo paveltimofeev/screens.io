@@ -30,6 +30,7 @@
       <app-text-field
         [label]="'Email address'"
         [fieldSize]="'full'"
+        [error]="signInForm.emailError"
         [(value)]="signInForm.email"
       >
       </app-text-field>
@@ -38,9 +39,14 @@
         [label]="'Password'"
         [fieldSize]="'full'"
         [isPasswordField]="true"
+        [error]="signInForm.passwordError"
         [(value)]="signInForm.password"
       >
       </app-text-field>
+
+      <p class="error-alert" *ngIf="signInForm.responseError">
+        {{ signInForm.responseError }}
+      </p>
 
       <button class="button button--dark button--lg" (click)="signInButtonHandler()">Sign In</button>
 

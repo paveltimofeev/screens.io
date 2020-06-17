@@ -19,8 +19,12 @@ export class LoginComponent implements OnInit{
   signUpMode:boolean = false;
 
   signInForm:any = {
-    email: null,
-    password: null
+    email: '',
+    emailError: null,
+    password: '',
+    passwordError: null,
+
+    responseError: null
   };
 
   signUpForm:any = {
@@ -84,16 +88,42 @@ export class LoginComponent implements OnInit{
 
   signInButtonHandler () {
 
-    if (this.signInForm.email && this.signInForm.password) {
+    if (this.signInForm.email && this.signInForm.email.indexOf('@') > -1 && this.signInForm.password) {
+
+      this.signInForm.responseError = null;
+      this.signInForm.emailError = null;
+      this.signInForm.passwordError = null;
+
       this.api
         .signin(this.signInForm.email, this.signInForm.password)
-        .subscribe(() => {
+        .subscribe(
+          (res) => {
+            var ss = window.sessionStorage;
+            ss.setItem('li', '1');
+            this.router.navigate(['/']);
+          },
+          (err) => {
+            console.log(err);
+            this.signInForm.responseError = 'Login failed';
+          }
+        );
+    }
+    else {
 
-          var ss = window.sessionStorage;
-          ss.setItem('li', '1');
+      this.signInForm.responseError = null;
+      this.signInForm.emailError = null;
+      this.signInForm.passwordError = null;
 
-          this.router.navigate(['/']);
-        });
+      this.signInForm.passwordError = !!!this.signInForm.password ? 'Password required' : null;
+
+      let email = this.signInForm.email;
+
+      if (!!!email || email.trim().length === 0) {
+        this.signInForm.emailError = 'Email required';
+      }
+      if (email.trim().length > 0 && (email.trim().length < 5 || email.indexOf('@') < 0)) {
+        this.signInForm.emailError = 'Wrong email format';
+      }
     }
   }
 }

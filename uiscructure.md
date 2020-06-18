@@ -127,6 +127,12 @@
     - Logo/ Welcome back / Create Account (Get inside / Become more confident in dev / Become an expert / Become a master / Start testing / Become brave / Join us / Join Now / Join the Club / Join the Team / Get rid of mess / Get all ducks in row )
     - Sign in / Register 
     - Sign in with Google / Sign up with Google
+
+
+### ONBOARDING
+    - Please wait a bit, we're creating your workspace
+    - (?) Please choose viewport sizes you want to test
+
     
 ### 404
 

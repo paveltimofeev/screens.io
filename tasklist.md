@@ -108,7 +108,10 @@
 -- Frontend: AuthGuard to redirect unauthorized users to login page ASAP
 -- Backend: Store/update data for AccountInfo at Settings view
 -- Frontend: RESTYLE UI - Sign-in/Sign-up view
+-- Frontend: [Bug] Clear text field - cleared field does not save changes on backend (Save Scenario / Hide Selectors field)
+-- Frontend: confirmation for delete scenario
 
+- Implement simple Login/Pass Auth Pre-Step. Add selftests, and integrate bootstrap for grids and dropdowns.
 
 TechDept
 - Frontend: Fix Comparer view Fit/Full mode
@@ -123,8 +126,9 @@ BackLog
 - Frontend: Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Frontend & Backend: Paging for job history: "Load more" or "next/prev" buttons based on skip + limit=30 and total_count of records
 - Backend: Do not use Login as userId, because it uses in path building and could allow user change directories, use user UID instead
-- Backend: Auth proxy should not store passwords in plain text
+- Proxy: Auth proxy should not store passwords in plain text
 - [Bug] **New User Init Process**: New user does not have any Viewports configured and do not have ability to add them.
+- [Feature] **New User Init Process**: Create couple of examples scenarios demonstrating key features (for every new user)
 - [Move to AWS: 1] STORE IMAGES AT AWS S3
 - [Move to AWS: 2] Run MongoDb on AWS VM
 - [Move to AWS: 3] Run backend on AWS VM
@@ -132,13 +136,10 @@ BackLog
 - LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
 - **------------ MVP MILESTONE ------------**
 - Terms of Service, Privacy Policy and Beta Service Agreement (links and docs)
-- Backend: Scenarios Page Actions - Run anf Remove scenarios filtered by ids[]*viewports[]
-- [Bug] Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
-- [Bug] Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
-- [Bug] Clear text field - cleared field does not save changes on backend (Save Scenario / Hide Selectors field)
+- [Bug] *use _id as label in config?* Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
+- [Bug] *use _id as label in config?* Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
 - [Costs] ability to quickly block or limit user (to protect from overbudget)
 - Define Metrics to collect (feature requests & feedback button) [cost of each user, typical ways to work]
-- [Feature] Create couple of examples scenarios demonstrating key features (for every new user)
 - Check active operations with bad network / no network.
 - Use Master term instead of Reference?
 - **------------ CLOSED BETA MILESTONE ------------**
@@ -160,6 +161,7 @@ BackLog
 - Frontend: Show reference image at Scenario Overview tab
 - Frontend: Table view mode for scenarios list
 - Frontend: Implement Scenariod view page actions (Run Filtered, Remove Filtered)
+- Backend: Scenarios Page Actions - Run and Remove scenarios filtered by ids[]*viewports[]
 - [Feature+] Screenshot history & Comparation - ability to go back and forth through historical screenshots of Screnario with highlighting of difference. 
 - [Feature+] Build and use git-analogy: **Screenhub/Diffhub**: Compare any history record of scenario with reference ('master') or with any other record (like 2 branches in git).
 - [Feature] Run scenarios with overridden hostname (stage)

@@ -6,6 +6,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class CardMdComponent {
 
+  waitDeletionConfirm:boolean;
+
   @Input()
   itemId:string;
 

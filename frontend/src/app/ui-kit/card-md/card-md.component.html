@@ -8,28 +8,16 @@
         'full--height': fullHeightModeOn
        }"
   >
-    <img (click)="clickCard.emit(itemId)" [src]="imageUrl" alt="">
+    <img (click)="clickCard.emit(itemId)" [src]="imageUrl" alt=""
+         [ngClass]="{'img--grayscale': waitDeletionConfirm}">
 
-    <app-icon
-      *ngIf="isFavorite"
-      icon="Favorite Enabled"
-      customClass="favorite-icon"
-      (click)="clickFavorite.emit(itemId)">
-    </app-icon>
 
-    <app-icon
-      *ngIf="!isFavorite"
-      icon="Favorite Disabled"
-      customClass="favorite-icon"
-      (click)="clickFavorite.emit(itemId)">
-
-    </app-icon>
-
-    <app-icon
-      icon="Delete"
-      customClass="delete-icon"
-      (click)="clickDelete.emit(itemId)">
-    </app-icon>
+    <div class="card-md-actions">
+      <app-confirmation
+        (confirmed)="clickDelete.emit(itemId)"
+        (confirmationOpened)="waitDeletionConfirm = $event">
+      </app-confirmation>
+    </div>
 
   </div>
   <div class="header">
@@ -45,9 +33,17 @@
     <span class="right">
 
       <app-icon
-        *ngFor="let passed of runs"
-        [icon]=" passed ? 'Passed' : 'Close' "
-        [customClass]=" !passed ? 'failed' : undefined">
+        *ngIf="isFavorite"
+        icon="Favorite Enabled"
+        customClass="favorite-icon"
+        (click)="clickFavorite.emit(itemId)">
+      </app-icon>
+
+      <app-icon
+        *ngIf="!isFavorite"
+        icon="Favorite Disabled"
+        customClass="favorite-icon"
+        (click)="clickFavorite.emit(itemId)">
       </app-icon>
 
     </span>

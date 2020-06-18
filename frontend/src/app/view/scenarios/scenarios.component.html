@@ -74,7 +74,6 @@
         [state]="scenario.state"
         [isFavorite]="scenario.meta_isFavorite"
         [imageUrl]="scenario.meta_referenceImageUrl || '/assets/images/stubs/screen11.png'"
-        [runs]="[]"
         [fullHeightModeOn]="fullHeightModeOn$ | async"
         (clickRun)="runScenarioHandler($event, scenario.label)"
         (clickFavorite)="favoriteScenarioHandler($event)"

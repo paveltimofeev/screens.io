@@ -68,6 +68,7 @@ import { accountApiReducer } from './store/account-api/account-api.reducer';
 import { AccountApiEffects } from './store/account-api/account-api.effects';
 import { appApiReducer } from './store/app-api/app-api.reducer';
 import { AppApiEffects } from './store/app-api/app-api.effects';
+import { ConfirmationComponent } from './ui-kit/confirmation/confirmation.component';
 
 
 @NgModule({
@@ -103,7 +104,8 @@ import { AppApiEffects } from './store/app-api/app-api.effects';
     InfoTableComponent,
     MoreComponent,
     ImagesComparerComponent,
-    FormButtonComponent
+    FormButtonComponent,
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule,

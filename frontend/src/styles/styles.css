@@ -146,24 +146,24 @@ main {
 .app-card--two-in-row {
   width: 50%;
 }
+.app-card--two-in-row,
 .app-card--three-in-row {
-  width: 20%;
   padding-left: 36px;
 }
+.app-card--three-in-row {
+  width: 20%;
+}
 @media (max-width: 1985px)  {
-  .app-card--two-in-row,
   .app-card--three-in-row {
     width: 25%;
   }
 }
 @media (max-width: 1349px)  {
-  .app-card--two-in-row,
   .app-card--three-in-row {
     width: 33.333%;
   }
 }
 @media (max-width: 962px)  {
-  .app-card--two-in-row,
   .app-card--three-in-row {
     width: 50%;
   }

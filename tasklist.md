@@ -110,6 +110,7 @@
 -- Frontend: RESTYLE UI - Sign-in/Sign-up view
 -- Frontend: [Bug] Clear text field - cleared field does not save changes on backend (Save Scenario / Hide Selectors field)
 -- Frontend: confirmation for delete scenario
+-- Frontend: better scenarios layout
 
 - Implement simple Login/Pass Auth Pre-Step. Add selftests, and integrate bootstrap for grids and dropdowns.
 

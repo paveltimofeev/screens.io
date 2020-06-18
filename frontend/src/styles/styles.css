@@ -135,6 +135,7 @@ main {
   flex-wrap: wrap;
   align-content: flex-start;
   overflow-y: auto;
+  margin-left: -36px;
 
   padding-top: var(--px22); /* 22px; */
 }
@@ -146,7 +147,26 @@ main {
   width: 50%;
 }
 .app-card--three-in-row {
-  width: 33.333%;
+  width: 20%;
+  padding-left: 36px;
+}
+@media (max-width: 1985px)  {
+  .app-card--two-in-row,
+  .app-card--three-in-row {
+    width: 25%;
+  }
+}
+@media (max-width: 1349px)  {
+  .app-card--two-in-row,
+  .app-card--three-in-row {
+    width: 33.333%;
+  }
+}
+@media (max-width: 962px)  {
+  .app-card--two-in-row,
+  .app-card--three-in-row {
+    width: 50%;
+  }
 }
 @media (max-width: 601px)  {
   .app-card--two-in-row,

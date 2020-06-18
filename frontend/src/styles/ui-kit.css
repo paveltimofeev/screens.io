@@ -934,9 +934,9 @@ app-data-action-button:first-child {
 
 
 .card-md {
-  width: var(--px380); /* 380px; */
+  /*width: var(--px380); !* 380px; *!*/
   max-width: 100%;
-  margin-bottom: 50px;
+  margin-bottom: 36px;
   display: flex;
   flex-direction: column;
 }
@@ -955,7 +955,7 @@ app-data-action-button:first-child {
   position: relative;
   background: #E6EAEE;
   margin-bottom: 10px;
-  height: 250px;
+  height: 300px;
   max-height: 50vh;
   border: 1px solid #E6EAEE;
   border-radius: var(--px10);

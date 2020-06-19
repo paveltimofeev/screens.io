@@ -4,6 +4,12 @@ module.exports = async (page, scenario) => {
 
   if (authConfig) {
 
+    console.log('[auth Config] enabled:', authConfig.enabled);
+
+    if (!authConfig.enabled) {
+      return;
+    }
+
     console.log('[auth Config] login selector:', authConfig.loginSelector);
     console.log('[auth Config] password selector:', authConfig.passwordSelector);
     console.log('[auth Config] submit selector:', authConfig.submitSelector);

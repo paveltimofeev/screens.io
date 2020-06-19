@@ -176,62 +176,72 @@
             Simple Auth Pre-Step. Enters the username & password at sign-in page before open main test page.
           </p>
 
-          <app-text-field
-            [label]="'Sing-In page url'"
-            [description]="''"
-            [fieldSize]="'full'"
-            [placeholder]="'https://website.domain/login'"
-            [fieldIcon]="'External Link'"
-            (iconClick)="openExternalUrlHandler($event)"
-            [value]="scenario.authConfig.loginPage"
-            (valueChange)="changeFieldHandler($event, 'loginPage', 'authConfig')">
-          </app-text-field>
+          <app-checkbox-field
+            [label]="scenario.authConfig.enabled ? 'Enabled' : 'Disabled'"
+            (changed)="changeFieldHandler($event, 'enabled', 'authConfig')"
+            [checked]="scenario.authConfig.enabled === true"
+          ></app-checkbox-field>
 
-          <app-text-field
-            [label]="'Login field selector'"
-            [description]="'CSS selector to find user login field'"
-            [fieldSize]="'full'"
-            [placeholder]="'.class | #id | tag, like input[type=text]'"
-            [value]="scenario.authConfig.loginSelector"
-            (valueChange)="changeFieldHandler($event, 'loginSelector', 'authConfig')">
-          </app-text-field>
+          <div *ngIf="scenario.authConfig.enabled === true">
 
-          <app-text-field
-            [label]="'User login'"
-            [description]="''"
-            [fieldSize]="'350'"
-            [placeholder]="'username'"
-            [value]="scenario.authConfig.loginValue"
-            (valueChange)="changeFieldHandler($event, 'loginValue', 'authConfig')">
-          </app-text-field>
+            <app-text-field
+              [label]="'Sing-In page url'"
+              [description]="''"
+              [fieldSize]="'full'"
+              [placeholder]="'https://website.domain/login'"
+              [fieldIcon]="'External Link'"
+              (iconClick)="openExternalUrlHandler($event)"
+              [value]="scenario.authConfig.loginPage"
+              (valueChange)="changeFieldHandler($event, 'loginPage', 'authConfig')">
+            </app-text-field>
 
-          <app-text-field
-            [label]="'Password field selector'"
-            [description]="'CSS selector to find password field'"
-            [fieldSize]="'full'"
-            [placeholder]="'.class | #id | tag, like input[type=password]'"
-            [value]="scenario.authConfig.passwordSelector"
-            (valueChange)="changeFieldHandler($event, 'passwordSelector', 'authConfig')">
-          </app-text-field>
+            <app-text-field
+              [label]="'Login field selector'"
+              [description]="'CSS selector to find user login field'"
+              [fieldSize]="'full'"
+              [placeholder]="'.class | #id | tag, like input[type=text]'"
+              [value]="scenario.authConfig.loginSelector"
+              (valueChange)="changeFieldHandler($event, 'loginSelector', 'authConfig')">
+            </app-text-field>
 
-          <app-text-field
-            [label]="'User password'"
-            [description]="''"
-            [fieldSize]="'350'"
-            [placeholder]="'username'"
-            [isPasswordField]="true"
-            [value]="scenario.authConfig.passwordValue"
-            (valueChange)="changeFieldHandler($event, 'passwordValue', 'authConfig')">
-          </app-text-field>
+            <app-text-field
+              [label]="'User login'"
+              [description]="''"
+              [fieldSize]="'350'"
+              [placeholder]="'username'"
+              [value]="scenario.authConfig.loginValue"
+              (valueChange)="changeFieldHandler($event, 'loginValue', 'authConfig')">
+            </app-text-field>
 
-          <app-text-field
-            [label]="'Submit button selector'"
-            [description]="'CSS selector for SingIn button'"
-            [fieldSize]="'full'"
-            [placeholder]="'.class | #id | tag, like input[type=submit]'"
-            [value]="scenario.authConfig.submitSelector"
-            (valueChange)="changeFieldHandler($event, 'submitSelector', 'authConfig')">
-          </app-text-field>
+            <app-text-field
+              [label]="'Password field selector'"
+              [description]="'CSS selector to find password field'"
+              [fieldSize]="'full'"
+              [placeholder]="'.class | #id | tag, like input[type=password]'"
+              [value]="scenario.authConfig.passwordSelector"
+              (valueChange)="changeFieldHandler($event, 'passwordSelector', 'authConfig')">
+            </app-text-field>
+
+            <app-text-field
+              [label]="'User password'"
+              [description]="''"
+              [fieldSize]="'350'"
+              [placeholder]="'username'"
+              [isPasswordField]="true"
+              [value]="scenario.authConfig.passwordValue"
+              (valueChange)="changeFieldHandler($event, 'passwordValue', 'authConfig')">
+            </app-text-field>
+
+            <app-text-field
+              [label]="'Submit button selector'"
+              [description]="'CSS selector for SingIn button'"
+              [fieldSize]="'full'"
+              [placeholder]="'.class | #id | tag, like input[type=submit]'"
+              [value]="scenario.authConfig.submitSelector"
+              (valueChange)="changeFieldHandler($event, 'submitSelector', 'authConfig')">
+            </app-text-field>
+
+          </div>
 
         </div>
 

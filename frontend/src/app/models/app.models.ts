@@ -13,6 +13,7 @@ export interface IScenario {
   postInteractionWait: number;
   meta_recentRunStatus: string,
   authConfig: {
+    enabled: boolean;
     loginPage: string;
     loginSelector: string;
     loginValue: string;

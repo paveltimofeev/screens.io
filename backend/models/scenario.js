@@ -24,6 +24,16 @@ const scenarioSchema = new Schema({
 
     stubContentRules: Array,
 
+    authConfig: {
+        enabled: { type: Boolean, default: false },
+        loginPage: String,
+        loginSelector: String,
+        loginValue: String,
+        passwordSelector: String,
+        passwordValue: String,
+        submitSelector: String,
+    },
+
     meta_isFavorite: Boolean,
     meta_recentRunStatus: String,  /// Passed/Failed status of recent run
     meta_referenceImageUrl: String  /// Url of reference == recent approved image url

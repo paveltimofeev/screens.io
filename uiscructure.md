@@ -157,6 +157,8 @@
         https://grayic.com/demos/shade/s02/index.html
         https://www.bootstrapdash.com/demo/simple/
         https://grayic.com/demos/shade/s04/index.html
+    paid templates:
+        https://themes.getbootstrap.com/product/around-multipurpose-template-ui-kit/
     interactive shapes
     Images for storytelling and avatars:
         - https://ui8.net/delightdesign/products/business-administration-illustration-delight (free)

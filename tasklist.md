@@ -115,7 +115,7 @@
 -- [Feature+] Frontend: Implement UI for simple Login/Pass Auth Pre-Step. Define IScenario interface
 -- Add selftests for every tab at edit page of particular scenario
 
-- Integrate bootstrap for grid system and dropdowns.
+- Integrate bootstrap or duetds.com for grid system, dropdowns and toggles.
 
 TechDept
 - Frontend: Fix Comparer view Fit/Full mode
@@ -130,15 +130,15 @@ BackLog
 - Frontend: (?) Show correct values at stats section of sidebar (Jobs)
 - Frontend: Scenario Page - add Viewports tab
 - Frontend: Scenario Page - add Overview(Summary) with reference image 
-- Frontend: Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
+- Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Frontend: RESTYLE UI - Responsive UI (support mobile)
 - [Security] Proxy: Auth proxy should not store passwords in plain text
-- [Bug] **New User Init Process**: New user does not have any Viewports configured and do not have ability to add them.
-- [Feature] **New User Init Process**: Create couple of examples scenarios demonstrating key features (for every new user)
 - [Move to AWS: 1] STORE IMAGES AT AWS S3
 - [Move to AWS: 2] Run MongoDb on AWS VM
-- [Move to AWS: 3] Run backend on AWS VM
+- [Move to AWS: 3] Run proxy & backend on AWS VM
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name
+- **New User Init Process**: [Bug] New user does not have any Viewports configured and do not have ability to add them.
+- **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user)
 - LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
 - **------------ MVP MILESTONE ------------**
 - Terms of Service, Privacy Policy and Beta Service Agreement (links and docs)
@@ -176,6 +176,7 @@ BackLog
 - [Feature] Ability to set cookies. [Usecase] Test different looks of UI, dependent on cookie value, like 'covid', 'accept cookie' banners.
 - [Feature] Ability to set localStorage/sessionStorage values. [Usecase] Test user cutomized UIs.
 - [Feature] To have several Valid References and test image against all of them to mitigate minor (insignificant) differences. To have actions like 'Add to Approved' and 'Override All Approved' instead of 'Approve'.
+- [Feature] Label, tag or star job runs, tom make it easy to find later important runs
 - Frontend: Animate processes - approve button should be animated during approve process, run during run and other microinteractions.
 - Frontend: Show error screen if backend are not available
 - Run Scenario(s) by Id, not by label, because different project should be able to have the same label sometimes.
@@ -252,3 +253,10 @@ BackLog
 - (?) Create scenario from template/example
 - (?) [Feature+] Allow user to stub/mock some queries to its backend
 
+
+
+## PROCESSES
+
+1. "Migration to Bootstrap"
+ - Create scenarios for all pages, with different states, hovers, clicks and so on.
+ 

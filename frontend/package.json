@@ -24,6 +24,7 @@
     "@ngrx/store-devtools": "^9.0.0",
     "ag-grid-angular": "^23.0.2",
     "ag-grid-community": "^23.0.2",
+    "bootstrap": "^4.5.0",
     "core-js": "^2.5.4",
     "juxtaposejs": "^1.1.6",
     "moment": "^2.26.0",

@@ -113,7 +113,9 @@
 -- Frontend: better scenarios layout
 -- Backend: Prototype of simple Login/Pass Auth Pre-Step
 
-- Implement simple Login/Pass Auth Pre-Step. Add selftests, and integrate bootstrap for grids and dropdowns.
+- Frontend: Implement UI for simple Login/Pass Auth Pre-Step. Define IScenario interface.
+- Add selftests for every tab at edit page of particular scenario
+- Integrate bootstrap for grid system and dropdowns.
 
 TechDept
 - Frontend: Fix Comparer view Fit/Full mode
@@ -121,14 +123,16 @@ TechDept
 - Frontend: Close menu at mobile view after click, and do not cover header
 
 BackLog
-- Frontend: Implement Sidebar filters for Scenario, Job Page
-- Frontend: (?) Show correct values at stats section of sidebar (Scenarios/Jobs)
-- Frontend: RESTYLE UI - Responsive UI (support mobile)
-- Frontend: RESTYLE UI - Improve Scenario edit view - add Viewports; add Overview(Summary) with reference image; add HasValues pin; add Description (commentary) for scenario, to make puprose of scenario clearer.
-- Frontend: Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
+- [Security] Backend: Do not store authConfig login/password in plain text. Do not transfer them to UI.
 - Frontend & Backend: Paging for job history: "Load more" or "next/prev" buttons based on skip + limit=30 and total_count of records
 - Backend: Do not use Login as userId, because it uses in path building and could allow user change directories, use user UID instead
-- Proxy: Auth proxy should not store passwords in plain text
+- Frontend: Implement Sidebar filters for Job Page
+- Frontend: (?) Show correct values at stats section of sidebar (Jobs)
+- Frontend: Scenario Page - add Viewports tab
+- Frontend: Scenario Page - add Overview(Summary) with reference image 
+- Frontend: Stats & analytics: Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
+- Frontend: RESTYLE UI - Responsive UI (support mobile)
+- [Security] Proxy: Auth proxy should not store passwords in plain text
 - [Bug] **New User Init Process**: New user does not have any Viewports configured and do not have ability to add them.
 - [Feature] **New User Init Process**: Create couple of examples scenarios demonstrating key features (for every new user)
 - [Move to AWS: 1] STORE IMAGES AT AWS S3
@@ -146,7 +150,8 @@ BackLog
 - Use Master term instead of Reference?
 - **------------ CLOSED BETA MILESTONE ------------**
 
-- Use masked images for signin/signup page
+- Frontend: Show Execution Plan to make clear the process of testing
+- Frontend: Use masked images for signin/signup page
 - Register user by email/gmail and promocode with email confirmation.
 - Proxy: To refactor utils and storage-adapter at proxy.
 - check username/password/... injection: create user "name*" and delete it. Do not allow to create usernames in [a-zA-Z] range or clean out restricted symbols
@@ -157,6 +162,7 @@ BackLog
 - Frontend: Implement 'ListView' (table view) and 'Group by Scenarios' for JobPage
 - Frontend: Show Difference value at Comparer and JobPages cards (table in ListView mode), to get user knowledge for tuning test sensitivity 
 - Frontend: Implement 'Group by Scenarios' for Jobs
+- Frontend: Scenario Page - add HasValues pin; add Description (commentary) for scenario, to make puprose of scenario clearer.
 - Frontend: Not found views for scenario, job, comparer pages. Because they could be opened by Id, that does not exists.
 - Frontend: Read proof
 - Frontend: Allow to choose Viewports for Scenario at Viewports Tab
@@ -171,6 +177,7 @@ BackLog
 - [Feature] Ability to set localStorage/sessionStorage values. [Usecase] Test user cutomized UIs.
 - [Feature] To have several Valid References and test image against all of them to mitigate minor (insignificant) differences. To have actions like 'Add to Approved' and 'Override All Approved' instead of 'Approve'.
 - Frontend: Animate processes - approve button should be animated during approve process, run during run and other microinteractions.
+- Frontend: Show error screen if backend are not available
 - Run Scenario(s) by Id, not by label, because different project should be able to have the same label sometimes.
 - Feature Requests button or link to feedback form / poll
 - Backend: resize images for ui cards (sm, md, lg) - only one viewport size, no matter do it for every viewport size.
@@ -181,7 +188,7 @@ BackLog
 - Lazy Loading for most of images to reduce S3-traffic, pressure on backend and increase UI responsiveness
 - Deployment scripts (backend, frontend, landing)
 - Marketing efforts (Internet marketing, SEO, Social presence, Blogging, Video Tutorials)
-- Complete auto security checks & validation (by Lighthouse ans other services)
+- Complete auto security checks & validation (by Lighthouse and other services)
 - Frontend: Splitter for comparer view
 - Frontend: Think out onboarding process, layout and empty state views.
 - Run scenarios filtered by ids[]*viewports[]

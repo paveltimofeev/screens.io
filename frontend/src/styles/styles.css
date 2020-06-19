@@ -135,9 +135,14 @@ main {
   flex-wrap: wrap;
   align-content: flex-start;
   overflow-y: auto;
-  margin-left: -36px;
 
   padding-top: var(--px22); /* 22px; */
+}
+.app-content .data-placeholder {
+  margin-left: -36px;
+}
+.app-content .data-placeholder > * {
+  padding-left: 36px;
 }
 .app-card {
   min-height: var(--card-height);

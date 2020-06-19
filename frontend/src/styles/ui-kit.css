@@ -184,18 +184,9 @@ p {
 
 /* ANIMATIONS */
 
-@keyframes spinning {
-  from { transform:rotate(0deg); }
-  to { transform:rotate(1440deg); }
-}
-
 @keyframes blinking {
   from { border-bottom-color: #87CEEB; }
   to { border-bottom-color: #00008B; }
-}
-
-.icon--running {
-  animation: spinning 10s linear infinite;
 }
 
 .anim-bounce-on-click {
@@ -1049,10 +1040,6 @@ app-data-action-button:first-child {
   font-size: var(--px12); /* 14px; */
   opacity: .75;
 }
-.card-md .header .left i.icon--running {
-  color: var(--color-blue);
-  cursor: default;
-}
 .card-md .header .left i:hover {
   opacity: 1;
 }
@@ -1385,16 +1372,18 @@ app-data-action-button:first-child {
   align-items: center;
 }
 .user-cell .upic {
-  width: var(--px30); /* 30px */
-  height: var(--px30); /* 30px */
+  width: var(--px30);
+  height: var(--px30);
   color: #ffffff;
   background: #6087AB;
-  border-radius: 5px;
+  border-radius: var(--px16);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--px14); /* 14px; */
+  font-size: var(--px14);
   text-transform: uppercase;
+  border: 2px solid white;
+  box-shadow: 0 2px 6px 0 rgba(0,0,0,.2);
 }
 .user-cell .text {
   flex: 1;
@@ -1474,7 +1463,6 @@ app-data-action-button:first-child {
   cursor: pointer;
 }
 .confirmation-button--opened {
-
   opacity: 1;
   width: 140px;
   box-shadow: 0 4px 10px 0 rgba(0,0,0,0.25);

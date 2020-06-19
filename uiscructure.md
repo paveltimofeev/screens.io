@@ -74,9 +74,10 @@
         Hover Selectors
         Post Interaction Wait (milliseconds)
     Authentication/Authorization
+        Simple Auth Pre-Step. Enter Username/Password at signin page before main test execution.
+        BasicAuth Username/Password
         Cookie,
         Cookie hook url, BasicAuth Username/Password
-        BasicAuth Username/Password
     Viewports
         Customize Viewport List
 

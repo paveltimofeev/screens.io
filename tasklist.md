@@ -115,7 +115,7 @@
 -- [Feature+] Frontend: Implement UI for simple Login/Pass Auth Pre-Step. Define IScenario interface
 -- Add selftests for every tab at edit page of particular scenario
 
-- Integrate bootstrap or duetds.com for grid system, dropdowns and toggles.
+- Integrate bootstrap or duetds.com for grid system, tables, dropdowns and toggles.
 
 TechDept
 - Frontend: Fix Comparer view Fit/Full mode

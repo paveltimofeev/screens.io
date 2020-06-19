@@ -55,6 +55,11 @@ export class JobPageEffects {
                 return self.indexOf(value) === index;
               }
 
+              const errorCodes = {
+                'NO_REFERENCE': 'There\'s no approved reference for this scenario and viewport',
+                'NO_RESULTS': 'Cannot load test results. Probably test crashed or timeout exceeded',
+              };
+
               return {
                 type: loaded.type,
                 payload: {
@@ -73,14 +78,13 @@ export class JobPageEffects {
                     scenarioId: getScenarioId(job, x.pair.label),
                     label: x.pair.label,
                     status: x.status,
-                    error: x.pair.error === 'NO_REFERENCE' ? 'There\'s no approved reference for this scenario and viewport' : x.pair.error,
+                    error: x.pair.engineErrorMsg || errorCodes[x.pair.error] || x.pair.error,
                     viewport: x.pair.viewportLabel,
 
                     reference: getMediaUrls(x.pair.reference),
                     test: getMediaUrls(x.pair.test),
-                    difference:getMediaUrls(x.pair.diffImage),
-
-                    //diffInfo: x.pair.diff
+                    difference: getMediaUrls(x.pair.diffImage),
+                    diff: x.pair.diff /// x.pair.diff.misMatchPercentage '0.04'
                   }))
                 }
               }

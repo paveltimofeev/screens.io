@@ -14,7 +14,9 @@ module.exports = async (page, scenario) => {
           return;
         }
 
-        await page.waitFor(stub.selector);
+        // Could leeds to timeout error and test crash if selector is wrong or not found
+        // await page.waitFor(stub.selector);
+
         await page.evaluate(
             s => {
 

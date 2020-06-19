@@ -26,6 +26,7 @@ const reportSchema = new Schema({
                         analysisTime: Number
                     },
                     diffImage: String,
+                    engineErrorMsg: String,
                     error: String
                 },
                 status: String

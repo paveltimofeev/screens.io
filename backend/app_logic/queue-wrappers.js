@@ -9,7 +9,7 @@ class QueueWrapper {
     setInterval(async () => {
 
       while(this.runQueue.length > 0) {
-        console.log( 'Process Queue. Length', this.runQueue.length )
+        console.log( '---[Process Queue]. Length', this.runQueue.length )
         await processingCallback(this.runQueue.pop())
       }
 
@@ -18,7 +18,7 @@ class QueueWrapper {
 
   push (obj) {
     this.runQueue.push(obj)
-    console.log( 'Pushed item to Queue. Length', this.runQueue.length )
+    console.log( '---[Process Queue]. Pushed item to Queue. Length', this.runQueue.length )
   }
 }
 

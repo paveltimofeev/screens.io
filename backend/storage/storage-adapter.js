@@ -222,9 +222,15 @@ class Storage {
 
             report.tests.forEach( t => {
                 if ( t.pair.error
-                  && t.pair.error.startsWith('Reference file not found ')
+                  && t.pair.error.startsWith('Reference file not found')
                 ){
                     t.pair.error = 'NO_REFERENCE' //There is no approved reference for this scenario and viewport.
+                }
+
+                if ( t.pair.error
+                  && t.pair.error.startsWith('Test file not found')
+                ){
+                    t.pair.error = 'NO_RESULTS' //There is no results of tests. Probably test crashed.
                 }
             })
         }

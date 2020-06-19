@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { DataAccessService } from './data-access.service';
 import { environment } from '../../environments/environment';
 import { FiltersService, IQueryFilter } from './filters.service';
+import { IScenario } from '../models/app.models';
 
 export interface IConfig {
   id:string,
@@ -214,7 +215,7 @@ export class ApiAdapterService {
       environment.api + 'test/scenario/' + id)
   }
 
-  createScenario(scenario:any): Observable<any> {
+  createScenario(scenario:IScenario): Observable<any> {
 
     if (!scenario)
       throw new Error('Wrong scenario: empty data')
@@ -223,7 +224,7 @@ export class ApiAdapterService {
       environment.api + 'test/scenario', scenario)
   }
 
-  updateScenario(scenario:any): Observable<any> {
+  updateScenario(scenario:IScenario): Observable<any> {
 
     if (!scenario)
       throw new Error('Wrong scenario: empty data')
@@ -248,7 +249,7 @@ export class ApiAdapterService {
       })
   }
 
-  addScenarioToFavorite(scenario:any): Observable<any> {
+  addScenarioToFavorite(scenario:IScenario): Observable<any> {
 
     if (!scenario)
       throw new Error('Wrong scenario: empty data')
@@ -260,7 +261,7 @@ export class ApiAdapterService {
       environment.api + 'test/scenario/' + scenario._id + '/favorite')
   }
 
-  removeScenarioToFavorites(scenario:any): Observable<any> {
+  removeScenarioToFavorites(scenario:IScenario): Observable<any> {
 
     if (!scenario)
       throw new Error('Wrong scenario: empty data')

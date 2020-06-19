@@ -1,5 +1,7 @@
 export interface IScenario {
 
+  _id:string;
+
   hideSelectors: string[];
   removeSelectors: string[];
   clickSelectors: string[];

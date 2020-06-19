@@ -19,7 +19,7 @@ import {
 import { Observable } from 'rxjs';
 import { title, scenario, scenarioHistory } from './store/scenario-page.selectors';
 import { take } from 'rxjs/operators';
-import { IScenarioHistory } from '../../models/app.models';
+import { IScenario, IScenarioHistory } from '../../models/app.models';
 
 @Component({
   selector: 'app-scenario-page',
@@ -29,14 +29,14 @@ import { IScenarioHistory } from '../../models/app.models';
 export class ScenarioPageComponent implements OnInit, OnDestroy {
 
   id: string;
-  scenario: any;
+  scenario: IScenario;
   stubRule:{selector:string, value:string} = {selector: '', value: ''};
 
   routeData: {createMode?: boolean} = {};
   currentTab: string = 'General';
 
   title$: Observable<string>;
-  scenario$: Observable<any>;
+  scenario$: Observable<IScenario>;
   scenarioHistory$: Observable<IScenarioHistory[]>;
 
   constructor(

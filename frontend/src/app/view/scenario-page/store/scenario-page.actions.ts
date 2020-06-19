@@ -26,12 +26,12 @@ export const runScenario = createAction(
 
 export const saveScenario = createAction(
   '[Scenario Page Component] saveScenario',
-  props<{ payload: { scenario:any } }>()
+  props<{ payload: { scenario:IScenario } }>()
 );
 
 export const createScenario = createAction(
   '[Scenario Page Component] createScenario',
-  props<{ payload: { scenario:any } }>()
+  props<{ payload: { scenario:IScenario } }>()
 );
 
 export const setScenarioProp = createAction(

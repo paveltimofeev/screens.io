@@ -1,0 +1,33 @@
+export interface IScenario {
+
+  hideSelectors: string[];
+  removeSelectors: string[];
+  clickSelectors: string[];
+  hoverSelectors: string[];
+  selectors: string[];
+  stubContentRules: string[];
+  label: string;
+  url: string,
+  delay: number;
+  misMatchThreshold: number;
+  postInteractionWait: number;
+  meta_recentRunStatus: string,
+  authConfig: {
+    loginPage: string;
+    loginSelector: string;
+    loginValue: string;
+    passwordSelector: string;
+    passwordValue: string;
+    submitSelector: string;
+  },
+  meta_isFavorite: boolean;
+  meta_referenceImageUrl: string;
+}
+
+export interface IScenarioHistory {
+  jobId:string,
+  state: string,
+  startedAt: string,
+  startedBy: string,
+  upic: string,
+}

@@ -59,6 +59,10 @@
           <div class="tab-title">Viewports</div>
           <div class="tab-description">optional</div>
         </li>
+        <li (click)="tabSwitchHandler('Authorization')" [ngClass]="{ 'tab--active': currentTab === 'Authorization'}">
+          <div class="tab-title">Authorization</div>
+          <div class="tab-description">optional</div>
+        </li>
         <li (click)="tabSwitchHandler('Wait Loading')" [ngClass]="{ 'tab--active': currentTab === 'Wait Loading'}">
           <div class="tab-title">Wait Loading</div>
           <div class="tab-description">optional</div>
@@ -67,8 +71,8 @@
           <div class="tab-title">Page Modification</div>
           <div class="tab-description">optional</div>
         </li>
-        <li (click)="tabSwitchHandler('Stab Content')" [ngClass]="{ 'tab--active': currentTab === 'Stab Content'}">
-          <div class="tab-title">Stab Content</div>
+        <li (click)="tabSwitchHandler('Stub Content')" [ngClass]="{ 'tab--active': currentTab === 'Stub Content'}">
+          <div class="tab-title">Stub Content</div>
           <div class="tab-description">optional</div>
         </li>
         <li (click)="tabSwitchHandler('Interaction')" [ngClass]="{ 'tab--active': currentTab === 'Interaction'}">
@@ -76,10 +80,6 @@
           <div class="tab-description">optional</div>
         </li>
         <!--
-        <li (click)="tabSwitchHandler('Authorization')" [ngClass]="{ 'tab--active': currentTab === 'Authorization'}">
-          <div class="tab-title">Authorization</div>
-          <div class="tab-description">optional</div>
-        </li>
         <li (click)="tabSwitchHandler('Notifications')" [ngClass]="{ 'tab--active': currentTab === 'Notifications'}">
           <div class="tab-title">Notifications</div>
           <div class="tab-description">optional</div>
@@ -169,6 +169,72 @@
           <h3 class="tabs-content-title">Viewports</h3>
         </div>
 
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Authorization'}">
+          <h3 class="tabs-content-title">Authorization</h3>
+
+          <p>
+            Simple Auth Pre-Step. Enters the username & password at sign-in page before open main test page.
+          </p>
+
+          <app-text-field
+            [label]="'Sing-In page url'"
+            [description]="''"
+            [fieldSize]="'full'"
+            [placeholder]="'https://website.domain/login'"
+            [fieldIcon]="'External Link'"
+            (iconClick)="openExternalUrlHandler($event)"
+            [value]="scenario.authConfig.loginPage"
+            (valueChange)="changeFieldHandler($event, 'loginPage', 'authConfig')">
+          </app-text-field>
+
+          <app-text-field
+            [label]="'Login field selector'"
+            [description]="'CSS selector to find user login field'"
+            [fieldSize]="'full'"
+            [placeholder]="'.class | #id | tag, like input[type=text]'"
+            [value]="scenario.authConfig.loginSelector"
+            (valueChange)="changeFieldHandler($event, 'loginSelector', 'authConfig')">
+          </app-text-field>
+
+          <app-text-field
+            [label]="'User login'"
+            [description]="''"
+            [fieldSize]="'350'"
+            [placeholder]="'username'"
+            [value]="scenario.authConfig.loginValue"
+            (valueChange)="changeFieldHandler($event, 'loginValue', 'authConfig')">
+          </app-text-field>
+
+          <app-text-field
+            [label]="'Password field selector'"
+            [description]="'CSS selector to find password field'"
+            [fieldSize]="'full'"
+            [placeholder]="'.class | #id | tag, like input[type=password]'"
+            [value]="scenario.authConfig.passwordSelector"
+            (valueChange)="changeFieldHandler($event, 'passwordSelector', 'authConfig')">
+          </app-text-field>
+
+          <app-text-field
+            [label]="'User password'"
+            [description]="''"
+            [fieldSize]="'350'"
+            [placeholder]="'username'"
+            [isPasswordField]="true"
+            [value]="scenario.authConfig.passwordValue"
+            (valueChange)="changeFieldHandler($event, 'passwordValue', 'authConfig')">
+          </app-text-field>
+
+          <app-text-field
+            [label]="'Submit button selector'"
+            [description]="'CSS selector for SingIn button'"
+            [fieldSize]="'full'"
+            [placeholder]="'.class | #id | tag, like input[type=submit]'"
+            [value]="scenario.authConfig.submitSelector"
+            (valueChange)="changeFieldHandler($event, 'submitSelector', 'authConfig')">
+          </app-text-field>
+
+        </div>
+
         <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Wait Loading'}">
           <h3 class="tabs-content-title">Wait Loading</h3>
 
@@ -224,8 +290,8 @@
 
         </div>
 
-        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Stab Content'}">
-          <h3 class="tabs-content-title">Stab Content</h3>
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Stub Content'}">
+          <h3 class="tabs-content-title">Stub Content</h3>
 
           <p>You can replace innerText of any DOM element with stub values defined below</p>
 

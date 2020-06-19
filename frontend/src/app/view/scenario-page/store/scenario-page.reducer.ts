@@ -1,20 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
 import * as actions from './scenario-page.actions'
-
-export interface IScenarioHistory {
-  jobId:string,
-  state: string,
-  startedAt: string,
-  startedBy: string,
-  upic: string,
-}
+import { IScenario, IScenarioHistory } from '../../../models/app.models';
 
 export interface AppState {
   scenarioPage: ScenarioPageState
 }
 export interface ScenarioPageState {
   title: string;
-  scenario: any;
+  scenario: IScenario;
   scenarioHistory: {
     id: string,
     jobs: IScenarioHistory[]
@@ -23,7 +16,7 @@ export interface ScenarioPageState {
 
 export const initState = {
   title: '',
-  scenario: {},
+  scenario: {authConfig:{}},
   scenarioHistory: {
     id: null,
     jobs: []
@@ -46,7 +39,8 @@ const _reducer = createReducer(initState,
     return {
       ...state,
       scenario: {
-        label: 'NewScenario'
+        label: 'NewScenario',
+        authConfig: {}
       }
     }
   }),
@@ -63,9 +57,15 @@ const _reducer = createReducer(initState,
 
     let change = {};
 
-    if (!action.payload.isArray) {
+    if (!action.payload.isArray && !action.payload.parentField) {
 
       change[action.payload.field] = action.payload.value;
+    }
+    else if (!action.payload.isArray && action.payload.parentField) {
+
+      let nested = Object.assign({}, state.scenario[action.payload.parentField]);
+      nested[action.payload.field] = action.payload.value;
+      change[action.payload.parentField] = nested;
     }
     else {
 

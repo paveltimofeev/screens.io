@@ -112,8 +112,8 @@
 -- Frontend: confirmation for delete scenario
 -- Frontend: better scenarios layout
 -- Backend: Prototype of simple Login/Pass Auth Pre-Step
+-- [Feature+] Frontend: Implement UI for simple Login/Pass Auth Pre-Step. Define IScenario interface
 
-- Frontend: Implement UI for simple Login/Pass Auth Pre-Step. Define IScenario interface.
 - Add selftests for every tab at edit page of particular scenario
 - Integrate bootstrap for grid system and dropdowns.
 

@@ -17,9 +17,9 @@ import {
   resetScenarioArrayValue
 } from './store/scenario-page.actions';
 import { Observable } from 'rxjs';
-import { IScenarioHistory } from './store/scenario-page.reducer';
 import { title, scenario, scenarioHistory } from './store/scenario-page.selectors';
 import { take } from 'rxjs/operators';
+import { IScenarioHistory } from '../../models/app.models';
 
 @Component({
   selector: 'app-scenario-page',
@@ -51,6 +51,24 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
     this.scenario$ = this.store.select( scenario );
     this.scenario$.subscribe(scenario => this.scenario = scenario);
     this.scenarioHistory$ = this.store.select( scenarioHistory );
+
+    this.route.queryParams.subscribe(queryParams => {
+
+      if ([
+        'General',
+        'Elements Selectors',
+        'Viewports',
+        'Authorization',
+        'Wait Loading',
+        'Page Modification',
+        'Stub Content',
+        'Interaction',
+        'Notifications',
+        'Scheduler'
+      ].indexOf(queryParams.tab) > -1 ) {
+        this.currentTab = queryParams.tab;
+      }
+    });
 
     this.route.data.subscribe( data => {
       this.routeData = data;
@@ -89,11 +107,12 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
     })
   }
 
-  changeFieldHandler ($event, field) {
+  changeFieldHandler ($event: string, field: string, parentField:string = null) {
 
     this.store.dispatch( setScenarioProp({payload:
         {
           field,
+          parentField,
           value: $event
         }}))
   }

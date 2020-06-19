@@ -1,8 +1,9 @@
 import { createAction, props } from '@ngrx/store';
+import { IScenario } from '../../../models/app.models';
 
 export const refresh = createAction('[Scenario Page Component] refresh', props<{payload:{id:string}}>());
 export const refreshScenarioHistory = createAction('[Scenario Page Component] refreshScenarioHistory', props<{payload:{id:string}}>());
-export const loaded = createAction( '[Scenario Page Component] loaded', props<{payload: any}>() );
+export const loaded = createAction( '[Scenario Page Component] loaded', props<{payload: IScenario}>() );
 export const loadedScenarioHistory = createAction( '[Scenario Page Component] loadedScenarioHistory', props<{payload: any}>() );
 export const cleanupNgrxStorage = createAction('[Scenario Page Component] cleanupNgrxStorage');
 
@@ -35,7 +36,7 @@ export const createScenario = createAction(
 
 export const setScenarioProp = createAction(
   '[Scenario Page Component] setScenarioProp',
-  props<{ payload: { field:string, value:any, isArray?:boolean } }>()
+  props<{ payload: { field:string, parentField?:string, value:any, isArray?:boolean } }>()
 );
 
 export const removeScenarioArrayValue = createAction(

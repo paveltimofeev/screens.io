@@ -15,6 +15,7 @@ import { DateService } from '../../../services/date.service';
 import { NavigationService } from '../../../services/navigation.service';
 import { FiltersService, IQueryFilter, QueryFilter, QueryFilterType } from '../../../services/filters.service';
 import { openScenarioPage } from '../../../store/navigation/navigation.actions';
+import { IScenario } from '../../../models/app.models';
 
 
 @Injectable()
@@ -35,15 +36,23 @@ export class ScenarioPageEffects {
       return this.api.getScenario(action.payload.id).pipe(
         map( res => {
 
+          let emptyScenario = {
+            authConfig: {}
+          };
+
+          return { ...emptyScenario, ...res.data}
+        }),
+        map( (scenario: IScenario) => {
+
           return {
             type: loaded.type,
-            payload: res.data
+            payload: scenario
           }
         })
       );
     })));
 
-    autoRefreshScenarioHistory$ = createEffect(() => this.actions$.pipe(
+  autoRefreshScenarioHistory$ = createEffect(() => this.actions$.pipe(
       ofType(loadedScenarioHistory, cleanupNgrxStorage),
       debounceTime(5000),
       filter(x => x.type === loadedScenarioHistory.type),

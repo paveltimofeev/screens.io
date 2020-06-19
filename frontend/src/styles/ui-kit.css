@@ -531,7 +531,7 @@ app-data-action-button:first-child {
   outline: none;
 }
 
-.text-field .input-box input[type=password],
+.text-field .input-box input[type=password]::placeholder,
 .text-field .input-box input[type=text]::placeholder {
   color: #c3c3c3;
 }

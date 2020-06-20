@@ -1,11 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const {
-    clearHeaders, checkAuth, signup, signin, signout, 
-    changePassword, getAccountInfo, updateAccountInfo, deleteAccount
+    checkAuth, signout, 
+    getAccountInfo, updateAccountInfo, deleteAccount, changePassword
 } = require('./../utils');
 
 
+/// Check authorized session for all requests on this sub-route
+router.use('/', checkAuth)
+
+/// getAccountInfo
 router.get('/account', async (req,res) => {
 
     try {
@@ -18,42 +22,46 @@ router.get('/account', async (req,res) => {
     }
 })
 
+/// updateAccountInfo
 router.put('/account', async (req,res) => {
 
-try {
-    const result = await updateAccountInfo(req, res)
-    res.status(result.status).send(result.data)
-}
-catch(error) {
-    console.log('ERROR updateAccountInfo', error)
-    res.status(500).send( { message: 'Operation failed' })
-}
+    try {
+        const result = await updateAccountInfo(req, res)
+        res.status(result.status).send(result.data)
+    }
+    catch(error) {
+        console.log('ERROR updateAccountInfo', error)
+        res.status(500).send( { message: 'Operation failed' })
+    }
 })
 
+/// deleteAccount
 router.delete('/account', async (req,res) => {
 
-try {
+    try {
 
-    const result = await deleteAccount(req, res)
-    res.status(result.status).send({})
-}
-catch(error) {
-    console.log('ERROR deleteAccount', error)
-    res.status(500).send( { message: 'Operation failed' })
-}
+        const result = await deleteAccount(req, res)
+        await signout;
+        res.status(result.status).send({})
+    }
+    catch(error) {
+        console.log('ERROR deleteAccount', error)
+        res.status(500).send( { message: 'Operation failed' })
+    }
 })
 
+/// changePassword
 router.put('/account/password', async (req,res) => {
 
-try {
+    try {
 
-    const result = await changePassword(req, res)
-    res.status(result.status).send({})
-}
-catch(error) {
-    console.log('ERROR changePassword', error)
-    res.status(500).send( { message: 'Operation failed' })
-}
+        const result = await changePassword(req, res)
+        res.status(result.status).send({})
+    }
+    catch(error) {
+        console.log('ERROR changePassword', error)
+        res.status(500).send( { message: 'Operation failed' })
+    }
 })
 
 

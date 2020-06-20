@@ -115,6 +115,7 @@
 -- [Feature+] Frontend: Implement UI for simple Login/Pass Auth Pre-Step. Define IScenario interface
 -- Add selftests for every tab at edit page of particular scenario
 -- Proxy: Refactor utils and storage-adapter at proxy.
+-- Frontend & Proxy: [Bug] Do not navigate user to Overview page after successful SugnUp
 
 - Integrate bootstrap or duetds.com for grid system, tables, dropdowns and toggles.
 
@@ -124,6 +125,8 @@ TechDept
 - Frontend: Close menu at mobile view after click, and do not cover header
 
 BackLog
+- Frontend & Backend: Unclear error messages during signin/signup.
+- Proxy: [Bug] cannot create another one account with the same password
 - Frontend: Second change of Account Name (and other fields) fails without page reload
 - [Security] Backend: Do not store authConfig login/password in plain text. Do not transfer them to UI.
 - Frontend & Backend: Paging for job history: "Load more" or "next/prev" buttons based on skip + limit=30 and total_count of records
@@ -134,6 +137,8 @@ BackLog
 - Frontend: Scenario Page - add Overview(Summary) with reference image 
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Frontend: RESTYLE UI - Responsive UI (support mobile)
+- Frontend: Logout should clear session and cookies
+- Frontend: Should logout user on Delete Account
 - [Security] Proxy: Auth proxy should not store passwords in plain text
 - [Move to AWS: 1] STORE IMAGES AT AWS S3
 - [Move to AWS: 2] Run MongoDb on AWS VM
@@ -151,11 +156,6 @@ BackLog
 - Check active operations with bad network / no network.
 - Use Master term instead of Reference?
 - **------------ CLOSED BETA MILESTONE ------------**
-
-
-- Frontend & Backend: Unclear error messages during signin/signup.
-- Proxy: [Bug] cannot create another one account with the same password
-- Frontend & Proxy: [Bug] Do not navigate user to Overview page after successful SugnUp (AuthGuard?)
 
 - Frontend: Show Execution Plan to make clear the process of testing
 - Frontend: Use masked images for signin/signup page

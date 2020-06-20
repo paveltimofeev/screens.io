@@ -72,10 +72,7 @@ app.use(express.json())
 
 /// ROUTES MIDDLEWARE
 
-/// Check authorized session for /manage/* requests
-app.use('/manage', checkAuth)
 app.use('/manage', manageRouter);
-
 app.use('/', loginRouter);
 
 if (config.showWebUI) {

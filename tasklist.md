@@ -114,6 +114,7 @@
 -- Backend: Prototype of simple Login/Pass Auth Pre-Step
 -- [Feature+] Frontend: Implement UI for simple Login/Pass Auth Pre-Step. Define IScenario interface
 -- Add selftests for every tab at edit page of particular scenario
+-- Proxy: To refactor utils and storage-adapter at proxy.
 
 - Integrate bootstrap or duetds.com for grid system, tables, dropdowns and toggles.
 
@@ -123,6 +124,7 @@ TechDept
 - Frontend: Close menu at mobile view after click, and do not cover header
 
 BackLog
+- Frontend: Second change of Account Name (and other fields) fails without page reload
 - [Security] Backend: Do not store authConfig login/password in plain text. Do not transfer them to UI.
 - Frontend & Backend: Paging for job history: "Load more" or "next/prev" buttons based on skip + limit=30 and total_count of records
 - Backend: Do not use Login as userId, because it uses in path building and could allow user change directories, use user UID instead
@@ -158,7 +160,6 @@ BackLog
 - Frontend: Show Execution Plan to make clear the process of testing
 - Frontend: Use masked images for signin/signup page
 - Register user by email/gmail and promocode with email confirmation.
-- Proxy: To refactor utils and storage-adapter at proxy.
 - check username/password/... injection: create user "name*" and delete it. Do not allow to create usernames in [a-zA-Z] range or clean out restricted symbols
 - Frontend: [Bug/Usecase] If scenario was removed, user still can open it from old Job Page. Either we should show 'Not found' page here, or we should not remove it completely (mark as deleted to skip on runs and display, but allow to open it by direct link for read only without ability to change and run)
 - Frontend & Backend: approveAllFailedCases action produces N approve actions, that leed to N backend requests and N*x MongoDb requests, queues and backend operations. It could be replaced with one smart filter on backend.

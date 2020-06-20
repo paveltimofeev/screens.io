@@ -11,6 +11,11 @@ const {clearHeaders, checkAuth, signup, signin, signout, changePassword, getAcco
 const config = require('./config')
 const { connectToDb } = require('./storage/storage-adapter')
 
+const loginRouter = require('./routes/login');
+const manageRouter = require('./routes/manage');
+const webuiRouter = require('./routes/manage');
+
+
 process.env.NODE_ENV = 'production'; // Hide stacktrace on error
 
 var app = express();
@@ -42,9 +47,8 @@ app.use(session({
 }))
 
 
-/// Check authorized session
+/// Check authorized session for proxied requests
 app.use(config.proxyPath, checkAuth)
-app.use('mgt/account', checkAuth)
 
 
 /// Proxy backend calls
@@ -65,123 +69,17 @@ app.use(config.proxyPath, createProxyMiddleware({
 /// SHOULD BE USED AFTER(!) PROXY! TO AVOID FREEZING ON POST/PUT REQUESTS
 app.use(express.json())
 
-app.get('/manage/account', async (req,res) => {
 
-  try {
-    const result = await getAccountInfo(req, res)
-    res.status(result.status).send(result.data)
-  }
-  catch(error) {
-    console.log('ERROR getAccountInfo', error)
-    res.status(500).send( { message: 'Operation failed' })
-  }
-})
-app.put('/manage/account', async (req,res) => {
+/// ROUTES MIDDLEWARE
 
-  try {
-    const result = await updateAccountInfo(req, res)
-    res.status(result.status).send(result.data)
-  }
-  catch(error) {
-    console.log('ERROR updateAccountInfo', error)
-    res.status(500).send( { message: 'Operation failed' })
-  }
-})
-app.delete('/manage/account', async (req,res) => {
+/// Check authorized session for /manage/* requests
+app.use('/manage', checkAuth)
+app.use('/manage', manageRouter);
 
-  try {
-
-    const result = await deleteAccount(req, res)
-    res.status(result.status).send({})
-  }
-  catch(error) {
-    console.log('ERROR deleteAccount', error)
-    res.status(500).send( { message: 'Operation failed' })
-  }
-})
-app.put('/manage/account/password', async (req,res) => {
-
-  try {
-
-    const result = await changePassword(req, res)
-    res.status(result.status).send({})
-  }
-  catch(error) {
-    console.log('ERROR changePassword', error)
-    res.status(500).send( { message: 'Operation failed' })
-  }
-})
-
-
-app.post('/signup-client', async (req,res) => {
-
-  try {
-
-    const userData = await signup(req, res)
-    res.status(200).send({userData})
-  }
-  catch(error) {
-
-    console.log('ERROR /signup-client', error)
-    res.status(200).send( { error: error.uiMessage || 'Login failed' })
-  }
-});
-app.post('/signin-client', async (req,res) => {
-
-  try {
-
-    const userData = await signin(req, res)
-    res.status(200).send({userData})
-  }
-  catch(error) {
-
-    console.log('ERROR /signin-client', error)
-    res.status(200).send( { error: error.uiMessage || 'Login failed' })
-  }
-});
-app.post('/signout-client', (req,res) => {
-
-  signout(req, res, (err) => {
-      res.status(200).send(err)
-    })
-});
-
+app.use('/', loginRouter);
 
 if (config.showWebUI) {
-
-  app.get('/login', (req, res) => {
-    var {user} = req.signedCookies;
-    res.render('index', {user, message:''})
-  })
-
-  app.post('/signup', async (req,res) => {
-
-    try {
-      const userData = await signup(req, res)
-      res.render('index', { message: 'Signed up successfully', user: userData.user})
-    }
-    catch ( error ) {
-      res.render( 'index', { message : 'Sign-Up failed', user : '' } )
-    }
-  })
-  app.post('/signin', async (req,res) => {
-
-    try {
-      const userData = await signin(req, res)
-      res.render('index', { message: 'Logged in successfully', user: userData.user})
-    }
-    catch ( error ) {
-      res.render( 'index', { message : 'Login failed', user : '' } )
-    }
-
-  });
-  app.post('/signout', (req,res) => {
-
-    signout(req, res, (err) => {
-        res.render('index', { message: 'Logged out', user: ''})
-      })
-  });
-
+  app.use('/', webuiRouter);
 }
 
 

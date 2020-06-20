@@ -1,7 +1,8 @@
 const config = require('./config')
-const { createStorageAdapter } = require('./storage-adapter')
+const { createStorageAdapter } = require('./storage/storage-adapter')
 
-const storage = createStorageAdapter(config.dbUsersCollection, config.dbUsersCollectionSchema)
+const storage = createStorageAdapter(config.dbUsersCollection)
+
 
 const clearHeaders = (headers) => {
 
@@ -77,6 +78,7 @@ const signin = async (req, res, success, fail) => {
 
     let error = new Error('Invalid username or password');
     error.status = 403;
+    error.uiMessage = 'Invalid username or password';
     throw error;
   }
 
@@ -87,6 +89,7 @@ const signin = async (req, res, success, fail) => {
     if (!userData) {
       let error = new Error('Wrong user email or password');
       error.status = 403;
+      error.uiMessage = `Wrong user email/password or user '${email}' does not exists`;  
       throw error;
     }
 
@@ -116,6 +119,22 @@ const signin = async (req, res, success, fail) => {
 }
 
 const _createSessionOnSuccess = (req, res, userData) => {
+
+  if ( !userData._id 
+    || !userData.user 
+    || !userData.email 
+    || !userData.tenant 
+    || !userData.name
+  ) {
+
+    delete userData.password;
+    console.error('ERROR createSessionOnSuccess: Invalid user data', userData);
+    
+    let error = new Error('Invalid user data');
+    error.status = 403;
+    error.uiMessage = 'Invalid user data';
+    throw error;
+  }
 
   req.session.authorized = true;
   req.session.userid = userData._id;

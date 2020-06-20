@@ -1,21 +1,13 @@
 const { connect, model, Schema} = require('mongoose')
-
+const { userSchema } = require('./../models/user')
 
 class StorageAdapter {
 
-  constructor (usersCollectionName, usersCollectionSchema) {
+  constructor (usersCollectionName) {
 
     this.userModel = new model(
       usersCollectionName,
-      new Schema({
-        "tenant":         String,
-        "user":           { "type": String, "required": true, "unique": true },
-        "password":       { "type": String, "required": true },
-        "name":           { "type": String },
-        "email":          { "type": String, "required": false, "unique": true },
-        "emailConfirmed": { "type": Boolean, "default": false },
-        "enabled":        { "type": Boolean, "default": true },
-      })
+      userSchema
     );
   }
 

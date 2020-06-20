@@ -150,6 +150,11 @@ BackLog
 - Use Master term instead of Reference?
 - **------------ CLOSED BETA MILESTONE ------------**
 
+
+- Frontend & Backend: Unclear error messages during signin/signup.
+- Proxy: [Bug] cannot create another one account with the same password
+- Frontend & Proxy: [Bug] Do not navigate user to Overview page after successful SugnUp (AuthGuard?)
+
 - Frontend: Show Execution Plan to make clear the process of testing
 - Frontend: Use masked images for signin/signup page
 - Register user by email/gmail and promocode with email confirmation.

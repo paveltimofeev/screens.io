@@ -9,7 +9,7 @@ const MemoryStore = require('memorystore')(session)
 const cors = require('./cors');
 const {clearHeaders, checkAuth, signup, signin, signout, changePassword, getAccountInfo, updateAccountInfo, deleteAccount} = require('./utils')
 const config = require('./config')
-const { connectToDb } = require('./storage-adapter')
+const { connectToDb } = require('./storage/storage-adapter')
 
 process.env.NODE_ENV = 'production'; // Hide stacktrace on error
 
@@ -123,7 +123,7 @@ app.post('/signup-client', async (req,res) => {
   catch(error) {
 
     console.log('ERROR /signup-client', error)
-    res.status(401).send( { message: 'Login failed' })
+    res.status(200).send( { error: error.uiMessage || 'Login failed' })
   }
 });
 app.post('/signin-client', async (req,res) => {
@@ -136,7 +136,7 @@ app.post('/signin-client', async (req,res) => {
   catch(error) {
 
     console.log('ERROR /signin-client', error)
-    res.status(401).send( { message: 'Login failed' })
+    res.status(200).send( { error: error.uiMessage || 'Login failed' })
   }
 });
 app.post('/signout-client', (req,res) => {

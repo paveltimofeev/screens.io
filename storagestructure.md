@@ -4,6 +4,7 @@
     tenant
     user
     password
+    email
     enabled
 
 

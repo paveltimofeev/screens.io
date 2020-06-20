@@ -317,8 +317,10 @@ export class ApiAdapterService {
   signin (email:string, password:string): Observable<any> {
 
     return this.dataAccessService
-      .post(environment.auth + '/signin-client',
-        {email: email.trim(), password: password.trim()});
+      .post(
+        environment.auth + '/signin-client',
+        {email: email.trim(), password: password.trim()}
+      );
   }
 
   signout (): Observable<any> {

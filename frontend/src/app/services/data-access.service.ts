@@ -29,19 +29,22 @@ export const genericRetryStrategy = ({ maxRetryAttempts = 3, scalingDuration = 1
 
       return timer(delay);
     }),
-    finalize(() => {
-      //console.log('We are done!')
-    })
+    finalize(() => {})
   );
 };
 
+export interface IRetryOpts {
+  maxRetryAttempts: number;
+  scalingDuration: number;
+  excludedStatusCodes: number[];
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataAccessService {
 
-  retryOpts = {
+  retryOpts:IRetryOpts = {
     maxRetryAttempts: 10,
     scalingDuration: 2000,
     excludedStatusCodes: [401, 403, 404, 409, 500, 502, 503, 523, 525, 526]

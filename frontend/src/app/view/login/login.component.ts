@@ -46,33 +46,18 @@ export class LoginComponent implements OnInit{
     })
   }
 
-  signinHandler (form: NgForm) {
+  // signoutHandler () {
 
-    if (form.valid) {
-      this.api
-        .signin(form.value.user, form.value.password)
-        .subscribe(() => {
+  //   this.api
+  //     .signout()
+  //     .subscribe( () => {
 
-          var ss = window.sessionStorage;
-          ss.setItem('li', '1');
+  //       var ss = window.sessionStorage;
+  //       ss.clear();
 
-          this.router.navigate(['/']);
-        });
-    }
-  }
-
-  signoutHandler () {
-
-    this.api
-      .signout()
-      .subscribe( () => {
-
-        var ss = window.sessionStorage;
-        ss.clear();
-
-        this.router.navigate(['/account', 'signin']);
-      });
-  }
+  //       this.router.navigate(['/account', 'signin']);
+  //     });
+  // }
 
   isValidEmailFormat (email:string): boolean {
 
@@ -132,19 +117,11 @@ export class LoginComponent implements OnInit{
 
     if (isValidEmail && isValidPassword) {
 
-
       this.api
         .signin(form.email, form.password)
         .subscribe(
-          (res) => {
-            var ss = window.sessionStorage;
-            ss.setItem('li', '1');
-            this.router.navigate(['/']);
-          },
-          (err) => {
-            console.error(err);
-            form.responseError = 'Login failed';
-          }
+          (res) => { this.processLoginResponse(res, form); },
+          (err) => { this.processLoginError(err, form); }
         );
     }
   }
@@ -164,13 +141,31 @@ export class LoginComponent implements OnInit{
       this.api
         .signup(form.name, form.email, form.password)
         .subscribe(
-          () => {
-            this.router.navigate(['/']);
-          },
-          (err) => {
-            console.error(err);
-            form.responseError = 'Operation failed';
-          });
+          (res) => { this.processLoginResponse(res, form); },
+          (err) => { this.processLoginError(err, form); }
+        );
     }
+  }
+
+  private processLoginResponse(res, form) {
+
+    if (!res.error) {
+      this.onSuccessLogin()
+    }
+    else {
+      form.responseError = res.error;    
+    }
+  }
+
+  private processLoginError(err, form) {
+    console.error(err);
+    form.responseError = err.message || 'Operation failed';
+  }
+
+  private onSuccessLogin () {
+
+    var ss = window.sessionStorage;
+    ss.setItem('li', '1');
+    this.router.navigate(['/']);
   }
 }

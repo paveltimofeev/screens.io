@@ -116,6 +116,7 @@
 -- Add selftests for every tab at edit page of particular scenario
 -- Proxy: Refactor utils and storage-adapter at proxy.
 -- Frontend & Proxy: [Bug] Do not navigate user to Overview page after successful SugnUp
+-- Proxy: [Bug] cannot create another one account with the same password (index for password field was created)
 
 - Integrate bootstrap or duetds.com for grid system, tables, dropdowns and toggles.
 
@@ -126,7 +127,6 @@ TechDept
 
 BackLog
 - Frontend & Backend: Unclear error messages during signin/signup.
-- Proxy: [Bug] cannot create another one account with the same password
 - Frontend: Second change of Account Name (and other fields) fails without page reload
 - [Security] Backend: Do not store authConfig login/password in plain text. Do not transfer them to UI.
 - Frontend & Backend: Paging for job history: "Load more" or "next/prev" buttons based on skip + limit=30 and total_count of records

@@ -114,7 +114,7 @@
 -- Backend: Prototype of simple Login/Pass Auth Pre-Step
 -- [Feature+] Frontend: Implement UI for simple Login/Pass Auth Pre-Step. Define IScenario interface
 -- Add selftests for every tab at edit page of particular scenario
--- Proxy: To refactor utils and storage-adapter at proxy.
+-- Proxy: Refactor utils and storage-adapter at proxy.
 
 - Integrate bootstrap or duetds.com for grid system, tables, dropdowns and toggles.
 

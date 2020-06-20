@@ -118,6 +118,7 @@
 -- Frontend & Proxy: [Bug] Do not navigate user to Overview page after successful SugnUp
 -- Proxy: [Bug] cannot create another one account with the same password (index for password field was created)
 
+- **New User Init Process**: [Bug] New user does not have any Viewports configured and do not have ability to add them.
 - Integrate bootstrap or duetds.com for grid system, tables, dropdowns and toggles.
 
 TechDept
@@ -144,7 +145,6 @@ BackLog
 - [Move to AWS: 2] Run MongoDb on AWS VM
 - [Move to AWS: 3] Run proxy & backend on AWS VM
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name
-- **New User Init Process**: [Bug] New user does not have any Viewports configured and do not have ability to add them.
 - **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user)
 - LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
 - **------------ MVP MILESTONE ------------**

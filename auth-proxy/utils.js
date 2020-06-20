@@ -1,3 +1,4 @@
+const axios = require('axios');
 const config = require('./config')
 const { createStorageAdapter } = require('./storage/storage-adapter')
 
@@ -32,7 +33,6 @@ const checkAuth = (req, res, next) => {
 
 const signup = async (req, res) => {
 
-  console.log('signup', req.body)
   const user = req.body.user;
   const email = (req.body.email||'').toLowerCase();
   const password = req.body.password;
@@ -55,6 +55,7 @@ const signup = async (req, res) => {
 
     console.log('Signup success ', `${userData.tenant}/${userData.user}`);
     _createSessionOnSuccess(req, res, userData);
+    await _setupNewUser(userData);
 
     return {
       user: userData.user,
@@ -147,6 +148,25 @@ const _createSessionOnSuccess = (req, res, userData) => {
   res.cookie('_id', userData._id, {signed:true, sameSite:true, maxAge: config.maxAge});
 }
 
+const _setupNewUser = async (userData) => {
+  
+  /// POST `${config.backend}/user/initialize` + retries
+  ///  ('x-auth-proxy-user', userData.user)
+  ///  ('x-auth-proxy-tenant', userData.tenant)
+  ///  ('x-auth-proxy-username', userData.username)
+
+  const options = {
+    method: 'POST',
+    url: `${config.backend}/api/user/initialize`,
+    headers: {
+      'x-auth-proxy-user': userData.user,
+      'x-auth-proxy-tenant': userData.tenant,
+      'x-auth-proxy-username': userData.name
+    }
+  };
+
+  await axios(options);
+}
 
 const changePassword = async (req, res) => {
 

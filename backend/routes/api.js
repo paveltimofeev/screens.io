@@ -13,6 +13,18 @@ const tryWrapper = async (req, res, action) => {
     }
 }
 
+/// Initialize new user:
+/// Create default viewports and example scenarios
+router.post('/user/initialize', async function(req, res) {
+
+    tryWrapper(req, res, async () => {
+
+        const data = await VRT.create(req.context).initializeUser()
+        res.status(200).send( { data } )
+    })
+});
+
+
 router.post('/test/run', async function(req, res) {
 
     var opts = {

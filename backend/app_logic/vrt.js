@@ -236,6 +236,18 @@ class VRT {
 
     /// API
 
+    async initializeUser () {
+
+        await storage.createViewport(this._userId,
+            {label: '1920 × 1080', width: 1920, height: 1080, enabled: true})
+
+        await storage.createViewport(this._userId,
+            {label: '1600 × 900', width: 1600, height: 900, enabled: false})
+
+        await storage.createViewport(this._userId,
+            {label: '1536 × 864' , width: 1536, height: 864, enabled: false})
+    }
+
     async enqueueRun (opts) {
 
         const runId = uuidv4()

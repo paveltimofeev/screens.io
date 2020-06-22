@@ -88,9 +88,9 @@ const signin = async (req, res, success, fail) => {
     const userData = await storage.getUser(email, password);
 
     if (!userData) {
-      let error = new Error('Wrong user email or password');
+      let error = new Error('Incorrect username or password');
       error.status = 403;
-      error.uiMessage = `Wrong user email/password or user '${email}' does not exists`;  
+      error.uiMessage = `Incorrect username or password`;
       throw error;
     }
 
@@ -121,16 +121,16 @@ const signin = async (req, res, success, fail) => {
 
 const _createSessionOnSuccess = (req, res, userData) => {
 
-  if ( !userData._id 
-    || !userData.user 
-    || !userData.email 
-    || !userData.tenant 
+  if ( !userData._id
+    || !userData.user
+    || !userData.email
+    || !userData.tenant
     || !userData.name
   ) {
 
     delete userData.password;
     console.error('ERROR createSessionOnSuccess: Invalid user data', userData);
-    
+
     let error = new Error('Invalid user data');
     error.status = 403;
     error.uiMessage = 'Invalid user data';
@@ -149,7 +149,7 @@ const _createSessionOnSuccess = (req, res, userData) => {
 }
 
 const _setupNewUser = async (userData) => {
-  
+
   /// POST `${config.backend}/user/initialize` + retries
   ///  ('x-auth-proxy-user', userData.user)
   ///  ('x-auth-proxy-tenant', userData.tenant)

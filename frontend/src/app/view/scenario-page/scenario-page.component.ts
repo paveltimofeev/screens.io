@@ -116,6 +116,14 @@ export class ScenarioPageComponent implements OnInit, OnDestroy {
           value: $event
         }}))
   }
+  changeSelectorsFieldHandler ($event: string, field: string) {
+
+    this.store.dispatch( setScenarioProp({payload:
+        {
+          field,
+          value: ($event||'').trim().split(',').map(x => x.trim()).filter(x => x !== '')
+        }}))
+  }
   addStubRuleHandler (stubRule: { selector: string; value: string }) {
 
     this.store.dispatch( setScenarioProp({payload:

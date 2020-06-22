@@ -138,7 +138,7 @@
             [fieldSize]="'full'"
             [placeholder]="'.class, #id, tag'"
             [value]="scenario.selectors"
-            (valueChange)="changeFieldHandler($event, 'selectors')"
+            (valueChange)="changeSelectorsFieldHandler($event, 'selectors')"
           ></app-text-field>
 
           <app-text-field
@@ -286,7 +286,7 @@
             [fieldSize]="'full'"
             [placeholder]="'.class | #id | tag'"
             [value]="scenario.hideSelectors"
-            (valueChange)="changeFieldHandler($event, 'hideSelectors')"
+            (valueChange)="changeSelectorsFieldHandler($event, 'hideSelectors')"
           ></app-text-field>
 
           <app-text-field
@@ -295,7 +295,7 @@
             [fieldSize]="'full'"
             [placeholder]="'.class | #id | tag'"
             [value]="scenario.removeSelectors"
-            (valueChange)="changeFieldHandler($event, 'removeSelectors')"
+            (valueChange)="changeSelectorsFieldHandler($event, 'removeSelectors')"
           ></app-text-field>
 
         </div>
@@ -366,7 +366,7 @@
             [fieldSize]="'full'"
             [placeholder]="'.class, #id, tag'"
             [value]="scenario.clickSelectors"
-            (valueChange)="changeFieldHandler($event, 'clickSelectors')"
+            (valueChange)="changeSelectorsFieldHandler($event, 'clickSelectors')"
           ></app-text-field>
 
           <app-text-field
@@ -375,7 +375,7 @@
             [fieldSize]="'full'"
             [placeholder]="'.class, #id, tag'"
             [value]="scenario.hoverSelectors"
-            (valueChange)="changeFieldHandler($event, 'hoverSelectors')"
+            (valueChange)="changeSelectorsFieldHandler($event, 'hoverSelectors')"
           ></app-text-field>
 
           <app-text-field

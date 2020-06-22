@@ -49,6 +49,26 @@ const approveQueue = new QueueWrapper(async (opts) => {
       .processApproveCase(pair)
 })
 
+const validateScenario = (data) => {
+
+    const allowStringArraysOnly = (scenario, prop) => {
+        if(
+          !Array.isArray( scenario[ prop ] ) ||
+          scenario[ prop ] == null ||
+          (typeof (scenario[ prop ]) === 'string' && scenario[ prop ].trim() === '') )
+        {
+            scenario[ prop ] = []
+        }
+
+        scenario[ prop ] = scenario[ prop ].filter( x => typeof (x) === 'string' && x.trim() !== '' && x !== '' )
+    };
+
+    allowStringArraysOnly(data, 'hideSelectors');
+    allowStringArraysOnly(data, 'removeSelectors');
+    allowStringArraysOnly(data, 'clickSelectors');
+    allowStringArraysOnly(data, 'hoverSelectors');
+    allowStringArraysOnly(data, 'selectors');
+}
 
 class VRT {
 
@@ -435,6 +455,8 @@ class VRT {
         return await storage.getScenarios(this._userId, query)
     }
     async createScenario (data) {
+
+        validateScenario(data);
         return await storage.createScenario(this._userId, data)
     }
     async cloneScenario (id, data) {
@@ -452,6 +474,8 @@ class VRT {
         await storage.updateScenario(this._userId, id, {meta_isFavorite: false})
     }
     async updateScenario (id, data) {
+
+        validateScenario(data);
         return await storage.updateScenario(this._userId, id, data)
     }
     async deleteScenario (id) {

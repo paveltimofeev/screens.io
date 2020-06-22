@@ -117,9 +117,9 @@
 -- Proxy: Refactor utils and storage-adapter at proxy.
 -- Frontend & Proxy: [Bug] Do not navigate user to Overview page after successful SugnUp
 -- Proxy: [Bug] cannot create another one account with the same password (index for password field was created)
+-- Frontend & Backend: [Bug] Adding then removing ClickSelectors cause array with empty selector - [""] that fails job
 
 - **New User Init Process**: [Bug] New user does not have any Viewports configured and do not have ability to add them.
-- Frontend: [Bug] Adding then removing ClickSelectors cause array with empty selector - [""] that fails job
 - Integrate bootstrap or duetds.com for grid system, tables, dropdowns and toggles.
 
 TechDept
@@ -132,6 +132,7 @@ BackLog
 - Frontend: Second change of Account Name (and other fields) fails without page reload
 - [Security] Backend: Do not store authConfig login/password in plain text. Do not transfer them to UI.
 - Frontend & Backend: Paging for job history: "Load more" or "next/prev" buttons based on skip + limit=30 and total_count of records
+- [Feature+] Stubs for images (see. backend/app_logic/engine_scripts/puppet/interceptImages.js)
 - Backend: Do not use Login as userId, because it uses in path building and could allow user change directories, use user UID instead
 - Frontend: Implement Sidebar filters for Job Page
 - Frontend: (?) Show correct values at stats section of sidebar (Jobs)
@@ -161,7 +162,6 @@ BackLog
 - [Bad User Scenario] Enabling of 'Check all matching selectors' could lead to many results (every result for each element found by css-selector). It can confuse end user. Probably better to disable this option.
 - [Bad User Scenario] Run scenario that run other scenarios will produce infinite loop of runs. Should to protect myself from such behaviour.
 - [Bad User Scenario] there is no reason in difference after Approve case
-- [Feature] Stubs for images
 - [Bad UX] Do not clear that case was Approved
 - [Bad UX] Enable/Disable toggle for authorization has to be clicked twice to change.
 - Too much scenarios in info-table at JobPage

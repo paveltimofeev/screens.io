@@ -75,9 +75,10 @@ h3 {
 .fields-container {
   width: 50%;
 }
-.fields-container p {
+.fields-container .note {
   width: 100%;;
-  margin: 0;
+  margin-bottom: var(--px10);
+  font-size: var(--px14);
 }
 .fields-container .button {
   margin-top: var(--px40);

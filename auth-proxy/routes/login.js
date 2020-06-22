@@ -1,20 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const {
-    clearHeaders, checkAuth, signup, signin, signout, 
-    changePassword, getAccountInfo, updateAccountInfo, deleteAccount
-} = require('./../utils');
+const { signup, signin, signout } = require('./../utils');
 
 
 router.post('/signup-client', async (req,res) => {
 
     try {
-  
+
       const userData = await signup(req, res)
       res.status(200).send({userData})
     }
     catch(error) {
-  
+
       console.log('ERROR /signup-client', error)
       res.status(200).send( { error: error.uiMessage || 'Login failed' })
     }
@@ -40,6 +37,6 @@ signout(req, res, (err) => {
     res.status(200).send(err)
     })
 });
-  
+
 
 module.exports = router;

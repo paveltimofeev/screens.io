@@ -118,6 +118,7 @@
 -- Frontend & Proxy: [Bug] Do not navigate user to Overview page after successful SugnUp
 -- Proxy: [Bug] cannot create another one account with the same password (index for password field was created)
 -- Frontend & Backend: [Bug] Adding then removing ClickSelectors cause array with empty selector - [""] that fails job
+-- Frontend & Backend: Unclear error messages during signin/signup
 
 - **New User Init Process**: [Bug] New user does not have any Viewports configured and do not have ability to add them.
 - Integrate bootstrap or duetds.com for grid system, tables, dropdowns and toggles.
@@ -128,7 +129,6 @@ TechDept
 - Frontend: Close menu at mobile view after click, and do not cover header
 
 BackLog
-- Frontend & Backend: Unclear error messages during signin/signup.
 - Frontend: Second change of Account Name (and other fields) fails without page reload
 - [Security] Backend: Do not store authConfig login/password in plain text. Do not transfer them to UI.
 - Frontend & Backend: Paging for job history: "Load more" or "next/prev" buttons based on skip + limit=30 and total_count of records

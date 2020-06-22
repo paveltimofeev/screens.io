@@ -119,6 +119,7 @@
 -- Proxy: [Bug] cannot create another one account with the same password (index for password field was created)
 
 - **New User Init Process**: [Bug] New user does not have any Viewports configured and do not have ability to add them.
+- Frontend: [Bug] Adding then removing ClickSelectors cause array with empty selector - [""] that fails job
 - Integrate bootstrap or duetds.com for grid system, tables, dropdowns and toggles.
 
 TechDept
@@ -157,6 +158,13 @@ BackLog
 - Use Master term instead of Reference?
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- [Bad User Scenario] Enabling of 'Check all matching selectors' could lead to many results (every result for each element found by css-selector). It can confuse end user. Probably better to disable this option.
+- [Bad User Scenario] Run scenario that run other scenarios will produce infinite loop of runs. Should to protect myself from such behaviour.
+- [Bad User Scenario] there is no reason in difference after Approve case
+- [Feature] Stubs for images
+- [Bad UX] Do not clear that case was Approved
+- [Bad UX] Enable/Disable toggle for authorization has to be clicked twice to change.
+- Too much scenarios in info-table at JobPage
 - Frontend: Show Execution Plan to make clear the process of testing
 - Frontend: Use masked images for signin/signup page
 - Register user by email/gmail and promocode with email confirmation.

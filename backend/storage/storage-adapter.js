@@ -188,8 +188,11 @@ class Storage {
     async bulkWriteViewports (database, viewports, upsert) {
 
         // https://stackoverflow.com/questions/39988848/trying-to-do-a-bulk-upsert-with-mongoose-whats-the-cleanest-way-to-do-this
-
-        var bulkOps = viewports.map( viewport => ({
+        /// TODO: Do not insert values, need to figure out and make correct UPSERT
+        /// so filter out values without _id and make bulk update
+        var bulkOps = viewports
+          .filter(x => x._id)
+          .map( viewport => ({
             'updateOne': {
                 'filter': { _id: viewport._id },
                 'update': viewport,
@@ -197,7 +200,14 @@ class Storage {
             }
         }));
 
-        return await  this._bulkUpsert(database, 'Viewport', viewportSchema, bulkOps);
+        /// then filter values without _id and insert them (without bulk)
+        viewports
+          .filter(x => !x._id)
+          .forEach( async (viewport) => {
+              return await this.createViewport(database,viewport)
+        });
+
+        return await this._bulkUpsert(database, 'Viewport', viewportSchema, bulkOps);
     }
     async createViewport (database, data) {
 

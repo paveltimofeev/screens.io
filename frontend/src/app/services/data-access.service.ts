@@ -47,7 +47,7 @@ export class DataAccessService {
   retryOpts:IRetryOpts = {
     maxRetryAttempts: 10,
     scalingDuration: 2000,
-    excludedStatusCodes: [401, 403, 404, 409, 500, 502, 503, 523, 525, 526]
+    excludedStatusCodes: [400, 401, 403, 404, 409, 500, 502, 503, 523, 525, 526]
   };
 
   constructor(private http: HttpClient, private router: Router) { }

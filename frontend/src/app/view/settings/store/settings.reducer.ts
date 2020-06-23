@@ -1,13 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as actions from './settings.actions'
-
-export interface IViewport {
-  _id?: string;
-  label: string;
-  width: number;
-  height: number;
-  enabled?: boolean;
-}
+import { IViewport } from '../../../models/app.models';
 
 export interface AppState {
   settings: SettingsState
@@ -98,9 +91,17 @@ const _reducer = createReducer(initState,
 
     return {
       ...state,
-      customViewports: [
-        ...state.customViewports,
-        action.payload
+      viewports: [
+        ...state.viewports,
+        ...[action.payload.viewport.label]
+      ],
+      viewportsData: [
+        ...state.viewportsData,
+        ...[action.payload.viewport]
+      ],
+      selectedViewports: [
+        ...state.selectedViewports,
+        ...[action.payload.viewport.label]
       ]
     }
   }),

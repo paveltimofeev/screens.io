@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IViewport } from './settings.reducer';
+import { IViewport } from '../../../models/app.models';
 
 
 export const refreshViewports = createAction('[Settings Component] refreshViewports');
@@ -21,7 +21,7 @@ export const operationCompleted = createAction(
 
 export const addCustomViewport = createAction(
   '[Settings Component] addCustomViewport',
-  props<{ payload: IViewport }>()
+  props<{ payload: {viewport: IViewport } }>()
 );
 export const selectViewports = createAction(
   '[Settings Component] selectViewports',

@@ -27,6 +27,14 @@ export interface IScenario {
   meta_referenceImageUrl: string;
 }
 
+export interface IViewport {
+  _id?: string;
+  label: string;
+  width: number;
+  height: number;
+  enabled?: boolean;
+}
+
 export interface IScenarioHistory {
   jobId:string,
   state: string,

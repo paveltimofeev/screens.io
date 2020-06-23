@@ -489,6 +489,22 @@ class VRT {
         return await storage.getViewports(this._userId, query)
     }
     async upsertViewports (viewports) {
+
+        if (!viewports || !Array.isArray(viewports)) {
+            console.log('Wrong viewports format', viewports)
+            return { status: 400, error: 'Wrong viewports format'}
+        }
+
+        if (!viewports.every(x =>
+          Number.isInteger(x.width) &&
+          Number.isInteger(x.height) &&
+          x.width >= 640 && x.height >= 480 &&
+          x.width <= 4096 && x.height <= 3072 // max 4k
+        )) {
+            console.log('Unsupported viewport size. Min allowed 640 × 480, max 4096 × 3072.', viewports)
+            return { status: 400, error: 'Unsupported viewport size. Min allowed 320 × 280, max 4096 × 3072.'}
+        }
+
         return await storage.bulkWriteViewports(this._userId, viewports, true)
     }
     async createViewport (data) {

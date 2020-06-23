@@ -7,6 +7,7 @@ import {
   operationResult
 } from './store/settings.selectors';
 import {
+  addCustomViewport,
   cleanupNgrxStorage,
   refreshViewports,
   selectViewports,
@@ -20,6 +21,7 @@ import {
   updateAccountInfoOp,
   updatePasswordOp
 } from '../../store/account-api/account-api.actions';
+import { IViewport } from '../../models/app.models';
 
 
 @Component({
@@ -183,6 +185,28 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
       this.store.dispatch(updateViewports({payload}));
     }
+  }
+
+  customViewport: IViewport = {
+    label: null,
+    width: null,
+    height: null
+  };
+
+  addCustomViewportHandler (viewport:IViewport) {
+
+    viewport.label = viewport.label || `${viewport.width} × ${viewport.height}`;
+    viewport.width = +viewport.width;
+    viewport.height = +viewport.height;
+    viewport.enabled = true;
+
+    this.store.dispatch(addCustomViewport({payload: { viewport }}));
+
+    this.customViewport = {
+      label: null,
+      width: null,
+      height: null
+    };
   }
 
   deleteAccountPassword: string;

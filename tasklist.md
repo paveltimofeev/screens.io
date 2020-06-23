@@ -122,6 +122,7 @@
 -- **New User Init Process**: [Bug] New user does not have any Viewports configured.
 -- Run scenarios filtered by ids[]*viewports[]
 -- Frontend: Integrate bootstrap for grid system, tables, dropdowns and modals.
+-- Frontend: Adding custom viewports
 
 
 TechDept
@@ -130,7 +131,7 @@ TechDept
 - Frontend: Close menu at mobile view after click, and do not cover header
 
 BackLog
-- Autostop or ManualStop for stucked jobs
+- Autostop or ManualStop for stuck jobs
 - Frontend: Second change of Account Name (and other fields) fails without page reload
 - [Security] Backend: Do not store authConfig login/password in plain text. Do not transfer them to UI.
 - Frontend & Backend: Paging for job history: "Load more" or "next/prev" buttons based on skip + limit=30 and total_count of records
@@ -192,7 +193,8 @@ BackLog
 - [Feature] Ability to set cookies. [Usecase] Test different looks of UI, dependent on cookie value, like 'covid', 'accept cookie' banners.
 - [Feature] Ability to set localStorage/sessionStorage values. [Usecase] Test user cutomized UIs.
 - [Feature] To have several Valid References and test image against all of them to mitigate minor (insignificant) differences. To have actions like 'Add to Approved' and 'Override All Approved' instead of 'Approve'.
-- [Feature] Label, tag or star job runs, tom make it easy to find later important runs
+- [Feature+] Label, tag or star job runs, to make it easy to find later important runs
+- [Feature] Group scenarios in suites
 - Frontend: Animate processes - approve button should be animated during approve process, run during run and other microinteractions.
 - Frontend: Show error screen if backend are not available
 - Run Scenario(s) by Id, not by label, because different project should be able to have the same label sometimes.

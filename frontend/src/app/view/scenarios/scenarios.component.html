@@ -67,22 +67,24 @@
 
   <div class="data-placeholder">
 
-    <div class="app-card app-card--three-in-row xs12" *ngFor="let scenario of scenarios$ | async">
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let scenario of scenarios$ | async">
 
-      <app-card-md
-        [itemId]="scenario._id"
-        [header]="scenario.label"
-        [state]="scenario.state"
-        [isFavorite]="scenario.meta_isFavorite"
-        [imageUrl]="scenario.meta_referenceImageUrl || '/assets/images/stubs/screen11.png'"
-        [fullHeightModeOn]="fullHeightModeOn$ | async"
-        (clickRun)="runScenarioHandler($event, scenario.label)"
-        (clickFavorite)="favoriteScenarioHandler($event)"
-        (clickCard)="selectScenarioHandler($event)"
-        (clickDelete)="deleteScenarioHandler($event)"
-      >
-      </app-card-md>
+        <app-card-md
+          [itemId]="scenario._id"
+          [header]="scenario.label"
+          [state]="scenario.state"
+          [isFavorite]="scenario.meta_isFavorite"
+          [imageUrl]="scenario.meta_referenceImageUrl || '/assets/images/stubs/screen11.png'"
+          [fullHeightModeOn]="fullHeightModeOn$ | async"
+          (clickRun)="runScenarioHandler($event, scenario.label)"
+          (clickFavorite)="favoriteScenarioHandler($event)"
+          (clickCard)="selectScenarioHandler($event)"
+          (clickDelete)="deleteScenarioHandler($event)"
+        >
+        </app-card-md>
 
+      </div>
     </div>
 
   </div>

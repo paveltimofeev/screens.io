@@ -2,6 +2,7 @@
   [title]="title$ | async"
   [customDescription]="true"
   [breadcrumb]="true"
+  [hideSidebar]="true"
 >
 
   <div class="breadcrumb-placeholder">
@@ -110,40 +111,40 @@
 
   <div class="data-placeholder">
 
-    <div class="app-card app-card--two-in-row xs12" *ngFor="let c of cases$ | async; index as idx">
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let c of cases$ | async; index as idx">
+        <app-card-lg
+          *ngIf="(imageMode$ | async) === 'Test Result'"
+          [label]="c.label"
+          [imageUrl]="c.test"
+          [hoverImageUrl]="c.difference"
+          [viewports]="[c.viewport]"
+          [status]="c.status"
+          [errorMessage]="c.error"
+          [switchOnMouseOver]="true"
+          [fullHeightModeOn]="fullHeightModeOn$ | async"
+          (clickCard)="clickCardHandler(idx)"
+          (clickLabel)="clickLabelHandler(c.scenarioId)"
+          (clickApprove)="clickApproveHandler(c)"
+        >
+        </app-card-lg>
 
-      <app-card-lg
-        *ngIf="(imageMode$ | async) === 'Test Result'"
-        [label]="c.label"
-        [imageUrl]="c.test"
-        [hoverImageUrl]="c.difference"
-        [viewports]="[c.viewport]"
-        [status]="c.status"
-        [errorMessage]="c.error"
-        [switchOnMouseOver]="true"
-        [fullHeightModeOn]="fullHeightModeOn$ | async"
-        (clickCard)="clickCardHandler(idx)"
-        (clickLabel)="clickLabelHandler(c.scenarioId)"
-        (clickApprove)="clickApproveHandler(c)"
-      >
-      </app-card-lg>
-
-      <app-card-lg
-        *ngIf="(imageMode$ | async) === 'Difference'"
-        [label]="c.label"
-        [imageUrl]="c.difference || c.test"
-        [hoverImageUrl]="c.test"
-        [viewports]="[c.viewport]"
-        [status]="c.status"
-        [errorMessage]="c.error"
-        [switchOnMouseOver]="true"
-        [fullHeightModeOn]="fullHeightModeOn$ | async"
-        (clickCard)="clickCardHandler(idx)"
-        (clickLabel)="clickLabelHandler(c.scenarioId)"
-        (clickApprove)="clickApproveHandler(c)"
-      >
-      </app-card-lg>
-
+        <app-card-lg
+          *ngIf="(imageMode$ | async) === 'Difference'"
+          [label]="c.label"
+          [imageUrl]="c.difference || c.test"
+          [hoverImageUrl]="c.test"
+          [viewports]="[c.viewport]"
+          [status]="c.status"
+          [errorMessage]="c.error"
+          [switchOnMouseOver]="true"
+          [fullHeightModeOn]="fullHeightModeOn$ | async"
+          (clickCard)="clickCardHandler(idx)"
+          (clickLabel)="clickLabelHandler(c.scenarioId)"
+          (clickApprove)="clickApproveHandler(c)"
+        >
+        </app-card-lg>
+      </div>
     </div>
 
   </div>

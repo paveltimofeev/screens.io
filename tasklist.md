@@ -119,9 +119,10 @@
 -- Proxy: [Bug] cannot create another one account with the same password (index for password field was created)
 -- Frontend & Backend: [Bug] Adding then removing ClickSelectors cause array with empty selector - [""] that fails job
 -- Frontend & Backend: Unclear error messages during signin/signup
+-- **New User Init Process**: [Bug] New user does not have any Viewports configured.
+-- Run scenarios filtered by ids[]*viewports[]
+-- Frontend: Integrate bootstrap for grid system, tables, dropdowns and modals.
 
-- **New User Init Process**: [Bug] New user does not have any Viewports configured and do not have ability to add them.
-- Integrate bootstrap or duetds.com for grid system, tables, dropdowns and toggles.
 
 TechDept
 - Frontend: Fix Comparer view Fit/Full mode
@@ -129,6 +130,7 @@ TechDept
 - Frontend: Close menu at mobile view after click, and do not cover header
 
 BackLog
+- Autostop or ManualStop for stucked jobs
 - Frontend: Second change of Account Name (and other fields) fails without page reload
 - [Security] Backend: Do not store authConfig login/password in plain text. Do not transfer them to UI.
 - Frontend & Backend: Paging for job history: "Load more" or "next/prev" buttons based on skip + limit=30 and total_count of records
@@ -136,7 +138,7 @@ BackLog
 - Backend: Do not use Login as userId, because it uses in path building and could allow user change directories, use user UID instead
 - Frontend: Implement Sidebar filters for Job Page
 - Frontend: (?) Show correct values at stats section of sidebar (Jobs)
-- Frontend: Scenario Page - add Viewports tab
+- Frontend: Allow to choose Viewports for Scenario at Viewports Tab
 - Frontend: Scenario Page - add Overview(Summary) with reference image 
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Frontend: RESTYLE UI - Responsive UI (support mobile)
@@ -159,6 +161,7 @@ BackLog
 - Use Master term instead of Reference?
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- Frontend: Add custom vewports 
 - [Bad User Scenario] Enabling of 'Check all matching selectors' could lead to many results (every result for each element found by css-selector). It can confuse end user. Probably better to disable this option.
 - [Bad User Scenario] Run scenario that run other scenarios will produce infinite loop of runs. Should to protect myself from such behaviour.
 - [Bad User Scenario] there is no reason in difference after Approve case
@@ -179,7 +182,6 @@ BackLog
 - Frontend: Scenario Page - add HasValues pin; add Description (commentary) for scenario, to make puprose of scenario clearer.
 - Frontend: Not found views for scenario, job, comparer pages. Because they could be opened by Id, that does not exists.
 - Frontend: Read proof
-- Frontend: Allow to choose Viewports for Scenario at Viewports Tab
 - Frontend: Show reference image at Scenario Overview tab
 - Frontend: Table view mode for scenarios list
 - Frontend: Implement Scenariod view page actions (Run Filtered, Remove Filtered)
@@ -206,7 +208,6 @@ BackLog
 - Complete auto security checks & validation (by Lighthouse and other services)
 - Frontend: Splitter for comparer view
 - Frontend: Think out onboarding process, layout and empty state views.
-- Run scenarios filtered by ids[]*viewports[]
 - Restrict number of viewports
 - Loading a lot of images through AuthProxy is hard? Need to return signed link to S3 instead
 - Backend: Approve all failed/filtered tests in run
@@ -271,6 +272,6 @@ BackLog
 
 ## PROCESSES
 
-1. "Migration to Bootstrap"
+1. "Migration to Bootstrap/React/Acgular/SomeFramework"
  - Create scenarios for all pages, with different states, hovers, clicks and so on.
  

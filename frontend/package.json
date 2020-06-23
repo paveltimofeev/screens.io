@@ -26,6 +26,7 @@
     "ag-grid-community": "^23.0.2",
     "bootstrap": "^4.5.0",
     "core-js": "^2.5.4",
+    "jquery": "^3.5.1",
     "juxtaposejs": "^1.1.6",
     "moment": "^2.26.0",
     "rxjs": "~6.3.3",

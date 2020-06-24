@@ -124,6 +124,7 @@
 -- Frontend: Integrate bootstrap for grid system, tables, dropdowns and modals.
 -- Frontend: Adding custom viewports
 
+- Frontend & Backend: "Load more" for job history based on filter {startedAt: {$gt: prevLastRecord}} + limit=30 (set limit on bakend to be able to manage it on serverside, do not use skip). [GET] /api/history/ { startedAt: prevLastRecord, filters:... }. Get total by `res = db.restaurants.stats(); res.count`
 
 TechDept
 - Frontend: Fix Comparer view Fit/Full mode
@@ -134,7 +135,6 @@ BackLog
 - Autostop or ManualStop for stuck jobs
 - Frontend: Second change of Account Name (and other fields) fails without page reload
 - [Security] Backend: Do not store authConfig login/password in plain text. Do not transfer them to UI.
-- Frontend & Backend: Paging for job history: "Load more" or "next/prev" buttons based on skip + limit=30 and total_count of records
 - [Feature+] Stubs for images (see. backend/app_logic/engine_scripts/puppet/interceptImages.js)
 - Backend: Do not use Login as userId, because it uses in path building and could allow user change directories, use user UID instead
 - Frontend: Implement Sidebar filters for Job Page

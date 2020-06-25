@@ -130,7 +130,7 @@
 -- Frontend: "Load more" with loading state
 
 TechDept
-- Frontend: Returns and show Total/Filtered jobs count.
+- Frontend: Returns and show Total/Filtered jobs count
 - Frontend: Fix Comparer view Fit/Full mode
 - Frontend: Fix filters at Jobs view
 - Frontend: Close menu at mobile view after click, and do not cover header

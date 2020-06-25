@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiAdapterService } from 'src/app/services/api-adapter.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { loaded, loadedMore, loadMore, purgeHistory, refresh, removeFilter, setFilter } from './jobs.actions';
-import { mergeMap, map, withLatestFrom } from 'rxjs/operators';
+import { mergeMap, map, withLatestFrom, debounceTime } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { filters, loadMoreOpts } from './jobs.selectors';
@@ -63,8 +63,9 @@ export class JobsEffects {
         }));
     })));
 
-   refresh$ = createEffect(() => this.actions$.pipe(
+  refresh$ = createEffect(() => this.actions$.pipe(
     ofType(refresh, removeFilter, setFilter),
+    debounceTime(300),
     withLatestFrom(this.store.select(filters)),
     mergeMap(([action, filters]) => {
 

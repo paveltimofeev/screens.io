@@ -17,12 +17,14 @@ export interface JobsState {
   jobs: IJobRecord[],
   latestRowStartedAt: string;
   noMoreRecords: boolean;
+  loadingMoreInProgress: boolean;
 }
 export const initState = {
   filters: [],
   jobs: [],
   latestRowStartedAt: null,
-  noMoreRecords: false
+  noMoreRecords: false,
+  loadingMoreInProgress: false
 };
 
 const _reducer = createReducer(initState,
@@ -36,6 +38,14 @@ const _reducer = createReducer(initState,
     }
   }),
 
+  on(actions.loadMore, (state, action) => {
+
+    return {
+      ...state,
+      loadingMoreInProgress: true
+    }
+  }),
+
   on(actions.loadedMore, (state, action) => {
 
     return {
@@ -45,7 +55,8 @@ const _reducer = createReducer(initState,
         ...action.payload.jobs
       ],
       latestRowStartedAt: action.payload.latestRowStartedAt,
-      noMoreRecords: action.payload.jobs.length === 0
+      noMoreRecords: action.payload.jobs.length === 0,
+      loadingMoreInProgress: false
     }
   }),
 

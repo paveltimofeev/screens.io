@@ -98,10 +98,10 @@ export class OverviewEffects {
             startedDate: this.date.calendar(job.startedAt),
             upic: job.startedBy && job.startedBy.length > 0 ? job.startedBy[0] : ' '
           }
-        })
+        }).slice(0, 5)
       }
 
-      return this.api.getHistoryWithFilter({key: 'not_state', value: 'Approved'}, 5)
+      return this.api.getHistoryWithFilter({key: 'not_state', value: 'Approved'})
         .pipe(
           map( res => ({
               type: loadedRecentRuns.type,

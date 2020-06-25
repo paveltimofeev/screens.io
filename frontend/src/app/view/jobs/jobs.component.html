@@ -52,8 +52,12 @@
     <div class="more-section" *ngIf="(jobs$ | async).length > 0">
 
       <button *ngIf="(noMoreRecords$ | async) === false"
-              class="button button--white"
-              (click)="loadMoreHandler()">
+              class="button button--accent2"
+              (click)="loadMoreHandler()"
+              [ngClass]="{
+                'button--in-progress': (loadingMoreInProgress$|async) === true
+              }"
+      >
         Load More
       </button>
 

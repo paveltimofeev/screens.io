@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { cleanupNgrxStorage, loadMore, purgeHistory, refresh, removeFilter, setFilter } from './store/jobs.actions';
-import { jobs, noMoreRecords } from './store/jobs.selectors';
+import { jobs, loadingMoreInProgress, noMoreRecords } from './store/jobs.selectors';
 import { Observable } from 'rxjs';
 import { NavigationService } from 'src/app/services/navigation.service';
 
@@ -14,6 +14,7 @@ export class JobsComponent implements OnInit, OnDestroy {
 
   jobs$: Observable<any[]>;
   noMoreRecords$: Observable<boolean>;
+  loadingMoreInProgress$: Observable<boolean>;
 
   constructor(
     private store: Store,
@@ -24,6 +25,7 @@ export class JobsComponent implements OnInit, OnDestroy {
 
     this.jobs$ = this.store.pipe(select(jobs))
     this.noMoreRecords$ = this.store.pipe(select(noMoreRecords))
+    this.loadingMoreInProgress$ = this.store.pipe(select(loadingMoreInProgress))
 
     this.store.dispatch( refresh() )
   }

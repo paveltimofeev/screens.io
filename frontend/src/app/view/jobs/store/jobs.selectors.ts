@@ -22,6 +22,11 @@ export const loadMoreOpts = createSelector(
   })
 );
 
+export const loadingMoreInProgress = createSelector(
+  selectFeature,
+  (state: JobsState) => state.loadingMoreInProgress
+);
+
 export const noMoreRecords = createSelector(
   selectFeature,
   (state: JobsState) => state.noMoreRecords

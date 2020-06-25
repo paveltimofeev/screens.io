@@ -124,7 +124,7 @@
 -- Frontend: Integrate bootstrap for grid system, tables, dropdowns and modals.
 -- Frontend: Adding custom viewports
 
-- Frontend & Backend: "Load more" for job history based on filter {startedAt: {$gt: prevLastRecord}} + limit=30 (set limit on bakend to be able to manage it on serverside, do not use skip). [GET] /api/history/ { startedAt: prevLastRecord, filters:... }. Get total by `res = db.restaurants.stats(); res.count`
+- Frontend & Backend: "Load more" for job history based on filter {startedAt: {$gt: prevLastRecord}} + limit=30 (set limit on backend to be able to manage it on server side, do not use skip). Extend [GET] /api/history/ on backend to support startedAt filter { startedAt: prevLastRecord, filters:... }. Add items to list instead of replace on frontend. Initialize loading with separate longOp. Get total by `res = db.restaurants.stats(); res.count`.
 
 TechDept
 - Frontend: Fix Comparer view Fit/Full mode

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ApiAdapterService } from 'src/app/services/api-adapter.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { loaded, purgeHistory, refresh, removeFilter, setFilter } from './jobs.actions';
+import { loaded, loadedMore, loadMore, purgeHistory, refresh, removeFilter, setFilter } from './jobs.actions';
 import { mergeMap, map, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { filters } from './jobs.selectors';
+import { filters, loadMoreOpts } from './jobs.selectors';
 import { DateService } from 'src/app/services/date.service';
+import { IJobRecord } from '../../../models/app.models';
 
 
 @Injectable()
@@ -19,31 +20,62 @@ export class JobsEffects {
     private api: ApiAdapterService
   ) {}
 
-  refresh$ = createEffect(() => this.actions$.pipe(
+  jobsAdapter = (jobs:any[]): IJobRecord[] => {
+    return jobs.map( j => ({
+      _id: j._id,
+      runId: j.runId,
+      date: this.date.calendar(j.startedAt),
+      duration: j.finishedAt && j.startedAt ? `${((new Date(j.finishedAt) as any) - (new Date(j.startedAt) as any)) / 1000} sec` : 'running...',
+      status: j.state,
+      scope: (j.scenarios||[]).map( (x:any) => x.label).join(', '),
+      viewports: (j.viewports||[]).join(', '),
+      user: `by ${j.startedBy}`
+    }));
+  }
+
+  loadMore$ = createEffect(() => this.actions$.pipe(
+    ofType(loadMore),
+    withLatestFrom(this.store.select(loadMoreOpts)),
+    mergeMap(([action, loadMoreOpts]) => {
+
+      console.log('Load more since', loadMoreOpts);
+
+      const fromStartedAtFilter = {
+        key: 'fromStartedAt',
+        value: loadMoreOpts.latestRowStartedAt
+      };
+
+      return this.api
+        .getHistoryWithFilters([
+          ...loadMoreOpts.filters,
+          ...[fromStartedAtFilter]
+        ], 5)
+        .pipe(
+        map( res => {
+
+          return {
+            type: loadedMore.type,
+            payload: {
+              jobs: this.jobsAdapter(res.jobs),
+              latestRowStartedAt: res.jobs[res.jobs.length-1].startedAt
+            }
+          }
+        }));
+    })));
+
+   refresh$ = createEffect(() => this.actions$.pipe(
     ofType(refresh, removeFilter, setFilter),
     withLatestFrom(this.store.select(filters)),
     mergeMap(([action, filters]) => {
 
-      return this.api.getHistoryWithFilters(filters, 30).pipe(
+      return this.api.getHistoryWithFilters(filters, 5).pipe(
         map( res => {
-
-          const jobsAdapter = (jobs:any[]) => {
-            return jobs.map( j => ({
-              _id: j._id,
-              runId: j.runId,
-              date: this.date.calendar(j.startedAt),
-              duration: j.finishedAt && j.startedAt ? `${((new Date(j.finishedAt) as any) - (new Date(j.startedAt) as any)) / 1000} sec` : 'running...',
-              status: j.state,
-              scope: (j.scenarios||[]).map( (x:any) => x.label).join(', '),
-              viewports: (j.viewports||[]).join(', '),
-              user: `by ${j.startedBy}`
-            }));
-          }
 
           return {
             type: loaded.type,
             payload: {
-              jobs: jobsAdapter(res.jobs)
+              jobs: this.jobsAdapter(res.jobs),
+              latestRowStartedAt: res.jobs[res.jobs.length-1].startedAt
             }
           }
 

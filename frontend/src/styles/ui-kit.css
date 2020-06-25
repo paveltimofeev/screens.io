@@ -1492,6 +1492,17 @@ app-data-action-button:first-child {
 }
 
 
+/* LOAD MORE */
+
+.more-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: var(--px36);
+}
+
+
 /* MORABLE */
 
 .morable input[type=checkbox] {

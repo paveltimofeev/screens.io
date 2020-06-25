@@ -14,3 +14,11 @@ export const filters = createSelector(
   (state: JobsState) => state.filters
 );
 
+export const loadMoreOpts = createSelector(
+  selectFeature,
+  (state: JobsState) => ({
+    filters: state.filters,
+    latestRowStartedAt: state.latestRowStartedAt
+  })
+);
+

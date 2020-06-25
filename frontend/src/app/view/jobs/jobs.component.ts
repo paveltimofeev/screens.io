@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { cleanupNgrxStorage, purgeHistory, refresh, removeFilter, setFilter } from './store/jobs.actions';
+import { cleanupNgrxStorage, loadMore, purgeHistory, refresh, removeFilter, setFilter } from './store/jobs.actions';
 import { jobs } from './store/jobs.selectors';
 import { Observable } from 'rxjs';
 import { NavigationService } from 'src/app/services/navigation.service';
@@ -77,5 +77,9 @@ export class JobsComponent implements OnInit, OnDestroy {
     if (!!job._id && hasReport) {
       this.navigate.openJob(job._id);
     }
+  }
+
+  loadMoreHandler () {
+    this.store.dispatch(loadMore())
   }
 }

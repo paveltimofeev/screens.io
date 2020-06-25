@@ -123,6 +123,7 @@
 -- Run scenarios filtered by ids[]*viewports[]
 -- Frontend: Integrate bootstrap for grid system, tables, dropdowns and modals.
 -- Frontend: Adding custom viewports
+-- Frontend: "Load more" for job history (UI part)
 
 - Frontend & Backend: "Load more" for job history based on filter {startedAt: {$gt: prevLastRecord}} + limit=30 (set limit on backend to be able to manage it on server side, do not use skip). Extend [GET] /api/history/ on backend to support startedAt filter { startedAt: prevLastRecord, filters:... }. Add items to list instead of replace on frontend. Initialize loading with separate longOp. Get total by `res = db.restaurants.stats(); res.count`.
 
@@ -132,26 +133,22 @@ TechDept
 - Frontend: Close menu at mobile view after click, and do not cover header
 
 BackLog
-- Autostop or ManualStop for stuck jobs
-- Frontend: Second change of Account Name (and other fields) fails without page reload
+- Frontend: Logout should clear session and cookies
+- Frontend: Should logout user on Delete Account
 - [Security] Backend: Do not store authConfig login/password in plain text. Do not transfer them to UI.
-- [Feature+] Stubs for images (see. backend/app_logic/engine_scripts/puppet/interceptImages.js)
 - Backend: Do not use Login as userId, because it uses in path building and could allow user change directories, use user UID instead
 - Frontend: Implement Sidebar filters for Job Page
 - Frontend: (?) Show correct values at stats section of sidebar (Jobs)
-- Frontend: Allow to choose Viewports for Scenario at Viewports Tab
 - Frontend: Scenario Page - add Overview(Summary) with reference image 
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
-- Frontend: RESTYLE UI - Responsive UI (support mobile)
-- Frontend: Logout should clear session and cookies
-- Frontend: Should logout user on Delete Account
 - [Security] Proxy: Auth proxy should not store passwords in plain text
 - [Move to AWS: 1] STORE IMAGES AT AWS S3
 - [Move to AWS: 2] Run MongoDb on AWS VM
 - [Move to AWS: 3] Run proxy & backend on AWS VM
-- [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name
+- [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
 - **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user)
 - LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
+- Frontend: RESTYLE UI - Responsive UI (support mobile)
 - **------------ MVP MILESTONE ------------**
 - Terms of Service, Privacy Policy and Beta Service Agreement (links and docs)
 - [Bug] *use _id as label in config?* Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
@@ -162,6 +159,11 @@ BackLog
 - Use Master term instead of Reference?
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- [Feature+] Stubs for images (see. backend/app_logic/engine_scripts/puppet/interceptImages.js)
+- Frontend: Allow to choose Viewports for Scenario at Viewports Tab
+- Frontend: Second change of Account Name (and other fields) fails without page reload
+- Frontend: Show Failed/All in Jobs and Recent Runs grids
+- Autostop or ManualStop for stuck jobs
 - Frontend: Add custom vewports 
 - [Bad User Scenario] Enabling of 'Check all matching selectors' could lead to many results (every result for each element found by css-selector). It can confuse end user. Probably better to disable this option.
 - [Bad User Scenario] Run scenario that run other scenarios will produce infinite loop of runs. Should to protect myself from such behaviour.
@@ -260,7 +262,7 @@ BackLog
 - PAYMENT & TRIAL-ACCOUNTS
 - COMPARE WITH COMPETITORS: diffy.website, screenster.io, percy.io
     - ON DEMAND AGENT (MANAGED BY SERVER) TO MAKE SCREENSHOTS (WITHOUT AUTH/OF LOCALHOST) AND SEND THEM TO THE BACKEND
-    - [Feature] GITHUB/CIRCLECI/APPVEYOR INTEGRATION like DIFFY, AutoSearch links to other pages
+    - [Feature+] GITHUB/CIRCLECI/APPVEYOR INTEGRATION like DIFFY, AutoSearch links to other pages
 - Tenant support (Tenant > Users + Scenarios + Results + Jobs)
 - [Feature] Project support (Tenant > Projects > Users + Scenarios + Results + Jobs). One project is a buch of scenarios.
 - [Feature] Преимущетво перед обычным тестированием - проверка адаптивности и респонзивности.

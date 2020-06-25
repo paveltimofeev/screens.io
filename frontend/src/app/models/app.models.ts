@@ -35,6 +35,17 @@ export interface IViewport {
   enabled?: boolean;
 }
 
+export interface IJobRecord {
+  _id: string;
+  runId: string;
+  date: string,
+  duration: string;
+  status: string;
+  scope: string;
+  viewports: string;
+  user: string;
+}
+
 export interface IScenarioHistory {
   jobId:string,
   state: string,

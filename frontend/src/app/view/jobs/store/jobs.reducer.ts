@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as actions from './jobs.actions'
+import { IJobRecord } from '../../../models/app.models';
 
 
 export interface IFilter {
@@ -13,11 +14,13 @@ export interface AppState {
 
 export interface JobsState {
   filters: IFilter[],
-  jobs: any[]
+  jobs: IJobRecord[],
+  latestRowStartedAt: string;
 }
 export const initState = {
   filters: [],
-  jobs: []
+  jobs: [],
+  latestRowStartedAt: null
 };
 
 const _reducer = createReducer(initState,
@@ -27,6 +30,18 @@ const _reducer = createReducer(initState,
     return {
       ...state,
       ...action.payload
+    }
+  }),
+
+  on(actions.loadedMore, (state, action) => {
+
+    return {
+      ...state,
+      jobs: [
+        ...state.jobs,
+        ...action.payload.jobs
+      ],
+      latestRowStartedAt: action.payload.latestRowStartedAt
     }
   }),
 

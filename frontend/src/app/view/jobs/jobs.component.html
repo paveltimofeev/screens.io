@@ -50,7 +50,17 @@
     </app-history-table>
 
     <div class="more-section">
-      <button (click)="loadMoreHandler()" class="button button--white">Load More</button>
+
+      <button *ngIf="(noMoreRecords$ | async) === false"
+              class="button button--white"
+              (click)="loadMoreHandler()">
+        Load More
+      </button>
+
+      <p *ngIf="(noMoreRecords$ | async) === true">
+        No more records
+      </p>
+
     </div>
 
   </div>

@@ -22,3 +22,7 @@ export const loadMoreOpts = createSelector(
   })
 );
 
+export const noMoreRecords = createSelector(
+  selectFeature,
+  (state: JobsState) => state.noMoreRecords
+);

@@ -57,7 +57,7 @@ export class JobsEffects {
             type: loadedMore.type,
             payload: {
               jobs: this.jobsAdapter(res.jobs),
-              latestRowStartedAt: res.jobs[res.jobs.length-1].startedAt
+              latestRowStartedAt: res.jobs.length > 0 ? res.jobs[res.jobs.length-1].startedAt : null
             }
           }
         }));
@@ -75,10 +75,9 @@ export class JobsEffects {
             type: loaded.type,
             payload: {
               jobs: this.jobsAdapter(res.jobs),
-              latestRowStartedAt: res.jobs[res.jobs.length-1].startedAt
+              latestRowStartedAt: res.jobs.length > 0 ? res.jobs[res.jobs.length-1].startedAt : null
             }
           }
-
         }));}
   )));
 

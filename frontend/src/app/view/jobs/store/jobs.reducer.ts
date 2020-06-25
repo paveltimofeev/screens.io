@@ -16,11 +16,13 @@ export interface JobsState {
   filters: IFilter[],
   jobs: IJobRecord[],
   latestRowStartedAt: string;
+  noMoreRecords: boolean;
 }
 export const initState = {
   filters: [],
   jobs: [],
-  latestRowStartedAt: null
+  latestRowStartedAt: null,
+  noMoreRecords: false
 };
 
 const _reducer = createReducer(initState,
@@ -29,7 +31,8 @@ const _reducer = createReducer(initState,
 
     return {
       ...state,
-      ...action.payload
+      ...action.payload,
+      noMoreRecords: false
     }
   }),
 
@@ -41,7 +44,8 @@ const _reducer = createReducer(initState,
         ...state.jobs,
         ...action.payload.jobs
       ],
-      latestRowStartedAt: action.payload.latestRowStartedAt
+      latestRowStartedAt: action.payload.latestRowStartedAt,
+      noMoreRecords: action.payload.jobs.length === 0
     }
   }),
 

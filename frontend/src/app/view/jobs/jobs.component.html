@@ -79,16 +79,6 @@
         (changed)="stateFilterHandler('Running', $event)">
       </app-checkbox-field>
 
-      <h3 class="filter-header">Filter by Starter</h3>
-      <app-checkbox-field
-        [label]="'Only Started by Me'"
-        (changed)="starterFilterHandler('Run by me', $event)">
-      </app-checkbox-field>
-      <app-checkbox-field
-        [label]="'Only Started by Schedule'"
-        (changed)="starterFilterHandler('Run by schedule', $event)">
-      </app-checkbox-field>
-
       <h3 class="filter-header">Filter by Date</h3>
       <app-checkbox-field
         [label]="'Show Run Today Only'"

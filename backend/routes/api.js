@@ -96,7 +96,7 @@ router.get('/test/history', async function(req, res) {
         const startedSince = req.query.startedSince;
         const viewports = req.query.viewports;
         const beforeStartedAt = req.query.beforeStartedAt;
-        const limit = 10;
+        const limit = 30;
 
         const jobs = await VRT.create(req.context).getHistoryRecords({state, not_state, startedBy, startedSince, viewports, beforeStartedAt}, limit)
         res.status(200).send( {jobs} )

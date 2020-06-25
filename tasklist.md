@@ -127,7 +127,7 @@
 -- Frontend & Backend: "Load more" for job history based on filter {startedAt: {$gt: prevLastRecord}} + limit=30 (set limit on backend to be able to manage it on server side, do not use skip). Extend [GET] /api/history/ on backend to support startedAt filter { startedAt: prevLastRecord, filters:... }. Add items to list instead of replace on frontend. Initialize loading with separate longOp. Get total by `res = db.restaurants.stats(); res.count`.
 
 TechDept
-- Frontend: Request-Reply for "Load more"
+- Frontend: Request-Reply for "Load more" to show loading state; Hide "Load more" if no records in table; Show "No More" if loadMore returns 0 records; Returns and show Total jobs count.
 - Frontend: Fix Comparer view Fit/Full mode
 - Frontend: Fix filters at Jobs view
 - Frontend: Close menu at mobile view after click, and do not cover header
@@ -213,6 +213,7 @@ BackLog
 - Frontend: Splitter for comparer view
 - Frontend: Think out onboarding process, layout and empty state views.
 - Restrict number of viewports
+- Filter Jobs by Starter (by me / by some user / by schedule / by webhook)
 - Loading a lot of images through AuthProxy is hard? Need to return signed link to S3 instead
 - Backend: Approve all failed/filtered tests in run
 - Dates should store in UTC but display in Local timezone (the same according to Tody filter)

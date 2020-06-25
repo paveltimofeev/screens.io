@@ -49,7 +49,7 @@
     >
     </app-history-table>
 
-    <div class="more-section">
+    <div class="more-section" *ngIf="(jobs$ | async).length > 0">
 
       <button *ngIf="(noMoreRecords$ | async) === false"
               class="button button--white"

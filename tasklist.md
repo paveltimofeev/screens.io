@@ -126,9 +126,10 @@
 -- Frontend: "Load more" for job history (UI part)
 -- Frontend & Backend: "Load more" for job history based on filter {startedAt: {$gt: prevLastRecord}} + limit=30 (set limit on backend to be able to manage it on server side, do not use skip). Extend [GET] /api/history/ on backend to support startedAt filter { startedAt: prevLastRecord, filters:... }. Add items to list instead of replace on frontend. Initialize loading with separate longOp. Get total by `res = db.restaurants.stats(); res.count`.
 -- Frontend: Show "No More" for job history if loadMore returns 0 records
+-- Frontend: Hide "Load more" if no records in job history table
 
 TechDept
-- Frontend: Request-Reply for "Load more" to show loading state; Hide "Load more" if no records in table; Show "No More" if loadMore returns 0 records; Returns and show Total jobs count.
+- Frontend: Request-Reply for "Load more" to show loading state; Returns and show Total jobs count.
 - Frontend: Fix Comparer view Fit/Full mode
 - Frontend: Fix filters at Jobs view
 - Frontend: Close menu at mobile view after click, and do not cover header

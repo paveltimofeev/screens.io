@@ -5,7 +5,7 @@ var path = require('path');
 const storage = new (require('../storage/storage-adapter'))
 const engine = new (require('../engine-adapter'))
 const { QueueWrapper } = require('./queue-wrappers')
-const { SingleValueRule, BooleanValueRule, ArrayRule, SinceDateRule } =  require('../storage/query-rules')
+const { SingleValueRule, BooleanValueRule, ArrayRule, SinceDateRule, BeforeDateRule } =  require('../storage/query-rules')
 
 
 const exists = promisify(fs.exists)
@@ -376,6 +376,7 @@ class VRT {
             const startedBy = new SingleValueRule(filter.startedBy, ['Run by me'])
             const viewports = new ArrayRule(filter.viewports)
             const startedSince = new SinceDateRule(filter.startedSince)
+            const beforeStartedAt = new BeforeDateRule(filter.beforeStartedAt)
 
             if ( state.isValid() ) {
                 query.state = state.toQueryPart();
@@ -395,6 +396,9 @@ class VRT {
 
             if (startedSince.isValid() ) {
                 query.startedAt = startedSince.toQueryPart();
+            }
+            if (beforeStartedAt.isValid() ) {
+                query.startedAt = beforeStartedAt.toQueryPart();
             }
         }
 

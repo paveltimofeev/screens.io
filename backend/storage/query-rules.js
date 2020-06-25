@@ -57,10 +57,23 @@ class SinceDateRule {
     return { $gte: this._value }
   }
 }
+class BeforeDateRule {
+
+  constructor(value) {
+    this._value = value;
+  }
+  isValid() {
+    return typeof (this._value) === 'string' && /\d\d\d\d-\d\d-\d\d/.test(this._value)
+  }
+  toQueryPart () {
+    return { $lt: this._value }
+  }
+}
 
 module.exports = {
   SingleValueRule,
   ArrayRule,
   SinceDateRule,
+  BeforeDateRule,
   BooleanValueRule
 }

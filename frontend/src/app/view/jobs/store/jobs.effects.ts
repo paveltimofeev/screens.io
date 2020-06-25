@@ -41,7 +41,7 @@ export class JobsEffects {
       console.log('Load more since', loadMoreOpts);
 
       const fromStartedAtFilter = {
-        key: 'fromStartedAt',
+        key: 'beforeStartedAt',
         value: loadMoreOpts.latestRowStartedAt
       };
 
@@ -49,7 +49,7 @@ export class JobsEffects {
         .getHistoryWithFilters([
           ...loadMoreOpts.filters,
           ...[fromStartedAtFilter]
-        ], 5)
+        ])
         .pipe(
         map( res => {
 
@@ -68,7 +68,7 @@ export class JobsEffects {
     withLatestFrom(this.store.select(filters)),
     mergeMap(([action, filters]) => {
 
-      return this.api.getHistoryWithFilters(filters, 5).pipe(
+      return this.api.getHistoryWithFilters(filters).pipe(
         map( res => {
 
           return {

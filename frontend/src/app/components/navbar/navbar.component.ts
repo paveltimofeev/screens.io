@@ -4,6 +4,7 @@ import { refreshAccountInfo } from '../../store/account-api/account-api.actions'
 import { Observable } from 'rxjs';
 import { IAccountInfo } from '../../store/account-api/account-api.models';
 import { accountInfo } from '../../store/account-api/account-api.selectors';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +17,7 @@ export class NavbarComponent implements OnInit{
 
   isMenuOpened:boolean = false;
 
-  constructor (private store:Store) {}
+  constructor (private store:Store, private session: SessionService) {}
 
   ngOnInit (): void {
 
@@ -26,5 +27,9 @@ export class NavbarComponent implements OnInit{
 
   openMenuHandler () {
     this.isMenuOpened = !this.isMenuOpened;
+  }
+
+  signOutHandler () {
+    this.session.logout();
   }
 }

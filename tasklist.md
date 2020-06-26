@@ -130,8 +130,8 @@
 -- Frontend: "Load more" with loading state
 -- Frontend: Returns and show Total/Filtered jobs count
 -- Frontend: Show correct values at stats section of sidebar (Jobs)
+-- Frontend: Logout should clear session and cookies
 
-- Frontend: Logout should clear session and cookies
 - Frontend: Fix Comparer view Fit/Full mode
 
 TechDept

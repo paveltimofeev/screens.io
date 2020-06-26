@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { SessionService } from '../services/session.service';
 
 @Injectable()
 export class LoggedIn implements CanActivate {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private session: SessionService) {}
 
   canActivate(): Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree {
 
-    const loggedIn = window.sessionStorage.getItem('li') === '1';
+    const loggedIn = this.session.isLoggedIn();
 
     if (!loggedIn) {
-      this.router.navigate(['/account', 'signin']);
+      this.session.logout()
+      this.session.navigateLoginPage()
     }
 
     return loggedIn;

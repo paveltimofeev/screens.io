@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ApiAdapterService } from '../../services/api-adapter.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit{
   constructor(
     private api: ApiAdapterService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private session: SessionService
   ){}
 
   signUpMode:boolean = true;
@@ -45,19 +47,6 @@ export class LoginComponent implements OnInit{
       this.signUpMode = params.mode === 'signup';
     })
   }
-
-  // signoutHandler () {
-
-  //   this.api
-  //     .signout()
-  //     .subscribe( () => {
-
-  //       var ss = window.sessionStorage;
-  //       ss.clear();
-
-  //       this.router.navigate(['/account', 'signin']);
-  //     });
-  // }
 
   isValidEmailFormat (email:string): boolean {
 
@@ -150,22 +139,15 @@ export class LoginComponent implements OnInit{
   private processLoginResponse(res, form) {
 
     if (!res.error) {
-      this.onSuccessLogin()
+      this.session.login();
     }
     else {
-      form.responseError = res.error;    
+      form.responseError = res.error;
     }
   }
 
   private processLoginError(err, form) {
     console.error(err);
     form.responseError = err.message || 'Operation failed';
-  }
-
-  private onSuccessLogin () {
-
-    var ss = window.sessionStorage;
-    ss.setItem('li', '1');
-    this.router.navigate(['/']);
   }
 }

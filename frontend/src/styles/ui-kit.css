@@ -38,7 +38,7 @@
   --shadow-normal: 0 20px 50px 0 rgba(0,0,0,.25);
   --shadow-sm: 0 10px 30px 0 rgba(0,0,0,.15);
 
-  --font-normal: 'Work Sans', sans-serif;
+  --font-normal: 'Segoe UI', 'Work Sans', 'Roboto', 'Ubuntu', 'Helvetica', sans-serif;
   --font-header: 'Oswald', sans-serif;
   --font-analytical: 'Oswald', sans-serif;
   --font-normal1: 'Jost', sans-serif;

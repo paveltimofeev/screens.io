@@ -15,6 +15,7 @@ export interface AppState {
 export interface JobsState {
   filters: IFilter[],
   jobs: IJobRecord[],
+  total: number,
   latestRowStartedAt: string;
   noMoreRecords: boolean;
   loadingMoreInProgress: boolean;
@@ -22,6 +23,7 @@ export interface JobsState {
 export const initState = {
   filters: [],
   jobs: [],
+  total: 0,
   latestRowStartedAt: null,
   noMoreRecords: false,
   loadingMoreInProgress: false

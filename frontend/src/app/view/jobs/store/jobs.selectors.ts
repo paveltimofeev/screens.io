@@ -8,6 +8,10 @@ export const jobs = createSelector(
   (state: JobsState) => state.jobs
 );
 
+export const total = createSelector(
+  selectFeature,
+  (state: JobsState) => state.total
+);
 
 export const filters = createSelector(
   selectFeature,

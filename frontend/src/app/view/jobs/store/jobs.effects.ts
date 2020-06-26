@@ -76,6 +76,7 @@ export class JobsEffects {
             type: loaded.type,
             payload: {
               jobs: this.jobsAdapter(res.jobs),
+              total: res.total,
               latestRowStartedAt: res.jobs.length > 0 ? res.jobs[res.jobs.length-1].startedAt : null
             }
           }

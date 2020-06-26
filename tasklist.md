@@ -128,20 +128,19 @@
 -- Frontend: Show "No More" for job history if loadMore returns 0 records
 -- Frontend: Hide "Load more" if no records in job history table
 -- Frontend: "Load more" with loading state
+-- Frontend: Returns and show Total/Filtered jobs count
+-- Frontend: Show correct values at stats section of sidebar (Jobs)
+
+- Frontend: Logout should clear session and cookies
 
 TechDept
-- Frontend: Returns and show Total/Filtered jobs count
 - Frontend: Fix Comparer view Fit/Full mode
 - Frontend: Fix filters at Jobs view
 - Frontend: Close menu at mobile view after click, and do not cover header
 
 BackLog
-- Frontend: Logout should clear session and cookies
-- Frontend: Should logout user on Delete Account
-- [Security] Backend: Do not store authConfig login/password in plain text. Do not transfer them to UI.
 - Backend: Do not use Login as userId, because it uses in path building and could allow user change directories, use user UID instead
 - Frontend: Implement Sidebar filters for Job Page
-- Frontend: (?) Show correct values at stats section of sidebar (Jobs)
 - Frontend: Scenario Page - add Overview(Summary) with reference image 
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - [Security] Proxy: Auth proxy should not store passwords in plain text
@@ -149,10 +148,11 @@ BackLog
 - [Move to AWS: 2] Run MongoDb on AWS VM
 - [Move to AWS: 3] Run proxy & backend on AWS VM
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
-- **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user)
-- LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
 - Frontend: RESTYLE UI - Responsive UI (support mobile)
 - **------------ MVP MILESTONE ------------**
+- LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
+- **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user)
+- [Security] Backend: Do not store authConfig login/password in plain text. Do not transfer them to UI.
 - Terms of Service, Privacy Policy and Beta Service Agreement (links and docs)
 - [Bug] *use _id as label in config?* Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
 - [Bug] *use _id as label in config?* Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
@@ -162,6 +162,7 @@ BackLog
 - Use Master term instead of Reference?
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- Frontend: Should logout user on Delete Account
 - [Feature+] Stubs for images (see. backend/app_logic/engine_scripts/puppet/interceptImages.js)
 - Frontend: Allow to choose Viewports for Scenario at Viewports Tab
 - Frontend: Second change of Account Name (and other fields) fails without page reload

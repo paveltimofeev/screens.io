@@ -404,6 +404,11 @@ class VRT {
 
         return await storage.getHistoryRecords(this._userId, query, limit)
     }
+    async getHistoryRecordsCount () {
+
+        const stats = await storage.getHistoryRecordsStats(this._userId)
+        return stats.count
+    }
     async getHistoryRecordById (id) {
         return await storage.getHistoryRecordById(this._userId, id)
     }

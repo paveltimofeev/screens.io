@@ -6,6 +6,7 @@ export const loadMore = createAction('[Jobs Component] loadMore');
 export const loaded = createAction('[Jobs Component] loaded', props<{
   payload: {
     jobs: IJobRecord[],
+    total: number,
     latestRowStartedAt: string
   }
 }>());

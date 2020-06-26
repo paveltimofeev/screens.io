@@ -72,10 +72,8 @@
   <div class="sidebar-placeholder">
 
     <div class="sidebar-header">
-      <h2>{{ (jobs$ | async).length }} Jobs <br><small>executed</small> </h2>
-      <span>102 succeed</span>
-      <span>3 running</span>
-      <span>7 failed</span>
+      <h2>{{ total$ | async }} Jobs <br><small>executed</small> </h2>
+      <span>{{ (jobs$ | async).length }} shown</span>
     </div>
     <div class="app-filters">
 

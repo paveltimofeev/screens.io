@@ -87,7 +87,6 @@ class Storage {
         return await entity.remove({})
     }
 
-
     async getHistoryRecordById (database, id) {
         return await this._getById(database, 'Record', recordSchema, id)
     }
@@ -101,6 +100,13 @@ class Storage {
 
         let entity = this._createEntity(database, 'Record', recordSchema)
         return await entity.find(query||{}).sort({ _id: 'desc'}).limit(limit)
+    }
+    async getHistoryRecordsStats (database) {
+
+        let entity = this._createEntity(database, 'Record', recordSchema)
+        return {
+            count: await entity.count()
+        }
     }
     async createHistoryRecord (database, data) {
 

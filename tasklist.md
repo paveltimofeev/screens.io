@@ -132,9 +132,9 @@
 -- Frontend: Show correct values at stats section of sidebar (Jobs)
 
 - Frontend: Logout should clear session and cookies
+- Frontend: Fix Comparer view Fit/Full mode
 
 TechDept
-- Frontend: Fix Comparer view Fit/Full mode
 - Frontend: Fix filters at Jobs view
 - Frontend: Close menu at mobile view after click, and do not cover header
 

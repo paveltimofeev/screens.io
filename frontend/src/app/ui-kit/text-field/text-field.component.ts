@@ -9,6 +9,10 @@ export class TextFieldComponent {
   @Input()
   label:string;
 
+  /* name attribute of input*/
+  @Input()
+  fieldName:string;
+
   @Input()
   tooltip:string;
 

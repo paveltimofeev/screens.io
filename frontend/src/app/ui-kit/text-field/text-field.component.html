@@ -18,6 +18,7 @@
 
     <input [attr.type]="!isPasswordField ? 'text' : 'password'"
            [attr.placeholder]="placeholder"
+           [attr.name]="fieldName || label"
            [(ngModel)]="value"
            (ngModelChange)="ngModelChangeHandler($event, value)"
            #val>

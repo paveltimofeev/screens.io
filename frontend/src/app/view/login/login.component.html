@@ -29,6 +29,7 @@
 
       <app-text-field
         [label]="'Email address'"
+        [fieldName]="'email'"
         [fieldSize]="'full'"
         [error]="signInForm.emailError"
         [(value)]="signInForm.email"
@@ -37,6 +38,7 @@
 
       <app-text-field
         [label]="'Password'"
+        [fieldName]="'password'"
         [fieldSize]="'full'"
         [isPasswordField]="true"
         [error]="signInForm.passwordError"
@@ -66,6 +68,7 @@
 
       <app-text-field
         [label]="'Name'"
+        [fieldName]="'name'"
         [fieldSize]="'full'"
         [error]="signUpForm.nameError"
         [(value)]="signUpForm.name"
@@ -74,6 +77,7 @@
 
       <app-text-field
         [label]="'Email address'"
+        [fieldName]="'email'"
         [fieldSize]="'full'"
         [error]="signUpForm.emailError"
         [(value)]="signUpForm.email"
@@ -82,6 +86,7 @@
 
       <app-text-field
         [label]="'Password'"
+        [fieldName]="'password'"
         [fieldSize]="'full'"
         [isPasswordField]="true"
         [error]="signUpForm.passwordError"

@@ -131,6 +131,7 @@
 -- Frontend: Returns and show Total/Filtered jobs count
 -- Frontend: Show correct values at stats section of sidebar (Jobs)
 -- Frontend: Logout should clear session and cookies
+-- Frontend: RESTYLE UI - Responsive UI (support mobile)
 
 - Frontend: Fix Comparer view Fit/Full mode
 
@@ -149,7 +150,6 @@ BackLog
 - [Move to AWS: 2] Run MongoDb on AWS VM
 - [Move to AWS: 3] Run proxy & backend on AWS VM
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
-- Frontend: RESTYLE UI - Responsive UI (support mobile)
 - **------------ MVP MILESTONE ------------**
 - LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
 - **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user)
@@ -163,6 +163,7 @@ BackLog
 - Use Master term instead of Reference?
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- Frontend: Full mobile support - scenario page tabs, settings tab, secondary page actions under the more (...) button, comparer
 - Frontend: Should logout user on Delete Account
 - [Feature+] Stubs for images (see. backend/app_logic/engine_scripts/puppet/interceptImages.js)
 - Frontend: Allow to choose Viewports for Scenario at Viewports Tab

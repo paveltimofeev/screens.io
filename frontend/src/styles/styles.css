@@ -82,7 +82,7 @@ main {
 
 @media (max-width: 600px) {
   .app-content {
-    margin-top: var(--navbar-size-xs);
+    margin-top: 0;
   }
 }
 
@@ -146,6 +146,9 @@ main {
 }
 @media (max-width: 600px) {
 
+  .app-content .breadcrumb-placeholder {
+    margin-top: var(--px16);
+  }
   .app-content .title-row {
     margin-top: 0;
   }
@@ -160,6 +163,9 @@ main {
   .app-content .data-placeholder {
     margin-bottom: var(--xs-data-placeholder-margin-bottom);
   }
+  .app-content .data-placeholder .row {
+    width: auto;
+  }
   .app-content .page-actions {
     position: fixed;
     z-index: 100;
@@ -173,6 +179,8 @@ main {
     flex-flow: wrap-reverse;
     background: linear-gradient(0deg, #ffffff 0%, #ffffffc2 70%, transparent 100%);
     align-content: flex-end;
+    justify-content: space-between;
+    flex-direction: row-reverse;
   }
   .page-actions .title-actions-item {
     margin-top: 10px;
@@ -188,7 +196,7 @@ main {
   margin-right: var(--px50); /* 50px */
 }
 .xs-filters-placeholder {
-  margin-left: -20px;
+  margin-left: 0;
 }
 
 
@@ -271,6 +279,20 @@ main {
 @media (max-width: 600px)  {
   .app-card--sm {
     width: 100%;
+  }
+  .app-widgets-row .app-widgets-column {
+    padding-top: var(--px30);
+  }
+  .app-widgets-row .action {
+    position: relative;
+    bottom: 0;
+    padding: var(--px26) 0;
+  }
+  .app-widgets-row:before {
+    bottom: 0;
+  }
+  .app-data-row .app-column--left {
+    padding-right: 0;
   }
 }
 

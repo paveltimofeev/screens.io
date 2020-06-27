@@ -922,6 +922,14 @@ app-data-action-button:first-child {
   margin-left: 0.25em;
 }
 
+@media (max-width: 600px) {
+  .card-sm {
+    margin: 0;
+  }
+  .card-sm .image img {
+    filter: none;
+  }
+}
 
 
 .card-md {

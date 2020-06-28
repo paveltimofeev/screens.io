@@ -6,6 +6,8 @@ export interface AppState {
 }
 export interface JobPageState {
   title: string;
+  breadcrumbTitle: string;
+  resultStats: string;
   scenarios: string[];
   viewports: string[];
   startedBy: string;
@@ -21,6 +23,8 @@ export interface JobPageState {
 
 export const initState = {
   title: '',
+  breadcrumbTitle: '',
+  resultStats: '',
   scenarios: '',
   viewports: [],
   startedBy: '',

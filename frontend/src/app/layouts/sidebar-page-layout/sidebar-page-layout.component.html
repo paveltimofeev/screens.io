@@ -6,7 +6,11 @@
     <ng-content select=".breadcrumb-placeholder" *ngIf="breadcrumb"></ng-content>
 
     <div class="title-row">
-      <h1 class="page-header">{{ title }}</h1> <ng-content select=".page-actions-placeholder"></ng-content>
+      <div class="left">
+        <ng-content select=".page-title-placeholder"></ng-content>
+        <h1 class="page-header">{{ title }}</h1> 
+      </div>
+      <ng-content select=".page-actions-placeholder"></ng-content>
     </div>
 
     <div class="page-description" *ngIf="!hideDescription && !customDescription">

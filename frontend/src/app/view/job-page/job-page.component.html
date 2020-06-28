@@ -7,7 +7,7 @@
 
   <div class="breadcrumb-placeholder">
     <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/jobs']">Jobs History</span>
-    <span class="breadcrumb-item">Job: 12/31/2019 11:27:10 PM</span>
+    <span class="breadcrumb-item">Job #{{ breadcrumbTitle$ | async }}</span>
   </div>
 
   <div class="description-placeholder">
@@ -21,6 +21,15 @@
       ]">
     </app-info-table>
 
+  </div>
+
+  <div class="page-title-placeholder">
+    <div class="title-stats" [ngClass]="{
+      'title-stats--failed': (sidebarHeaderInfo$ | async).status === 'Failed',
+      'title-stats--passed': (sidebarHeaderInfo$ | async).status === 'Passed'
+    }">
+      {{ resultStats$ |async }} {{ (sidebarHeaderInfo$ | async).status }}
+    </div>
   </div>
 
   <div class="page-actions-placeholder">

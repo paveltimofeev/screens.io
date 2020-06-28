@@ -98,6 +98,10 @@ main {
   justify-content: space-between;
   align-items: center;
 }
+.app-content .title-row .left {
+  display: flex;
+  align-items: center;
+}
 .app-content .breadcrumb-placeholder ~ .title-row {
   margin-top: 0;
 }
@@ -144,6 +148,7 @@ main {
   min-height: var(--card-height);
   flex-basis: auto;
 }
+
 @media (max-width: 600px) {
 
   .app-content .breadcrumb-placeholder {

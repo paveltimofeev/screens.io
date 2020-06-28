@@ -17,6 +17,8 @@ import {
   fullHeightModeOn, imageMode,
   jobDescriptionInfo,
   jobTitle,
+  breadcrumbTitle,
+  resultStats,
   sidebarHeaderInfo,
   viewports
 } from './store/job-page.selectors';
@@ -31,6 +33,8 @@ export class JobPageComponent implements OnInit, OnDestroy {
 
   jobId:string;
   title$: Observable<string>;
+  resultStats$: Observable<string>;
+  breadcrumbTitle$: Observable<string>;
   cases$: Observable<any[]>;
   viewports$: Observable<string[]>;
   sidebarHeaderInfo$: Observable<any>;
@@ -51,6 +55,8 @@ export class JobPageComponent implements OnInit, OnDestroy {
     this.jobId = this.route.snapshot.params.id;
 
     this.title$ = this.store.select( jobTitle );
+    this.breadcrumbTitle$ = this.store.select( breadcrumbTitle );
+    this.resultStats$ = this.store.select( resultStats );
     this.cases$ = this.store.select( cases );
     this.viewports$ = this.store.select( viewports );
     this.sidebarHeaderInfo$ = this.store.select( sidebarHeaderInfo );

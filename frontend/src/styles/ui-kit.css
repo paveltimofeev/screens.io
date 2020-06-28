@@ -428,6 +428,22 @@ app-data-action-button:first-child {
   padding: 0;
 }
 
+.title-stats {
+  margin-right: 1em;
+  color: var(--color-white);
+  padding: 0.35em .5em;
+  font-size: var(--px16);
+  font-weight: 600;
+}
+
+.title-stats--failed {
+  background: var(--color-failed);
+}
+.title-stats--passed {
+  background: var(--color-passed);
+}
+
+
 /* BREADCRUMB */
 .breadcrumb-item {
   color: #5F5F5F;
@@ -660,9 +676,7 @@ app-data-action-button:first-child {
   -ms-user-select: none;
   user-select: none;
 }
-.input-box-button--primary {
-
-}
+.input-box-button--primary {}
 .input-box-button--secondary {
   background: #ffffff;
   color: #89CB8C;
@@ -1057,7 +1071,7 @@ app-data-action-button:first-child {
 }
 
 .card-lg {
-  width: var(--px608); /* 608px */
+  /* width: var(--px608); */
   max-width: 100%;
   display: flex;
   flex-direction: column;
@@ -1186,7 +1200,7 @@ app-data-action-button:first-child {
   font-weight: bold;
   padding-right: 20px;
   white-space: nowrap;
-  vertical-align: top;
+  /* vertical-align: top; */
 }
 .info-table .value-cell { font-weight: 400;}
 .info-table .value-cell .chips {

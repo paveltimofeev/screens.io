@@ -33,7 +33,6 @@ export class JobPageEffects {
 
               let tests = res.report.tests;
 
-
               const getScenarioId = (job:any, scenarioLabel:string) => {
 
                 let scenarios = job.scenarios.filter(s => s.label === scenarioLabel)
@@ -64,10 +63,12 @@ export class JobPageEffects {
                 type: loaded.type,
                 payload: {
                   title: this.date.calendar(job.startedAt),
+                  breadcrumbTitle: job._id,
+                  resultStats: `${tests.filter( x => x.status === 'fail' ).length || tests.length}/${tests.length}`,
+                  failedCases: tests.filter( x => x.status === 'fail' ).length,
+                  totalCases: tests.length,
                   scenarios: tests.map( x => { return x.pair.label }).filter(onlyUnique),
                   viewports: tests.map( x => { return x.pair.viewportLabel }).filter(onlyUnique),
-                  totalCases: tests.length,
-                  failedCases: tests.filter( x => x.status === 'fail' ).length,
                   startedBy: job.startedBy,
                   status: job.state,
 

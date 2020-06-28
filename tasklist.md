@@ -132,11 +132,11 @@
 -- Frontend: Show correct values at stats section of sidebar (Jobs)
 -- Frontend: Logout should clear session and cookies
 -- Frontend: RESTYLE UI - Responsive UI (support mobile)
+-- Frontend: *featurelost* Number of failed/total at JobPage (run) view
 
 - Frontend: Fix Comparer view Fit/Full mode
 
 TechDept
-- Frontend: *featurelost* Number of failed/total at JobPage (run) view
 - Frontend: Fix filters at Jobs view
 - Frontend: Close menu at mobile view after click, and do not cover header
 

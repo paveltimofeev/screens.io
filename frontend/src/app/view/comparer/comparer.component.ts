@@ -17,9 +17,10 @@ import {
   images,
   jobTitle,
   pageActionsInfo, runScenarioInfo,
-  sizeMode
+  sizeMode, viewport
 } from './store/comparer.selectors';
 import { take } from 'rxjs/operators';
+import { IViewport } from '../../models/app.models';
 
 @Component({
   selector: 'app-comparer',
@@ -36,6 +37,7 @@ export class ComparerComponent implements OnInit, OnDestroy {
   breadcrumbsInfo$: Observable<any>;
   pageActionsInfo$: Observable<any>;
   images$: Observable<any>;
+  viewport$: Observable<IViewport>;
 
   displayedImageMode$: Observable<string>;
   sizeMode$: Observable<string>;
@@ -54,6 +56,7 @@ export class ComparerComponent implements OnInit, OnDestroy {
     this.breadcrumbsInfo$ = this.store.select( breadcrumbsInfo );
     this.pageActionsInfo$ = this.store.select( pageActionsInfo );
     this.images$ = this.store.select( images );
+    this.viewport$ = this.store.select( viewport );
 
     this.displayedImageMode$ = this.store.select( displayedImageMode );
     this.sizeMode$ = this.store.select( sizeMode );

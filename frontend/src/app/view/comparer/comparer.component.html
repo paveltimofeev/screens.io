@@ -104,29 +104,28 @@
 
   <div class="data-placeholder">
 
-    <div
-      class="compare-images-container"
-      *ngIf="(displayedImageMode$ | async) !== 'Comparer'"
-    >
-      <img class="compare-image"
-           [ngClass]="{'compare-image--active': (displayedImageMode$ | async) === 'Test Result'}"
-           [attr.src]="(images$ | async).testImage">
+    <div class="comparer-container"
+         *ngIf="viewport$ | async"
+         [ngStyle]="{
+           'width': (viewport$ | async).width + 22 + 'px',
+           'height': (sizeMode$ | async) === 'Fill' ? (viewport$ | async).height + 'px' : '90%'
+         }">
 
-      <img class="compare-image"
-           [ngClass]="{'compare-image--active': (displayedImageMode$ | async) === 'Reference'}"
-           [attr.src]="(images$ | async).referenceImage">
+      <div class="image-frame">
+        <img class="image" [ngClass]="{ 'image--active': (displayedImageMode$ | async) === 'Difference' }" alt="screen" [attr.src]="(images$ | async).differenceImage">
+        <img class="image" [ngClass]="{ 'image--active': (displayedImageMode$ | async) === 'Test Result' }" alt="screen" [attr.src]="(images$ | async).testImage">
+        <img class="image" [ngClass]="{ 'image--active': (displayedImageMode$ | async) === 'Reference' }" alt="screen" [attr.src]="(images$ | async).referenceImage">
 
-      <img class="compare-image"
-           [ngClass]="{'compare-image--active': (displayedImageMode$ | async) === 'Difference'}"
-           [attr.src]="(images$ | async).differenceImage">
+        <app-images-comparer
+            *ngIf="(displayedImageMode$ | async) === 'Comparer'"
+            class="image image&#45;&#45;active"
+            [firstImageUrl]="(images$ | async).differenceImage"
+            [secondImageUrl]="(images$ | async).referenceImage"
+          >
+        </app-images-comparer>
+
+      </div>
     </div>
-
-    <app-images-comparer
-      *ngIf="(displayedImageMode$ | async) === 'Comparer'"
-      [firstImageUrl]="(images$ | async).differenceImage"
-      [secondImageUrl]="(images$ | async).referenceImage"
-    >
-    </app-images-comparer>
 
   </div>
 

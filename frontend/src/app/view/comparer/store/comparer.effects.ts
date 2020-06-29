@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { approve, loaded, refresh, runAgain } from './comparer.actions';
 import { map, mergeMap } from 'rxjs/operators';
 import { DateService } from '../../../services/date.service';
-import { of } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
 
@@ -24,8 +24,11 @@ export class ComparerEffects {
       return this.api.getHistoryRecord(action.payload.jobId).pipe(
         mergeMap( job => {
 
-          return this.api.getReport(job.runId).pipe(
-            map( res => {
+          return forkJoin(
+            this.api.getReport(job.runId),
+            this.api.getAllViewports()
+          ).pipe(
+            map( ([res, viewports]) => {
 
               const idx = action.payload.testCaseIndex - 1;
 
@@ -46,6 +49,7 @@ export class ComparerEffects {
                 payload: {
                   title: `${testCase.label} ${testCase.viewportLabel}`,
                   status: status,
+                  _viewport: viewports.data.find(x => x.label === testCase.viewportLabel),
 
                   reportId: res.report._id,
                   job: this.date.calendar(job.startedAt),

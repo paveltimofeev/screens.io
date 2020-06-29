@@ -133,11 +133,13 @@
 -- Frontend: Logout should clear session and cookies
 -- Frontend: RESTYLE UI - Responsive UI (support mobile)
 -- Frontend: *featurelost* Number of failed/total at JobPage (run) view
+-- Frontend: Fix Comparer view layout
 
-- Frontend: Fix Comparer view Fit/Full mode
 
 TechDept
+- Frontend: Fix Comparer view: Get rid og double scrolls in 'Fit' mode. Hot Keys [D] [R] [T]? Fixed Data actions bar? Switch to other tested viewports? Side-by-side mode?
 - Frontend: Fix filters at Jobs view
+- Frontend: Need filtration by status at JobPage (results report)
 - Frontend: Close menu at mobile view after click, and do not cover header
 
 BackLog
@@ -163,6 +165,7 @@ BackLog
 - Use Master term instead of Reference?
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- Frontend: refreshing page after approve case is annoying, need to replace it with longOp + changing state of particular case
 - Frontend: Full mobile support - scenario page tabs, settings tab, secondary page actions under the more (...) button, comparer
 - Frontend: Should logout user on Delete Account
 - [Feature+] Stubs for images (see. backend/app_logic/engine_scripts/puppet/interceptImages.js)

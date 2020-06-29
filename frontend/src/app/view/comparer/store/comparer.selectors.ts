@@ -27,6 +27,11 @@ export const runScenarioInfo = createSelector(
   })
 );
 
+export const viewport = createSelector(
+  selectFeature,
+  (state: ComparerState) => state._viewport
+);
+
 export const descriptionInfo = createSelector(
   selectFeature,
   (state: ComparerState) => ({

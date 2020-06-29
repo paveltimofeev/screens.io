@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as actions from './comparer.actions'
+import { IViewport } from '../../../models/app.models';
 
 export interface AppState {
   comparer: ComparerState
@@ -11,6 +12,7 @@ export interface ComparerState {
   scenarioId: string;
   scenario: string;
   viewport: string;
+  _viewport: IViewport;
   url: string;
 
   referenceImage: string;
@@ -31,6 +33,7 @@ export const initState = {
   scenarioId: '',
   scenario: '',
   viewport: '',
+  _viewport: null,
 
   referenceImage: '',
   differenceImage: '',

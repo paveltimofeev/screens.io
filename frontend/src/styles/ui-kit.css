@@ -1215,6 +1215,12 @@ app-data-action-button:first-child {
   margin-bottom: 2px;
   margin-top: 2px;
 }
+.info-table .value-cell .chips--clickable {
+  cursor: pointer;
+}
+.info-table .value-cell .chips--clickable:hover {
+  background: var(--color-controls-border);
+}
 
 
 .rules-table {

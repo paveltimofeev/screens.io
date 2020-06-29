@@ -15,7 +15,7 @@ import {
   breadcrumbsInfo,
   descriptionInfo, displayedImageMode,
   images,
-  jobTitle,
+  jobTitle, otherViewports,
   pageActionsInfo, runScenarioInfo,
   sizeMode, viewport
 } from './store/comparer.selectors';
@@ -119,18 +119,26 @@ export class ComparerComponent implements OnInit, OnDestroy {
   }
 
 
+  clickOnChipHandler ($event: { label: string; prop: string; value: string }) {
+
+    if ($event.prop === 'testedOn') {
+
+      this.store
+        .select(otherViewports)
+        .pipe( take(1) )
+        .subscribe( (cases:any[]) => {
+          const c = cases.find(x => x.viewportLabel === $event.value);
+          if (c) {
+            this.navigation.openComparer(this.jobId, c.caseIndex + 1)
+          }
+          else {
+            console.warn(`Cannot find "${$event.value}" in`, cases)
+          }
+        })
+    }
+  }
+
   /* DATA ACTIONS */
-
-  showTestImageHandler () {
-
-  }
-  showReferenceImageHandler () {
-
-  }
-  showDifferenceImageHandler () {
-
-  }
-
   changeDisplayedImageModeHandler (mode:string) {
     this.store.dispatch( changeDisplayedImageMode({payload: {mode: mode}}) );
   }

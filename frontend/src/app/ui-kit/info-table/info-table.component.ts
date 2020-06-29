@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 export interface IInfoTableRow {
   label: string;
   prop: string;
   chips: boolean;
+  clickable: boolean;
 }
 @Component({
   selector: 'app-info-table',
@@ -21,4 +22,6 @@ export class InfoTableComponent {
     this._labelsAndProps = value;
   }
 
+  @Output()
+  clickOnChip:EventEmitter<{ label:string, prop:string, value: string }> = new EventEmitter();
 }

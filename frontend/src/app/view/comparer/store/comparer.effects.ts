@@ -43,6 +43,13 @@ export class ComparerEffects {
                 return `${environment.media}${path.replace(/\\/g, '/')}`;
               }
 
+              const casesGroup = res.report.tests.map( (x, idx) =>
+                ({
+                  group: x.pair.label === testCase.label,
+                  viewportLabel: x.pair.viewportLabel,
+                  caseIndex: idx
+                }))
+                .filter(x => x.group)
 
               return {
                 type: loaded.type,
@@ -57,8 +64,8 @@ export class ComparerEffects {
                   viewport: viewports.data.find(x => x.label === testCase.viewportLabel),
 
                   scenarios: job.scenarios.filter( x => x.label !== testCase.label).map(x => x.label),
-                  //scenariosFull: job.scenarios.filter( x => x.label !== testCase.label).map(x => ({id:x.id, label:x.label})),
-                  viewports: job.viewports.filter( x => x !== testCase.viewportLabel),
+                  viewports: casesGroup.filter( x => x.viewportLabel !== testCase.viewportLabel).map( x => x.viewportLabel),
+                  otherViewports: casesGroup,
 
                   referenceImage: getMediaUrls(testCase.reference),
                   differenceImage: getMediaUrls(testCase.diffImage),

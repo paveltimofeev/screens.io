@@ -66,3 +66,8 @@ export const sizeMode = createSelector(
   selectFeature,
   (state: ComparerState) => state.sizeMode
 );
+
+export const otherViewports = createSelector(
+  selectFeature,
+  (state: ComparerState) => state.otherViewports
+);

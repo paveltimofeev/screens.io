@@ -15,8 +15,9 @@
   <div class="description-placeholder">
     <app-info-table
       [items]="descriptionInfo$ | async"
+      (clickOnChip)="clickOnChipHandler($event)"
       [labelsAndProps]="[
-        { label: 'Also tested on', prop: 'testedOn', chips: true },
+        { label: 'Also tested on', prop: 'testedOn', chips: true, clickable: true },
         { label: 'Tested along with', prop: 'testedWith', chips: true }
       ]">
     </app-info-table>

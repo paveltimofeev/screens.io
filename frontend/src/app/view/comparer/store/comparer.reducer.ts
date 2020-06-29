@@ -20,6 +20,7 @@ export interface ComparerState {
 
   scenarios: string;
   viewports: string[];
+  otherViewports: {viewportLabel: string, caseIndex:number}[];
 
   displayedImageMode: string;
   sizeMode: string;
@@ -39,6 +40,7 @@ export const initState = {
 
   scenarios: '',
   viewports: [],
+  otherViewports: [],
 
   displayedImageMode: '',
   sizeMode: 'Fit'

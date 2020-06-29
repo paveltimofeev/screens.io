@@ -111,7 +111,7 @@
            'height': (sizeMode$ | async) === 'Fill' ? (viewport$ | async).height + 'px' : '90%'
          }">
 
-      <div class="image-frame">
+      <div class="image-frame panel-shadow">
         <img class="image" [ngClass]="{ 'image--active': (displayedImageMode$ | async) === 'Difference' }" alt="screen" [attr.src]="(images$ | async).differenceImage">
         <img class="image" [ngClass]="{ 'image--active': (displayedImageMode$ | async) === 'Test Result' }" alt="screen" [attr.src]="(images$ | async).testImage">
         <img class="image" [ngClass]="{ 'image--active': (displayedImageMode$ | async) === 'Reference' }" alt="screen" [attr.src]="(images$ | async).referenceImage">

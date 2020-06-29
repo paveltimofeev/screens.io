@@ -14,7 +14,7 @@ export const breadcrumbsInfo = createSelector(
     job: state.job,
     scenarioId: state.scenarioId,
     scenario: state.scenario,
-    viewport: state.viewport
+    viewport: state.viewport.label
   })
 );
 
@@ -22,14 +22,14 @@ export const runScenarioInfo = createSelector(
   selectFeature,
   (state: ComparerState) => ({
     scenario: state.scenario,
-    viewport: state.viewport,
+    viewport: state.viewport.label,
     reportId: state.reportId
   })
 );
 
 export const viewport = createSelector(
   selectFeature,
-  (state: ComparerState) => state._viewport
+  (state: ComparerState) => state.viewport
 );
 
 export const descriptionInfo = createSelector(

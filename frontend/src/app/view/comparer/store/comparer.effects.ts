@@ -49,13 +49,12 @@ export class ComparerEffects {
                 payload: {
                   title: `${testCase.label} ${testCase.viewportLabel}`,
                   status: status,
-                  _viewport: viewports.data.find(x => x.label === testCase.viewportLabel),
 
                   reportId: res.report._id,
                   job: this.date.calendar(job.startedAt),
                   scenarioId: job.scenarios.filter( x => x.label === testCase.label).map(x => x.id)[0],
                   scenario: testCase.label,
-                  viewport: testCase.viewportLabel,
+                  viewport: viewports.data.find(x => x.label === testCase.viewportLabel),
 
                   scenarios: job.scenarios.filter( x => x.label !== testCase.label).map(x => x.label),
                   //scenariosFull: job.scenarios.filter( x => x.label !== testCase.label).map(x => ({id:x.id, label:x.label})),

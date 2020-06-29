@@ -11,8 +11,7 @@ export interface ComparerState {
   reportId: string;
   scenarioId: string;
   scenario: string;
-  viewport: string;
-  _viewport: IViewport;
+  viewport: IViewport;
   url: string;
 
   referenceImage: string;
@@ -32,8 +31,7 @@ export const initState = {
   reportId: '',
   scenarioId: '',
   scenario: '',
-  viewport: '',
-  _viewport: null,
+  viewport: {},
 
   referenceImage: '',
   differenceImage: '',

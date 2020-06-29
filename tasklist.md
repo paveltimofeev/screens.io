@@ -137,7 +137,6 @@
 
 
 TechDept
-- Frontend: Fix Comparer view: Get rid og double scrolls in 'Fit' mode. Hot Keys [D] [R] [T]? Fixed Data actions bar? Switch to other tested viewports? Side-by-side mode?
 - Frontend: Fix filters at Jobs view
 - Frontend: Need filtration by status at JobPage (results report)
 - Frontend: Close menu at mobile view after click, and do not cover header
@@ -154,6 +153,7 @@ BackLog
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
 - **------------ MVP MILESTONE ------------**
 - LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
+- Frontend: Comparer view: Get rid of double scrolls in 'Fit' mode. Hot Keys [D] [R] [T]? Fixed Data actions bar? Switch to other tested viewports? Side-by-side mode? Expand view in Full mode?
 - **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user)
 - [Security] Backend: Do not store authConfig login/password in plain text. Do not transfer them to UI.
 - Terms of Service, Privacy Policy and Beta Service Agreement (links and docs)
@@ -165,6 +165,7 @@ BackLog
 - Use Master term instead of Reference?
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- Frontend: Comparer view: Support DOM-elements' screens that have smaller width than viewport.
 - Frontend: refreshing page after approve case is annoying, need to replace it with longOp + changing state of particular case
 - Frontend: Full mobile support - scenario page tabs, settings tab, secondary page actions under the more (...) button, comparer
 - Frontend: Should logout user on Delete Account

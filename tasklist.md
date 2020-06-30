@@ -135,26 +135,24 @@
 -- Frontend: *featurelost* Number of failed/total at JobPage (run) view
 -- Frontend: Fix Comparer view layout
 -- Frontend: Comparer view: Switch to other tested viewports
+-- [Security] Proxy: Auth proxy should not store passwords in plain text
 
 
 TechDept
 - Frontend: Fix filters at Jobs view
-- Frontend: Need filtration by status at JobPage (results report)
+- Frontend: Need filtration by status at JobPage (results report) (Implement Sidebar filters for Job Page)
 - Frontend: Close menu at mobile view after click, and do not cover header
 
 BackLog
 - Backend: Do not use Login as userId, because it uses in path building and could allow user change directories, use user UID instead
-- Frontend: Implement Sidebar filters for Job Page
 - Frontend: Scenario Page - add Overview(Summary) with reference image 
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
-- [Security] Proxy: Auth proxy should not store passwords in plain text
 - [Move to AWS: 1] STORE IMAGES AT AWS S3
 - [Move to AWS: 2] Run MongoDb on AWS VM
 - [Move to AWS: 3] Run proxy & backend on AWS VM
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
 - **------------ MVP MILESTONE ------------**
 - LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
-- Frontend: Comparer view: Get rid of double scrolls in 'Fit' mode. Hot Keys [D] [R] [T]? Fixed Data actions bar? Side-by-side mode? Expand view in Full mode?
 - **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user)
 - [Security] Backend: Do not store authConfig login/password in plain text. Do not transfer them to UI.
 - Terms of Service, Privacy Policy and Beta Service Agreement (links and docs)
@@ -166,6 +164,7 @@ BackLog
 - Use Master term instead of Reference?
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- Frontend: Comparer view: Get rid of double scrolls in 'Fit' mode. Hot Keys [D] [R] [T]? Fixed Data actions bar? Side-by-side mode? Expand view in Full mode?
 - Frontend: Comparer view: Support DOM-elements' screens that have smaller width than viewport.
 - Frontend: refreshing page after approve case is annoying, need to replace it with longOp + changing state of particular case
 - Frontend: Full mobile support - scenario page tabs, settings tab, secondary page actions under the more (...) button, comparer

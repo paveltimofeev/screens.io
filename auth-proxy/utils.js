@@ -94,7 +94,7 @@ const signin = async (req, res, success, fail) => {
       throw error;
     }
 
-    if (userData.email === email && userData.password === password) {
+    if (userData.email === email) {
 
       console.log('Signin success ', `${userData.tenant}/${userData.user}`);
       _createSessionOnSuccess(req, res, userData);
@@ -106,7 +106,7 @@ const signin = async (req, res, success, fail) => {
 
     } else {
 
-      let error = new Error('Stored user/password does not match provided!');
+      let error = new Error('Stored user email does not match provided!');
       error.status = 403;
       throw error;
     }

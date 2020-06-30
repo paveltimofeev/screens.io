@@ -137,6 +137,7 @@
 -- Frontend: Comparer view: Switch to other tested viewports
 -- [Security] Proxy: Auth proxy should not store passwords in plain text
 
+- Backend: Do not use Login as userId, because it uses in path building and could allow user change directories; use user UID instead
 
 TechDept
 - Frontend: Fix filters at Jobs view
@@ -144,26 +145,26 @@ TechDept
 - Frontend: Close menu at mobile view after click, and do not cover header
 
 BackLog
-- Backend: Do not use Login as userId, because it uses in path building and could allow user change directories, use user UID instead
-- Frontend: Scenario Page - add Overview(Summary) with reference image 
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
-- [Move to AWS: 1] STORE IMAGES AT AWS S3
-- [Move to AWS: 2] Run MongoDb on AWS VM
+- [Move to AWS: 1] Run MongoDb on AWS VM
+- [Move to AWS: 2] STORE IMAGES AT AWS S3
 - [Move to AWS: 3] Run proxy & backend on AWS VM
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
+- Frontend: Scenario Page - add Overview(Summary) with reference image 
 - **------------ MVP MILESTONE ------------**
-- LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
-- **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user)
-- [Security] Backend: Do not store authConfig login/password in plain text. Do not transfer them to UI.
+- **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user, copy data and files from 'Default' user)
+- [Security] Backend: Do not store authConfig login/password in plain text (need to encrypt/decrypt them). Do not transfer them to UI.
 - Terms of Service, Privacy Policy and Beta Service Agreement (links and docs)
 - [Bug] *use _id as label in config?* Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
 - [Bug] *use _id as label in config?* Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
-- [Costs] ability to quickly block or limit user (to protect from overbudget)
+- Frontend & Proxy: Request Beta Access / Get Notified on Launch (Ask for name/email, place email to separate table, examples: https://quantumcomputing.com/beta, https://www.humanfirst.ai/request-beta-access, https://quantumcomputing.com/)
 - Define Metrics to collect (feature requests & feedback button) [cost of each user, typical ways to work]
 - Check active operations with bad network / no network.
-- Use Master term instead of Reference?
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
+- [Feature+] Use Master term instead of Reference?
+- [Costs] ability to quickly block or limit user (to protect from overbudget)
 - Frontend: Comparer view: Get rid of double scrolls in 'Fit' mode. Hot Keys [D] [R] [T]? Fixed Data actions bar? Side-by-side mode? Expand view in Full mode?
 - Frontend: Comparer view: Support DOM-elements' screens that have smaller width than viewport.
 - Frontend: refreshing page after approve case is annoying, need to replace it with longOp + changing state of particular case
@@ -274,7 +275,7 @@ BackLog
 - COMPARE WITH COMPETITORS: diffy.website, screenster.io, percy.io
     - ON DEMAND AGENT (MANAGED BY SERVER) TO MAKE SCREENSHOTS (WITHOUT AUTH/OF LOCALHOST) AND SEND THEM TO THE BACKEND
     - [Feature+] GITHUB/CIRCLECI/APPVEYOR INTEGRATION like DIFFY, AutoSearch links to other pages
-- Tenant support (Tenant > Users + Scenarios + Results + Jobs)
+- Tenant support Or Invite/Share-User-To-My-Project like GitHub do (Tenant > Users + Scenarios + Results + Jobs)
 - [Feature] Project support (Tenant > Projects > Users + Scenarios + Results + Jobs). One project is a buch of scenarios.
 - [Feature] Преимущетво перед обычным тестированием - проверка адаптивности и респонзивности.
 

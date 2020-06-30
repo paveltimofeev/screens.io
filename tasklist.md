@@ -136,34 +136,41 @@
 -- Frontend: Fix Comparer view layout
 -- Frontend: Comparer view: Switch to other tested viewports
 -- [Security] Proxy: Auth proxy should not store passwords in plain text
+-- [Security] Backend: Do not use Login as userId, because it uses in path building and could allow user change directories; use user UID instead
+
 
 
 TechDept
 - Frontend: Fix filters at Jobs view
 - Frontend: Need filtration by status at JobPage (results report) (Implement Sidebar filters for Job Page)
 - Frontend: Close menu at mobile view after click, and do not cover header
+- Proxy: Simpify passwordChecks by user/by email - introduce accountId as a key instead of user/email
+- Proxy: Simpify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, username - really needed?`
 
 BackLog
-- Backend: Do not use Login as userId, because it uses in path building and could allow user change directories, use user UID instead
-- Frontend: Scenario Page - add Overview(Summary) with reference image 
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
-- [Move to AWS: 1] STORE IMAGES AT AWS S3
-- [Move to AWS: 2] Run MongoDb on AWS VM
+- [Move to AWS: 1] Run MongoDb on AWS VM
+- [Move to AWS: 2] STORE IMAGES AT AWS S3
 - [Move to AWS: 3] Run proxy & backend on AWS VM
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
+- Frontend: Scenario Page - add Overview(Summary) with reference image 
+- Display retry button for not-ready yet history record (screens)
 - **------------ MVP MILESTONE ------------**
-- LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
-- **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user)
-- [Security] Backend: Do not store authConfig login/password in plain text. Do not transfer them to UI.
+- **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user, copy data and files from 'Default' user)
+- [Security] Backend: Do not store authConfig login/password in plain text (need to encrypt/decrypt them). Do not transfer them to UI.
 - Terms of Service, Privacy Policy and Beta Service Agreement (links and docs)
-- [Bug] Backend: *use _id as label in config?* Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
-- [Bug] Backend: *use _id as label in config?* Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
-- [Costs] ability to quickly block or limit user (to protect from overbudget)
+- [Bug] *use _id as label in config?* Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
+- [Bug] *use _id as label in config?* Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
+- Frontend & Proxy: Request Beta Access / Get Notified on Launch (Ask for name/email, place email to separate table, examples: https://quantumcomputing.com/beta, https://www.humanfirst.ai/request-beta-access, https://quantumcomputing.com/)
 - Define Metrics to collect (feature requests & feedback button) [cost of each user, typical ways to work]
 - Check active operations with bad network / no network.
-- Use Master term instead of Reference?
+- Frontend: Comparer view: Need to show status Failed/Passed, because when you switch between viewport sizes it's hard to understand passed this case or not. Probably it also need to highlight viewports chips with passsed/failed colors
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
+- [Feature+] Use Master term instead of Reference?
+- [Costs] ability to quickly block or limit user (to protect from overbudget)
+- Retry Policy for proxy<->backend, backend<->db, backend<->queue, new_user_init
 - (?) Testing with Yandex.Toloka
 - Frontend: Comparer view: Get rid of double scrolls in 'Fit' mode. Hot Keys [D] [R] [T]? Fixed Data actions bar? Side-by-side mode? Expand view in Full mode?
 - Frontend: Comparer view: Support DOM-elements' screens that have smaller width than viewport.
@@ -171,6 +178,7 @@ BackLog
 - Frontend: Full mobile support - scenario page tabs, settings tab, secondary page actions under the more (...) button, comparer
 - Frontend: Should logout user on Delete Account
 - [Feature+] Stubs for images (see. backend/app_logic/engine_scripts/puppet/interceptImages.js)
+- [Security] Backend: Do not use Login as db name, use userId instead
 - Frontend: Allow to choose Viewports for Scenario at Viewports Tab
 - Frontend: Second change of Account Name (and other fields) fails without page reload
 - Frontend: Show Failed/All in Jobs and Recent Runs grids
@@ -181,6 +189,7 @@ BackLog
 - [Bad User Scenario] there is no reason in difference after Approve case
 - [Bad UX] Do not clear that case was Approved
 - [Bad UX] Enable/Disable toggle for authorization has to be clicked twice to change.
+- Backend: Approve - try to update reference link instead og copying files
 - Too much scenarios in info-table at JobPage
 - Frontend: Show Execution Plan to make clear the process of testing
 - Frontend: Use masked images for signin/signup page
@@ -235,7 +244,6 @@ BackLog
 - [Feature] Import scenarios from customer's backstopjs-config files (as well as from other framework/competitor configurations)
 - Disable Animation option for scenario
 - [Feature] Support work with sites protected with Basic-Auth or ftp (user:pass); Creds should be stored encrypted, and shouldn't be passed to UI (to prevent leaks via hacked account)
-- Retry Policy for backend-db, backend-queue
 - [Costs] Backend: Remove all References and test Files on removing Scenarios or Viewports
 - [Costs] Backend: Remove test result Files and Report after remove history record
 - [Costs & Security] Backend: Remove all files and storage database after user Delete his account (TeamOwner account)
@@ -249,7 +257,6 @@ BackLog
 - [Feature] Locate tiny changes, and mark them more noticeably. Add "Scroll to next diff" button.
 - Think out understanding of costs (weight of s3/lambdas/queues/vm in total cost of user) to work out correct pricing strategy
 - Add ScenarioHistory collection [scenarioRef/Name, date, status, historyRecordRef, successRate(calc) ]
-- Display retry button for not-ready yet history record (screens)
 - Confirmation dialog for delete ops
 - Displaying Errors on load and save
 - [Feature] Other browsers: FF/IE?

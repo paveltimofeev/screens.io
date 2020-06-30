@@ -58,6 +58,7 @@ app.use(config.proxyPath, createProxyMiddleware({
   changeOrigin: true,
   logLevel:'debug',
   onProxyReq: (proxyReq, req, res) => {
+    proxyReq.setHeader('x-auth-proxy-userid', req.session.userid);
     proxyReq.setHeader('x-auth-proxy-user', req.session.user);
     proxyReq.setHeader('x-auth-proxy-tenant', req.session.tenant);
     proxyReq.setHeader('x-auth-proxy-username', req.session.username);

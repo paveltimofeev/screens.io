@@ -35,17 +35,18 @@ function uuidv4() {
 
 const runQueue = new QueueWrapper(async (opts) => {
 
-    const {runId, config, tenantId, userId} = opts
+    const {runId, config, user, tenant, userid} = opts
     await VRT
-      .create({ tenantId:tenantId, user: userId })
+      .create({ tenant, user, userid })
       .processRun(runId, config)
 })
 
 const approveQueue = new QueueWrapper(async (opts) => {
 
-    const {pair, tenantId, userId} = opts
+    const {pair, tenant, user, userid} = opts
+
     await VRT
-      .create({ tenantId:tenantId, user: userId })
+      .create({ tenant, user, userid })
       .processApproveCase(pair)
 })
 
@@ -72,22 +73,37 @@ const validateScenario = (data) => {
 
 class VRT {
 
-    constructor(tenantId, userId) {
+    constructor(tenant, dbName, userid) {
 
-        this._tenantId = tenantId;
-        this._userId = userId;
+        if ( !tenant ) { console.error('ERROR: No tenant Id', {tenant, dbName, userId}) }
+        if ( !dbName ) { console.error('ERROR: No db Name', {tenant, dbName, userId}) }
+        if ( !userid ) { console.error('ERROR: No user Id', {tenant, dbName, userid}) }
+
+        this._db = dbName;
+        this._tenantId = tenant;
+        this._userId = userid;
+
+        console.log('Create VRT', {tenant, dbName, userid})
     }
 
     static create (ctx) {
 
-        if (!ctx.user) {
-            console.error('No user in request context')
-            var err = new Error('Bad request')
-            err.status = 400
-            throw err;
+        const validateParams = (name) => {
+
+            if (!ctx[name]) {
+
+                console.error(`No ${name} in request context`, ctx)
+                var err = new Error('Bad request. Not valid context.')
+                err.status = 400
+                throw err;
+            }
         }
 
-        return new VRT('test-tenant', ctx.user)
+        validateParams('user');
+        validateParams('tenant');
+        validateParams('userid');
+
+        return new VRT(ctx.tenant, ctx.user, ctx.userid)
     }
 
 
@@ -103,7 +119,7 @@ class VRT {
               console.log('[VRT] updateScenariosRunStatus', scenario.label, scenario.status)
 
               await storage.updateScenarioByLabel(
-                this._userId,
+                this._db,
                 scenario.label,
                 { meta_recentRunStatus: scenario.status }
               )
@@ -113,10 +129,10 @@ class VRT {
 
     async processRun (runId, config) {
 
-        const record = await storage.createHistoryRecord(this._userId, {
+        const record = await storage.createHistoryRecord(this._db, {
             state: 'Running',
             startedAt: new Date(),
-            startedBy: this._userId,
+            startedBy: this._db,
             viewports: config.viewports.map( x => x.label),
             scenarios: config.scenarios.map( x => {
                 return {
@@ -154,7 +170,7 @@ class VRT {
 
             await this.updateScenariosRunStatus(record.scenarios)
             await storage.updateHistoryRecord(
-              this._userId,
+              this._db,
               record._id,
               storage.convertToObject(record))
 
@@ -182,7 +198,7 @@ class VRT {
 
             await this.updateScenariosRunStatus(record.scenarios)
             await storage.updateHistoryRecord(
-              this._userId,
+              this._db,
               record._id,
               storage.convertToObject(record))
 
@@ -206,17 +222,17 @@ class VRT {
         await copyFile(test, reference)
 
         const date = new Date()
-        const scenario = await storage.getScenarioByLabel(this._userId, pair.label)
+        const scenario = await storage.getScenarioByLabel(this._db, pair.label)
 
-        await storage.updateScenario(this._userId, scenario._id, {
+        await storage.updateScenario(this._db, scenario._id, {
             meta_referenceImageUrl: pair.reference
         });
 
-        await storage.createHistoryRecord(this._userId, {
+        await storage.createHistoryRecord(this._db, {
             state: 'Approved',
             startedAt: date,
             finishedAt: date,
-            startedBy: this._userId,
+            startedBy: this._db,
             viewports: [ pair.viewportLabel ],
             scenarios: [{
                     id: scenario._id.toString(),
@@ -235,15 +251,15 @@ class VRT {
     async createReport (runId, data) {
 
         data.runId = runId;
-        return await storage.createReport(this._userId, data )
+        return await storage.createReport(this._db, data )
     }
 
 
     /// shared
     async getConfig( scenariosQuery, viewportsQuery ) {
 
-        const viewports = await storage.getViewports(this._userId, viewportsQuery || { enabled:true })
-        const scenarios = await storage.getScenarios(this._userId, scenariosQuery )
+        const viewports = await storage.getViewports(this._db, viewportsQuery || { enabled:true })
+        const scenarios = await storage.getScenarios(this._db, scenariosQuery )
 
         return engine.buildConfig(
           this._tenantId,
@@ -258,13 +274,13 @@ class VRT {
 
     async initializeUser () {
 
-        await storage.createViewport(this._userId,
+        await storage.createViewport(this._db,
             {label: '1920 × 1080', width: 1920, height: 1080, enabled: true})
 
-        await storage.createViewport(this._userId,
+        await storage.createViewport(this._db,
             {label: '1600 × 900', width: 1600, height: 900, enabled: false})
 
-        await storage.createViewport(this._userId,
+        await storage.createViewport(this._db,
             {label: '1536 × 864' , width: 1536, height: 864, enabled: false})
     }
 
@@ -305,8 +321,9 @@ class VRT {
         await runQueue.push({
             runId,
             config,
-            tenantId: this._tenantId,
-            userId: this._userId
+            tenant: this._tenantId,
+            userid: this._userId,
+            user: this._db
         })
 
         return {
@@ -317,7 +334,7 @@ class VRT {
     }
     async enqueueApproveCase (testCase) {
 
-        let report = await storage.getReportById(this._userId, testCase.reportId);
+        let report = await storage.getReportById(this._db, testCase.reportId);
 
         console.log('report.runId', report.runId)
 
@@ -339,12 +356,13 @@ class VRT {
         if (pairs && pairs.length === 1) {
 
             let pair = pairs[0]
-            console.log('>>>>pair', pair)
+            // console.log('>>>>pair', pair)
 
             await approveQueue.push( {
                 pair,
-                tenantId : this._tenantId,
-                userId : this._userId
+                tenant : this._tenantId,
+                userid : this._userId,
+                user: this._db
             } )
 
             return { enqueuedSuccessfully : true }
@@ -356,7 +374,7 @@ class VRT {
 
     async getReportByRunId (runId) {
 
-        const report = await storage.getReportByRunId(this._userId, runId)
+        const report = await storage.getReportByRunId(this._db, runId)
         const config = await this.getConfig();
 
         engine.convertReportPath(config.paths, runId, report)
@@ -387,7 +405,7 @@ class VRT {
             }
 
             if ( startedBy.isValid() ) {
-                query.startedBy = this._userId;
+                query.startedBy = this._db;
             }
 
             if ( viewports.isValid() ) {
@@ -402,15 +420,15 @@ class VRT {
             }
         }
 
-        return await storage.getHistoryRecords(this._userId, query, limit)
+        return await storage.getHistoryRecords(this._db, query, limit)
     }
     async getHistoryRecordsCount () {
 
-        const stats = await storage.getHistoryRecordsStats(this._userId)
+        const stats = await storage.getHistoryRecordsStats(this._db)
         return stats.count
     }
     async getHistoryRecordById (id) {
-        return await storage.getHistoryRecordById(this._userId, id)
+        return await storage.getHistoryRecordById(this._db, id)
     }
     async getHistoryRecordsOfScenario (scenarioId) {
 
@@ -418,7 +436,7 @@ class VRT {
             "scenarios.id" : scenarioId
         }
 
-        let jobs = await storage.getHistoryRecords(this._userId, query, 10)
+        let jobs = await storage.getHistoryRecords(this._db, query, 10)
 
         const cleanOtherScenarios = (job) => {
             job.scenarios = job.scenarios.filter( s => s.id === scenarioId);
@@ -440,14 +458,14 @@ class VRT {
         return history;
     }
     async deleteHistoryRecord (id) {
-        return await storage.deleteHistoryRecord(this._userId, id)
+        return await storage.deleteHistoryRecord(this._db, id)
     }
     async deleteAllHistoryRecords () {
-        return await storage.deleteAllHistoryRecords(this._userId)
+        return await storage.deleteAllHistoryRecords(this._db)
     }
 
     async getScenarioById (id) {
-        return await storage.getScenarioById(this._userId, id)
+        return await storage.getScenarioById(this._db, id)
     }
     async getScenarios (filter) {
 
@@ -461,41 +479,41 @@ class VRT {
             }
         }
 
-        return await storage.getScenarios(this._userId, query)
+        return await storage.getScenarios(this._db, query)
     }
     async createScenario (data) {
 
         validateScenario(data);
-        return await storage.createScenario(this._userId, data)
+        return await storage.createScenario(this._db, data)
     }
     async cloneScenario (id, data) {
-        return await storage.cloneScenario(this._userId, id, data)
+        return await storage.cloneScenario(this._db, id, data)
     }
     async addScenarioToFavorites (id) {
-        await storage.updateScenario(this._userId, id, {meta_isFavorite: true})
+        await storage.updateScenario(this._db, id, {meta_isFavorite: true})
     }
     async switchScenarioFavorite (id) {
 
-        let scenario = await storage.getScenarioById(this._userId, id)
-        await storage.updateScenario(this._userId, id, {meta_isFavorite: !(scenario.meta_isFavorite || false)})
+        let scenario = await storage.getScenarioById(this._db, id)
+        await storage.updateScenario(this._db, id, {meta_isFavorite: !(scenario.meta_isFavorite || false)})
     }
     async removeScenarioFromFavorites (id) {
-        await storage.updateScenario(this._userId, id, {meta_isFavorite: false})
+        await storage.updateScenario(this._db, id, {meta_isFavorite: false})
     }
     async updateScenario (id, data) {
 
         validateScenario(data);
-        return await storage.updateScenario(this._userId, id, data)
+        return await storage.updateScenario(this._db, id, data)
     }
     async deleteScenario (id) {
-        return await storage.deleteScenario(this._userId, id)
+        return await storage.deleteScenario(this._db, id)
     }
 
     async getViewportById (id) {
-        return await storage.getViewportById(this._userId, id)
+        return await storage.getViewportById(this._db, id)
     }
     async getViewports (query) {
-        return await storage.getViewports(this._userId, query)
+        return await storage.getViewports(this._db, query)
     }
     async upsertViewports (viewports) {
 
@@ -514,16 +532,16 @@ class VRT {
             return { status: 400, error: 'Unsupported viewport size. Min allowed 320 × 280, max 4096 × 3072.'}
         }
 
-        return await storage.bulkWriteViewports(this._userId, viewports, true)
+        return await storage.bulkWriteViewports(this._db, viewports, true)
     }
     async createViewport (data) {
-        return await storage.createViewport(this._userId, data)
+        return await storage.createViewport(this._db, data)
     }
     async updateViewport (id, data) {
-        return await storage.updateViewport(this._userId, id, data)
+        return await storage.updateViewport(this._db, id, data)
     }
     async deleteViewport (id) {
-        return await storage.deleteViewport(this._userId, id)
+        return await storage.deleteViewport(this._db, id)
     }
 }
 

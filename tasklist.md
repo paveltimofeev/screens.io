@@ -139,16 +139,20 @@
 -- [Security] Backend: Do not use Login as userId, because it uses in path building and could allow user change directories; use user UID instead
 
 
+- [Security] Backend: Do not use Login as db name, use userId instead
+
 
 TechDept
 - Frontend: Fix filters at Jobs view
 - Frontend: Need filtration by status at JobPage (results report) (Implement Sidebar filters for Job Page)
 - Frontend: Close menu at mobile view after click, and do not cover header
-- Proxy: Simpify passwordChecks by user/by email - introduce accountId as a key instead of user/email
-- Proxy: Simpify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, username - really needed?`
+- Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email
+- Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, username - really needed?`
 
 BackLog
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
+- [Move to AWS: Preparation] Run QueueProcessors as separate processes (Run, Approve)
+- [Move to AWS: Preparation] Run Queues as separate processes 
 - [Move to AWS: 1] Run MongoDb on AWS VM
 - [Move to AWS: 2] STORE IMAGES AT AWS S3
 - [Move to AWS: 3] Run proxy & backend on AWS VM
@@ -172,13 +176,13 @@ BackLog
 - [Costs] ability to quickly block or limit user (to protect from overbudget)
 - Retry Policy for proxy<->backend, backend<->db, backend<->queue, new_user_init
 - (?) Testing with Yandex.Toloka
+- Frontend: Comparer view: Need juxtapose for Test/Ref, Diff/Ref, (?) Test/Diff
 - Frontend: Comparer view: Get rid of double scrolls in 'Fit' mode. Hot Keys [D] [R] [T]? Fixed Data actions bar? Side-by-side mode? Expand view in Full mode?
 - Frontend: Comparer view: Support DOM-elements' screens that have smaller width than viewport.
 - Frontend: refreshing page after approve case is annoying, need to replace it with longOp + changing state of particular case
 - Frontend: Full mobile support - scenario page tabs, settings tab, secondary page actions under the more (...) button, comparer
 - Frontend: Should logout user on Delete Account
 - [Feature+] Stubs for images (see. backend/app_logic/engine_scripts/puppet/interceptImages.js)
-- [Security] Backend: Do not use Login as db name, use userId instead
 - Frontend: Allow to choose Viewports for Scenario at Viewports Tab
 - Frontend: Second change of Account Name (and other fields) fails without page reload
 - Frontend: Show Failed/All in Jobs and Recent Runs grids

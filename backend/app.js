@@ -45,6 +45,7 @@ app.use(cors);
 app.use((req, res, next) => {
 
   req.context = {
+    userid: req.header('x-auth-proxy-userid'),
     user: req.header('x-auth-proxy-user'),
     tenant: req.header('x-auth-proxy-tenant'),
     username: req.header('x-auth-proxy-username')

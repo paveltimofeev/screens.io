@@ -159,6 +159,7 @@ const _setupNewUser = async (userData) => {
     method: 'POST',
     url: `${config.backend}/api/user/initialize`,
     headers: {
+      'x-auth-proxy-userid': userData._id,
       'x-auth-proxy-user': userData.user,
       'x-auth-proxy-tenant': userData.tenant,
       'x-auth-proxy-username': userData.name

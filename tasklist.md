@@ -139,6 +139,7 @@
 -- [Security] Backend: Do not use Login as userId, because it uses in path building and could allow user change directories; use user UID instead
 -- [Security] Backend: Do not use Login as db name, use userId instead
 
+- Backend & Proxy: Fix SignUp issue (backend should not crash, proxy should pass correct headers)
 
 TechDept
 - Frontend: Fix filters at Jobs view

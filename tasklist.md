@@ -156,14 +156,15 @@ BackLog
 - **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user)
 - [Security] Backend: Do not store authConfig login/password in plain text. Do not transfer them to UI.
 - Terms of Service, Privacy Policy and Beta Service Agreement (links and docs)
-- [Bug] *use _id as label in config?* Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
-- [Bug] *use _id as label in config?* Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
+- [Bug] Backend: *use _id as label in config?* Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
+- [Bug] Backend: *use _id as label in config?* Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
 - [Costs] ability to quickly block or limit user (to protect from overbudget)
 - Define Metrics to collect (feature requests & feedback button) [cost of each user, typical ways to work]
 - Check active operations with bad network / no network.
 - Use Master term instead of Reference?
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- (?) Testing with Yandex.Toloka
 - Frontend: Comparer view: Get rid of double scrolls in 'Fit' mode. Hot Keys [D] [R] [T]? Fixed Data actions bar? Side-by-side mode? Expand view in Full mode?
 - Frontend: Comparer view: Support DOM-elements' screens that have smaller width than viewport.
 - Frontend: refreshing page after approve case is annoying, need to replace it with longOp + changing state of particular case

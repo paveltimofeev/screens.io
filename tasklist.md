@@ -137,9 +137,7 @@
 -- Frontend: Comparer view: Switch to other tested viewports
 -- [Security] Proxy: Auth proxy should not store passwords in plain text
 -- [Security] Backend: Do not use Login as userId, because it uses in path building and could allow user change directories; use user UID instead
-
-
-- [Security] Backend: Do not use Login as db name, use userId instead
+-- [Security] Backend: Do not use Login as db name, use userId instead
 
 
 TechDept

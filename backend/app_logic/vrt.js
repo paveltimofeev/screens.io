@@ -103,7 +103,7 @@ class VRT {
         validateParams('tenant');
         validateParams('userid');
 
-        return new VRT(ctx.tenant, ctx.user, ctx.userid)
+        return new VRT(ctx.tenant, ctx.userid, ctx.userid)
     }
 
 

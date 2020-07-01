@@ -25,16 +25,16 @@ const localRunQueue = new QueueWrapper(async (task) => {
 
   const {runId, config, ctx} = task;
 
-  const VRT = require('./vrt');
-  await VRT.create(ctx).processRun(runId, config)
+  const QueueProcessor = require('./queue-processor');
+  await QueueProcessor.create(ctx).processRun(runId, config)
 });
 
 const localApproveQueue = new QueueWrapper(async (task) => {
 
   const {pair, ctx} = task;
 
-  const VRT = require('./vrt');
-  await VRT.create(ctx).processApproveCase(pair)
+  const QueueProcessor = require('./queue-processor');
+  await QueueProcessor.create(ctx).processApproveCase(pair)
 });
 
 

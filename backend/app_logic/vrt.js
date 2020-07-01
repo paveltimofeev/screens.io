@@ -4,7 +4,7 @@ var { promisify } = require('util');
 var path = require('path');
 const storage = new (require('../storage/storage-adapter'))
 const engine = new (require('../engine-adapter'))
-const { QueueWrapper } = require('./queue-wrappers')
+const queues = require('./queue-wrappers')
 const { SingleValueRule, BooleanValueRule, ArrayRule, SinceDateRule, BeforeDateRule } =  require('../storage/query-rules')
 
 
@@ -32,32 +32,6 @@ function uuidv4() {
         return v.toString(16);
     });
 }
-
-const runQueue = new QueueWrapper(async (opts) => {
-
-    const {runId, config} = opts
-
-    const ctx = {
-        tenant: opts.tenant,
-        user: opts.user,
-        userid: opts.userid
-    }
-
-    await VRT.create(ctx).processRun(runId, config)
-})
-
-const approveQueue = new QueueWrapper(async (opts) => {
-
-    const {pair} = opts
-
-    const ctx = {
-        tenant: opts.tenant,
-        user: opts.user,
-        userid: opts.userid
-    }
-
-    await VRT.create(ctx).processApproveCase(pair)
-})
 
 const validateScenario = (data) => {
 
@@ -340,13 +314,15 @@ class VRT {
           runId
         )
 
-        await runQueue.push({
+        await queues.sendToRunQueue({
             runId,
             config,
-            user: this._user,
-            tenant: this._tenantId,
-            userid: this._userId
-        })
+            ctx: {
+                user:   this._user,
+                tenant: this._tenantId,
+                userid: this._userId
+            }
+        });
 
         return {
             enqueuedSuccessfully: true,
@@ -378,14 +354,15 @@ class VRT {
         if (pairs && pairs.length === 1) {
 
             let pair = pairs[0]
-            // console.log('>>>>pair', pair)
 
-            await approveQueue.push( {
+            await queues.sendToApproveQueue({
                 pair,
-                tenant : this._tenantId,
-                userid : this._userId,
-                user: this._user
-            } )
+                ctx: {
+                    tenant: this._tenantId,
+                    userid: this._userId,
+                    user:   this._user
+                }
+            });
 
             return { enqueuedSuccessfully : true }
         }

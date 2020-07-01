@@ -1,5 +1,4 @@
 
-
 class QueueWrapper {
 
   constructor (processingCallback) {
@@ -22,7 +21,49 @@ class QueueWrapper {
   }
 }
 
+const localRunQueue = new QueueWrapper(async (task) => {
+
+  const {runId, config, ctx} = task;
+
+  const VRT = require('./vrt');
+  await VRT.create(ctx).processRun(runId, config)
+});
+
+const localApproveQueue = new QueueWrapper(async (task) => {
+
+  const {pair, ctx} = task;
+
+  const VRT = require('./vrt');
+  await VRT.create(ctx).processApproveCase(pair)
+});
+
+
+const sendToRunQueue = async (task) => {
+
+  const {runId, config, ctx} = task;
+
+  if(!runId || !config || !ctx) {
+    console.error('Wrong run task', task);
+    throw new Error('Wrong run task');
+  }
+
+  await localRunQueue.push(task);
+};
+
+const sendToApproveQueue = async (task) => {
+
+  const {pair, ctx} = task;
+
+  if(!pair || !ctx) {
+    console.error('Wrong approve task', task);
+    throw new Error('Wrong approve task');
+  }
+
+  await localApproveQueue.push(task);
+};
+
 
 module.exports = {
-  QueueWrapper: QueueWrapper
-}
+  sendToRunQueue: sendToRunQueue,
+  sendToApproveQueue: sendToApproveQueue
+};

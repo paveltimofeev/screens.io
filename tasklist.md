@@ -140,8 +140,9 @@
 -- [Security] Backend: Do not use Login as db name, use userId instead
 -- [Bug] Backend & Proxy: Fix SignUp issue (backend should not crash, proxy should pass correct headers)
 -- [Bug] userid instead of username shown in Recent Runs table 
+-- [Move to AWS: Preparation - Split services] Refactor Queue Wrappers - move them into the separate file
 
-
+- [Move to AWS: Preparation - Split services] Run Queues as separate processes 
 - Backend: migration script for copying data from one user to another
 
 
@@ -151,11 +152,10 @@ TechDept
 - Frontend: *featurelost* total number of scenarios
 - Frontend: Close menu at mobile view after click, and do not cover header
 - Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email
-- Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, username - really needed?`
+- Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
 
 BackLog
 - [Move to AWS: Preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
-- [Move to AWS: Preparation - Split services] Run Queues as separate processes 
 - [Move to AWS: 1] Run MongoDb on AWS VM
 - [Move to AWS: 2] STORE IMAGES AT AWS S3
 - [Move to AWS: 3] Run proxy & backend on AWS VM
@@ -174,6 +174,7 @@ BackLog
 - Define Metrics to collect (feature requests & feedback button) [cost of each user, typical ways to work]
 - Check active operations with bad network / no network.
 - Frontend: Comparer view: Need to show status Failed/Passed, because when you switch between viewport sizes it's hard to understand passed this case or not. Probably it also need to highlight viewports chips with passsed/failed colors
+- Frontend: Icons at Jobs History should be the same as in Recent Runs and in scenarios' Runs history tables
 - **------------ CLOSED BETA MILESTONE ------------**
 
 - LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)

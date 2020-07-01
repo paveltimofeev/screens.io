@@ -138,15 +138,17 @@
 -- [Security] Proxy: Auth proxy should not store passwords in plain text
 -- [Security] Backend: Do not use Login as userId, because it uses in path building and could allow user change directories; use user UID instead
 -- [Security] Backend: Do not use Login as db name, use userId instead
+-- [Bug] Backend & Proxy: Fix SignUp issue (backend should not crash, proxy should pass correct headers)
 
 
-- Backend & Proxy: Fix SignUp issue (backend should not crash, proxy should pass correct headers)
 - Backend: migration script for copying data from one user to another
+- [Bug] userid instead of username shown in Recent Runs table 
 
 
 TechDept
 - Frontend: Fix filters at Jobs view
 - Frontend: Need filtration by status at JobPage (results report) (Implement Sidebar filters for Job Page)
+- Frontend: *featurelost* total number of scenarios
 - Frontend: Close menu at mobile view after click, and do not cover header
 - Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email
 - Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, username - really needed?`
@@ -167,6 +169,7 @@ BackLog
 - Terms of Service, Privacy Policy and Beta Service Agreement (links and docs)
 - [Bug] *use _id as label in config?* Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
 - [Bug] *use _id as label in config?* Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
+- [Bug] user can create several viewports with the same size, after that he cannot delete of disable any of them
 - Frontend & Proxy: Request Beta Access / Get Notified on Launch (Ask for name/email, place email to separate table, examples: https://quantumcomputing.com/beta, https://www.humanfirst.ai/request-beta-access, https://quantumcomputing.com/)
 - Define Metrics to collect (feature requests & feedback button) [cost of each user, typical ways to work]
 - Check active operations with bad network / no network.

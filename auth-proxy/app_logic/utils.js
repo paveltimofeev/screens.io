@@ -1,6 +1,6 @@
 const axios = require('axios');
-const config = require('./config')
-const { createStorageAdapter } = require('./storage/storage-adapter')
+const config = require('../config')
+const { createStorageAdapter } = require('../storage/storage-adapter')
 
 const storage = createStorageAdapter(config.dbUsersCollection)
 
@@ -138,7 +138,7 @@ const _createSessionOnSuccess = (req, res, userData) => {
   }
 
   req.session.authorized = true;
-  req.session.userid = userData._id;
+  req.session.userid = userData._id.toString();
   req.session.user = userData.user;
   req.session.email = userData.email;
   req.session.tenant = userData.tenant;
@@ -159,14 +159,14 @@ const _setupNewUser = async (userData) => {
     method: 'POST',
     url: `${config.backend}/api/user/initialize`,
     headers: {
-      'x-auth-proxy-userid': userData._id,
+      'x-auth-proxy-userid': userData._id.toString(),
       'x-auth-proxy-user': userData.user,
       'x-auth-proxy-tenant': userData.tenant,
       'x-auth-proxy-username': userData.name
     }
   };
 
-  await axios(options);
+  const response = await axios(options);
 }
 
 const changePassword = async (req, res) => {

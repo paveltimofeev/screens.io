@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const MemoryStore = require('memorystore')(session)
 const cors = require('./cors');
-const {clearHeaders, checkAuth, signup, signin, signout, changePassword, getAccountInfo, updateAccountInfo, deleteAccount} = require('./utils')
+const {clearHeaders, checkAuth, signup, signin, signout, changePassword, getAccountInfo, updateAccountInfo, deleteAccount} = require('./app_logic/utils')
 const config = require('./config')
 const { connectToDb } = require('./storage/storage-adapter')
 

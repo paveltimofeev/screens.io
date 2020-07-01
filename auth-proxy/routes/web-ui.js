@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const {
-    clearHeaders, checkAuth, signup, signin, signout, 
+    clearHeaders, checkAuth, signup, signin, signout,
     changePassword, getAccountInfo, updateAccountInfo, deleteAccount
-} = require('./../utils');
+} = require('../app_logic/utils');
 
 
 router.get('/login', (req, res) => {

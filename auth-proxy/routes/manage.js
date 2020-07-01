@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const {
-    checkAuth, signout, 
+    checkAuth, signout,
     getAccountInfo, updateAccountInfo, deleteAccount, changePassword
-} = require('./../utils');
+} = require('../app_logic/utils');
 
 
 /// Check authorized session for all requests on this sub-route

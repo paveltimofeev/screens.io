@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { signup, signin, signout } = require('./../utils');
+const { signup, signin, signout } = require('../app_logic/utils');
 
 
 router.post('/signup-client', async (req,res) => {

@@ -19,6 +19,8 @@ router.post('/user/initialize', async function(req, res) {
 
     tryWrapper(req, res, async () => {
 
+        console.log('/user/initialize', req.context)
+
         const data = await VRT.create(req.context).initializeUser()
         res.status(200).send( { data } )
     })

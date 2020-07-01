@@ -75,9 +75,18 @@ class VRT {
 
     constructor(tenant, dbName, userid) {
 
-        if ( !tenant ) { console.error('ERROR: No tenant Id', {tenant, dbName, userId}) }
-        if ( !dbName ) { console.error('ERROR: No db Name', {tenant, dbName, userId}) }
-        if ( !userid ) { console.error('ERROR: No user Id', {tenant, dbName, userid}) }
+        if ( !tenant ) {
+            throw new Error('ERROR: No tenant Id', {tenant, dbName, userId})
+        }
+        if ( !dbName ) {
+            throw new Error('ERROR: No db Name', {tenant, dbName, userId})
+        }
+        if ( !userid ) {
+            throw new Error('ERROR: No user Id', {tenant, dbName, userid})
+        }
+        if ( typeof(dbName) !== 'string' || dbName.length <= 0 || dbName.indexOf(' ') >= 0 ) {
+            throw new Error('Wrong db Name:', dbName);
+        }
 
         this._db = dbName;
         this._tenantId = tenant;

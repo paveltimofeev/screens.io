@@ -35,19 +35,28 @@ function uuidv4() {
 
 const runQueue = new QueueWrapper(async (opts) => {
 
-    const {runId, config, user, tenant, userid} = opts
-    await VRT
-      .create({ tenant, user, userid })
-      .processRun(runId, config)
+    const {runId, config} = opts
+
+    const ctx = {
+        tenant: opts.tenant,
+        user: opts.user,
+        userid: opts.userid
+    }
+
+    await VRT.create(ctx).processRun(runId, config)
 })
 
 const approveQueue = new QueueWrapper(async (opts) => {
 
-    const {pair, tenant, user, userid} = opts
+    const {pair} = opts
 
-    await VRT
-      .create({ tenant, user, userid })
-      .processApproveCase(pair)
+    const ctx = {
+        tenant: opts.tenant,
+        user: opts.user,
+        userid: opts.userid
+    }
+
+    await VRT.create(ctx).processApproveCase(pair)
 })
 
 const validateScenario = (data) => {
@@ -73,16 +82,19 @@ const validateScenario = (data) => {
 
 class VRT {
 
-    constructor(tenant, dbName, userid) {
+    constructor(tenant, dbName, userid, user) {
 
         if ( !tenant ) {
-            throw new Error('ERROR: No tenant Id', {tenant, dbName, userId})
+            throw new Error('ERROR: No tenant Id', tenant)
         }
         if ( !dbName ) {
-            throw new Error('ERROR: No db Name', {tenant, dbName, userId})
+            throw new Error('ERROR: No db Name', dbName)
         }
         if ( !userid ) {
-            throw new Error('ERROR: No user Id', {tenant, dbName, userid})
+            throw new Error('ERROR: No user Id', userid)
+        }
+        if ( !user ) {
+            throw new Error('ERROR: No user', user)
         }
         if ( typeof(dbName) !== 'string' || dbName.length <= 0 || dbName.indexOf(' ') >= 0 ) {
             throw new Error('Wrong db Name:', dbName);
@@ -91,6 +103,7 @@ class VRT {
         this._db = dbName;
         this._tenantId = tenant;
         this._userId = userid;
+        this._user = user;
 
         console.log('Create VRT', {tenant, dbName, userid})
     }
@@ -111,8 +124,9 @@ class VRT {
         validateParams('user');
         validateParams('tenant');
         validateParams('userid');
+        validateParams('user');
 
-        return new VRT(ctx.tenant, ctx.userid, ctx.userid)
+        return new VRT(ctx.tenant, ctx.userid, ctx.userid, ctx.user)
     }
 
 
@@ -141,7 +155,7 @@ class VRT {
         const record = await storage.createHistoryRecord(this._db, {
             state: 'Running',
             startedAt: new Date(),
-            startedBy: this._db,
+            startedBy: this._user,
             viewports: config.viewports.map( x => x.label),
             scenarios: config.scenarios.map( x => {
                 return {
@@ -153,7 +167,6 @@ class VRT {
         })
 
         try {
-
 
             //await writeFile('./backstop-config.debug.json', JSON.stringify(config), 'utf-8')
             await backstop('test', { config: config } )
@@ -241,7 +254,7 @@ class VRT {
             state: 'Approved',
             startedAt: date,
             finishedAt: date,
-            startedBy: this._db,
+            startedBy: this._user,
             viewports: [ pair.viewportLabel ],
             scenarios: [{
                     id: scenario._id.toString(),
@@ -330,9 +343,9 @@ class VRT {
         await runQueue.push({
             runId,
             config,
+            user: this._user,
             tenant: this._tenantId,
-            userid: this._userId,
-            user: this._db
+            userid: this._userId
         })
 
         return {
@@ -371,7 +384,7 @@ class VRT {
                 pair,
                 tenant : this._tenantId,
                 userid : this._userId,
-                user: this._db
+                user: this._user
             } )
 
             return { enqueuedSuccessfully : true }

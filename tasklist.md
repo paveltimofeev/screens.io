@@ -139,10 +139,10 @@
 -- [Security] Backend: Do not use Login as userId, because it uses in path building and could allow user change directories; use user UID instead
 -- [Security] Backend: Do not use Login as db name, use userId instead
 -- [Bug] Backend & Proxy: Fix SignUp issue (backend should not crash, proxy should pass correct headers)
+-- [Bug] userid instead of username shown in Recent Runs table 
 
 
 - Backend: migration script for copying data from one user to another
-- [Bug] userid instead of username shown in Recent Runs table 
 
 
 TechDept
@@ -154,13 +154,13 @@ TechDept
 - Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, username - really needed?`
 
 BackLog
-- Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
-- [Move to AWS: Preparation] Run QueueProcessors as separate processes (Run, Approve)
-- [Move to AWS: Preparation] Run Queues as separate processes 
+- [Move to AWS: Preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
+- [Move to AWS: Preparation - Split services] Run Queues as separate processes 
 - [Move to AWS: 1] Run MongoDb on AWS VM
 - [Move to AWS: 2] STORE IMAGES AT AWS S3
 - [Move to AWS: 3] Run proxy & backend on AWS VM
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
+- Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Frontend: Scenario Page - add Overview(Summary) with reference image 
 - Display retry button for not-ready yet history record (screens)
 - **------------ MVP MILESTONE ------------**

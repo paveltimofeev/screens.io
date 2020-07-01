@@ -141,9 +141,11 @@
 -- [Bug] Backend & Proxy: Fix SignUp issue (backend should not crash, proxy should pass correct headers)
 -- [Bug] userid instead of username shown in Recent Runs table 
 -- [Move to AWS: Preparation - Split services] Refactor Queue Wrappers - move them into the separate file
+-- [Move to AWS: Preparation - Split services] Refactor QueueProcessors (Run, Approve) - move them into the separate file
 
 
 - [Move to AWS: Preparation - Split services] Run Queues as separate processes 
+- [Move to AWS: Preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
 - Backend: migration script for copying data from one user to another
 
 
@@ -156,7 +158,6 @@ TechDept
 - Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
 
 BackLog
-- [Move to AWS: Preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
 - [Move to AWS: 1] Run MongoDb on AWS VM
 - [Move to AWS: 2] STORE IMAGES AT AWS S3
 - [Move to AWS: 3] Run proxy & backend on AWS VM
@@ -168,6 +169,7 @@ BackLog
 - **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user, copy data and files from 'Default' user)
 - [Security] Backend: Do not store authConfig login/password in plain text (need to encrypt/decrypt them). Do not transfer them to UI.
 - Terms of Service, Privacy Policy and Beta Service Agreement (links and docs)
+- [Bug] RunFiltered by one name and one viewport test produces NoReference results
 - [Bug] *use _id as label in config?* Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
 - [Bug] *use _id as label in config?* Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
 - [Bug] user can create several viewports with the same size, after that he cannot delete of disable any of them

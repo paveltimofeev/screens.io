@@ -2,57 +2,18 @@ var backstop = require('backstopjs');
 var fs = require('fs');
 var { promisify } = require('util');
 var path = require('path');
-const storage = new (require('../storage/storage-adapter'))
-const engine = new (require('../engine-adapter'))
-const queues = require('./queue-wrappers')
-const { SingleValueRule, BooleanValueRule, ArrayRule, SinceDateRule, BeforeDateRule } =  require('../storage/query-rules')
+const storage = new (require('../storage/storage-adapter'));
+const engine = new (require('../engine-adapter'));
+const queues = require('./queue-wrappers');
+const rules =  require('../storage/query-rules');
+const appUtils = require('./app-utils');
 
 
-const exists = promisify(fs.exists)
-const copyFile = promisify(fs.copyFile)
-const writeFile = promisify(fs.writeFile)
-const mkdir = promisify(fs.mkdir)
+const exists = promisify(fs.exists);
+const copyFile = promisify(fs.copyFile);
+const writeFile = promisify(fs.writeFile);
+const mkdir = promisify(fs.mkdir);
 
-function uniqueOnly (value, index, self) {
-    return self.findIndex(x => {
-        return x.label === value.label && x.status === value.status
-    }) === index;
-}
-
-function skipPassedIfHasFailed (value, index, self) {
-    let found = self.findIndex(x => {
-        return x.label === value.label && x.status === 'Failed'
-    })
-    return  found  === index || found === -1;
-}
-
-function uuidv4() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-    });
-}
-
-const validateScenario = (data) => {
-
-    const allowStringArraysOnly = (scenario, prop) => {
-        if(
-          !Array.isArray( scenario[ prop ] ) ||
-          scenario[ prop ] == null ||
-          (typeof (scenario[ prop ]) === 'string' && scenario[ prop ].trim() === '') )
-        {
-            scenario[ prop ] = []
-        }
-
-        scenario[ prop ] = scenario[ prop ].filter( x => typeof (x) === 'string' && x.trim() !== '' && x !== '' )
-    };
-
-    allowStringArraysOnly(data, 'hideSelectors');
-    allowStringArraysOnly(data, 'removeSelectors');
-    allowStringArraysOnly(data, 'clickSelectors');
-    allowStringArraysOnly(data, 'hoverSelectors');
-    allowStringArraysOnly(data, 'selectors');
-}
 
 class VRT {
 
@@ -109,8 +70,8 @@ class VRT {
     async updateScenariosRunStatus (scenarios) {
 
         await scenarios
-          .filter(uniqueOnly)
-          .filter(skipPassedIfHasFailed)
+          .filter(appUtils.uniqueOnly)
+          .filter(appUtils.skipPassedIfHasFailed)
           .forEach(async scenario => {
 
               console.log('[VRT] updateScenariosRunStatus', scenario.label, scenario.status)
@@ -282,7 +243,7 @@ class VRT {
 
     async enqueueRun (opts) {
 
-        const runId = uuidv4()
+        const runId = appUtils.uuidv4()
 
         let scenariosQuery
         let viewportsQuery
@@ -384,16 +345,16 @@ class VRT {
     /// filter: {state, startedBy, startedSince}
     async getHistoryRecords (filter, limit) {
 
-        let query = {}
+        let query = {};
 
         if (filter) {
 
-            const state = new SingleValueRule(filter.state, ['Passed', 'Failed', 'Running', 'Approved'])
-            const not_state = new SingleValueRule(filter.not_state, ['Passed', 'Failed', 'Running', 'Approved'])
-            const startedBy = new SingleValueRule(filter.startedBy, ['Run by me'])
-            const viewports = new ArrayRule(filter.viewports)
-            const startedSince = new SinceDateRule(filter.startedSince)
-            const beforeStartedAt = new BeforeDateRule(filter.beforeStartedAt)
+            const state = new rules.SingleValueRule(filter.state, ['Passed', 'Failed', 'Running', 'Approved'])
+            const not_state = new rules.SingleValueRule(filter.not_state, ['Passed', 'Failed', 'Running', 'Approved'])
+            const startedBy = new rules.SingleValueRule(filter.startedBy, ['Run by me'])
+            const viewports = new rules.ArrayRule(filter.viewports)
+            const startedSince = new rules.SinceDateRule(filter.startedSince)
+            const beforeStartedAt = new rules.BeforeDateRule(filter.beforeStartedAt)
 
             if ( state.isValid() ) {
                 query.state = state.toQueryPart();
@@ -471,7 +432,7 @@ class VRT {
         let query = {}
 
         if(filter) {
-            const favorites = new BooleanValueRule(filter.favorites)
+            const favorites = new rules.BooleanValueRule(filter.favorites)
 
             if (favorites.isValid()) {
                 query.meta_isFavorite = favorites.toQueryPart()
@@ -482,7 +443,7 @@ class VRT {
     }
     async createScenario (data) {
 
-        validateScenario(data);
+        appUtils.validateScenario(data);
         return await storage.createScenario(this._db, data)
     }
     async cloneScenario (id, data) {
@@ -501,7 +462,7 @@ class VRT {
     }
     async updateScenario (id, data) {
 
-        validateScenario(data);
+        appUtils.validateScenario(data);
         return await storage.updateScenario(this._db, id, data)
     }
     async deleteScenario (id) {

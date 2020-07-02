@@ -145,6 +145,7 @@
 -- [Move to AWS: 1] Run MongoDb in cloud.mongodb.com
 
 
+- [Move to AWS: Preparation] Create preview images for lg, md, sm cards (md, sm - for approved cases, lg - for test results)
 - [Move to AWS: 2] STORE IMAGES AT AWS S3
 
 
@@ -189,6 +190,7 @@ BackLog
 - Frontend: Comparer view: Need juxtapose for Test/Ref, Diff/Ref, (?) Test/Diff
 - Frontend: Comparer view: Get rid of double scrolls in 'Fit' mode. Hot Keys [D] [R] [T]? Fixed Data actions bar? Side-by-side mode? Expand view in Full mode?
 - Frontend: Comparer view: Support DOM-elements' screens that have smaller width than viewport.
+- Frontend: Scenario Page: If user set DOM Element selector, offer him to "Create the same scenario for hover element?", after creating copy with hover shows hit notification alert with button - "open created scenario".
 - Frontend: refreshing page after approve case is annoying, need to replace it with longOp + changing state of particular case
 - Frontend: Full mobile support - scenario page tabs, settings tab, secondary page actions under the more (...) button, comparer
 - Frontend: Should logout user on Delete Account

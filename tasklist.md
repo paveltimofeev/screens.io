@@ -145,7 +145,7 @@
 -- [Move to AWS: 1] Run MongoDb in cloud.mongodb.com
 
 
-- [Move to AWS: Preparation] Create preview images for lg, md, sm cards (md, sm - for approved cases, lg - for test results)
+- [Move to AWS: Preparation] Create preview images (compressed .jpg) for lg, md, sm cards (md, sm - for approved cases, lg - for test results)
 - [Move to AWS: 2] STORE IMAGES AT AWS S3
 
 
@@ -180,6 +180,7 @@ BackLog
 - Frontend: Icons at Jobs History should be the same as in Recent Runs and in scenarios' Runs history tables
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- Backend: Storage service create and cache connection per user and never close it, even if user left site or logout.
 - Backend: migration script for copying data from one user to another
 - How to test videoplayers -> better to hide them
 - LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)

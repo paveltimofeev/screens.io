@@ -1,0 +1,313 @@
+-- Run one scenario (by filter)
+-- Delete Scenario
+-- Update Store after Save config
+-- Loading state
+-- Show results/history
+-- сохранение конфига с пустыми селекторами пораждает масссивы пустых селекторов - [""]
+-- Approve failed results
+-- Add New Scenario
+-- Add viewports
+-- Remove viewports
+-- Auth proxy
+-- Auth proxy should not return html and StackTrace on 401
+-- Login page
+-- Logout button
+-- Proxying images
+-- Retry all requests except 401/403/404/...
+-- MONGODB STORAGE
+-- Move most of logic to backend (createScenario, createViewport, updateScenario,...)
+-- Bind real job status
+-- Auto refresh history list
+-- Remove history record
+-- Auth proxy parameters
+-- Redirect not-authorized users to Login Page
+-- Auth proxy should pass user/tenant info to backend
+-- User/tenant based storage
+-- split bitmaps_reference by user/tenant
+-- Auth proxy should get users from Storage
+-- [Not an issue - Unauthorized requests produces by testing engine, when it opens a page to test] Auth proxy sometimes got unauthorized requests when RUN tests in parallel from 2 different accounts in normal and incognito mode.
+-- Throw error if config is invalid (for ex. no viewports)
+-- Clone Scenario
+-- Auth proxy should be able to Register a New User
+-- Refactor Auth proxy
+-- Favorite scenarios / Add to fav / Remove fav
+-- DESIGN UI PAGES
+-- Remove all history records
+-- Use Queues for /run, /approve to separate api from vrt and return '/run' response as soon as possible
+-- Store Viewports, UserName, WorkTime in history
+-- Check selectors/selectorExpansion/expect config options to test one/few elements
+-- ClickSelector, HoverSelector does not work
+-- Get scenario's history
+-- store scenario Id as well as scenarioName in runs history
+-- replace currentScenario with config/:scenarioId route, and get scenario history for other then 'Test' value
+-- show test case results in test case history instead of results of test run
+-- refactoring - replace getHistoryRecordsOfScenario with getTestCaseHistory(scenarioId)
+-- support search and filters on backend (status=, startedBy=, startedSince=)
+-- support multiple filters on backend (viewports=[])
+-- refactor filters funcs, make it easier to reuse
+-- Backend: store approves in history
+-- Backend: extract UIErrors into the separate class
+-- Backend: get favorite scenarios
+-- Backend: top-N filter for job histories
+-- DESIGN UI PAGES FOR MOBILE
+-- Frontend: create basic routes and responsive/mobile-compatible layouts wireframes (by Figma design)
+-- Frontend: Create HTML/CSS UI-Kit
+-- Define MVP tasks scope
+-- Replace all icons with wrapped component to be independent from used icons library
+-- Bind Overview page data
+-- Use user-friendly dates (by moment)
+-- Job page data
+-- Backend: Store recent run result in meta_recentRunStatus of scenario
+-- Frontend: RESTYLE UI - Scenario edit view - basic functionality
+-- Frontend: RESTYLE UI - Scenario edit view - Tab component
+-- Backend+Frontend: Store meta_referenceImageUrl (url of reference == recent approved image url) in scenario and show it in scenario card
+-- Frontend: Smart autorefrseh - do delayed refresh only after get previouse response (does not matter succesful or not)
+-- Frontend: RESTYLE UI - Scenario edit view - Run scenario throws an error in log
+-- Create Dumb Angular Components based on UI-Kit styles and markup
+-- Show the latest run image at ScenarioCards
+-- Frontend: RESTYLE UI - Scenario edit view (New Scenario Mode)
+-- Frontend: RESTYLE UI - Responsive UI (support 1920/1600/1270/iPad)
+-- Frontend: RESTYLE UI - Comparer view - layout and data-binding
+-- Frontend: RESTYLE UI - Comparer view - ImagesComparerComponent
+-- Frontend: Comparer view - Implement Fit/Fill Data Actions
+-- Frontend: Comparer view - Implement Difference/Test Result/Reference/Comparer switch Data Actions
+-- Frontend: Recent Runs table at Overview page - skip 'Approve' results and add AutoRefresh
+-- Frontend: Job Page - Implement Data Actions
+-- Frontend: Implement all Data Actions
+-- Frontend: Hide actions and buttons that not going to be included in MVP, but place all of them into tasklist as items
+-- Frontend: Job Page - Implement Sidebar Filters
+-- Frontend: FitMode for scenarios view
+-- Frontend: RESTYLE UI - Settings view store
+-- Frontend: operations with Correlation Id
+-- Frontend: add form button component
+-- Backend: Bulk Upsert viewports for Settings vew
+-- Frontend: Remove old views and components
+-- [Bug] Overview - card-sm - LatestResults does not work correctly *removed LatestResults button, because history available from scenario page*
+-- Frontend: Make header fixed, it must be always visible.
+-- Click on job history row should navigate to job history record
+-- [Bug] Frontend: AutoRefresh should stop after user left page (on ngDestroy) at Overview, ScenarioPage & Add Autorefresh for Jobs view
+-- Frontend: Refactor and simplify longOp (Request-Reply pattern)
+-- Frontend: Implement Search filter
+-- Frontend: Jobs view Page Actions (Purge History)
+-- Frontend: Comparer view Page Actions (Run Again, Approve)
+-- Frontend: JobPage view Page Actions (Run Failed, Approve Failed Cases)
+-- Backend: Run several scenarios by filter - JobPage view Page Action (Run Failed)
+-- Backend: Hide internal path to the "not found ref image", in case of error when Ref not exists
+-- Frontend: Get rid of vh in styles
+-- Frontend & Proxy: Change password  
+-- Frontend & Proxy: Delete account  
+-- Frontend & Proxy: Change name and email
+-- Frontend: show current username
+-- Frontend: Move AccountApi Ops into the separate actions/reducer/effects/selectors & extract IAccountInfo model
+-- Frontend: Refresh account info after update
+-- [Feature+] Replace innerText with stub value. **Usecase**: user setup scenario for some card component at live server where card's header text changing periodically (i.e. like news title). To avoid fails every time, he would like to configure scenario to replace text content of `.header` with some stub value.
+-- Frontend: Tune styles of Stub Rules table
+-- Frontend: support deletion of stub rules
+-- Frontend: Cannot change form field value again after submit data [Not confirm anymore]
+-- Frontend: Run scenarios with overridden parameters (scenarios + viewports filtration)
+-- Frontend: AuthGuard to redirect unauthorized users to login page ASAP
+-- Backend: Store/update data for AccountInfo at Settings view
+-- Frontend: RESTYLE UI - Sign-in/Sign-up view
+-- Frontend: [Bug] Clear text field - cleared field does not save changes on backend (Save Scenario / Hide Selectors field)
+-- Frontend: confirmation for delete scenario
+-- Frontend: better scenarios layout
+-- Backend: Prototype of simple Login/Pass Auth Pre-Step
+-- [Feature+] Frontend: Implement UI for simple Login/Pass Auth Pre-Step. Define IScenario interface
+-- Add selftests for every tab at edit page of particular scenario
+-- Proxy: Refactor utils and storage-adapter at proxy.
+-- Frontend & Proxy: [Bug] Do not navigate user to Overview page after successful SugnUp
+-- Proxy: [Bug] cannot create another one account with the same password (index for password field was created)
+-- Frontend & Backend: [Bug] Adding then removing ClickSelectors cause array with empty selector - [""] that fails job
+-- Frontend & Backend: Unclear error messages during signin/signup
+-- **New User Init Process**: [Bug] New user does not have any Viewports configured.
+-- Run scenarios filtered by ids[]*viewports[]
+-- Frontend: Integrate bootstrap for grid system, tables, dropdowns and modals.
+-- Frontend: Adding custom viewports
+-- Frontend: "Load more" for job history (UI part)
+-- Frontend & Backend: "Load more" for job history based on filter {startedAt: {$gt: prevLastRecord}} + limit=30 (set limit on backend to be able to manage it on server side, do not use skip). Extend [GET] /api/history/ on backend to support startedAt filter { startedAt: prevLastRecord, filters:... }. Add items to list instead of replace on frontend. Initialize loading with separate longOp. Get total by `res = db.restaurants.stats(); res.count`.
+-- Frontend: Show "No More" for job history if loadMore returns 0 records
+-- Frontend: Hide "Load more" if no records in job history table
+-- Frontend: "Load more" with loading state
+-- Frontend: Returns and show Total/Filtered jobs count
+-- Frontend: Show correct values at stats section of sidebar (Jobs)
+-- Frontend: Logout should clear session and cookies
+-- Frontend: RESTYLE UI - Responsive UI (support mobile)
+-- Frontend: *featurelost* Number of failed/total at JobPage (run) view
+-- Frontend: Fix Comparer view layout
+-- Frontend: Comparer view: Switch to other tested viewports
+-- [Security] Proxy: Auth proxy should not store passwords in plain text
+-- [Security] Backend: Do not use Login as userId, because it uses in path building and could allow user change directories; use user UID instead
+-- [Security] Backend: Do not use Login as db name, use userId instead
+-- [Bug] Backend & Proxy: Fix SignUp issue (backend should not crash, proxy should pass correct headers)
+-- [Bug] userid instead of username shown in Recent Runs table 
+-- [Move to AWS: Preparation - Split services] Refactor Queue Wrappers - move them into the separate file
+-- [Move to AWS: Preparation - Split services] Refactor QueueProcessors (Run, Approve) - move them into the separate file
+
+
+- [Move to AWS: Preparation - Split services] Run Queues as separate processes 
+- [Move to AWS: Preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
+- Backend: migration script for copying data from one user to another
+
+
+TechDept
+- Frontend: Fix filters at Jobs view
+- Frontend: Need filtration by status at JobPage (results report) (Implement Sidebar filters for Job Page)
+- Frontend: *featurelost* total number of scenarios
+- Frontend: Close menu at mobile view after click, and do not cover header
+- Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email
+- Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
+
+BackLog
+- [Move to AWS: 1] Run MongoDb on AWS VM
+- [Move to AWS: 2] STORE IMAGES AT AWS S3
+- [Move to AWS: 3] Run proxy & backend on AWS VM
+- [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
+- Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
+- Frontend: Scenario Page - add Overview(Summary) with reference image 
+- Display retry button for not-ready yet history record (screens)
+- **------------ MVP MILESTONE ------------**
+- **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user, copy data and files from 'Default' user)
+- [Security] Backend: Do not store authConfig login/password in plain text (need to encrypt/decrypt them). Do not transfer them to UI.
+- Terms of Service, Privacy Policy and Beta Service Agreement (links and docs)
+- [Bug] RunFiltered by one name and one viewport test produces NoReference results
+- [Bug] *use _id as label in config?* Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
+- [Bug] *use _id as label in config?* Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
+- [Bug] user can create several viewports with the same size, after that he cannot delete of disable any of them
+- Frontend & Proxy: Request Beta Access / Get Notified on Launch (Ask for name/email, place email to separate table, examples: https://quantumcomputing.com/beta, https://www.humanfirst.ai/request-beta-access, https://quantumcomputing.com/)
+- Define Metrics to collect (feature requests & feedback button) [cost of each user, typical ways to work]
+- Check active operations with bad network / no network.
+- Frontend: Comparer view: Need to show status Failed/Passed, because when you switch between viewport sizes it's hard to understand passed this case or not. Probably it also need to highlight viewports chips with passsed/failed colors
+- Frontend: Icons at Jobs History should be the same as in Recent Runs and in scenarios' Runs history tables
+- **------------ CLOSED BETA MILESTONE ------------**
+
+- LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
+- [Feature+] Use Master term instead of Reference?
+- [Costs] ability to quickly block or limit user (to protect from overbudget)
+- Retry Policy for proxy<->backend, backend<->db, backend<->queue, new_user_init
+- (?) Testing with Yandex.Toloka
+- Frontend: Comparer view: Need juxtapose for Test/Ref, Diff/Ref, (?) Test/Diff
+- Frontend: Comparer view: Get rid of double scrolls in 'Fit' mode. Hot Keys [D] [R] [T]? Fixed Data actions bar? Side-by-side mode? Expand view in Full mode?
+- Frontend: Comparer view: Support DOM-elements' screens that have smaller width than viewport.
+- Frontend: refreshing page after approve case is annoying, need to replace it with longOp + changing state of particular case
+- Frontend: Full mobile support - scenario page tabs, settings tab, secondary page actions under the more (...) button, comparer
+- Frontend: Should logout user on Delete Account
+- [Feature+] Stubs for images (see. backend/app_logic/engine_scripts/puppet/interceptImages.js)
+- Frontend: Allow to choose Viewports for Scenario at Viewports Tab
+- Frontend: Second change of Account Name (and other fields) fails without page reload
+- Frontend: Show Failed/All in Jobs and Recent Runs grids
+- Autostop or ManualStop for stuck jobs
+- Frontend: Add custom vewports 
+- [Bad User Scenario] Enabling of 'Check all matching selectors' could lead to many results (every result for each element found by css-selector). It can confuse end user. Probably better to disable this option.
+- [Bad User Scenario] Run scenario that run other scenarios will produce infinite loop of runs. Should to protect myself from such behaviour.
+- [Bad User Scenario] there is no reason in difference after Approve case
+- [Bad UX] Do not clear that case was Approved
+- [Bad UX] Enable/Disable toggle for authorization has to be clicked twice to change.
+- Backend: Approve - try to update reference link instead og copying files
+- Too much scenarios in info-table at JobPage
+- Frontend: Show Execution Plan to make clear the process of testing
+- Frontend: Use masked images for signin/signup page
+- Register user by email/gmail and promocode with email confirmation.
+- check username/password/... injection: create user "name*" and delete it. Do not allow to create usernames in [a-zA-Z] range or clean out restricted symbols
+- Frontend: [Bug/Usecase] If scenario was removed, user still can open it from old Job Page. Either we should show 'Not found' page here, or we should not remove it completely (mark as deleted to skip on runs and display, but allow to open it by direct link for read only without ability to change and run)
+- Frontend & Backend: approveAllFailedCases action produces N approve actions, that leed to N backend requests and N*x MongoDb requests, queues and backend operations. It could be replaced with one smart filter on backend.
+- Frontend: Page Actions (like Run All Again, Approve All Failed Tests) should be a request-reply operations
+- Frontend: Implement 'ListView' (table view) and 'Show Differences' for Scenarios
+- Frontend: Implement 'ListView' (table view) and 'Group by Scenarios' for JobPage
+- Frontend: Show Difference value at Comparer and JobPages cards (table in ListView mode), to get user knowledge for tuning test sensitivity 
+- Frontend: Implement 'Group by Scenarios' for Jobs
+- Frontend: Scenario Page - add HasValues pin; add Description (commentary) for scenario, to make puprose of scenario clearer.
+- Frontend: Not found views for scenario, job, comparer pages. Because they could be opened by Id, that does not exists.
+- Frontend: Read proof
+- Frontend: Show reference image at Scenario Overview tab
+- Frontend: Table view mode for scenarios list
+- Frontend: Implement Scenariod view page actions (Run Filtered, Remove Filtered)
+- Backend: Scenarios Page Actions - Run and Remove scenarios filtered by ids[]*viewports[]
+- [Feature+] Screenshot history & Comparation - ability to go back and forth through historical screenshots of Screnario with highlighting of difference. 
+- [Feature+] Build and use git-analogy: **Screenhub/Diffhub**: Compare any history record of scenario with reference ('master') or with any other record (like 2 branches in git).
+- [Feature] Run scenarios with overridden hostname (stage)
+- [Feature] Ability to set cookies. [Usecase] Test different looks of UI, dependent on cookie value, like 'covid', 'accept cookie' banners.
+- [Feature] Ability to set localStorage/sessionStorage values. [Usecase] Test user cutomized UIs.
+- [Feature] To have several Valid References and test image against all of them to mitigate minor (insignificant) differences. To have actions like 'Add to Approved' and 'Override All Approved' instead of 'Approve'.
+- [Feature+] Label, tag or star job runs, to make it easy to find later important runs
+- [Feature] Group scenarios in suites
+- Frontend: Animate processes - approve button should be animated during approve process, run during run and other microinteractions.
+- Frontend: Show error screen if backend are not available
+- Run Scenario(s) by Id, not by label, because different project should be able to have the same label sometimes.
+- Feature Requests button or link to feedback form / poll
+- Backend: resize images for ui cards (sm, md, lg) - only one viewport size, no matter do it for every viewport size.
+- [Costs] Backend: Do not store test result image if test i passed, because there is no difference with reference.
+- [Costs] ability to quickly close new user registration (to protect from overbudget)
+- Add limit or paging to all jobs requests (like getScenarioHistory, no need to load all 1000k records straight away)
+- Frontend: Check on FF/Opeara/Edge. Egde - shadows, status-label, toggle animation, flex alignment (IE11 - too many bugs, too expensive to support)
+- Lazy Loading for most of images to reduce S3-traffic, pressure on backend and increase UI responsiveness
+- Deployment scripts (backend, frontend, landing)
+- Marketing efforts (Internet marketing, SEO, Social presence, Blogging, Video Tutorials)
+- Complete auto security checks & validation (by Lighthouse and other services)
+- Frontend: Splitter for comparer view
+- Frontend: Think out onboarding process, layout and empty state views.
+- Restrict number of viewports
+- Filter Jobs by Starter (by me / by some user / by schedule / by webhook)
+- Loading a lot of images through AuthProxy is hard? Need to return signed link to S3 instead
+- Backend: Approve all failed/filtered tests in run
+- Dates should store in UTC but display in Local timezone (the same according to Tody filter)
+- support groupby=scenario for jobs history
+- Think out different UseScenarios for different Persons: The Developer, The TeamLead, The Indie (Who's he / What problems does he has / How does he expect to use me)
+- Cookies callback/field, or before run script
+- [Feature] Bulk add scenarios (urls)
+- [Feature] Import scenarios from customer's backstopjs-config files (as well as from other framework/competitor configurations)
+- Disable Animation option for scenario
+- [Feature] Support work with sites protected with Basic-Auth or ftp (user:pass); Creds should be stored encrypted, and shouldn't be passed to UI (to prevent leaks via hacked account)
+- [Costs] Backend: Remove all References and test Files on removing Scenarios or Viewports
+- [Costs] Backend: Remove test result Files and Report after remove history record
+- [Costs & Security] Backend: Remove all files and storage database after user Delete his account (TeamOwner account)
+- [Costs] Backend: TTL for test result files and db history records & reports
+- Auth proxy - change password
+- Sanitize body and params in Auth proxy & Backend
+- [Feature] Frontend: Angular MultiLanguage support (i18n, l8n)
+- [Feature] API+APIKEY for running-with-parameters by posted config from body (Usecase: developer stores backstopjs-tests near the component, and post them to API to test against his host/params)
+- [Feature] API+APIKEY for comparing any posted screenshot against stored in DB (Usecase: dev team has environment for taking screenshots and uses API to validate them against approved, team also uses WenUI to approve cases, to monitor stability, and team uses notifications at Slack/Telegram)
+- [Feature] Unapprove: Review and turn back any previously approved results.
+- [Feature] Locate tiny changes, and mark them more noticeably. Add "Scroll to next diff" button.
+- Think out understanding of costs (weight of s3/lambdas/queues/vm in total cost of user) to work out correct pricing strategy
+- Add ScenarioHistory collection [scenarioRef/Name, date, status, historyRecordRef, successRate(calc) ]
+- Confirmation dialog for delete ops
+- Displaying Errors on load and save
+- [Feature] Other browsers: FF/IE?
+- [Feature] Collect logs
+- [Security] Check npm deps for vulnerabilities by npm audit at lease, and fix them
+- [Legal] FontAwsome can be used for commercial project?
+- [Legal] juxtaposejs can be used for commercial project?
+- [Legal] Unsplush images can be used for commercial project?
+- [Legal] Terms of Service, Privacy Policy, Cookie Policy and Beta Service Agreement - what needed?
+- [Frontend] Support dark theme (dark mode) based on 'prefers-color-scheme' css media function, to better view of big percent of light screenshots
+- Invalid css-selector could crash test
+
+- Screen-Git analogy
+- DOCKERIZE AUTH-PROXY & BACKEND AND RUN THEM IN AWS
+- AWS LAMBDA
+- AWS SQS
+- CLOUD MONGODB
+- [Feature] TELEGRAM BOT
+- [Feature] SLACK BOT
+- [Feature] GITTER WEBHOOKS
+- [Feature] SCHEDULER FOR RUNS
+- PAYMENT & TRIAL-ACCOUNTS
+- COMPARE WITH COMPETITORS: diffy.website, screenster.io, percy.io
+    - ON DEMAND AGENT (MANAGED BY SERVER) TO MAKE SCREENSHOTS (WITHOUT AUTH/OF LOCALHOST) AND SEND THEM TO THE BACKEND
+    - [Feature+] GITHUB/CIRCLECI/APPVEYOR INTEGRATION like DIFFY, AutoSearch links to other pages
+- Tenant support (Tenant > Users + Scenarios + Results + Jobs)
+- [Feature] Project support (Tenant > Projects > Users + Scenarios + Results + Jobs). One project is a buch of scenarios.
+- [Feature] Преимущетво перед обычным тестированием - проверка адаптивности и респонзивности.
+
+- (?) Refactoring Mode: Make change > Test > Approve Differences to Stage if no side-effects > Repeat > Ehe all done, Approve to Master
+- (?) Build community around this: disccussions, comments, approve requests/declines, viewsbase - storage of reference views and controls
+- (?) Create scenario from template/example
+- (?) [Feature+] Allow user to stub/mock some queries to its backend
+
+
+
+## PROCESSES
+
+1. "Migration to Bootstrap/React/Acgular/SomeFramework"
+ - Create scenarios for all pages, with different states, hovers, clicks and so on.
+ 

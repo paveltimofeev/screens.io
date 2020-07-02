@@ -1,0 +1,19 @@
+<table class="info-table">
+
+  <tr *ngFor="let row of _labelsAndProps; let idx = $index">
+
+    <td *ngIf="!row.chips || (row.chips && items[ row.prop ].length > 0)" class="label-cell">{{ row.label }}</td>
+
+    <td class="value-cell" *ngIf="!row.chips">{{ items[ row.prop ] }}</td>
+    <td class="value-cell" *ngIf="row.chips && items[ row.prop ].length > 0">
+        <div class="chips"
+             [ngClass]="{ 'chips--clickable': row.clickable }"
+             *ngFor="let v of items[ row.prop ]"
+             (click)="clickOnChip.emit({ label: row.label, prop:row.prop, value: v })">
+          {{ v }}
+        </div>
+    </td>
+  </tr>
+
+</table>
+

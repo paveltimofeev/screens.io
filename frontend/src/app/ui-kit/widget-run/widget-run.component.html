@@ -1,0 +1,46 @@
+<div class="widget widget-run widget--green">
+
+  <div class="widget-header">Run Filtered Test Cases</div>
+
+  <div class="run-form">
+
+    <app-text-field
+      [label]="'Scenarios filter'"
+      [placeholder]="'Enter scenario name here'"
+      [(value)]="scenariosFilter"
+      (valueChange)="scenariosFilterChanged($event)"
+    >
+    </app-text-field>
+
+    <small
+      class="filter-text"
+      *ngIf="filters.scenarios && scenariosFilter.length > 0 && filters.scenarios.length !== this.scenarios.length">
+      Filtered ({{filters.scenarios.length}}): {{filters.scenarios.join(', ')}}
+    </small>
+
+    <span class="viewports-selector-header">Viewports</span>
+    <app-viewports-selector
+      [viewports]="viewports"
+      [(selected)]="viewportsFilter"
+      (selectionChanged)="viewportSelectionChanged($event)">
+    </app-viewports-selector>
+
+    <div class="actions">
+
+      <button
+        class="button button--white"
+        (click)="resetHandler()">
+        Reset
+      </button>
+
+      <button
+        class="button button--dark"
+        [ngClass]="{ 'button--in-progress': isRunning }"
+        (click)="clickRunFilteredHandler()">
+        Run Filtered</button>
+
+    </div>
+
+  </div>
+
+</div>

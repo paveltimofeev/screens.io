@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <script>
+
+        async function run (f, u) {
+
+          var filter = document.getElementById(f).value;
+          var url = document.getElementById(u).value;
+
+          const response = await fetch(
+            '/api/test/run',
+            {
+              body: JSON.stringify({filter, url}),
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' }
+            })
+
+          return await response.json()
+        }
+
+        async function approve () {
+
+          const response = await fetch(
+            '/api/test/approve/123',
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' }
+            })
+
+          return await response.json()
+        }
+
+        async function getHistory () {
+
+          const response = await fetch('/api/test/history')
+          const records = await response.json()
+
+          var container = document.getElementById('history-container')
+          while (container.childElementCount > 0) {
+            container.removeChild( container.childNodes[ 0 ] );
+          }
+
+          var ul = document.createElement('ui')
+
+          records.jobs.reverse().forEach( j => {
+            var li = document.createElement('li')
+            var a = document.createElement('a')
+            a.href = '/results/' + j
+            a.innerText = j
+            li.appendChild(a)
+            ul.appendChild(li)
+          })
+
+          container.appendChild(ul)
+        }
+
+        getHistory ();
+
+    </script>
+</head>
+
+<body>
+
+    <h1><%= title %></h1>
+    <p>Welcome</p>
+
+    <div class="form">
+        <a class="btn" href="/configuration">Configuration</a>
+    </div>
+
+    <div class="form">
+        <strong>Parameters</strong>
+        <input type="text" id="filter" name="filter" placeholder="Tests filter">
+        <input type="text" id="url" name="url" placeholder="SUT url">
+        <button class="btn" onclick="run('filter', 'url')">Run</button>
+    </div>
+
+    <div class="form">
+        <button class="btn" onclick="approve()">Approve</button>
+    </div>
+
+    <div class="form">
+        <button class="btn" onclick="getHistory()">Refresh history</button>
+        <div id="history-container"></div>
+    </div>
+
+</body>
+</html>

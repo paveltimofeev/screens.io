@@ -1,0 +1,457 @@
+<app-sidebar-page-layout
+  [title]="!routeData.createMode ? 'Edit: ' + (title$ | async) : 'Create New Scenario'"
+  [description]="'Each scenario will test one page, component or action against one or many viewport sizes'"
+  [breadcrumb]="true"
+  [hideDataActionsBar]="true"
+  [hideSidebar]="routeData.createMode"
+>
+
+  <div class="breadcrumb-placeholder">
+    <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/scenarios']">Scenarios</span>
+    <span *ngIf="title$ | async" class="breadcrumb-item">{{ title$ | async }}</span>
+  </div>
+
+
+  <div class="page-actions-placeholder">
+
+    <ul class="page-actions">
+      <li *ngIf="!routeData.createMode" class="title-actions-item">
+        <button class="button button--white" (click)="cloneHandler()">Clone</button>
+      </li>
+      <li *ngIf="!routeData.createMode" class="title-actions-item">
+        <button class="button button--white" (click)="deleteHandler()">Delete</button>
+      </li>
+      <li *ngIf="!routeData.createMode" class="title-actions-item">
+        <button class="button button--white" (click)="runHandler()">Run Scenario</button>
+      </li>
+      <li *ngIf="!routeData.createMode" class="title-actions-item">
+        <button class="button button--dark" (click)="saveHandler()">Save</button>
+      </li>
+      <li *ngIf="routeData.createMode" class="title-actions-item">
+        <button class="button button--dark" (click)="createHandler()">Create Scenario</button>
+      </li>
+    </ul>
+
+  </div>
+
+  <div class="data-actions-placeholder">
+    <div>
+      <app-data-search-button
+        [label]="'Search options'"
+        (changed)="searchHandler($event)">
+      </app-data-search-button>
+    </div>
+  </div>
+
+  <div class="data-placeholder">
+
+    <div class="tab-container">
+
+      <ul class="tabs-list except-xs">
+        <li (click)="tabSwitchHandler('General')" [ngClass]="{ 'tab--active': currentTab === 'General'}">
+          <div class="tab-title">General</div>
+        </li>
+        <li (click)="tabSwitchHandler('Elements Selectors')" [ngClass]="{ 'tab--active': currentTab === 'Elements Selectors'}">
+          <div class="tab-title">Elements Selectors</div>
+          <div class="tab-description">optional</div>
+        </li>
+        <!--
+        <li (click)="tabSwitchHandler('Viewports')" [ngClass]="{ 'tab--active': currentTab === 'Viewports'}">
+          <div class="tab-title">Viewports</div>
+          <div class="tab-description">optional</div>
+        </li>
+        -->
+        <li (click)="tabSwitchHandler('Authorization')" [ngClass]="{ 'tab--active': currentTab === 'Authorization'}">
+          <div class="tab-title">Authorization</div>
+          <div class="tab-description">optional</div>
+        </li>
+        <li (click)="tabSwitchHandler('Wait Loading')" [ngClass]="{ 'tab--active': currentTab === 'Wait Loading'}">
+          <div class="tab-title">Wait Loading</div>
+          <div class="tab-description">optional</div>
+        </li>
+        <li (click)="tabSwitchHandler('Page Modification')" [ngClass]="{ 'tab--active': currentTab === 'Page Modification'}">
+          <div class="tab-title">Page Modification</div>
+          <div class="tab-description">optional</div>
+        </li>
+        <li (click)="tabSwitchHandler('Stub Content')" [ngClass]="{ 'tab--active': currentTab === 'Stub Content'}">
+          <div class="tab-title">Stub Content</div>
+          <div class="tab-description">optional</div>
+        </li>
+        <li (click)="tabSwitchHandler('Interaction')" [ngClass]="{ 'tab--active': currentTab === 'Interaction'}">
+          <div class="tab-title">Interaction</div>
+          <div class="tab-description">optional</div>
+        </li>
+        <!--
+        <li (click)="tabSwitchHandler('Notifications')" [ngClass]="{ 'tab--active': currentTab === 'Notifications'}">
+          <div class="tab-title">Notifications</div>
+          <div class="tab-description">optional</div>
+        </li>
+        <li (click)="tabSwitchHandler('Scheduler')" [ngClass]="{ 'tab--active': currentTab === 'Scheduler'}">
+          <div class="tab-title">Scheduler</div>
+          <div class="tab-description">optional</div>
+        </li>
+        -->
+        <li (click)="tabSwitchHandler('Overview')" [ngClass]="{ 'tab--active': currentTab === 'Overview'}">
+          <div class="tab-title">Overview</div>
+          <div class="tab-description">Total</div>
+        </li>
+      </ul>
+
+      <div class="tabs-content">
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'General'}">
+          <h3 class="tabs-content-title">General</h3>
+
+          <app-text-field
+            [label]="'Scenario name'"
+            [fieldSize]="'500'"
+            [value]="scenario.label"
+            (valueChange)="changeFieldHandler($event, 'label')"
+          ></app-text-field>
+
+          <app-text-field
+            [label]="'Url of Testing Page'"
+            [description]="'[required] The url of your app state'"
+            [placeholder]="'https://my.server/home'"
+            [fieldSize]="'full'"
+            [fieldIcon]="'External Link'"
+            (iconClick)="openExternalUrlHandler($event)"
+            [value]="scenario.url"
+            (valueChange)="changeFieldHandler($event, 'url')"
+          ></app-text-field>
+
+          <app-text-field
+            [label]="'Mismatch Threshold'"
+            [description]="'Mismatch Threshold is the percentage of different pixels allowed to pass test'"
+            [placeholder]="'0.1'"
+            [fieldSize]="'350'"
+            [value]="scenario.misMatchThreshold"
+            [defaultValue]="'0.1'"
+            (valueChange)="changeFieldHandler($event, 'misMatchThreshold')"
+          ></app-text-field>
+        </div>
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Elements Selectors'}">
+          <h3 class="tabs-content-title">Elements Selectors</h3>
+
+          <app-text-field
+            [label]="'DOM Element Selectors (comma separated array)'"
+            [description]="'Array of selectors to capture. By default takes a screenshot of the first occurrence of any selector found in your DOM. e.g. If you have three li tags in your layout only the first will used.'"
+            [fieldSize]="'full'"
+            [placeholder]="'.class, #id, tag'"
+            [value]="scenario.selectors"
+            (valueChange)="changeSelectorsFieldHandler($event, 'selectors')"
+          ></app-text-field>
+
+          <app-text-field
+            [label]="'Expect Elements'"
+            [description]="'The number of results that you expect to find by the selectors. Test will fail for the scenario if the number of selected result does not match the expect number'"
+            [fieldSize]="'500'"
+            [placeholder]="'0 - means disabled'"
+            [defaultValue]="' '"
+            [value]="scenario.expect"
+            (valueChange)="changeFieldHandler($event, 'expect')"
+          ></app-text-field>
+
+          <div class="text-field text-field--500">
+            <label>Check all matching selectors</label>
+            <p class="description">If you want to find and take screenshots of all matching selector instances then there is a handy switch for that.</p>
+
+            <app-checkbox-field
+              [label]="scenario.selectorExpansion ? 'Enabled' : 'Disabled'"
+              (changed)="changeFieldHandler($event, 'selectorExpansion')"
+              [checked]="scenario.selectorExpansion === true"
+            ></app-checkbox-field>
+
+          </div>
+
+        </div>
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Viewports'}">
+          <h3 class="tabs-content-title">Viewports</h3>
+        </div>
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Authorization'}">
+          <h3 class="tabs-content-title">Authorization</h3>
+
+          <p>
+            Simple Auth Pre-Step. Enters the username & password at sign-in page before open main test page.
+          </p>
+
+          <app-checkbox-field
+            [label]="scenario.authConfig.enabled ? 'Enabled' : 'Disabled'"
+            (changed)="changeFieldHandler($event, 'enabled', 'authConfig')"
+            [checked]="scenario.authConfig.enabled === true"
+          ></app-checkbox-field>
+
+          <div *ngIf="scenario.authConfig.enabled === true">
+
+            <app-text-field
+              [label]="'Sing-In page url'"
+              [description]="''"
+              [fieldSize]="'full'"
+              [placeholder]="'https://website.domain/login'"
+              [fieldIcon]="'External Link'"
+              (iconClick)="openExternalUrlHandler($event)"
+              [value]="scenario.authConfig.loginPage"
+              (valueChange)="changeFieldHandler($event, 'loginPage', 'authConfig')">
+            </app-text-field>
+
+            <app-text-field
+              [label]="'Login field selector'"
+              [description]="'CSS selector to find user login field'"
+              [fieldSize]="'full'"
+              [placeholder]="'.class | #id | tag, like input[type=text]'"
+              [value]="scenario.authConfig.loginSelector"
+              (valueChange)="changeFieldHandler($event, 'loginSelector', 'authConfig')">
+            </app-text-field>
+
+            <app-text-field
+              [label]="'User login'"
+              [description]="''"
+              [fieldSize]="'350'"
+              [placeholder]="'username'"
+              [value]="scenario.authConfig.loginValue"
+              (valueChange)="changeFieldHandler($event, 'loginValue', 'authConfig')">
+            </app-text-field>
+
+            <app-text-field
+              [label]="'Password field selector'"
+              [description]="'CSS selector to find password field'"
+              [fieldSize]="'full'"
+              [placeholder]="'.class | #id | tag, like input[type=password]'"
+              [value]="scenario.authConfig.passwordSelector"
+              (valueChange)="changeFieldHandler($event, 'passwordSelector', 'authConfig')">
+            </app-text-field>
+
+            <app-text-field
+              [label]="'User password'"
+              [description]="''"
+              [fieldSize]="'350'"
+              [placeholder]="'username'"
+              [isPasswordField]="true"
+              [value]="scenario.authConfig.passwordValue"
+              (valueChange)="changeFieldHandler($event, 'passwordValue', 'authConfig')">
+            </app-text-field>
+
+            <app-text-field
+              [label]="'Submit button selector'"
+              [description]="'CSS selector for SingIn button'"
+              [fieldSize]="'full'"
+              [placeholder]="'.class | #id | tag, like input[type=submit]'"
+              [value]="scenario.authConfig.submitSelector"
+              (valueChange)="changeFieldHandler($event, 'submitSelector', 'authConfig')">
+            </app-text-field>
+
+          </div>
+
+        </div>
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Wait Loading'}">
+          <h3 class="tabs-content-title">Wait Loading</h3>
+
+          <app-text-field
+            [label]="'Ready Selector'"
+            [description]="'Wait until this selector exists before continuing'"
+            [fieldSize]="'full'"
+            [placeholder]="'.class | #id | tag'"
+            [value]="scenario.readySelector"
+            (valueChange)="changeFieldHandler($event, 'readySelector')"
+          ></app-text-field>
+
+
+          <app-text-field
+            [label]="'Ready Event'"
+            [description]="'Wait until this string has been logged to the console'"
+            [fieldSize]="'350'"
+            [value]="scenario.readyEvent"
+            (valueChange)="changeFieldHandler($event, 'readyEvent')"
+          ></app-text-field>
+
+          <app-text-field
+            [label]="'Delay (milliseconds)'"
+            [description]="'Wait for x milliseconds'"
+            [fieldSize]="'350'"
+            [placeholder]="'0ms'"
+            [value]="scenario.delay"
+            (valueChange)="changeFieldHandler($event, 'delay')"
+          ></app-text-field>
+
+        </div>
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Page Modification'}">
+          <h3 class="tabs-content-title">Page Modification</h3>
+
+          <app-text-field
+            [label]="'Hide Selectors (comma separated array)'"
+            [description]="'Array of selectors set to visibility: hidden'"
+            [fieldSize]="'full'"
+            [placeholder]="'.class | #id | tag'"
+            [value]="scenario.hideSelectors"
+            (valueChange)="changeSelectorsFieldHandler($event, 'hideSelectors')"
+          ></app-text-field>
+
+          <app-text-field
+            [label]="'Remove Selectors (comma separated array)'"
+            [description]="'Array of selectors set to display: none'"
+            [fieldSize]="'full'"
+            [placeholder]="'.class | #id | tag'"
+            [value]="scenario.removeSelectors"
+            (valueChange)="changeSelectorsFieldHandler($event, 'removeSelectors')"
+          ></app-text-field>
+
+        </div>
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Stub Content'}">
+          <h3 class="tabs-content-title">Stub Content</h3>
+
+          <p>You can replace innerText of any DOM element with stub values defined below</p>
+
+          <div class="horizontal-fields-container">
+            <app-text-field
+              [label]="'Elements selector'"
+              [description]="'Selector for elements that should be stubbed'"
+              [fieldSize]="'full'"
+              [placeholder]="'.class | #id | tag'"
+              [(value)]="stubRule.selector"
+            ></app-text-field>
+
+            <app-text-field
+              [label]="'Stub value for innerText'"
+              [description]="'Value that will replace original content of elements'"
+              [fieldSize]="'full'"
+              [placeholder]="'any text'"
+              [(value)]="stubRule.value"
+            ></app-text-field>
+          </div>
+
+          <app-form-button
+            [isPrimary]="true"
+            (clickButton)="addStubRuleHandler(stubRule)"
+          >Add new stub</app-form-button>
+
+          <div
+            *ngIf="scenario.stubContentRules && scenario.stubContentRules.length > 0"
+          >
+
+            <hr class="separation-line">
+
+            <h3 class="tabs-content-title">Added Stabs</h3>
+
+            <div class="rules-table">
+              <div class="rules-table-row"
+                   *ngFor="let rule of this.scenario.stubContentRules; index as idx">
+                <span class="rules-table-col1">{{ rule.selector }}</span>
+                <span class="rules-table-col2">
+                  <span>{{ rule.value }}</span>
+                  <app-icon [icon]="'Close'" (click)="removeStubRuleHandler(idx)"></app-icon>
+                </span>
+              </div>
+            </div>
+
+            <app-form-button
+              [isDanger]="true"
+              (clickButton)="removeAllStubRulesHandler()">
+              Remove all stubs
+            </app-form-button>
+
+          </div>
+
+        </div>
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Interaction'}">
+          <h3 class="tabs-content-title">Interaction</h3>
+
+          <app-text-field
+            [label]="'Click Selectors (comma separated array)'"
+            [description]="'Click the specified DOM elements prior to screen shot. Takes array of selectors - simulates multiple sequential click interactions'"
+            [fieldSize]="'full'"
+            [placeholder]="'.class, #id, tag'"
+            [value]="scenario.clickSelectors"
+            (valueChange)="changeSelectorsFieldHandler($event, 'clickSelectors')"
+          ></app-text-field>
+
+          <app-text-field
+            [label]="'Hover Selectors (comma separated array)'"
+            [description]="'Move the pointer over the specified DOM elements prior to screen shot. Takes array of selectors - simulates multiple sequential hover interactions'"
+            [fieldSize]="'full'"
+            [placeholder]="'.class, #id, tag'"
+            [value]="scenario.hoverSelectors"
+            (valueChange)="changeSelectorsFieldHandler($event, 'hoverSelectors')"
+          ></app-text-field>
+
+          <app-text-field
+            [label]="'Scroll to Selector'"
+            [description]="'Scrolls the specified DOM element into view prior to screen shot'"
+            [fieldSize]="'full'"
+            [placeholder]="'.class | #id | tag'"
+            [value]="scenario.scrollToSelector"
+            (valueChange)="changeFieldHandler($event, 'scrollToSelector')"
+          ></app-text-field>
+
+          <app-text-field
+            [label]="'Post Interaction Wait (milliseconds)'"
+            [description]="'Wait for a selector after interacting with hoverSelector or clickSelector (Idea for use with a click or hover element transition.)'"
+            [fieldSize]="'350'"
+            [placeholder]="'0ms'"
+            [value]="scenario.postInteractionWait"
+            (valueChange)="changeFieldHandler($event, 'postInteractionWait')"
+          ></app-text-field>
+
+        </div>
+
+
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Notifications'}">
+          <h3 class="tabs-content-title">Notifications</h3>
+        </div>
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Scheduler'}">
+          <h3 class="tabs-content-title">Scheduler</h3>
+        </div>
+
+        <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Overview'}">
+          <h3 class="tabs-content-title">Overview</h3>
+        </div>
+
+        </div>
+
+    </div>
+
+  </div>
+
+  <div class="sidebar-placeholder">
+
+    <div class="scenario-history">
+      <h3 class="scenario-history-title">Runs History</h3>
+      <div class="scenario-history-actions">
+        <app-data-action-button
+          [label]="'Refresh'"
+          [icon]="'Refresh'" (clicked)="refreshHistoryHandler()">
+        </app-data-action-button>
+      </div>
+      <div
+        class="scenario-history-record"
+        *ngFor="let job of scenarioHistory$ | async"
+        [ngClass]="{ 'scenario-history-record--unclickable': job.state === 'Approved'}"
+        (click)="openJobRecordHandler(job.jobId, job.state)">
+
+        <div class="record-icon">
+          <app-icon [icon]="job.state" [customClass]="job.state"></app-icon>
+        </div>
+        <div class="record-state">
+          <div class="record-date">{{ job.startedAt }}</div>
+          <div class="record-status">{{ job.state }}</div>
+        </div>
+        <div class="user-cell">
+          <div class="upic">{{ job.upic }}</div>
+          <span class="text">by {{ job.startedBy }}</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+</app-sidebar-page-layout>

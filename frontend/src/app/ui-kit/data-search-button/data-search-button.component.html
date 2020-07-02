@@ -1,0 +1,19 @@
+
+<div class="data-action">
+
+  <app-icon icon="Search"></app-icon>
+
+  <span *ngIf="!editMode" (click)="editModeHandler()">
+    {{ label }}
+  </span>
+
+  <span *ngIf="editMode" class="search-field">
+    <input type="text"
+           [attr.placeholder]="placeholder"
+           (keyup)="keyupHandler(el.value)"
+           autofocus
+           #el>
+    <app-icon icon="Close" (click)="closeClickHandler()"></app-icon>
+  </span>
+
+</div>

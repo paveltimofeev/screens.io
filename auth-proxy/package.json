@@ -1,0 +1,22 @@
+{
+  "name": "auth-proxy",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "proxy": "node ./proxy.js"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "^3.0.2",
+    "express": "~4.16.1",
+    "express-session": "^1.17.0",
+    "http-errors": "~1.6.3",
+    "http-proxy-middleware": "^1.0.3",
+    "memorystore": "^1.6.2",
+    "mongoose": "^5.9.9",
+    "morgan": "~1.9.1"
+  }
+}

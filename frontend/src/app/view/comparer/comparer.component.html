@@ -1,0 +1,134 @@
+<app-sidebar-page-layout
+  [title]="title$ | async"
+  [breadcrumb]="true"
+  [customDescription]="true"
+  [hideSidebar]="true"
+>
+
+  <div class="breadcrumb-placeholder">
+    <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/jobs']">Jobs History</span>
+    <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/job', jobId]">{{ (breadcrumbsInfo$ | async).job }}</span>
+    <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/scenario', (breadcrumbsInfo$ | async).scenarioId]">{{ (breadcrumbsInfo$ | async).scenario }}</span>
+    <span class="breadcrumb-item">{{ (breadcrumbsInfo$ | async).viewport }}</span>
+  </div>
+
+  <div class="description-placeholder">
+    <app-info-table
+      [items]="descriptionInfo$ | async"
+      (clickOnChip)="clickOnChipHandler($event)"
+      [labelsAndProps]="[
+        { label: 'Also tested on', prop: 'testedOn', chips: true, clickable: true },
+        { label: 'Tested along with', prop: 'testedWith', chips: true }
+      ]">
+    </app-info-table>
+  </div>
+
+  <div class="page-actions-placeholder">
+
+    <ul class="page-actions">
+      <li class="title-actions-item">
+        <button class="button button--white" (click)="openUrlHandler()">Open Url</button>
+      </li>
+      <li class="title-actions-item">
+        <button class="button button--white" [routerLink]="['/job', jobId]">Open History</button>
+      </li>
+      <li class="title-actions-item">
+        <button class="button button--white" [routerLink]="['/scenario', (pageActionsInfo$ | async).scenarioId]">Edit Scenario</button>
+      </li>
+      <li class="title-actions-item">
+        <button class="button button--white" (click)="runAgainHandler()">Run Again</button>
+      </li>
+      <li class="title-actions-item">
+        <button class="button button--dark" (click)="approveHandler()">Approve</button>
+      </li>
+    </ul>
+
+  </div>
+
+  <div class="data-actions-placeholder">
+    <div>
+      <app-data-action-button
+        *ngIf="(images$ | async).differenceImage"
+        [label]="'Difference'"
+        [icon]="'Difference'"
+        [hideLabelOnXS]="true"
+        [selected]="(displayedImageMode$ | async) === 'Difference'"
+        (clicked)="changeDisplayedImageModeHandler('Difference')">
+      </app-data-action-button>
+      <app-data-action-button
+        [label]="'Test Result'"
+        [icon]="'Test'"
+        [hideLabelOnXS]="true"
+        [selected]="(displayedImageMode$ | async) === 'Test Result'"
+        (clicked)="changeDisplayedImageModeHandler('Test Result')">
+      </app-data-action-button>
+      <app-data-action-button
+        [label]="'Reference'"
+        [icon]="'Reference'"
+        [hideLabelOnXS]="true"
+        [selected]="(displayedImageMode$ | async) === 'Reference'"
+        (clicked)="changeDisplayedImageModeHandler('Reference')">
+      </app-data-action-button>
+      <app-data-action-button
+        *ngIf="(images$ | async).differenceImage"
+        [label]="'Comparer'"
+        [icon]="'Comparer'"
+        [hideLabelOnXS]="true"
+        [selected]="(displayedImageMode$ | async) === 'Comparer'"
+        (clicked)="changeDisplayedImageModeHandler('Comparer')">
+      </app-data-action-button>
+
+    </div>
+    <div>
+
+      <app-data-action-button
+        [className]="'except-xs'"
+        [label]="'Fit'"
+        [icon]="'Fit'"
+        [hideLabelOnXS]="true"
+        (clicked)="changeSizeModeHandler('Fit')"
+        [selected]="(sizeMode$ | async) === 'Fit'"
+      >
+      </app-data-action-button>
+
+      <app-data-action-button
+        [label]="'Fill'"
+        [icon]="'Fill'"
+        [hideLabelOnXS]="true"
+        (clicked)="changeSizeModeHandler('Fill')"
+        [selected]="(sizeMode$ | async) === 'Fill'"
+      >
+      </app-data-action-button>
+
+    </div>
+  </div>
+
+  <div class="data-placeholder">
+
+    <div class="comparer-container"
+         *ngIf="viewport$ | async"
+         [ngStyle]="{
+           'width': (viewport$ | async).width + 22 + 'px',
+           'height': (sizeMode$ | async) === 'Fill' ? (viewport$ | async).height + 'px' : '90%'
+         }">
+
+      <div class="image-frame panel-shadow">
+        <img class="image" [ngClass]="{ 'image--active': (displayedImageMode$ | async) === 'Difference' }" alt="screen" [attr.src]="(images$ | async).differenceImage">
+        <img class="image" [ngClass]="{ 'image--active': (displayedImageMode$ | async) === 'Test Result' }" alt="screen" [attr.src]="(images$ | async).testImage">
+        <img class="image" [ngClass]="{ 'image--active': (displayedImageMode$ | async) === 'Reference' }" alt="screen" [attr.src]="(images$ | async).referenceImage">
+
+        <app-images-comparer
+            *ngIf="(displayedImageMode$ | async) === 'Comparer'"
+            class="image image&#45;&#45;active"
+            [firstImageUrl]="(images$ | async).differenceImage"
+            [secondImageUrl]="(images$ | async).referenceImage"
+          >
+        </app-images-comparer>
+
+      </div>
+    </div>
+
+  </div>
+
+
+</app-sidebar-page-layout>

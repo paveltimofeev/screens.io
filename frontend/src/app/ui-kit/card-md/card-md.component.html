@@ -1,0 +1,51 @@
+<div class="card-md">
+  <div class="image"
+       [ngClass]="{
+        'image--passed': state === 'passed',
+        'image--failed': state === 'failed',
+        'image--running': state === 'running',
+        'image--never-run-before': state === '',
+        'full--height': fullHeightModeOn
+       }"
+  >
+    <img (click)="clickCard.emit(itemId)" [src]="imageUrl" alt=""
+         [ngClass]="{'img--grayscale': waitDeletionConfirm}">
+
+
+    <div class="card-md-actions">
+      <app-confirmation
+        (confirmed)="clickDelete.emit(itemId)"
+        (confirmationOpened)="waitDeletionConfirm = $event">
+      </app-confirmation>
+    </div>
+
+  </div>
+  <div class="header">
+    <span class="left">
+      <span (click)="clickCard.emit(itemId)">{{ header }}</span>
+
+      <app-icon
+        (click)="clickRun.emit(itemId)"
+        [icon]="state !== 'running' ? 'Run' : 'Running Spinning'">
+      </app-icon>
+
+    </span>
+    <span class="right">
+
+      <app-icon
+        *ngIf="isFavorite"
+        icon="Favorite Enabled"
+        customClass="favorite-icon"
+        (click)="clickFavorite.emit(itemId)">
+      </app-icon>
+
+      <app-icon
+        *ngIf="!isFavorite"
+        icon="Favorite Disabled"
+        customClass="favorite-icon"
+        (click)="clickFavorite.emit(itemId)">
+      </app-icon>
+
+    </span>
+  </div>
+</div>

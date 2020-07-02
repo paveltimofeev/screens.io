@@ -1,0 +1,14 @@
+<button class="input-box-button"
+        [ngClass]="{
+
+          'input-box-button--disabled': isDisabled,
+          'input-box-button--primary': isPrimary && !isDisabled,
+          'input-box-button--danger': isDanger && !isDisabled,
+          'input-box-button--secondary': !isPrimary && !isDanger && !isDisabled,
+
+          'anim-bounce-on-click': !inProgress && !isDisabled,
+          'button--in-progress': inProgress
+        }"
+        (click)="clickHandler()">
+  <ng-content></ng-content>
+</button>

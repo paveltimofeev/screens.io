@@ -1,0 +1,40 @@
+<app-navbar></app-navbar>
+
+<main>
+  <div class="app-content">
+
+    <ng-content select=".breadcrumb-placeholder" *ngIf="breadcrumb"></ng-content>
+
+    <div class="title-row">
+      <div class="left">
+        <ng-content select=".page-title-placeholder"></ng-content>
+        <h1 class="page-header">{{ title }}</h1> 
+      </div>
+      <ng-content select=".page-actions-placeholder"></ng-content>
+    </div>
+
+    <div class="page-description" *ngIf="!hideDescription && !customDescription">
+      {{ description }}
+    </div>
+    <div class="page-description" *ngIf="!hideDescription && customDescription">
+      <ng-content select=".description-placeholder"></ng-content>
+    </div>
+
+
+    <div class="app-filters xs-only">
+      <ng-content select=".xs-filters-placeholder"></ng-content>
+    </div>
+
+    <div class="app-actions" *ngIf="!hideDataActionsBar">
+      <ng-content select=".data-actions-placeholder"></ng-content>
+    </div>
+
+    <ng-content select=".data-placeholder"></ng-content>
+
+  </div>
+  <div class="app-sidebar except-xs" *ngIf="!hideSidebar">
+
+    <ng-content select=".sidebar-placeholder"></ng-content>
+
+  </div>
+</main>

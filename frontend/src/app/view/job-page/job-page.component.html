@@ -1,0 +1,220 @@
+<app-sidebar-page-layout
+  [title]="title$ | async"
+  [customDescription]="true"
+  [breadcrumb]="true"
+  [hideSidebar]="true"
+>
+
+  <div class="breadcrumb-placeholder">
+    <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/jobs']">Jobs History</span>
+    <span class="breadcrumb-item">Job #{{ breadcrumbTitle$ | async }}</span>
+  </div>
+
+  <div class="description-placeholder">
+
+    <app-info-table
+      [items]="jobDescriptionInfo$ | async"
+      [labelsAndProps]="[
+        { label: 'Scenarios', prop: 'scenarios', chips: true },
+        { label: 'Viewports', prop: 'viewports', chips: true },
+        { label: 'Run by', prop: 'startedBy' }
+      ]">
+    </app-info-table>
+
+  </div>
+
+  <div class="page-title-placeholder">
+    <div class="title-stats" [ngClass]="{
+      'title-stats--failed': (sidebarHeaderInfo$ | async).status === 'Failed',
+      'title-stats--passed': (sidebarHeaderInfo$ | async).status === 'Passed'
+    }">
+      {{ resultStats$ |async }} {{ (sidebarHeaderInfo$ | async).status }}
+    </div>
+  </div>
+
+  <div class="page-actions-placeholder">
+
+    <ul class="page-actions">
+
+      <li class="title-actions-item"
+          *ngIf="(sidebarHeaderInfo$ | async).failedCases > 0">
+        <button class="button button--white" (click)="runFailedHandler()">
+          Run Failed ({{(sidebarHeaderInfo$ | async).failedCases}})</button>
+      </li>
+
+      <li class="title-actions-item"
+          *ngIf="(sidebarHeaderInfo$ | async).failedCases > 0">
+        <button class="button button--dark" (click)="approveAllFailedCasesHandler()">
+          Approve Failed Cases ({{(sidebarHeaderInfo$ | async).failedCases}})</button>
+      </li>
+
+    </ul>
+
+  </div>
+
+  <div class="data-actions-placeholder">
+    <div>
+      <app-data-search-button
+        [label]="'Search case'"
+        (changed)="searchCaseHandler($event)">
+      </app-data-search-button>
+    </div>
+    <div>
+
+      <app-data-action-button
+        [label]="'Difference'"
+        [icon]="'Difference'"
+        [hideLabelOnXS]="true"
+        (clicked)="setImageMode('Difference')"
+        [selected]="(imageMode$ | async) === 'Difference'"
+      >
+      </app-data-action-button>
+      <app-data-action-button
+        [label]="'Test Result'"
+        [icon]="'Test'"
+        [hideLabelOnXS]="true"
+        (clicked)="setImageMode('Test Result')"
+        [selected]="(imageMode$ | async) === 'Test Result'"
+      >
+      </app-data-action-button>
+
+      <!-- TODO: enable later
+      <app-data-action-button
+        class="except-xs"
+        [label]="'Group by Scenarios'"
+        [icon]="'Group by Scenarios'"
+        [hideLabelOnXS]="true"
+        (clicked)="groupByScenarios()">
+      </app-data-action-button>
+      -->
+
+      <app-data-action-button
+        class="except-xs"
+        [label]="'Fit mode'"
+        [icon]="(fullHeightModeOn$ | async) === true ? 'Fit' : 'Fill'"
+        [hideLabelOnXS]="true"
+        (clicked)="fullHeightMode()"
+      >
+      </app-data-action-button>
+
+      <!-- TODO: enable later
+      <app-data-action-button
+        [label]="'List View'"
+        [icon]="'List View'"
+        (clicked)="listView()">
+      </app-data-action-button>
+      -->
+
+    </div>
+  </div>
+
+  <div class="xs-filters-placeholder">
+
+    <app-data-action-button
+      [label]="'Add Filters'"
+      [icon]="'Add Filters'"
+      (clicked)="showMobileFilters($event)">
+    </app-data-action-button>
+
+  </div>
+
+  <div class="data-placeholder">
+
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let c of cases$ | async; index as idx">
+        <app-card-lg
+          *ngIf="(imageMode$ | async) === 'Test Result'"
+          [label]="c.label"
+          [imageUrl]="c.test"
+          [hoverImageUrl]="c.difference"
+          [viewports]="[c.viewport]"
+          [status]="c.status"
+          [errorMessage]="c.error"
+          [switchOnMouseOver]="true"
+          [fullHeightModeOn]="fullHeightModeOn$ | async"
+          (clickCard)="clickCardHandler(idx)"
+          (clickLabel)="clickLabelHandler(c.scenarioId)"
+          (clickApprove)="clickApproveHandler(c)"
+        >
+        </app-card-lg>
+
+        <app-card-lg
+          *ngIf="(imageMode$ | async) === 'Difference'"
+          [label]="c.label"
+          [imageUrl]="c.difference || c.test"
+          [hoverImageUrl]="c.test"
+          [viewports]="[c.viewport]"
+          [status]="c.status"
+          [errorMessage]="c.error"
+          [switchOnMouseOver]="true"
+          [fullHeightModeOn]="fullHeightModeOn$ | async"
+          (clickCard)="clickCardHandler(idx)"
+          (clickLabel)="clickLabelHandler(c.scenarioId)"
+          (clickApprove)="clickApproveHandler(c)"
+        >
+        </app-card-lg>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sidebar-placeholder">
+
+    <div class="sidebar-header">
+
+      <div class="widget-label widget-label--xl">
+        <div class="header header--semibold"
+             *ngIf="(sidebarHeaderInfo$ | async).failedCases > 0">
+          {{ (sidebarHeaderInfo$ | async).failedCases }}
+          of {{ (sidebarHeaderInfo$ | async).totalCases }}
+          Test Cases
+        </div>
+        <div class="header header--semibold"
+             *ngIf="(sidebarHeaderInfo$ | async).failedCases === 0">
+          All Tests
+        </div>
+        <div
+          class="state"
+          *ngIf="(sidebarHeaderInfo$ | async).status"
+             [ngClass]="{
+             'state--failed': (sidebarHeaderInfo$ | async).status === 'Failed',
+             'state--passed': (sidebarHeaderInfo$ | async).status !== 'Failed'
+             }"
+        >
+          {{ (sidebarHeaderInfo$ | async).status }}
+        </div>
+      </div>
+
+
+    </div>
+    <div class="app-filters">
+
+      <h3 class="filter-header">Filter by State</h3>
+
+      <app-checkbox-field
+        [label]="'Show Successful Cases'"
+        (changed)="changeStatusFilter_Passed($event)"
+        [checked]="true"
+      >
+      </app-checkbox-field>
+
+      <app-checkbox-field
+        [label]="'Show Failed Cases'"
+        (changed)="changeStatusFilter_Failed($event)"
+        [checked]="true"
+      >
+      </app-checkbox-field>
+
+
+      <h3 class="filter-header">Filter by Viewport Size</h3>
+      <app-viewports-selector
+        [viewports]="viewports$ | async"
+        (selectionChanged)="changeViewportsFilter($event)"
+      >
+      </app-viewports-selector>
+
+    </div>
+
+  </div>
+
+</app-sidebar-page-layout>

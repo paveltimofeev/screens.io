@@ -1,0 +1,60 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.form h4  {
+  margin: 1.5em 0 0.5em 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin-bottom: 0.5em;
+}
+
+.form * + * {
+  margin-top: 0.5em;
+}
+
+.results {
+  padding-inline-start: 0;
+}
+
+.results li {
+  background-color: #fafafa;
+  border: 1px solid #fcfcfc;
+  padding: 0.5em 1em;
+  list-style: none;
+}
+
+.btn:hover {
+  background-color: cornflowerblue;
+  border-color: cornflowerblue;
+}
+.btn {
+  cursor: pointer;
+  width: 120px;
+  text-rendering: auto;
+  color: buttontext;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-shadow: none;
+  display: inline-block;
+  text-align: center;
+  align-items: flex-start;
+  background-color: buttonface;
+  box-sizing: border-box;
+  border-width: 2px;
+  border-style: solid;
+  border-color: buttonface;
+  padding: 0.25em 0.5em;
+  white-space: nowrap;
+  text-decoration: none;
+}

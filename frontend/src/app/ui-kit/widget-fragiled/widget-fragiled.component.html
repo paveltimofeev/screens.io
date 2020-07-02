@@ -1,0 +1,12 @@
+<div class="widget widget--steel widget--double">
+  <div class="widget-header">{{ title }}</div>
+  <div class="widget-value widget-value--fragile">
+
+    <div class="fragile-value">{{ scenarioName }}</div>
+    <div class="fragile-value fragile-value--accent"><em>{{failsPercent}}%</em> of fails</div>
+
+  </div>
+
+  <img class="fragile-preview" [src]="imageUrl" alt="{{ scenarioName }}" (click)="clickOnImage.emit(scenarioId)">
+
+</div>

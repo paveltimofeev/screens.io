@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>Document</title>
+
+    <script>
+
+        function loadConfig () {
+
+          fetch ('/api/test/config')
+            .then( x => x.json() )
+            .then( x => {
+
+              console.log(x.data.scenarios[0])
+
+              var keys = Object.keys(x.data.scenarios[0])
+              keys.forEach(key => {
+                var el = document.getElementById(key);
+                if (el) {
+                  el.value = x.data.scenarios[0][key];
+                }
+              })
+
+            })
+        }
+
+        function saveConfig () {
+
+          var data = {
+            scenarios: [
+              {
+                label: document.getElementById('label').value,
+                url: document.getElementById('url').value,
+                misMatchThreshold: document.getElementById('misMatchThreshold').value,
+                hideSelectors: [document.getElementById('hideSelectors').value]
+              }
+            ]
+          };
+
+          fetch('/api/test/config',
+            {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+            }
+            )
+            .then( x => x.json)
+            .then( x => {
+              console.log( x );
+              alert('Saved. ' + JSON.stringify(x));
+            })
+        }
+
+        loadConfig ()
+
+    </script>
+</head>
+<body>
+
+    <h1>Configuration</h1>
+
+    <button onclick="loadConfig()">Refresh</button>
+
+    <h3>Viewports</h3>
+    <ul>
+        <li><input type="checkbox" name="" id="view1" class="v1"><label for="">1366 x768</label></li>
+        <li><input type="checkbox" name="" id="view2" class="v2"><label for="">1600 x 900</label></li>
+        <li><input type="checkbox" name="" id="view3" class="v3"><label for="">1920 x 1080</label></li>
+    </ul>
+
+    <h3>Pages</h3>
+    <button>Add page</button>
+    <hr>
+    <form class="form">
+        <h4>Test configuration</h4>
+        <input type="text" placeholder="Label" id="label">
+        <input type="text" placeholder="Url" id="url">
+        <input type="text" placeholder="Mismatch Threshold" id="misMatchThreshold">
+
+        <h4>Waiting</h4>
+        <input type="text" placeholder="Ready Selector">
+        <input type="text" placeholder="Ready Event">
+        <input type="text" placeholder="Delay">
+
+        <h4>Page Modifications</h4>
+        <input type="text" placeholder="Hide Selectors" id="hideSelectors">
+        <input type="text" placeholder="Remove Selectors">
+
+        <h4>Interaction</h4>
+        <input type="text" placeholder="Click Selectors">
+        <input type="text" placeholder="Hover Selectors">
+        <input type="text" placeholder="Post Interaction Wait">
+        <input type="text" placeholder="Scroll To Selector">
+
+
+        <button onclick="saveConfig()">Save</button>
+    </form>
+
+</body>
+</html>

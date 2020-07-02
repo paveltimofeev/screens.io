@@ -1,0 +1,20 @@
+<div class="widget widget--green widget--double">
+  <div class="widget-header">{{ title }}</div>
+  <div class="widget-value widget-value--stats">
+
+    <div class="stats-value">{{ passedPercent }}% Passed</div>
+    <div class="stats-sub">{{ delta }}% to previouse week</div>
+    <div class="stats-chart">
+
+      <div
+        *ngFor="let item of chartData"
+        [ngStyle]="{ height: item.percent + '%' }"
+        [attr.title]="item.tooltip"
+        [ngClass]="{ 'bar--hl': item.highlighted }"
+        class="bar">
+      </div>
+
+    </div>
+
+  </div>
+</div>

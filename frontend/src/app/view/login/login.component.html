@@ -1,0 +1,136 @@
+<div class="hero-section except-xs">
+  <img
+    class="hero-image"
+    [ngClass]="{
+    'hero-image--shown': !signUpMode,
+    'hero-image--hidden': signUpMode
+    }"
+    src="assets/images/hero/signin.jpg" alt="Welcome back">
+  <img
+    class="hero-image"
+    [ngClass]="{
+    'hero-image--shown': signUpMode,
+    'hero-image--hidden': !signUpMode
+    }"
+    src="assets/images/hero/signup.jpg" alt="Welcome back">
+</div>
+
+<div class="main-container">
+
+  <div class="logo-section">
+    <img class="logo-image" src="/assets/images/logo.svg" alt="">
+  </div>
+
+  <div class="form-section" *ngIf="!signUpMode">
+
+    <h3>Account Login</h3>
+
+    <div class="fields-container">
+
+      <app-text-field
+        [label]="'Email address'"
+        [fieldName]="'email'"
+        [fieldSize]="'full'"
+        [error]="signInForm.emailError"
+        [(value)]="signInForm.email"
+      >
+      </app-text-field>
+
+      <app-text-field
+        [label]="'Password'"
+        [fieldName]="'password'"
+        [fieldSize]="'full'"
+        [isPasswordField]="true"
+        [error]="signInForm.passwordError"
+        [(value)]="signInForm.password"
+      >
+      </app-text-field>
+
+      <p class="note">
+        By continuing, you agree to our <a href="">Terms of Service</a> and <a href="">Privacy Policy</a>.
+      </p>
+
+      <p class="error-alert" *ngIf="signInForm.responseError">
+        {{ signInForm.responseError }}
+      </p>
+
+      <button class="button button--dark button--lg" (click)="signInButtonHandler()">Sign In</button>
+
+    </div>
+
+  </div>
+
+  <div class="form-section" *ngIf="signUpMode">
+
+    <h3>Create Account</h3>
+
+    <div class="fields-container">
+
+      <app-text-field
+        [label]="'Name'"
+        [fieldName]="'name'"
+        [fieldSize]="'full'"
+        [error]="signUpForm.nameError"
+        [(value)]="signUpForm.name"
+      >
+      </app-text-field>
+
+      <app-text-field
+        [label]="'Email address'"
+        [fieldName]="'email'"
+        [fieldSize]="'full'"
+        [error]="signUpForm.emailError"
+        [(value)]="signUpForm.email"
+      >
+      </app-text-field>
+
+      <app-text-field
+        [label]="'Password'"
+        [fieldName]="'password'"
+        [fieldSize]="'full'"
+        [isPasswordField]="true"
+        [error]="signUpForm.passwordError"
+        [(value)]="signUpForm.password"
+      >
+      </app-text-field>
+
+      <app-text-field
+        [label]="'Confirm Password'"
+        [fieldSize]="'full'"
+        [isPasswordField]="true"
+        [error]="signUpForm.confirmPasswordError"
+        [(value)]="signUpForm.confirmPassword"
+      >
+      </app-text-field>
+
+      <p class="note">
+        Creating an account means you’re okay with our <a href="">Terms of Service</a>, <a href="">Privacy Policy</a> and
+        <a href="">Beta Service Agreement</a>
+      </p>
+
+      <p class="error-alert" *ngIf="signUpForm.responseError">
+        {{ signUpForm.responseError }}
+      </p>
+
+      <button class="button button--dark button--lg" (click)="signUpButtonHandler()">Sign Up</button>
+
+    </div>
+  </div>
+
+  <div class="switch-section">
+
+    <span *ngIf="!signUpMode">
+      <!--Not registered? <a [routerLink]="['/account', 'signup']">Create an account →</a>-->
+      Not registered? <a (click)="signUpMode = true">Create an account →</a>
+    </span>
+
+    <span *ngIf="signUpMode">
+      <!--Already registered? <a [routerLink]="['/account', 'signin']">Sign in →</a>-->
+      Already registered? <a (click)="signUpMode = false">Sign in →</a>
+    </span>
+
+  </div>
+
+</div>
+
+

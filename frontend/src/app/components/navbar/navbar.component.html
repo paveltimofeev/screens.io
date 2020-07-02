@@ -1,0 +1,29 @@
+<nav>
+  <div class="app-menu">
+    <a [routerLink]="['/overview']" class="logo">
+      <img src="/assets/images/logo.svg" alt="Home">
+    </a>
+    <ul>
+      <li routerLinkActive="navbar-item--active" [routerLink]="['/overview']">Overview</li>
+      <li routerLinkActive="navbar-item--active" [routerLink]="['/scenarios']">Scenarios</li>
+      <li routerLinkActive="navbar-item--active" [routerLink]="['/jobs']">Jobs History</li>
+      <li routerLinkActive="navbar-item--active" [routerLink]="['/settings']">Settings</li>
+    </ul>
+  </div>
+  <div class="app-account except-xs">
+    {{ (accountInfo$ | async).name }}
+    <app-icon class="signout-icon" [icon]="'Sign Out'" (click)="signOutHandler()"></app-icon>
+  </div>
+
+  <div class="app-hamburger" [ngClass]="{ 'app-hamburger--opened': isMenuOpened }">
+    <app-icon icon="Hamburger" (click)="openMenuHandler()"></app-icon>
+    <ul>
+      <li routerLinkActive="navbar-item--active" [routerLink]="['/overview']">Overview</li>
+      <li routerLinkActive="navbar-item--active" [routerLink]="['/scenarios']">Scenarios</li>
+      <li routerLinkActive="navbar-item--active" [routerLink]="['/jobs']">Jobs History</li>
+      <li routerLinkActive="navbar-item--active" [routerLink]="['/settings']">Settings</li>
+      <li [routerLink]="['/signin']" class="app-account">Sign-Out</li>
+    </ul>
+  </div>
+
+</nav>

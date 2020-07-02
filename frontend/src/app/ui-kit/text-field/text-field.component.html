@@ -1,0 +1,53 @@
+<div class="text-field" [ngClass]="{
+  'text-field--150': fieldSize === '150',
+  'text-field--350': fieldSize === '350',
+  'text-field--500': fieldSize === '500',
+  'text-field--full': fieldSize === 'full'
+}">
+  <label>{{ label }}
+    <app-icon *ngIf="tooltip" icon="Help"></app-icon>
+    <!--<i *ngIf="!tooltip" [attr.tooltip]="tooltip" class="far fa-question-circle"></i>-->
+  </label>
+  <p *ngIf="description" class="description">{{ description }}</p>
+  <div class="input-box">
+
+    <!-- Chips
+        <span class="input-box-chips">value1 <app-icon icon="Close"></app-icon></span>
+        <span class="input-box-chips">value2 <app-icon icon="Close"></app-icon></span>
+     -->
+
+    <input [attr.type]="!isPasswordField ? 'text' : 'password'"
+           [attr.placeholder]="placeholder"
+           [attr.name]="fieldName || label"
+           [(ngModel)]="value"
+           (ngModelChange)="ngModelChangeHandler($event, value)"
+           #val>
+
+    <app-icon
+      *ngIf="fieldIcon"
+      [icon]="fieldIcon"
+      customClass="input-box-icon"
+      (click)="iconClick.emit(value)"
+    >
+    </app-icon>
+
+    <!-- Reset Button -->
+    <button
+      *ngIf="defaultValue"
+      class="input-box-button anim-bounce-on-click"
+      (click)="resetValueHandler()"
+    >Reset</button>
+
+    <!-- Clear icon -->
+    <app-icon
+      *ngIf="value != '' && !!value && !defaultValue && !fieldIcon"
+      (click)="clearValueHandler()"
+      icon="Close"
+      customClass="input-box-icon">
+    </app-icon>
+
+  </div>
+  <p class="error-message" *ngIf="error">
+    {{ error }}
+  </p>
+</div>

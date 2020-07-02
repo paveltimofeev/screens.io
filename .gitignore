@@ -1,0 +1,5 @@
+.idea
+node_modules
+bitmaps_test
+
+package-lock.json

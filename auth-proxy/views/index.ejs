@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        form + form,
+        form * + * {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <p>Welcome <%= user %></p>
+
+    <form action="/signup" method="post">
+        <input type="text" name="user" placeholder="user"><br>
+        <input type="text" name="password" placeholder="password"><br>
+        <button type="submit">Sign-Up</button>
+    </form>
+
+    <hr>
+
+    <form action="/signin" method="post">
+        <input type="text" name="user" placeholder="user"><br>
+        <input type="text" name="password" placeholder="password"><br>
+        <button type="submit">Sign-In</button>
+    </form>
+
+    <form action="/signout" method="post">
+        <button type="submit">Sign-Out</button>
+    </form>
+
+    <em><%= message || '' %></em>
+
+    <hr>
+
+    <a href="/api/test/config">/api/test/config</a>
+    <form action="/api/test/run" method="post">
+        <button type="submit">POST /api/test/run</button>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<app-navbar></app-navbar>
+
+<main>
+    <div class="app-content">
+      <div class="app-row app-widgets-row">
+
+        <div class="app-widgets-column">
+          <div>
+            <ng-content select=".widgets-left-placeholder"></ng-content>
+          </div>
+          <div class="action">
+            <button class="button button--dark button--lg" (click)="clickRunAll.emit()">Run All Scenarios</button>
+          </div>
+        </div>
+        <div class="app-widgets-column except-xs">
+          <div class="widgets-grid">
+            <ng-content select=".widgets-center-placeholder"></ng-content>
+          </div>
+        </div>
+        <div class="app-widgets-column except-xs">
+          <ng-content select=".widgets-right-placeholder"></ng-content>
+        </div>
+
+      </div>
+      <div class="app-row app-data-row">
+
+        <div class="app-column--left">
+
+          <div class="app-row-title">
+
+            <div class="column-header">
+              <h2 [routerLink]="['/scenarios']">Favorite Scenarios</h2>
+              <span>
+                <span class="action" [routerLink]="['/scenarios']">View All</span>
+              </span>
+            </div>
+
+          </div>
+          <ng-content select=".cards-placeholder"></ng-content>
+
+        </div>
+        <div class="app-column--right">
+
+          <div class="app-row-title">
+
+            <div class="column-header">
+              <h2 [routerLink]="['/jobs']">Recent Runs</h2>
+              <span>
+                <span class="action" [routerLink]="['/jobs']">View All</span>
+              </span>
+            </div>
+
+          </div>
+          <ng-content select=".records-placeholder"></ng-content>
+        </div>
+
+      </div>
+    </div>
+</main>

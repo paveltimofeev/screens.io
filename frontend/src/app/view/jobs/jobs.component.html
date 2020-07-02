@@ -1,0 +1,118 @@
+<app-sidebar-page-layout
+  [title]="'Jobs History'"
+  [description]="'Each scenario will test one page, component or action against one or many viewport sizes'">
+
+  <div class="page-actions-placeholder">
+    <ul class="page-actions">
+      <li class="title-actions-item">
+        <button class="button button--dark"
+        (click)="purgeHistoryHandler()">Purge History</button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="data-actions-placeholder">
+
+    <div>
+
+      <!-- <app-data-search-button
+        [label]="'Search job'"
+        (changed)="searchHandler($event)">
+      </app-data-search-button> -->
+
+    </div>
+    <div>
+
+      <app-data-action-button
+        [label]="'Refresh'"
+        [icon]="'Refresh'"
+        [hideLabelOnXS]="true"
+        (clicked)="refreshHandler()">
+      </app-data-action-button>
+
+      <!--
+      <app-data-action-button
+        [label]="'Group by Scenarios'"
+        [icon]="'Group by Scenarios'"
+        [hideLabelOnXS]="true"
+        (clicked)="groupByScenariosHandler($event)">
+      </app-data-action-button>
+      -->
+    </div>
+  </div>
+
+  <div class="data-placeholder">
+
+    <app-history-table
+    [jobs$]="jobs$"
+    (clickOnRow)="clickOnRowHandler($event)"
+    >
+    </app-history-table>
+
+    <div class="more-section" *ngIf="(jobs$ | async).length > 0">
+
+      <button *ngIf="(noMoreRecords$ | async) === false"
+              class="button button--accent2"
+              (click)="loadMoreHandler()"
+              [ngClass]="{
+                'button--in-progress': (loadingMoreInProgress$|async) === true
+              }"
+      >
+        Load More
+      </button>
+
+      <p *ngIf="(noMoreRecords$ | async) === true">
+        No more records
+      </p>
+
+    </div>
+
+  </div>
+
+  <div class="sidebar-placeholder">
+
+    <div class="sidebar-header">
+      <h2>{{ total$ | async }} Jobs <br><small>executed</small> </h2>
+      <span>{{ (jobs$ | async).length }} shown</span>
+    </div>
+    <div class="app-filters">
+
+      <h3 class="filter-header">Filter by State</h3>
+      <app-checkbox-field
+        [label]="'Show Successfully Passed Jobs'"
+        (changed)="stateFilterHandler('Passed', $event)">
+      </app-checkbox-field>
+      <app-checkbox-field
+        [label]="'Show Only Failed Jobs'"
+        (changed)="stateFilterHandler('Failed', $event)">
+      </app-checkbox-field>
+      <app-checkbox-field
+        [label]="'Show Only Running'"
+        (changed)="stateFilterHandler('Running', $event)">
+      </app-checkbox-field>
+
+      <h3 class="filter-header">Filter by Date</h3>
+      <app-checkbox-field
+        [label]="'Show Run Today Only'"
+        (changed)="todayOnlyFilterHandler($event)">
+      </app-checkbox-field>
+
+
+    </div>
+
+  </div>
+<!--
+
+  <div class="xs-filters-placeholder">
+
+    <app-data-action-button
+      [label]="'Add Filters'"
+      [icon]="'Add Filters'"
+      (clicked)="testHandler($event)">
+    </app-data-action-button>
+
+  </div>
+-->
+
+
+</app-sidebar-page-layout>

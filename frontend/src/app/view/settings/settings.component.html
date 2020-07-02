@@ -1,0 +1,278 @@
+<app-sidebar-page-layout
+  [title]="'Settings'"
+  [hideSidebar]="true"
+  [hideDataActionsBar]="true"
+  [hideDescription]="true"
+>
+
+
+  <div class="data-placeholder">
+
+    <ul class="tabs-list except-xs">
+      <li (click)="tabSwitchHandler('Account Info')" [ngClass]="{ 'tab--active': currentTab === 'Account Info'}">
+        <div class="tab-title">Account Info</div>
+        <div class="tab-description">Update your account info</div>
+      </li>
+      <li (click)="tabSwitchHandler('Viewports')" [ngClass]="{ 'tab--active': currentTab === 'Viewports'}">
+        <div class="tab-title">Viewports</div>
+        <div class="tab-description">Customize Test Viewports</div>
+      </li>
+      <!--
+      <li (click)="tabSwitchHandler('Preferences')" [ngClass]="{ 'tab--active': currentTab === 'Preferences'}">
+        <div class="tab-title">Preferences</div>
+        <div class="tab-description">Language, Timezone, Dashboard</div>
+      </li>
+      <li (click)="tabSwitchHandler('Notification channels')" [ngClass]="{ 'tab--active': currentTab === 'Notification channels'}">
+        <div class="tab-title">Notification channels</div>
+        <div class="tab-description">Email/Slack/Telegram and so on</div>
+      </li>
+      <li (click)="tabSwitchHandler('Team Management')" [ngClass]="{ 'tab--active': currentTab === 'Team Management'}">
+        <div class="tab-title">Team Management</div>
+        <div class="tab-description">Manage Users and Permissions</div>
+      </li>
+      <li (click)="tabSwitchHandler('Schedulers')" [ngClass]="{ 'tab--active': currentTab === 'Schedulers'}">
+        <div class="tab-title">Schedulers</div>
+        <div class="tab-description">Manage Scheduled Runs</div>
+      </li>
+      <li (click)="tabSwitchHandler('API Access')" [ngClass]="{ 'tab--active': currentTab === 'API Access'}">
+        <div class="tab-title">API Access</div>
+        <div class="tab-description">Manage API Keys & Secrets</div>
+      </li>
+      <li (click)="tabSwitchHandler('Manage payment methods')" [ngClass]="{ 'tab--active': currentTab === 'Manage payment methods'}">
+        <div class="tab-title">Manage payment methods</div>
+        <div class="tab-description">Payment info & billing history</div>
+      </li>
+      <li (click)="tabSwitchHandler('Subscription')" [ngClass]="{ 'tab--active': currentTab === 'Subscription'}">
+        <div class="tab-title">Subscription</div>
+        <div class="tab-description">Manage Your Subscription Plan</div>
+      </li>
+      -->
+    </ul>
+
+    <div class="tabs-content">
+
+      <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Account Info'}">
+        <h3 class="tabs-content-title">Account Info</h3>
+
+        <app-text-field
+          [label]="'Name'"
+          [description]="'Your name as other team members see it.'"
+          [fieldSize]="'350'"
+          [value]="(accountInfo$ | async).name"
+          (valueChange)="changeAccountInfoPropHandler($event, 'name')"
+        ></app-text-field>
+
+        <app-text-field
+          [label]="'Account email'"
+          [description]="'This is your login. We also use this email address to request confirmations for important operations.'"
+          [fieldSize]="'350'"
+          [value]="(accountInfo$ | async).email"
+          (valueChange)="changeAccountInfoPropHandler($event, 'email')"
+        ></app-text-field>
+
+        <app-text-field
+          [label]="'Your password'"
+          [description]="'Enter your password to confirm operation'"
+          [isPasswordField]="true"
+          [fieldSize]="'350'"
+          (valueChange)="changeAccountInfoPropHandler($event, 'password')"
+        ></app-text-field>
+
+        <p class="success-alert" *ngIf="updateAccountInfoSuccess">
+          Account information has been updated
+        </p>
+        <p class="error-alert" *ngIf="updateAccountInfoError">
+          {{ updateAccountInfoError }}
+        </p>
+
+        <app-form-button
+          [isPrimary]="true"
+          [inProgress]="updatingAccountInfo"
+          [isDisabled]="updateAccountInfoDisabled"
+          (clickButton)="updateAccountInfoHandler()">
+          Update Account Info
+        </app-form-button>
+
+        <hr class="separation-line">
+
+        <h3 class="tabs-content-title">Change password</h3>
+
+        <app-text-field
+          [label]="'You current password'"
+          [isPasswordField]="true"
+          [fieldSize]="'350'"
+          (valueChange)="updatePasswordPropHandler($event, 'currentPassword')"
+        ></app-text-field>
+        <app-text-field
+          [label]="'New password'"
+          [isPasswordField]="true"
+          [fieldSize]="'350'"
+          (valueChange)="updatePasswordPropHandler($event, 'newPassword')"
+        ></app-text-field>
+        <app-text-field
+          [label]="'Confirm new password'"
+          [isPasswordField]="true"
+          [fieldSize]="'350'"
+          [error]="updatedPassword.confirmNewPasswordError"
+          (valueChange)="updatePasswordPropHandler($event, 'confirmNewPassword')"
+        ></app-text-field>
+
+        <p class="success-alert" *ngIf="updatePasswordSuccess">
+          Password has been changed
+        </p>
+        <p class="error-alert" *ngIf="updatePasswordError">
+          {{ updatePasswordError }}
+        </p>
+        <app-form-button
+          [isPrimary]="true"
+          [inProgress]="updatingPassword"
+          [isDisabled]="updatingPasswordDisabled"
+          (clickButton)="updatePasswordHandler()">
+          Update Password
+        </app-form-button>
+
+        <hr class="separation-line">
+
+        <h3 class="tabs-content-title">Delete Your Account</h3>
+
+        <p>
+          After you delete your account, you can't sign up again with the same username or add that username to another account. We can't reactivate deleted accounts.
+        </p>
+
+        <app-text-field
+          [label]="'Your password'"
+          [description]="'Enter your password to confirm operation'"
+          [isPasswordField]="true"
+          [fieldSize]="'350'"
+          (valueChange)="deleteAccountConfirmHandler($event)"
+        ></app-text-field>
+
+        <p class="error-alert" *ngIf="deleteAccountError">
+          {{ deleteAccountError }}
+        </p>
+
+        <app-form-button
+          [isDanger]="true"
+          [isDisabled]="deleteAccountDisabled"
+          (clickButton)="deleteAccountHandler()"
+        >
+          Permanently delete my account
+        </app-form-button>
+
+      </div>
+
+      <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Preferences'}">
+        <h3 class="tabs-content-title">Preferences</h3>
+        <p>These options are not implemented yet</p>
+      </div>
+
+      <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Viewports'}">
+        <h3 class="tabs-content-title">Viewports</h3>
+
+        <p>Select screen sizes to use in all your test cases. You can override list of used viewports for particular scenario at its configuration page.</p>
+
+        <h4 class="tabs-content-subtitle">Active Viewports</h4>
+        <app-viewports-selector
+          [viewports]="viewports$ | async"
+          [selected]="selectedViewports$ | async"
+          (selectionChanged)="viewportsChangeHandler('desktop', $event)"
+        >
+        </app-viewports-selector>
+
+        <hr class="separation-line">
+        <h4 class="tabs-content-subtitle">Add Custom Viewport Size</h4>
+
+        <app-text-field
+          [label]="'Label'"
+          [fieldSize]="'350'"
+          [placeholder]="'1920 × 1080'"
+          [(value)]="customViewport.label"
+        ></app-text-field>
+
+        <div class="horizontal-fields-container">
+          <app-text-field
+            [label]="'Width in pixels'"
+            [fieldSize]="'150'"
+            [placeholder]="'1920'"
+            [(value)]="customViewport.width"
+          ></app-text-field>
+
+          <app-text-field
+            [label]="'Height in pixels'"
+            [fieldSize]="'150'"
+            [placeholder]="'1080'"
+            [(value)]="customViewport.height"
+          ></app-text-field>
+        </div>
+
+        <app-form-button
+          [isDisabled]="!customViewport.width || !customViewport.height"
+          (clickButton)="addCustomViewportHandler(customViewport)">
+          Add Custom Viewport
+        </app-form-button>
+
+
+        <hr class="separation-line">
+
+        <p class="success-alert" *ngIf="updateViewportsSuccess">
+          Viewports list has been updated
+        </p>
+        <p class="error-alert" *ngIf="updateViewportsError">
+          {{ updateViewportsError}}
+        </p>
+        <p class="error-alert" *ngIf="(selectedViewports$ | async).length === 0">
+          You have to have at least one viewport to run tests.
+        </p>
+
+        <app-form-button
+          [isPrimary]="true"
+          [inProgress]="updatingViewportsList"
+          (click)="updateViewportsListHandler()">
+          Update Viewports List
+        </app-form-button>
+
+        <!--
+        <h4 *ngIf="viewports.custom.length > 0" class="tabs-content-subtitle">Custom Viewports</h4>
+        <app-viewports-selector
+          *ngIf="viewports.custom.length > 0"
+          [(viewports)]="viewports.custom"
+          (selectionChanged)="viewportsChangeHandler('custom', $event)"
+        >
+        </app-viewports-selector>
+
+
+        -->
+
+
+      </div>
+
+      <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Notification channels'}">
+        <h3 class="tabs-content-title">Notification channels</h3>
+      </div>
+
+      <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Team Management'}">
+        <h3 class="tabs-content-title">Team Management</h3>
+      </div>
+
+      <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Schedulers'}">
+        <h3 class="tabs-content-title">Schedulers</h3>
+      </div>
+
+      <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'API Access'}">
+        <h3 class="tabs-content-title">API Access</h3>
+      </div>
+
+      <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Manage payment methods'}">
+        <h3 class="tabs-content-title">Manage payment methods</h3>
+      </div>
+
+      <div [ngClass]="{ 'tab-content--hidden': currentTab !== 'Subscription'}">
+        <h3 class="tabs-content-title">Subscription</h3>
+      </div>
+
+    </div>
+
+  </div>
+
+
+</app-sidebar-page-layout>

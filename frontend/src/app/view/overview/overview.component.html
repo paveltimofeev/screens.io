@@ -1,0 +1,152 @@
+<app-overview-layout
+  (clickRunAll)="runAllScenariosHandler()"
+>
+
+  <div class="widgets-left-placeholder">
+
+    <app-widget-label
+      [state]="'passed'"
+      [scenarios]="(stats$ | async).totalScenarios"
+      [viewports]="(stats$ | async).totalViewports"
+      [lastRun]="'2h 36min ago'">
+    </app-widget-label>
+
+  </div>
+
+  <div class="widgets-center-placeholder">
+
+    <div class="widgets-center-row">
+
+      <app-widget
+        [title]="'Today'"
+        [isLargeContent]="true"
+        [bgColor]="'blue'">
+        Nothing broken<br>
+        <app-icon icon="Nothing broken"></app-icon>
+      </app-widget>
+
+      <app-widget
+        [title]="'Recently failed'"
+        [bgColor]="'gray'">
+
+        Home Page / Navigation Bar Component <br>
+        <button class="button button--white button--lg">Run Again</button>
+
+      </app-widget>
+
+      <app-widget-timeline
+        [title]="'This week'"
+        [passedPercent]="52"
+        [delta]="'+7'"
+        [chartData]="weeklyPassed">
+      </app-widget-timeline>
+
+    </div>
+    <div class="widgets-center-row">
+
+      <app-widget-fragiled
+        [scenarioId]="12345678901"
+        [title]="'Most fragile case of the week'"
+        [scenarioName]="'Home Page / Navigation Bar Component'"
+        [failsPercent]="73"
+        [imageUrl]="'assets/images/stubs/screen9.png'"
+        (clickOnImage)="mostFragileCaseHandler($event)">
+      </app-widget-fragiled>
+
+      <app-widget
+        [title]="'Already'"
+        [isAccentValue]="true"
+        [bgColor]="'white'">
+        <span><em>32</em>days<br> without fails</span>
+      </app-widget>
+
+      <app-widget
+        [title]="'Test cases'"
+        [isAccentValue]="true"
+        [bgColor]="'white'">
+        <span><em>{{ (stats$ | async).totalScenarios }}</em><br>3 are stable</span>
+      </app-widget>
+
+    </div>
+
+  </div>
+
+  <div class="widgets-right-placeholder">
+
+    <app-widget-run
+      [viewports]="(runFilteredWidgetData$ | async).viewports"
+      [scenarios]="(runFilteredWidgetData$ | async).scenarios"
+      [isRunning]="runFilteredInProgress"
+      (clickRunFiltered)="runFilteredScenariosHandler($event)"
+    >
+    </app-widget-run>
+
+  </div>
+
+
+  <div class="cards-placeholder">
+
+    <div *ngFor="let scenario of favoriteScenarios$ | async" class="app-card--sm">
+
+      <app-card-sm
+        [itemId]="scenario._id"
+        [header]="scenario.label"
+        [status]="scenario.meta_recentRunStatus"
+        [viewports]="[]"
+        [imageUrl]="scenario.meta_referenceImageUrl"
+        (clickCard)="openScenarioHandler(scenario._id)"
+        (clickHistory)="openScenarioHistoryHandler(scenario._id)"
+        (clickRun)="runScenarioHandler(scenario.label)"
+      >
+      </app-card-sm>
+
+    </div>
+
+  </div>
+
+  <div class="records-placeholder">
+
+    <table class="runs-table" border="0">
+      <tr
+        *ngFor="let job of recentJobs$ | async"
+        (click)="recentRunClickHandler(job._id)">
+        <td>
+
+          <div class="status-cell">
+
+            <div class="status-icon" [ngClass]="{
+              'status-icon--passed': job.state === 'Passed',
+              'status-icon--failed': job.state === 'Failed'
+            }">
+              <app-icon [icon]="job.state"></app-icon>
+            </div>
+
+            <div class="labels">
+              <div class="time-label">
+                <span>
+                  {{ job.startedDateLabel }}
+                </span>
+              </div>
+              <div class="state-label">{{ job.startedDate }}</div>
+            </div>
+          </div>
+
+        </td>
+        <td>
+          <app-more [values]="job.scenarios"></app-more>
+        </td>
+        <td>
+
+          <div class="user-cell">
+            <div class="upic">{{ job.upic }}</div>
+            <span class="text except-xs">{{ job.startedBy }}</span>
+          </div>
+
+        </td>
+      </tr>
+
+    </table>
+
+  </div>
+
+</app-overview-layout>

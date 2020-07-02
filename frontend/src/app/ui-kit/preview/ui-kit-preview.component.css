@@ -1,0 +1,45 @@
+:host {
+  margin: 0;
+  padding: 1rem;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+h1 {
+  font-weight: 500;
+  margin-top: 2em;
+}
+td {
+  min-width: 170px;
+  padding-right: 20px;
+}
+tr {
+  height: 70px;
+}
+.preview-colors span {
+  padding: 5px 10px;
+  margin-right: 5px;
+  margin-top: 5px;
+  line-height: 32px;
+}
+.separate-blocks {
+  margin-top: 4em;
+}
+.container-500:hover,
+.container-full:hover {
+  border: 3px dashed rgba(0,0,255, .25);
+  background: rgba(0,0,255, .10);
+}
+.container-500 {
+  background: none;
+  border: 3px dashed rgba(0,0,255, 0);
+  width: 500px;
+  max-width: 100%;
+  margin-bottom: 1em;
+}
+.container-full {
+  background: none;
+  border: 3px dashed rgba(0,0,255, 0);
+  width: 100%;
+  margin-bottom: 1em;
+}

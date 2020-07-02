@@ -9,7 +9,8 @@
   "__secureCookie_note": "HTTPS needs for 'secureCookie=true' ",
   "maxAge": 36000000,
   "allowedCORSHost": "http://localhost:4200",
-  "dbConnectionString": "mongodb://localhost:27017/manage_users",
+  "_storageConnectionString": "mongodb://localhost:27017/manage_users",
+  "storageConnectionString": "mongodb+srv://vzGo8dbd9pg:cmmf2fg88bZgP8CVWud3y@screentestcluster0.lxjfb.mongodb.net/test",
   "dbUsersCollection": "user",
   "showWebUI": false
 }

@@ -83,9 +83,11 @@ if (config.showWebUI) {
 
 async function start() {
 
+  let conn;
+
   try {
 
-    await connectToDb( config.dbConnectionString )
+    conn = await connectToDb( config.storageConnectionString )
 
     console.log('[Start proxy] Listening port', config.port)
 
@@ -95,6 +97,7 @@ async function start() {
   }
   catch (error) {
     console.error('[Start proxy] Error', error)
+    conn.close()
   }
 }
 

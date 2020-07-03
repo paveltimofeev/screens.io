@@ -183,4 +183,11 @@
         - https://ui8.net/tanahair-studio/products/computer-programming-illustration-vol-2
         - https://ui8.net/tanahair-studio/products/computer-programming-illustration-vol-1
 
-
+    Free illustrations    
+        - https://freeillustrations.xyz
+        - https://isometric.online/
+        - https://undraw.co/illustrations
+    
+    
+    Fonts Pairings
+        - Varela Round + Montserrat https://fonts.google.com/specimen/Varela+Round#license

@@ -187,6 +187,7 @@
         - https://freeillustrations.xyz
         - https://isometric.online/
         - https://undraw.co/illustrations
+        https://github.com/ahmadawais/awesome-random-stuff
     
     
     Fonts Pairings

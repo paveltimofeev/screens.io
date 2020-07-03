@@ -7,7 +7,7 @@
 
   <div class="breadcrumb-placeholder">
     <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/jobs']">Jobs History</span>
-    <span class="breadcrumb-item">Job #{{ breadcrumbTitle$ | async }}</span>
+    <span class="breadcrumb-item">Job Report #{{ breadcrumbTitle$ | async }}</span>
   </div>
 
   <div class="description-placeholder">
@@ -125,8 +125,8 @@
         <app-card-lg
           *ngIf="(imageMode$ | async) === 'Test Result'"
           [label]="c.label"
-          [imageUrl]="c.test"
-          [hoverImageUrl]="c.difference"
+          [imageUrl]="c.meta_testLG"
+          [hoverImageUrl]="c.meta_diffImageLG"
           [viewports]="[c.viewport]"
           [status]="c.status"
           [errorMessage]="c.error"
@@ -141,7 +141,7 @@
         <app-card-lg
           *ngIf="(imageMode$ | async) === 'Difference'"
           [label]="c.label"
-          [imageUrl]="c.difference || c.test"
+          [imageUrl]="c.meta_diffImageLG || c.meta_testLG"
           [hoverImageUrl]="c.test"
           [viewports]="[c.viewport]"
           [status]="c.status"

@@ -25,6 +25,9 @@ export interface IScenario {
   },
   meta_isFavorite: boolean;
   meta_referenceImageUrl: string;
+  meta_referenceSM: string;
+  meta_referenceMD: string;
+  meta_referenceLG: string;
 }
 
 export interface IViewport {

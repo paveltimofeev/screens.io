@@ -93,7 +93,7 @@
         [header]="scenario.label"
         [status]="scenario.meta_recentRunStatus"
         [viewports]="[]"
-        [imageUrl]="scenario.meta_referenceImageUrl"
+        [imageUrl]="scenario.meta_referenceSM"
         (clickCard)="openScenarioHandler(scenario._id)"
         (clickHistory)="openScenarioHistoryHandler(scenario._id)"
         (clickRun)="runScenarioHandler(scenario.label)"

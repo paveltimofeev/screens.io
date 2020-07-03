@@ -85,6 +85,10 @@ export class JobPageEffects {
                     reference: getMediaUrls(x.pair.reference),
                     test: getMediaUrls(x.pair.test),
                     difference: getMediaUrls(x.pair.diffImage),
+
+                    meta_testLG: getMediaUrls(x.pair.meta_testLG),
+                    meta_diffImageLG: getMediaUrls(x.pair.meta_diffImageLG),
+
                     diff: x.pair.diff /// x.pair.diff.misMatchPercentage '0.04'
                   }))
                 }

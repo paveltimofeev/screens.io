@@ -143,10 +143,10 @@
 -- [Move to AWS: Preparation - Split services] Refactor Queue Wrappers - move them into the separate file
 -- [Move to AWS: Preparation - Split services] Refactor QueueProcessors (Run, Approve) - move them into the separate file
 -- [Move to AWS: 1] Run MongoDb in cloud.mongodb.com
+-- [Move to AWS: Preparation] Create preview images (compressed .jpg) for lg, md, sm cards (md, sm - for approved cases, lg - for test results)
 
 
-- [Move to AWS: Preparation] Create preview images (compressed .jpg) for lg, md, sm cards (md, sm - for approved cases, lg - for test results)
-- [Move to AWS: 2] STORE IMAGES AT AWS S3
+- [Move to AWS: 2] STORE (PUT/GET) IMAGES AT AWS S3
 
 
 TechDept
@@ -156,6 +156,7 @@ TechDept
 - Frontend: Close menu at mobile view after click, and do not cover header
 - Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email
 - Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
+- Proxy: Refactor utils.js - split to independent services
 
 BackLog
 - [Move to AWS: Preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
@@ -307,6 +308,7 @@ BackLog
 - (?) Build community around this: disccussions, comments, approve requests/declines, viewsbase - storage of reference views and controls
 - (?) Create scenario from template/example
 - (?) [Feature+] Allow user to stub/mock some queries to its backend
+- (?) [Feature+] Integration with sitebuilders like Tilda, Wix, Ecwid, Shopify (especially if they have some post process integrations)
 
 
 

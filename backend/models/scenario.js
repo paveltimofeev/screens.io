@@ -34,9 +34,12 @@ const scenarioSchema = new Schema({
         submitSelector: String,
     },
 
-    meta_isFavorite: Boolean,
-    meta_recentRunStatus: String,  /// Passed/Failed status of recent run
-    meta_referenceImageUrl: String  /// Url of reference == recent approved image url
+    meta_isFavorite:        Boolean,
+    meta_recentRunStatus:   String,     /// Passed/Failed status of recent run
+    meta_referenceImageUrl: String,     /// url of reference == recent approved image url (original size and quality)
+    meta_referenceSM:       String,     /// url of reference (small size)
+    meta_referenceMD:       String,     /// url of reference (middle size)
+    meta_referenceLG:       String      /// url of reference (large size)
 });
 
 module.exports = {

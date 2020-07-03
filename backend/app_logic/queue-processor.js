@@ -1,11 +1,12 @@
+const backstop = require('backstopjs');
 const storage = new (require('../storage/storage-adapter'));
 const engine = new (require('../engine-adapter'));
 const appUtils = require('./app-utils');
-var backstop = require('backstopjs');
+const imageProcessor = require('./image-processor');
 
-var path = require('path');
-var fs = require('fs');
-var { promisify } = require('util');
+const path = require('path');
+const fs = require('fs');
+const { promisify } = require('util');
 const exists = promisify(fs.exists);
 const copyFile = promisify(fs.copyFile);
 const writeFile = promisify(fs.writeFile);
@@ -115,7 +116,9 @@ class QueueProcessor {
 
       console.error('[VRT] Error:', err)
       const report = await engine.getReport(config.paths.json_report)
-      await this.createReport(runId, report)
+
+      const data = await this.postProcessReport(runId, report, config.paths.json_report)
+      await storage.createReport(this._db, data)
 
       record.state = 'Failed';
       record.finishedAt = new Date();
@@ -159,10 +162,21 @@ class QueueProcessor {
     await copyFile(test, reference)
 
     const date = new Date()
-    const scenario = await storage.getScenarioByLabel(this._db, pair.label)
+
+    const results = await Promise.all([
+      await storage.getScenarioByLabel(this._db, pair.label),
+      await imageProcessor.resizeReference(reference)
+    ]);
+
+    const scenario = results[0];
+    const resizes = results[1];
+    const rootDir = path.join(__dirname, '..');
 
     await storage.updateScenario(this._db, scenario._id, {
-      meta_referenceImageUrl: pair.reference
+      meta_referenceImageUrl: pair.reference,
+      meta_referenceSM: resizes.sm.replace(rootDir, ''),
+      meta_referenceMD: resizes.md.replace(rootDir, ''),
+      meta_referenceLG: resizes.lg.replace(rootDir, '')
     });
 
     await storage.createHistoryRecord(this._db, {
@@ -185,10 +199,31 @@ class QueueProcessor {
       .catch( (e) => { console.log('[VRT] stop failed', e); cb(e);});
   }
 
-  async createReport (runId, data) {
+  async postProcessReport (runId, data, reportPath) {
+
+    console.log('[Queue Processor] postProcessReport', arguments);
 
     data.runId = runId;
-    return await storage.createReport(this._db, data )
+
+    for ( let i = 0; i < data.tests.length; i++ ) {
+
+      let t = data.tests[i];
+
+      if (t.pair.test) {
+        // TODO: need to improve work wit paths, m.b. use some sort of engine-path-adapter or converter
+        const testResultPath = path.join( __dirname, '..', reportPath, t.pair.test );
+        const testLGPath = await imageProcessor.resizeTestResult(testResultPath);
+        t.pair.meta_testLG = testLGPath.replace(path.join( __dirname, '..'), '');
+      }
+
+      if (t.pair.diffImage) {
+        const diffImageLGPath = await imageProcessor.resizeTestResult(path.join( __dirname, '..', reportPath, t.pair.diffImage ));
+        t.pair.meta_diffImageLG = diffImageLGPath.replace(path.join( __dirname, '..'), '');
+      }
+
+    }
+
+    return data
   }
 }
 

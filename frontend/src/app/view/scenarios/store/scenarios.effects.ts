@@ -39,7 +39,7 @@ export class ScenariosEffects {
               scenarios: res[0].data,
               scenariosList: res[0].data.map( x => ({
                   ...x,
-                  meta_referenceImageUrl: `${environment.media}${x.meta_referenceImageUrl}`
+                  meta_referenceMD: `${environment.media}${x.meta_referenceMD}`
                 })
               ),
               viewportsList: res[1].data

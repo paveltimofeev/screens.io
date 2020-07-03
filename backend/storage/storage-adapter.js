@@ -204,11 +204,10 @@ class Storage {
 
         let scenario = await this.getScenarioById(database, originalScenarioId)
 
-        let newScenario = this.convertToObject(scenario)
-        delete newScenario._id
-        delete newScenario.meta_isFavorite
-        delete newScenario.meta_recentRunStatus
-        delete newScenario.meta_referenceImageUrl
+        let newScenario = this.convertToObject(scenario);
+        delete newScenario._id;
+        delete newScenario.meta_isFavorite;
+        delete newScenario.meta_recentRunStatus;
 
         return await this._create(database, 'Scenario', scenarioSchema, {
             ...newScenario,

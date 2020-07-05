@@ -66,7 +66,7 @@ export class JobPageEffects {
                   reportId:           res.report._id,
                   status:             test.status,
 
-                  scenarioId:         getScenarioId( job, x.pair.label ),
+                  scenarioId:         getScenarioId( job, test.pair.label ),
                   label:              test.pair.label,
                   error:              test.pair.engineErrorMsg || errorCodes[test.pair.error] || test.pair.error,
                   viewport:           test.pair.viewportLabel,

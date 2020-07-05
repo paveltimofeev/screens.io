@@ -1,8 +1,8 @@
 const {Schema, model} = require('mongoose')
 
 const viewportSchema = new Schema({
-    label: String,
-    width: Number,
+    label: { "type": String, "required": true, "unique": true },
+    width: { "type": Number, "required": true },
     height: Number,
     enabled: Boolean
 })

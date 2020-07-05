@@ -31,7 +31,7 @@ export class JobPageEffects {
           return this.api.getReport(job.runId).pipe(
             map ( res => {
 
-              let tests = res.report.tests;
+              let tests = res.report ? res.report.tests : [];
 
               const getScenarioId = (job:any, scenarioLabel:string) => {
 
@@ -59,38 +59,43 @@ export class JobPageEffects {
                 'NO_RESULTS': 'Cannot load test results. Probably test crashed or timeout exceeded',
               };
 
+              const testCaseAdapter = ( test:any ) => {
+
+                return {
+
+                  reportId:           res.report._id,
+                  status:             test.status,
+
+                  scenarioId:         getScenarioId( job, x.pair.label ),
+                  label:              test.pair.label,
+                  error:              test.pair.engineErrorMsg || errorCodes[test.pair.error] || test.pair.error,
+                  viewport:           test.pair.viewportLabel,
+                  diff:               test.pair.diff,
+                  misMatchPercentage: test.pair.diff.misMatchPercentage,
+
+                  reference:          getMediaUrls( test.pair.reference ),
+                  test:               getMediaUrls( test.pair.test ),
+                  difference:         getMediaUrls( test.pair.diffImage ),
+                  meta_testLG:        getMediaUrls( test.pair.meta_testLG ),
+                  meta_diffImageLG:   getMediaUrls( test.pair.meta_diffImageLG )
+                }
+              }
+
               return {
                 type: loaded.type,
                 payload: {
-                  title: this.date.calendar(job.startedAt),
-                  breadcrumbTitle: job._id,
-                  resultStats: `${tests.filter( x => x.status === 'fail' ).length || tests.length}/${tests.length}`,
-                  failedCases: tests.filter( x => x.status === 'fail' ).length,
-                  totalCases: tests.length,
-                  scenarios: tests.map( x => { return x.pair.label }).filter(onlyUnique),
-                  viewports: tests.map( x => { return x.pair.viewportLabel }).filter(onlyUnique),
-                  startedBy: job.startedBy,
-                  status: job.state,
+                  title:            this.date.calendar(job.startedAt),
+                  breadcrumbTitle:  job._id,
+                  startedBy:        job.startedBy,
+                  status:           job.state,
 
+                  resultStats:      `${tests.filter( x => x.status === 'fail' ).length || tests.length}/${tests.length}`,
+                  failedCases:      tests.filter( x => x.status === 'fail' ).length,
+                  totalCases:       tests.length,
+                  scenarios:        tests.map( x => { return x.pair.label }).filter(onlyUnique),
+                  viewports:        tests.map( x => { return x.pair.viewportLabel }).filter(onlyUnique),
 
-                  cases: tests.map( x => ({
-
-                    reportId: res.report._id,
-                    scenarioId: getScenarioId(job, x.pair.label),
-                    label: x.pair.label,
-                    status: x.status,
-                    error: x.pair.engineErrorMsg || errorCodes[x.pair.error] || x.pair.error,
-                    viewport: x.pair.viewportLabel,
-
-                    reference: getMediaUrls(x.pair.reference),
-                    test: getMediaUrls(x.pair.test),
-                    difference: getMediaUrls(x.pair.diffImage),
-
-                    meta_testLG: getMediaUrls(x.pair.meta_testLG),
-                    meta_diffImageLG: getMediaUrls(x.pair.meta_diffImageLG),
-
-                    diff: x.pair.diff /// x.pair.diff.misMatchPercentage '0.04'
-                  }))
+                  cases: tests.map(testCaseAdapter)
                 }
               }
             })

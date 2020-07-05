@@ -154,6 +154,7 @@ TechDept
 - Frontend: Need filtration by status at JobPage (results report) (Implement Sidebar filters for Job Page)
 - Frontend: *featurelost* total number of scenarios
 - Frontend: Close menu at mobile view after click, and do not cover header
+- Backend & Frontend: Viewport settings are not convinient to use and develop. Need better solution.
 - Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email
 - Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
 - Proxy: Refactor utils.js - split to independent services

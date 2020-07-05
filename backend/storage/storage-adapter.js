@@ -281,6 +281,10 @@ class Storage {
 
         const postProcess = (report) => {
 
+            if (!report || !report.tests) {
+                return
+            }
+
             report.tests.forEach( t => {
                 if ( t.pair.error
                   && t.pair.error.startsWith('Reference file not found')

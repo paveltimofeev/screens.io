@@ -40,6 +40,10 @@ class EngineAdapter {
 
     convertReportPath (configPaths, runId, report) {
 
+        if (!report) {
+            return
+        }
+
         throwIfInvalidPathPart('html_report', configPaths.html_report)
         throwIfInvalidPathPart('runId', runId)
 

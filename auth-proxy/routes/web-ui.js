@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {
-    clearHeaders, checkAuth, signup, signin, signout,
-    changePassword, getAccountInfo, updateAccountInfo, deleteAccount
-} = require('../app_logic/utils');
+const appFacade = require('../app_logic/app-facade');
 
 
 router.get('/login', (req, res) => {
@@ -13,31 +10,31 @@ router.get('/login', (req, res) => {
 
 router.post('/signup', async (req,res) => {
 
-try {
-    const userData = await signup(req, res)
-    res.render('index', { message: 'Signed up successfully', user: userData.user})
-}
-catch ( error ) {
-    res.render( 'index', { message : 'Sign-Up failed', user : '' } )
-}
+    try {
+        const userData = await appFacade.signup(req, res)
+        res.render('index', { message: 'Signed up successfully', user: userData.user})
+    }
+    catch ( error ) {
+        res.render( 'index', { message : 'Sign-Up failed', user : '' } )
+    }
 })
 
 router.post('/signin', async (req,res) => {
 
-try {
-    const userData = await signin(req, res)
-    res.render('index', { message: 'Logged in successfully', user: userData.user})
-}
-catch ( error ) {
-    res.render( 'index', { message : 'Login failed', user : '' } )
-}
+    try {
+        const userData = await appFacade.signin(req, res)
+        res.render('index', { message: 'Logged in successfully', user: userData.user})
+    }
+    catch ( error ) {
+        res.render( 'index', { message : 'Login failed', user : '' } )
+    }
 
 });
 
 router.post('/signout', (req,res) => {
 
-signout(req, res, (err) => {
-    res.render('index', { message: 'Logged out', user: ''})
+    appFacade.signout(req, res, (err) => {
+        res.render('index', { message: 'Logged out', user: ''})
     })
 });
 

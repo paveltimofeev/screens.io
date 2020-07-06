@@ -144,6 +144,7 @@
 -- [Move to AWS: Preparation - Split services] Refactor QueueProcessors (Run, Approve) - move them into the separate file
 -- [Move to AWS: 1] Run MongoDb in cloud.mongodb.com
 -- [Move to AWS: Preparation] Create preview images (compressed .jpg) for lg, md, sm cards (md, sm - for approved cases, lg - for test results)
+-- Proxy: Refactor utils.js - split to independent services and wrap them with facade
 
 
 - [Move to AWS: 2] STORE (PUT/GET) IMAGES AT AWS S3
@@ -154,10 +155,9 @@ TechDept
 - Frontend: Need filtration by status at JobPage (results report) (Implement Sidebar filters for Job Page)
 - Frontend: *featurelost* total number of scenarios
 - Frontend: Close menu at mobile view after click, and do not cover header
-- Backend & Frontend: Viewport settings are not convinient to use and develop. Need better solution.
+- Backend & Frontend: Viewport settings are not convenient to use and develop. Need better solution, maybe table ith togglers.
 - Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email
 - Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
-- Proxy: Refactor utils.js - split to independent services
 
 BackLog
 - [Move to AWS: Preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)

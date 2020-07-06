@@ -31,7 +31,7 @@ class VRT {
         this._userId = userid;
         this._user = user;
 
-        console.log('Create VRT', `tenant: ${tenant}; dbName: ${dbName}; userid: ${userid}`)
+        console.log('[VRT] Create VRT', `tenant: ${tenant}; dbName: ${dbName}; userid: ${userid}`)
     }
 
     static create (ctx) {

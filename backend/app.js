@@ -34,7 +34,11 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
+// app.use(logger('dev'));
+logger.token('userid', (req) => req.header('x-auth-proxy-userid'));
+app.use(logger('[Request] :method :url :status :res[content-length] - :response-time ms | :userid'));
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

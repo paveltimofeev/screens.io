@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { signup, signin, signout } = require('../app_logic/utils');
+const appFacade = require('../app_logic/app-facade');
 
 
 router.post('/signup-client', async (req,res) => {
 
     try {
 
-      const userData = await signup(req, res)
+      const userData = await appFacade.signup(req, res)
       res.status(200).send({userData})
     }
     catch(error) {
@@ -17,24 +17,26 @@ router.post('/signup-client', async (req,res) => {
     }
 });
 
+
 router.post('/signin-client', async (req,res) => {
 
-try {
+    try {
 
-    const userData = await signin(req, res)
-    res.status(200).send({userData})
-}
-catch(error) {
+        const userData = await appFacade.signin(req, res)
+        res.status(200).send({userData})
+    }
+    catch(error) {
 
-    console.log('ERROR /signin-client', error)
-    res.status(200).send( { error: error.uiMessage || 'Login failed' })
-}
+        console.log('ERROR /signin-client', error)
+        res.status(200).send( { error: error.uiMessage || 'Login failed' })
+    }
 });
+
 
 router.post('/signout-client', (req,res) => {
 
-signout(req, res, (err) => {
-    res.status(200).send(err)
+    appFacade.signout(req, res, (err) => {
+        res.status(200).send(err)
     })
 });
 

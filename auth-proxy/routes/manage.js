@@ -1,19 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const {
-    checkAuth, signout,
-    getAccountInfo, updateAccountInfo, deleteAccount, changePassword
-} = require('../app_logic/utils');
+const appFacade = require('../app_logic/app-facade');
 
 
 /// Check authorized session for all requests on this sub-route
-router.use('/', checkAuth)
+router.use('/', appFacade.checkAuth)
+
 
 /// getAccountInfo
 router.get('/account', async (req,res) => {
 
     try {
-      const result = await getAccountInfo(req, res)
+      const result = await appFacade.getAccountInfo(req, res)
       res.status(result.status).send(result.data)
     }
     catch(error) {
@@ -26,7 +24,7 @@ router.get('/account', async (req,res) => {
 router.put('/account', async (req,res) => {
 
     try {
-        const result = await updateAccountInfo(req, res)
+        const result = await appFacade.updateAccountInfo(req, res)
         res.status(result.status).send(result.data)
     }
     catch(error) {
@@ -40,8 +38,8 @@ router.delete('/account', async (req,res) => {
 
     try {
 
-        const result = await deleteAccount(req, res)
-        await signout;
+        const result = await appFacade.deleteAccount(req, res)
+        await appFacade.signout;
         res.status(result.status).send({})
     }
     catch(error) {
@@ -55,7 +53,7 @@ router.put('/account/password', async (req,res) => {
 
     try {
 
-        const result = await changePassword(req, res)
+        const result = await appFacade.changePassword(req, res)
         res.status(result.status).send({})
     }
     catch(error) {

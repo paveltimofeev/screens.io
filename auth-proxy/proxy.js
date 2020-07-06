@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const MemoryStore = require('memorystore')(session)
 const cors = require('./cors');
-const {clearHeaders, checkAuth, signup, signin, signout, changePassword, getAccountInfo, updateAccountInfo, deleteAccount} = require('./app_logic/utils')
+const appFacade = require('./app_logic/app-facade');
 const config = require('./config')
 const { connectToDb } = require('./storage/storage-adapter')
 
@@ -19,7 +19,10 @@ const webuiRouter = require('./routes/manage');
 process.env.NODE_ENV = 'production'; // Hide stacktrace on error
 
 var app = express();
-app.use(logger('dev'))
+
+// app.use(logger('dev'))
+logger.token('userid', (req) => req.session ? req.session.userid : '-');
+app.use(logger('[Request] :method :url :status :res[content-length] - :response-time ms | :userid'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -28,7 +31,7 @@ app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser(config.cookieSign))
 app.use(cors(config.allowedCORSHost));
-app.use(clearHeaders(['X-Powered-By']))
+app.use(appFacade.clearHeaders(['X-Powered-By']))
 
 /// Configure session storage
 /// https://github.com/expressjs/session
@@ -48,7 +51,7 @@ app.use(session({
 
 
 /// Check authorized session for proxied requests
-app.use(config.proxyPath, checkAuth)
+app.use(config.proxyPath, appFacade.checkAuth)
 
 
 /// Proxy backend calls

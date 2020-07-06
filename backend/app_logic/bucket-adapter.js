@@ -38,7 +38,8 @@ class BucketAdapter {
       Bucket: task.bucket + bucketPath.subFolder,
       Key: bucketPath.key,
       Body: fileStream,
-      ACL: 'public-read'
+      ACL: 'public-read',
+      // Expires: // The date and time at which the object is no longer cacheable. For more information, see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.21
     };
 
     return await s3.upload(uploadParams).promise();

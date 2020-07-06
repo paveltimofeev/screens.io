@@ -64,7 +64,7 @@ class QueueProcessor {
 
   async processRun (runId, config) {
 
-    console.log('[TaskProcessor] processRun. runId:', runId)
+    console.log('[QueueProcessor] processRun. runId:', runId)
 
     const record = await storage.createHistoryRecord(this._db, {
       state: 'Running',
@@ -85,36 +85,40 @@ class QueueProcessor {
       //await writeFile('./backstop-config.debug.json', JSON.stringify(config), 'utf-8')
       await backstop('test', { config: config } )
 
-      console.log('[VRT] `backstop test` command completed')
+      try {
+        console.log( '[QueueProcessor] `backstop test` command completed' )
 
-      const report = await engine.getReport(config.paths.json_report)
-      await this.createReport(runId, report)
+        const report = await engine.getReport( config.paths.json_report )
 
-      record.state = 'Passed';
-      record.finishedAt = new Date();
-      record.scenarios = record.scenarios.map( s => {
+        const data = await this.postProcessReport( runId, report, config.paths.json_report )
+        await storage.createReport( this._db, data )
 
-        let test = report.tests.find( t => t.pair.label === s.label)
-        if (test) {
-          s.status = test.status;
-        }
-        else {
-          console.warn('Cannot find test result for "'+s.label + '" in', report)
-        }
-        return s;
-      });
+        record.state = 'Passed';
+        record.finishedAt = new Date();
+        record.scenarios = record.scenarios.map( s => {
 
-      await this.updateScenariosRunStatus(record.scenarios)
-      await storage.updateHistoryRecord(
-        this._db,
-        record._id,
-        storage.convertToObject(record))
+          let test = report.tests.find( t => t.pair.label === s.label )
+          if( test ) {
+            s.status = test.status;
+          } else {
+            console.warn( '[QueueProcessor] Cannot find test result for "' + s.label + '" in', report )
+          }
+          return s;
+        } );
+
+        await this.updateScenariosRunStatus( record.scenarios )
+        await storage.updateHistoryRecord( this._db, record._id, storage.convertToObject( record ) )
+      }
+      catch (err) {
+        console.error('[QueueProcessor] Success report processing failed', err)
+        throw err;
+      }
 
       return runId
     }
     catch (err) {
 
-      console.error('[VRT] Error:', err)
+      console.error('[QueueProcessor] Error:', err)
       const report = await engine.getReport(config.paths.json_report)
 
       const data = await this.postProcessReport(runId, report, config.paths.json_report)
@@ -129,7 +133,7 @@ class QueueProcessor {
           s.status = test.status;
         }
         else {
-          console.warn('Cannot find rest result for "'+s.label + '" in', report)
+          console.warn('[QueueProcessor] Cannot find rest result for "'+s.label + '" in', report)
         }
         return s;
       });
@@ -146,7 +150,7 @@ class QueueProcessor {
 
   async processApproveCase (pair) {
 
-    console.log('[TaskProcessor] processApproveCase. pair.test:', pair.test)
+    console.log('[QueueProcessor] processApproveCase. pair.test:', pair.test)
 
     const reference = path.join(__dirname, '..', pair.reference);
     const test = path.join(__dirname, '..', pair.test);
@@ -154,7 +158,7 @@ class QueueProcessor {
     const testFileExits = await exists(test)
 
     if (!testFileExits) {
-      console.error('ERR: Cannot find TEST result at', test);
+      console.error('[QueueProcessor] ERR: Cannot find TEST result at', test);
       return {success:false, reason: 'Cannot find TEST result'};
     }
 
@@ -195,8 +199,8 @@ class QueueProcessor {
   stop (cb) {
 
     backstop( 'stop' )
-      .then( (r) => { console.log('[VRT] stop done', r); cb(null, r); })
-      .catch( (e) => { console.log('[VRT] stop failed', e); cb(e);});
+      .then( (r) => { console.log('[QueueProcessor] stop done', r); cb(null, r); })
+      .catch( (e) => { console.log('[QueueProcessor] stop failed', e); cb(e);});
   }
 
   async postProcessReport (runId, data, reportPath) {

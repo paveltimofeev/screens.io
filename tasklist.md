@@ -148,6 +148,7 @@
 
 
 - [Move to AWS: 2] STORE (PUT/GET) IMAGES AT AWS S3
+- Backend: Why redbullracing tests are failed without any report?
 
 
 TechDept

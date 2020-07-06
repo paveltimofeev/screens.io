@@ -6,6 +6,7 @@
     "backend": "node ./bin/www"
   },
   "dependencies": {
+    "aws-sdk": "^2.710.0",
     "backstopjs": "^4.5.0",
     "cookie-parser": "^1.4.5",
     "debug": "~2.6.9",

@@ -12,7 +12,12 @@ class BucketAdapter {
 
   localPathToBucketPath (filePath) {
 
-    return path.relative(vrtDataPath, filePath)
+    let bucketPath = path.normalize( path.relative(vrtDataPath, filePath) );
+
+    return {
+      subFolder: '/' + path.dirname(bucketPath).replace(/\\/g, '/'),
+      key: path.basename(bucketPath)
+    }
   }
 
   async upload ( task ) {
@@ -21,15 +26,17 @@ class BucketAdapter {
       console.error('[BucketAdapter] ERROR upload', task);
       throw new Error('Wrong bucket upload task');
     }
-
     console.log('[BucketAdapter] upload', task);
+
 
     const fileStream = fs.createReadStream(task.file);
     fileStream.on('error', function(err) { console.log('File Error', err); });
 
+    const bucketPath = this.localPathToBucketPath(task.file);
+
     const uploadParams = {
-      Bucket: task.bucket,
-      Key: path.normalize( this.localPathToBucketPath(task.file) ),
+      Bucket: task.bucket + bucketPath.subFolder,
+      Key: bucketPath.key,
       Body: fileStream,
       ACL: 'public-read'
     };

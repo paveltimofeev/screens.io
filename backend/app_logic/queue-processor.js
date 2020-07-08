@@ -234,14 +234,24 @@ class QueueProcessor {
         const testLGPath = await imageProcessor.resizeTestResult(testResultPath);
         t.pair.meta_testLG = testLGPath.replace(path.join( __dirname, '..'), '');
 
-        await bucketAdapter.upload( testLGPath );
+        await Promise.all([
+          await bucketAdapter.upload( testResultPath ),
+          await bucketAdapter.upload( testLGPath )
+        ])
       }
 
       if (t.pair.diffImage) {
-        const diffImageLGPath = await imageProcessor.resizeTestResult(path.join( __dirname, '..', jsonReportPath, t.pair.diffImage ));
+
+        // TODO: Need JsonReportAdapter here???
+
+        const diffResultPath = path.join( __dirname, '..', jsonReportPath, t.pair.diffImage );
+        const diffImageLGPath = await imageProcessor.resizeTestResult(diffResultPath);
         t.pair.meta_diffImageLG = diffImageLGPath.replace(path.join( __dirname, '..'), '');
 
-        await bucketAdapter.upload( diffImageLGPath );
+        await Promise.all([
+          await bucketAdapter.upload( diffResultPath ),
+          await bucketAdapter.upload( diffImageLGPath )
+        ]);
       }
     }
 

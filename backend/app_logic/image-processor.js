@@ -16,6 +16,7 @@ class ImageProcessor {
 
   static buildPath (imagePath, suffix) {
 
+    // TODO: reuse FilePathsService here
     const pos = imagePath.lastIndexOf('.');
     return imagePath.substr(0, pos < 0 ? imagePath.length : pos) + suffix;
   }
@@ -45,7 +46,7 @@ class ImageProcessor {
 
   async resizeReference (imagePath) {
 
-    console.log('[ImageProcessor] resizeReference', arguments);
+    console.log('[ImageProcessor] resizeReference', imagePath);
 
     const results = await Promise.all([
 
@@ -65,7 +66,7 @@ class ImageProcessor {
 
   async resizeTestResult (imagePath) {
 
-    console.log('[ImageProcessor] resizeTestResult', arguments);
+    console.log('[ImageProcessor] resizeTestResult', imagePath);
 
     // await ImageProcessor.convertToJpeg(imagePath, 97)
     return await ImageProcessor.resize(imagePath, '_660.jpg', 660, undefined, 97);

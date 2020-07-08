@@ -1,4 +1,4 @@
-const ip = require('./image-processor');
+const ip = require('../image-processor');
 
 (async () => {
 

@@ -1,3 +1,4 @@
+const path = require('path')
 
 function uuidv4() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -41,10 +42,41 @@ function skipPassedIfHasFailed (value, index, self) {
 }
 
 
+class FilePathsService {
+
+  vrtDataFolderName () {
+    return 'vrt_data'
+  }
+
+  vrtDataFullPath () {
+    return path.join(__dirname, '..', this.vrtDataFolderName())
+  }
+
+  relativeToVrtDataPath (fullPath) {
+    return path.relative(this.vrtDataFullPath(), fullPath )
+  }
+
+  pairItemFullPath (pairItemPath) {
+    return path.join(this.vrtDataFullPath(), 'html_report', pairItemPath)
+  }
+
+  reportItemFullPath (tenant, userid, runId, reportItemPath) {
+
+    return path.join(this.vrtDataFullPath(), tenant, userid, 'json_report', runId, reportItemPath)
+  }
+
+  pairItemRelativePath (pairItemPath) {
+    return path.relative(this.vrtDataFullPath(), this.pairItemFullPath(pairItemPath) )
+  }
+}
+
+
 module.exports = {
 
   uuidv4: uuidv4,
   uniqueOnly: uniqueOnly,
   validateScenario: validateScenario,
   skipPassedIfHasFailed: skipPassedIfHasFailed,
+
+  FilePathsService: FilePathsService
 };

@@ -148,19 +148,23 @@
 
 
 - [Move to AWS: 2] STORE (PUT/GET) IMAGES AT AWS S3
-- Backend: Why redbullracing tests are failed without any report?
+- [TechDept] Backend: Work with File paths is inconvenient: vrtdata, test results, references, s3 - should be easily convertible to each other.
+- [TechDept] Backend: Work with Reports is inconvenient
 
 
 TechDept
-- Frontend: Fix filters at Jobs view
-- Frontend: Need filtration by status at JobPage (results report) (Implement Sidebar filters for Job Page)
-- Frontend: *featurelost* total number of scenarios
-- Frontend: Close menu at mobile view after click, and do not cover header
-- Backend & Frontend: Viewport settings are not convenient to use and develop. Need better solution, maybe table ith togglers.
-- Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email
-- Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
+- [TechDept] approve by runId, not by pair ite m
+- [TechDept] Frontend: Fix filters at Jobs view
+- [TechDept] Frontend: Need filtration by status at JobPage (results report) (Implement Sidebar filters for Job Page)
+- [TechDept] Frontend: *featurelost* total number of scenarios
+- [TechDept] Frontend: Close menu at mobile view after click, and do not cover header
+- [TechDept] Backend & Frontend: Viewport settings are not convenient to use and develop. Need better solution, maybe table ith togglers.
+- [TechDept] Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email
+- [TechDept] Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
 
 BackLog
+- Backend: Why redbullracing tests are failed without any report?
+- Frontend: Change `JobDate` to `Job Report #...` in breadcrumbs - `Jobs History > JobDate > Scenario > Viewport`, to be consistent with Jobs History page.
 - [Move to AWS: Preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
 - [Move to AWS: 3] Run proxy & backend on AWS VM
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL

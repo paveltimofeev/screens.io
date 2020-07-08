@@ -7,53 +7,76 @@ AWS.config.update({region: 'us-east-1'});
 const s3 = new AWS.S3({apiVersion: '2006-03-01'});
 const vrtDataPath = '..\\vrt_data\\';
 
+const { FilePathsService } = require('./app-utils');
+const filePathsService = new FilePathsService();
+
 
 class BucketAdapter {
 
+  constructor (bucketName) {
+    this.bucket = bucketName;
+  }
+
+  log (msg, arg) {
+    console.log(msg, arg);
+  }
+
+  error (msg, arg) {
+    console.error(msg, arg);
+  }
+
   localPathToBucketPath (filePath) {
 
-    let bucketPath = path.normalize( path.relative(vrtDataPath, filePath) );
+    let subFolderPath = path.join(
+      '/',
+      filePathsService.vrtDataFolderName(),
+      path.dirname(filePathsService.relativeToVrtDataPath(filePath))
+    );
 
     return {
-      subFolder: '/' + path.dirname(bucketPath).replace(/\\/g, '/'),
-      key: path.basename(bucketPath)
+      subFolder: path.normalize(subFolderPath).replace(/\\/gi, '/'),
+      key: path.basename(filePath)
     }
   }
 
-  async upload ( task ) {
+  async upload ( file ) {
 
-    if (!task || !task.file || !task.bucket) {
-      console.error('[BucketAdapter] ERROR upload', task);
-      throw new Error('Wrong bucket upload task');
+    if (!file) {
+      throw new Error('Wrong bucket upload file: empty path');
     }
-    console.log('[BucketAdapter] upload', task);
 
+    this.log('[BucketAdapter] upload', file);
 
-    const fileStream = fs.createReadStream(task.file);
-    fileStream.on('error', function(err) { console.log('File Error', err); });
+    const fileStream = fs.createReadStream(file);
+    fileStream.on('error', (err) => { this.error('[BucketAdapter] ERROR. Read File Error', err); });
 
-    const bucketPath = this.localPathToBucketPath(task.file);
+    const bucketPath = this.localPathToBucketPath(file);
 
     const uploadParams = {
-      Bucket: task.bucket + bucketPath.subFolder,
+      Bucket: this.bucket + bucketPath.subFolder,
       Key: bucketPath.key,
       Body: fileStream,
       ACL: 'public-read',
       // Expires: // The date and time at which the object is no longer cacheable. For more information, see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.21
     };
 
-    return await s3.upload(uploadParams).promise();
+    try {
+      this.log('[BucketAdapter] upload to: bucket path', uploadParams.Bucket);
+      this.log('[BucketAdapter] upload to: bucket key', uploadParams.Key);
+      return await s3.upload( uploadParams ).promise();
+    }
+    catch (err) {
+
+      const { Bucket, Key, ACL } = uploadParams;
+      this.error('[BucketAdapter] s3.upload failed. uploadParams:', { Bucket, Key, ACL });
+      this.error('[BucketAdapter] ERROR', err);
+    }
   }
 
   download () {}
 }
 
 
-const bucketAdapter = new BucketAdapter();
-
-
 module.exports = {
-  localPathToBucketPath: bucketAdapter.localPathToBucketPath,
-  upload: bucketAdapter.upload,
-  download: bucketAdapter.download,
+  BucketAdapter: BucketAdapter
 };

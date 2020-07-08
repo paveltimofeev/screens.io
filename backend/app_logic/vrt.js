@@ -1,6 +1,6 @@
 var path = require('path');
 const storage = new (require('../storage/storage-adapter'));
-const engine = new (require('../engine-adapter'));
+const engine = new (require('./engine-adapter'));
 const queues = require('./queue-wrappers');
 const rules =  require('../storage/query-rules');
 const appUtils = require('./app-utils');

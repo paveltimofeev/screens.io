@@ -2,7 +2,8 @@ const fs = require('fs');
 const { promisify } = require('util');
 const path = require('path');
 const readFile = promisify(fs.readFile)
-const { UIError } = require('./ui-error');
+const { UIError } = require('../ui-error');
+
 
 const throwIfInvalidPathPart = (name, pathPart) => {
 
@@ -25,7 +26,6 @@ const validateArray = (name, param) => {
 
 class EngineAdapter {
 
-    /* UNUSED? */
     async getReport (reportFolder) {
 
         try {

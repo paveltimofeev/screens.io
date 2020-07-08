@@ -1,6 +1,6 @@
 const backstop = require('backstopjs');
 const storage = new (require('../storage/storage-adapter'));
-const engine = new (require('../engine-adapter'));
+const engine = new (require('./engine-adapter'));
 const appUtils = require('./app-utils');
 const imageProcessor = require('./image-processor');
 
@@ -11,6 +11,12 @@ const exists = promisify(fs.exists);
 const copyFile = promisify(fs.copyFile);
 const writeFile = promisify(fs.writeFile);
 const mkdir = promisify(fs.mkdir);
+
+const { BucketAdapter } = require('./bucket-adapter');
+const bucketAdapter = new BucketAdapter('vrtdata');
+
+const { FilePathsService } = require('./app-utils');
+const filePathsService = new FilePathsService();
 
 
 class QueueProcessor {
@@ -82,8 +88,10 @@ class QueueProcessor {
 
     try {
 
-      //await writeFile('./backstop-config.debug.json', JSON.stringify(config), 'utf-8')
-      await backstop('test', { config: config } )
+      // await writeFile('./backstop-config.debug.json', JSON.stringify(config), 'utf-8')
+      let result = await backstop('test', { config: config } )
+
+      console.log('[QueueProcessor] RUN RESULT', result);
 
       try {
         console.log( '[QueueProcessor] `backstop test` command completed' )
@@ -176,6 +184,13 @@ class QueueProcessor {
     const resizes = results[1];
     const rootDir = path.join(__dirname, '..');
 
+    // await Promise.all([
+    //   bucketAdapter.upload( filePathsService.pairItemFullPath(pair.reference) ),
+    //   // bucketAdapter.upload( resizes.sm ),
+    //   // bucketAdapter.upload( resizes.md ),
+    //   // bucketAdapter.upload( resizes.lg ),
+    // ]);
+
     await storage.updateScenario(this._db, scenario._id, {
       meta_referenceImageUrl: pair.reference,
       meta_referenceSM: resizes.sm.replace(rootDir, ''),
@@ -203,7 +218,7 @@ class QueueProcessor {
       .catch( (e) => { console.log('[QueueProcessor] stop failed', e); cb(e);});
   }
 
-  async postProcessReport (runId, data, reportPath) {
+  async postProcessReport (runId, data, jsonReportPath) {
 
     console.log('[Queue Processor] postProcessReport', arguments);
 
@@ -215,16 +230,19 @@ class QueueProcessor {
 
       if (t.pair.test) {
         // TODO: need to improve work wit paths, m.b. use some sort of engine-path-adapter or converter
-        const testResultPath = path.join( __dirname, '..', reportPath, t.pair.test );
+        const testResultPath = path.join( __dirname, '..', jsonReportPath, t.pair.test );
         const testLGPath = await imageProcessor.resizeTestResult(testResultPath);
         t.pair.meta_testLG = testLGPath.replace(path.join( __dirname, '..'), '');
+
+        await bucketAdapter.upload( testLGPath );
       }
 
       if (t.pair.diffImage) {
-        const diffImageLGPath = await imageProcessor.resizeTestResult(path.join( __dirname, '..', reportPath, t.pair.diffImage ));
+        const diffImageLGPath = await imageProcessor.resizeTestResult(path.join( __dirname, '..', jsonReportPath, t.pair.diffImage ));
         t.pair.meta_diffImageLG = diffImageLGPath.replace(path.join( __dirname, '..'), '');
-      }
 
+        await bucketAdapter.upload( diffImageLGPath );
+      }
     }
 
     return data

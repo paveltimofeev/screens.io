@@ -42,13 +42,16 @@ class BucketAdapter {
   async upload ( file ) {
 
     if (!file) {
-      throw new Error('Wrong bucket upload file: empty path');
+      this.log('[BucketAdapter] upload: empty file path.', file);
+      return file
     }
 
     this.log('[BucketAdapter] upload', file);
 
     const fileStream = fs.createReadStream(file);
-    fileStream.on('error', (err) => { this.error('[BucketAdapter] ERROR. Read File Error', err); });
+    fileStream.on('error', (err) => {
+      this.error('[BucketAdapter] ERROR. Read File Error', err);
+    });
 
     const bucketPath = this.localPathToBucketPath(file);
 

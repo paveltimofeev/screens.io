@@ -1,23 +1,23 @@
 const backstop = require('backstopjs');
 const storage = new (require('../storage/storage-adapter'));
-const engine = new (require('./engine-adapter'));
 const appUtils = require('./app-utils');
-const imageProcessor = require('./image-processor');
+const { EngineAdapter, JsonReportAdapter } = require('./engine-adapter');
+const { BucketAdapter } = require('./bucket-adapter');
 
+const imageProcessor = require('./image-processor');
 const path = require('path');
 const fs = require('fs');
 const { promisify } = require('util');
 const exists = promisify(fs.exists);
 const copyFile = promisify(fs.copyFile);
 const writeFile = promisify(fs.writeFile);
+
 const mkdir = promisify(fs.mkdir);
 
-const { BucketAdapter } = require('./bucket-adapter');
+const engine = new EngineAdapter();
 const bucketAdapter = new BucketAdapter('vrtdata');
-
 const { FilePathsService } = require('./app-utils');
 const filePathsService = new FilePathsService();
-
 
 class QueueProcessor {
 
@@ -160,20 +160,18 @@ class QueueProcessor {
 
     console.log('[QueueProcessor] processApproveCase. pair.test:', pair.test)
 
-    const reference = path.join(__dirname, '..', pair.reference);
-    const test = path.join(__dirname, '..', pair.test);
-
-    const testFileExits = await exists(test)
+    const rootDir = filePathsService.vrtDataFullPath();
+    const reference = path.join( rootDir, pair.reference );
+    const test = path.join( rootDir, pair.test );
+    const testFileExits = await exists(test);
 
     if (!testFileExits) {
       console.error('[QueueProcessor] ERR: Cannot find TEST result at', test);
       return {success:false, reason: 'Cannot find TEST result'};
     }
 
-    await mkdir(path.dirname(reference), {recursive:true})
-    await copyFile(test, reference)
-
-    const date = new Date()
+    await mkdir(path.dirname(reference), {recursive:true});
+    await copyFile(test, reference);
 
     const results = await Promise.all([
       await storage.getScenarioByLabel(this._db, pair.label),
@@ -182,33 +180,29 @@ class QueueProcessor {
 
     const scenario = results[0];
     const resizes = results[1];
-    const rootDir = path.join(__dirname, '..');
 
-    // await Promise.all([
-    //   bucketAdapter.upload( filePathsService.pairItemFullPath(pair.reference) ),
-    //   // bucketAdapter.upload( resizes.sm ),
-    //   // bucketAdapter.upload( resizes.md ),
-    //   // bucketAdapter.upload( resizes.lg ),
-    // ]);
+    await Promise.all([
+      await storage.updateScenario(this._db, scenario._id, {
+        meta_referenceImageUrl: pair.reference,
+        meta_referenceSM: filePathsService.relativeToVrtDataPath( resizes.sm ),
+        meta_referenceMD: filePathsService.relativeToVrtDataPath( resizes.md ),
+        meta_referenceLG: filePathsService.relativeToVrtDataPath( resizes.lg )
+      }),
 
-    await storage.updateScenario(this._db, scenario._id, {
-      meta_referenceImageUrl: pair.reference,
-      meta_referenceSM: resizes.sm.replace(rootDir, ''),
-      meta_referenceMD: resizes.md.replace(rootDir, ''),
-      meta_referenceLG: resizes.lg.replace(rootDir, '')
-    });
+      await storage.createHistoryRecord(this._db, {
+        state: 'Approved',
+        startedAt: new Date(),
+        finishedAt: new Date(),
+        startedBy: this._ctx.user,
+        viewports: [ pair.viewportLabel ],
+        scenarios: [{ id: scenario._id.toString(), label: scenario.label }]
+      }),
 
-    await storage.createHistoryRecord(this._db, {
-      state: 'Approved',
-      startedAt: date,
-      finishedAt: date,
-      startedBy: this._ctx.user,
-      viewports: [ pair.viewportLabel ],
-      scenarios: [{
-        id: scenario._id.toString(),
-        label: scenario.label
-      }]
-    })
+      // await bucketAdapter.upload( pair.reference ),
+      await bucketAdapter.upload( resizes.sm ),
+      await bucketAdapter.upload( resizes.md ),
+      await bucketAdapter.upload( resizes.lg )
+    ]);
   }
 
   stop (cb) {
@@ -218,44 +212,37 @@ class QueueProcessor {
       .catch( (e) => { console.log('[QueueProcessor] stop failed', e); cb(e);});
   }
 
-  async postProcessReport (runId, data, jsonReportPath) {
+  async postProcessReport (runId, data, reportLocation) {
 
-    console.log('[Queue Processor] postProcessReport', arguments);
+    console.log('[Queue Processor] postProcessReport', runId, reportLocation);
 
-    data.runId = runId;
+    const reportAdapter = new JsonReportAdapter(data, reportLocation, runId);
+    let report = reportAdapter.report;
 
-    for ( let i = 0; i < data.tests.length; i++ ) {
+    for ( let i = 0; i < report.tests.length; i++ ) {
 
-      let t = data.tests[i];
+      const results = await Promise.all([
+        await imageProcessor.resizeTestResult( report.tests[i].pair.images.absolute.test ),
+        await imageProcessor.resizeTestResult( report.tests[i].pair.images.absolute.diff ),
 
-      if (t.pair.test) {
-        // TODO: need to improve work wit paths, m.b. use some sort of engine-path-adapter or converter
-        const testResultPath = path.join( __dirname, '..', jsonReportPath, t.pair.test );
-        const testLGPath = await imageProcessor.resizeTestResult(testResultPath);
-        t.pair.meta_testLG = testLGPath.replace(path.join( __dirname, '..'), '');
+        await bucketAdapter.upload( report.tests[i].pair.images.absolute.ref ),
+        await bucketAdapter.upload( report.tests[i].pair.images.absolute.diff ),
+        await bucketAdapter.upload( report.tests[i].pair.images.absolute.test )
+      ]);
 
-        await Promise.all([
-          await bucketAdapter.upload( testResultPath ),
-          await bucketAdapter.upload( testLGPath )
-        ])
-      }
+      const meta_testLG = results[0];
+      const meta_diffImageLG = results[1];
 
-      if (t.pair.diffImage) {
+      await Promise.all([
+        await bucketAdapter.upload( meta_testLG ),
+        await bucketAdapter.upload( meta_diffImageLG ),
+      ]);
 
-        // TODO: Need JsonReportAdapter here???
-
-        const diffResultPath = path.join( __dirname, '..', jsonReportPath, t.pair.diffImage );
-        const diffImageLGPath = await imageProcessor.resizeTestResult(diffResultPath);
-        t.pair.meta_diffImageLG = diffImageLGPath.replace(path.join( __dirname, '..'), '');
-
-        await Promise.all([
-          await bucketAdapter.upload( diffResultPath ),
-          await bucketAdapter.upload( diffImageLGPath )
-        ]);
-      }
+      report.tests[i].pair.meta_testLG = filePathsService.relativeToVrtDataPath( meta_testLG );
+      report.tests[i].pair.meta_diffImageLG = filePathsService.relativeToVrtDataPath( meta_diffImageLG );
     }
 
-    return data
+    return report
   }
 }
 

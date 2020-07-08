@@ -68,6 +68,10 @@ class ImageProcessor {
 
     console.log('[ImageProcessor] resizeTestResult', imagePath);
 
+    if (!imagePath) {
+      return imagePath;
+    }
+
     // await ImageProcessor.convertToJpeg(imagePath, 97)
     return await ImageProcessor.resize(imagePath, '_660.jpg', 660, undefined, 97);
   }

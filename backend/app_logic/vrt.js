@@ -1,10 +1,11 @@
 var path = require('path');
 const storage = new (require('../storage/storage-adapter'));
-const engine = new (require('./engine-adapter'));
+const { EngineAdapter } = require('./engine-adapter');
 const queues = require('./queue-wrappers');
 const rules =  require('../storage/query-rules');
 const appUtils = require('./app-utils');
 
+const engine = new EngineAdapter();
 
 class VRT {
 
@@ -141,7 +142,7 @@ class VRT {
         console.log('report.runId', report.runId)
 
         const configPaths = engine.buildConfigPaths(this._tenantId, this._userId)
-        engine.convertReportPath(configPaths, report.runId, report)
+        // engine.convertReportPath(configPaths, report.runId, report)
 
         let pairs = report
           .tests
@@ -180,7 +181,7 @@ class VRT {
         const report = await storage.getReportByRunId(this._db, runId)
         const config = await this.getConfig();
 
-        engine.convertReportPath(config.paths, runId, report)
+        // engine.convertReportPath(config.paths, runId, report)
 
         return report
     }

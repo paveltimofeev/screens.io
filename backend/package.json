@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "backend": "node ./bin/www"
+    "backend": "node ./bin/www",
+    "test": "mocha"
   },
   "dependencies": {
     "aws-sdk": "^2.710.0",
@@ -18,5 +19,8 @@
     "mongoose": "^5.9.22",
     "morgan": "~1.9.1",
     "sharp": "^0.25.4"
+  },
+  "devDependencies": {
+    "mocha": "^8.0.1"
   }
 }

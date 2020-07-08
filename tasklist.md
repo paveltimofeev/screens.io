@@ -145,15 +145,17 @@
 -- [Move to AWS: 1] Run MongoDb in cloud.mongodb.com
 -- [Move to AWS: Preparation] Create preview images (compressed .jpg) for lg, md, sm cards (md, sm - for approved cases, lg - for test results)
 -- Proxy: Refactor utils.js - split to independent services and wrap them with facade
+-- [TechDept] Backend: Work with Reports is inconvenient. *JsonReportAdapter added*
+-- [Move to AWS: 2] STORE (PUT/GET) IMAGES AT AWS S3
+-- [TechDept] Backend: Work with File paths is inconvenient: vrtdata, test results, references, s3 - should be easily convertible to each other.
 
 
-- [Move to AWS: 2] STORE (PUT/GET) IMAGES AT AWS S3
-- [TechDept] Backend: Work with File paths is inconvenient: vrtdata, test results, references, s3 - should be easily convertible to each other.
-- [TechDept] Backend: Work with Reports is inconvenient
+- [Move to AWS: 2] (TechDept) Backend: GET references from AWS S3 before run tests
+- Backend: Why redbullracing tests are failed without any report?
 
 
 TechDept
-- [TechDept] approve by runId, not by pair ite m
+- [TechDept] approve by runId, not by pair item
 - [TechDept] Frontend: Fix filters at Jobs view
 - [TechDept] Frontend: Need filtration by status at JobPage (results report) (Implement Sidebar filters for Job Page)
 - [TechDept] Frontend: *featurelost* total number of scenarios
@@ -163,7 +165,6 @@ TechDept
 - [TechDept] Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
 
 BackLog
-- Backend: Why redbullracing tests are failed without any report?
 - Frontend: Change `JobDate` to `Job Report #...` in breadcrumbs - `Jobs History > JobDate > Scenario > Viewport`, to be consistent with Jobs History page.
 - [Move to AWS: Preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
 - [Move to AWS: 3] Run proxy & backend on AWS VM

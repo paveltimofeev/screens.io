@@ -53,6 +53,9 @@ class FilePathsService {
   }
 
   relativeToVrtDataPath (fullPath) {
+    if (!fullPath) {
+      return fullPath;
+    }
     return path.relative(this.vrtDataFullPath(), fullPath )
   }
 

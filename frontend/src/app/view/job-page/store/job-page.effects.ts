@@ -71,7 +71,7 @@ export class JobPageEffects {
                   error:              test.pair.engineErrorMsg || errorCodes[test.pair.error] || test.pair.error,
                   viewport:           test.pair.viewportLabel,
                   diff:               test.pair.diff,
-                  misMatchPercentage: test.pair.diff.misMatchPercentage,
+                  misMatchPercentage: test.pair.diff ? test.pair.diff.misMatchPercentage : undefined,
 
                   reference:          getMediaUrls( test.pair.reference ),
                   test:               getMediaUrls( test.pair.test ),

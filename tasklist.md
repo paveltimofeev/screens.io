@@ -148,10 +148,10 @@
 -- [TechDept] Backend: Work with Reports is inconvenient. *JsonReportAdapter added*
 -- [Move to AWS: 2] STORE (PUT/GET) IMAGES AT AWS S3
 -- [TechDept] Backend: Work with File paths is inconvenient: vrtdata, test results, references, s3 - should be easily convertible to each other.
+-- Backend: Why redbullracing tests are failed without any report? *failed because of tried to load file that does not exists*
 
 
 - [Move to AWS: 2] (TechDept) Backend: GET references from AWS S3 before run tests
-- Backend: Why redbullracing tests are failed without any report?
 
 
 TechDept
@@ -187,6 +187,8 @@ BackLog
 - Frontend: Comparer view: Need to show status Failed/Passed, because when you switch between viewport sizes it's hard to understand passed this case or not. Probably it also need to highlight viewports chips with passsed/failed colors
 - Frontend: Icons at Jobs History should be the same as in Recent Runs and in scenarios' Runs history tables
 - **------------ CLOSED BETA MILESTONE ------------**
+
+- [Marketing] Persuade: Start with the exact solution for US / with a common problems for RU
 
 - Backend: Storage service create and cache connection per user and never close it, even if user left site or logout.
 - Backend: migration script for copying data from one user to another

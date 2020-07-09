@@ -1,7 +1,10 @@
 const AWS = require('aws-sdk');
 const fs = require('fs');
+const { promisify } = require('util');
 const path = require('path');
 const mime = require('mime');
+
+const fileExists = promisify(fs.exists);
 
 AWS.config.update({region: 'us-east-1'});
 const s3 = new AWS.S3({apiVersion: '2006-03-01'});
@@ -41,12 +44,18 @@ class BucketAdapter {
 
   async upload ( file ) {
 
+    this.log('[BucketAdapter] upload', file);
+
     if (!file) {
       this.log('[BucketAdapter] upload: empty file path.', file);
       return file
     }
 
-    this.log('[BucketAdapter] upload', file);
+    const exist = await fileExists(file);
+    if (!exist) {
+      this.log('[BucketAdapter] upload: file not exists.', file);
+      return null;
+    }
 
     const fileStream = fs.createReadStream(file);
     fileStream.on('error', (err) => {

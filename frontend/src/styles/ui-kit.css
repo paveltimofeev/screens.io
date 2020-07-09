@@ -970,14 +970,14 @@ app-data-action-button:first-child {
   margin-bottom: 10px;
   height: 300px;
   max-height: 50vh;
-  border: 1px solid #E6EAEE;
-  border-radius: var(--px10);
+  border: 5px solid #E6EAEE;
+  border-radius: 2px;
   cursor: pointer;
 }
 .card-md .image:hover {
-  border-top: 1px solid transparent;
-  border-left: 1px solid transparent;
-  border-right: 1px solid transparent;
+  _border-top: 1px solid transparent;
+  _border-left: 1px solid transparent;
+  _border-right: 1px solid transparent;
 }
 .card-md .image:before {
   position: absolute;
@@ -1016,7 +1016,7 @@ app-data-action-button:first-child {
   height: 100%;
   min-height: 100%;
   min-width: 100%;
-  border-radius: var(--px10);
+  border-radius: 2px;
   background: var(--color-card-background);
   filter: grayscale(0);
   transition: filter .2s ease-in-out;
@@ -1470,7 +1470,7 @@ app-data-action-button:first-child {
   user-select: none;
 
   font-family: 'Open Sans', sans-serif;
-  font-size: 14px;
+  font-size: var(--px14);
 }
 .confirmation-button {
   width: 0;
@@ -1486,8 +1486,8 @@ app-data-action-button:first-child {
   background: #E04C4C;
   background: linear-gradient(0deg, hsla(0, 60%, 55%, 1), hsla(0, 70%, 65%, 1));
   color: #FFFFFF;
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
   cursor: pointer;
 }
 .confirmation-button--opened {
@@ -1511,7 +1511,7 @@ app-data-action-button:first-child {
   width: 28px;
   height: 28px;
   background: #F8F8F8;
-  border-radius: 6px;
+  border-radius: 3px;
   cursor: pointer;
 }
 .confirmation-icon:hover {

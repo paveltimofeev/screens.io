@@ -212,11 +212,11 @@ class QueueProcessor {
       .catch( (e) => { console.log('[QueueProcessor] stop failed', e); cb(e);});
   }
 
-  async postProcessReport (runId, data, reportLocation) {
+  async postProcessReport (runId, jsonReport, reportLocation) {
 
     console.log('[Queue Processor] postProcessReport', runId, reportLocation);
 
-    const reportAdapter = new JsonReportAdapter(data, reportLocation, runId);
+    const reportAdapter = new JsonReportAdapter(jsonReport, reportLocation, runId);
     let report = reportAdapter.report;
 
     for ( let i = 0; i < report.tests.length; i++ ) {

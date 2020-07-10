@@ -152,6 +152,7 @@
 
 
 - [Move to AWS: 2] Backend: GET references from AWS S3 before run tests (download ref images of every scenario, delete successfully uploaded images)
+- [Move to AWS: 2] Support strategies of storing images at AWS S3 or at local FileSystem
 - [Bug] Backend: References are not uploads to s3
 
 TechDept
@@ -191,8 +192,9 @@ BackLog
 - Frontend: Icons at Jobs History should be the same as in Recent Runs and in scenarios' Runs history tables
 - **------------ CLOSED BETA MILESTONE ------------**
 
-- [Marketing] Persuade: Start with the exact solution for US / with a common problems for RU
-
+- [Marketing Strategy] Persuade: Start with the exact solution for US / with a common problems for RU
+- Proxy: Switch to TypeScript to reduce chaos
+- Backend: Switch to TypeScript to reduce chaos
 - Backend: Storage service create and cache connection per user and never close it, even if user left site or logout.
 - Backend: migration script for copying data from one user to another
 - How to test videoplayers -> better to hide them

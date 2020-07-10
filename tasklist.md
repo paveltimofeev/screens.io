@@ -151,8 +151,8 @@
 -- Backend: Why redbullracing tests are failed without any report? *failed because of tried to load file that does not exists*
 
 
-- [Move to AWS: 2] (TechDept) Backend: GET references from AWS S3 before run tests
-
+- [Move to AWS: 2] Backend: GET references from AWS S3 before run tests (download ref images of every scenario, delete successfully uploaded images)
+- [Bug] Backend: References are not uploads to s3
 
 TechDept
 - [TechDept] approve by runId, not by pair item
@@ -165,15 +165,18 @@ TechDept
 - [TechDept] Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
 
 BackLog
-- Frontend: Change `JobDate` to `Job Report #...` in breadcrumbs - `Jobs History > JobDate > Scenario > Viewport`, to be consistent with Jobs History page.
 - [Move to AWS: Preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
 - [Move to AWS: 3] Run proxy & backend on AWS VM
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
-- Frontend: Scenario Page - add Overview(Summary) with reference image 
+- Frontend: Comparer: Images are misplaced sometimes. Need to show loading process.
 - Display retry button for not-ready yet history record (screens)
 - **------------ MVP MILESTONE ------------**
+
+- Frontend: Scenario Page - add Overview(Summary) with reference image 
 - **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user, copy data and files from 'Default' user)
+- Frontend: card-sm & card-lg should looks the same, they have too different styles now.
+- Frontend: Change `JobDate` to `Job Report #...` in breadcrumbs - `Jobs History > JobDate > Scenario > Viewport`, to be consistent with Jobs History page.
 - [Security] Backend: Do not store authConfig login/password in plain text (need to encrypt/decrypt them). Do not transfer them to UI.
 - Terms of Service, Privacy Policy and Beta Service Agreement (links and docs)
 - [Bug] Scenarios with url without protocol (https:// or http://) fails and stucks

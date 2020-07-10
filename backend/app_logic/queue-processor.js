@@ -88,6 +88,20 @@ class QueueProcessor {
 
     try {
 
+      // [download ref images of every scenario in config and place them to corresponding directory] [with retries]
+
+      for ( let i = 0; i < config.scenarios.length; i++ ) {
+
+        if (config.scenarios[i].meta_referenceImageUrl) {
+          await bucketAdapter.download(
+            path.join(
+              filePathsService.vrtDataFullPath(),
+              config.scenarios[ i ].meta_referenceImageUrl
+            )
+          );
+        }
+      }
+
       // await writeFile('./backstop-config.debug.json', JSON.stringify(config), 'utf-8')
       let result = await backstop('test', { config: config } )
 
@@ -198,18 +212,11 @@ class QueueProcessor {
         scenarios: [{ id: scenario._id.toString(), label: scenario.label }]
       }),
 
-      // await bucketAdapter.upload( pair.reference ),
+      await bucketAdapter.upload( pair.reference ),
       await bucketAdapter.upload( resizes.sm ),
       await bucketAdapter.upload( resizes.md ),
       await bucketAdapter.upload( resizes.lg )
     ]);
-  }
-
-  stop (cb) {
-
-    backstop( 'stop' )
-      .then( (r) => { console.log('[QueueProcessor] stop done', r); cb(null, r); })
-      .catch( (e) => { console.log('[QueueProcessor] stop failed', e); cb(e);});
   }
 
   async postProcessReport (runId, jsonReport, reportLocation) {
@@ -225,7 +232,7 @@ class QueueProcessor {
         await imageProcessor.resizeTestResult( report.tests[i].pair.images.absolute.test ),
         await imageProcessor.resizeTestResult( report.tests[i].pair.images.absolute.diff ),
 
-        await bucketAdapter.upload( report.tests[i].pair.images.absolute.ref ),
+        // await bucketAdapter.upload( report.tests[i].pair.images.absolute.ref ),
         await bucketAdapter.upload( report.tests[i].pair.images.absolute.diff ),
         await bucketAdapter.upload( report.tests[i].pair.images.absolute.test )
       ]);
@@ -233,13 +240,15 @@ class QueueProcessor {
       const meta_testLG = results[0];
       const meta_diffImageLG = results[1];
 
+      report.tests[i].pair.meta_testLG = filePathsService.relativeToVrtDataPath( meta_testLG );
+      report.tests[i].pair.meta_diffImageLG = filePathsService.relativeToVrtDataPath( meta_diffImageLG );
+
       await Promise.all([
         await bucketAdapter.upload( meta_testLG ),
         await bucketAdapter.upload( meta_diffImageLG ),
       ]);
 
-      report.tests[i].pair.meta_testLG = filePathsService.relativeToVrtDataPath( meta_testLG );
-      report.tests[i].pair.meta_diffImageLG = filePathsService.relativeToVrtDataPath( meta_diffImageLG );
+      // [delete successfully uploaded images]
     }
 
     return report

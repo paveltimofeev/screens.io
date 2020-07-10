@@ -5,6 +5,7 @@ const path = require('path');
 const mime = require('mime');
 
 const fileExists = promisify(fs.exists);
+const writeFile = promisify(fs.writeFile);
 
 AWS.config.update({region: 'us-east-1'});
 const s3 = new AWS.S3({apiVersion: '2006-03-01'});
@@ -85,7 +86,29 @@ class BucketAdapter {
     }
   }
 
-  download () {}
+  async download (localPath) {
+
+    this.log('[BucketAdapter] download');
+
+    const bucketPath = this.localPathToBucketPath(localPath);
+
+    const downloadParams = {
+      Bucket: this.bucket + bucketPath.subFolder,
+      Key: bucketPath.key
+    };
+
+    this.log('[BucketAdapter] downloadParams.Bucket', downloadParams.Bucket);
+    this.log('[BucketAdapter] downloadParams.Key', downloadParams.Key);
+
+    try {
+      const data = await s3.getObject( downloadParams ).promise();
+      await writeFile( localPath, data.Body );
+      this.log( '[BucketAdapter] downloaded to', localPath );
+    }
+    catch (err) {
+      this.error('[BucketAdapter] ERROR download', err)
+    }
+  }
 }
 
 

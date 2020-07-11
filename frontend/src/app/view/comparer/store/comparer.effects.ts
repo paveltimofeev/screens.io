@@ -56,6 +56,7 @@ export class ComparerEffects {
                 payload: {
                   title: `${testCase.label} ${testCase.viewportLabel}`,
                   status: status,
+                  canApprove: status === 'fail',
 
                   reportId: res.report._id,
                   job: this.date.calendar(job.startedAt),

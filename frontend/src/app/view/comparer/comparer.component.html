@@ -38,7 +38,7 @@
       <li class="title-actions-item">
         <button class="button button--white" (click)="runAgainHandler()">Run Again</button>
       </li>
-      <li class="title-actions-item">
+      <li class="title-actions-item" *ngIf="canApprove$ | async">
         <button class="button button--dark" (click)="approveHandler()">Approve</button>
       </li>
     </ul>

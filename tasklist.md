@@ -150,9 +150,9 @@
 -- [TechDept] Backend: Work with File paths is inconvenient: vrtdata, test results, references, s3 - should be easily convertible to each other.
 -- Backend: Why redbullracing tests are failed without any report? *failed because of tried to load file that does not exists*
 -- [Move to AWS: 2] Support strategies of storing images at AWS S3 or at local FileSystem
+-- Frontend: Comparer: allow approve only failed cases
 
 
-- Frontend: Comparer: allow approve only failed cases
 - [Move to AWS: 2] Backend: GET references from AWS S3 before run tests (download ref images of every scenario, delete successfully uploaded images)
 - [Bug] Backend: References are not uploads to s3
 - Backend: add retries to S3Adapter or ensure that aws lib already provides it. 

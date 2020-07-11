@@ -1,10 +1,12 @@
 const backstop = require('backstopjs');
+
 const storage = new (require('../storage/storage-adapter'));
 const appUtils = require('./app-utils');
 const { EngineAdapter, JsonReportAdapter } = require('./engine-adapter');
+const { FilePathsService } = require('./app-utils');
 const { BucketAdapter } = require('./bucket-adapter');
-
 const imageProcessor = require('./image-processor');
+
 const path = require('path');
 const fs = require('fs');
 const { promisify } = require('util');
@@ -16,14 +18,19 @@ const mkdir = promisify(fs.mkdir);
 
 const engine = new EngineAdapter();
 const bucketAdapter = new BucketAdapter('vrtdata');
-const { FilePathsService } = require('./app-utils');
 const filePathsService = new FilePathsService();
+
+const config = require('../config.json');
+console.log('[QueueProcessor] Loading module', './media_storage_strategies/' + config.mediaStorageStrategy)
+const mediaStorageStrategy = require('./media_storage_strategies/' + config.mediaStorageStrategy);
 
 class QueueProcessor {
 
   constructor (ctx, dbName) {
+    
     this._db = dbName;
     this._ctx = ctx;
+    this._flow = mediaStorageStrategy.createFlow();
 
     console.log('[TaskProcessor] ctor. dbName:', dbName)
   }
@@ -88,19 +95,20 @@ class QueueProcessor {
 
     try {
 
+      await this._flow.RunPreProcess( config );
+    
       // [download ref images of every scenario in config and place them to corresponding directory] [with retries]
+      // for ( let i = 0; i < config.scenarios.length; i++ ) {
 
-      for ( let i = 0; i < config.scenarios.length; i++ ) {
-
-        if (config.scenarios[i].meta_referenceImageUrl) {
-          await bucketAdapter.download(
-            path.join(
-              filePathsService.vrtDataFullPath(),
-              config.scenarios[ i ].meta_referenceImageUrl
-            )
-          );
-        }
-      }
+      //   if (config.scenarios[i].meta_referenceImageUrl) {
+      //     await bucketAdapter.download(
+      //       path.join(
+      //         filePathsService.vrtDataFullPath(),
+      //         config.scenarios[ i ].meta_referenceImageUrl
+      //       )
+      //     );
+      //   }
+      // }
 
       // await writeFile('./backstop-config.debug.json', JSON.stringify(config), 'utf-8')
       let result = await backstop('test', { config: config } )
@@ -174,6 +182,8 @@ class QueueProcessor {
 
     console.log('[QueueProcessor] processApproveCase. pair.test:', pair.test)
 
+    await this._flow.ApprovePreProcess(pair);
+
     const rootDir = filePathsService.vrtDataFullPath();
     const reference = path.join( rootDir, pair.reference );
     const test = path.join( rootDir, pair.test );
@@ -200,7 +210,7 @@ class QueueProcessor {
         meta_referenceImageUrl: pair.reference,
         meta_referenceSM: filePathsService.relativeToVrtDataPath( resizes.sm ),
         meta_referenceMD: filePathsService.relativeToVrtDataPath( resizes.md ),
-        meta_referenceLG: filePathsService.relativeToVrtDataPath( resizes.lg )
+        meta_referenceLG: filePathsService.relativeToVrtDataPath( resizes.lg ) //? NOT USED IN UI
       }),
 
       await storage.createHistoryRecord(this._db, {
@@ -212,10 +222,16 @@ class QueueProcessor {
         scenarios: [{ id: scenario._id.toString(), label: scenario.label }]
       }),
 
-      await bucketAdapter.upload( pair.reference ),
-      await bucketAdapter.upload( resizes.sm ),
-      await bucketAdapter.upload( resizes.md ),
-      await bucketAdapter.upload( resizes.lg )
+      await this._flow.ApprovePostProcess({
+        reference: pair.reference,
+        sm: resizes.sm,
+        md: resizes.md,
+        lg: resizes.lg
+      })
+      // await bucketAdapter.upload( pair.reference ),
+      // await bucketAdapter.upload( resizes.sm ),
+      // await bucketAdapter.upload( resizes.md ),
+      // await bucketAdapter.upload( resizes.lg ) //? NOT USED IN UI
     ]);
   }
 
@@ -231,10 +247,6 @@ class QueueProcessor {
       const results = await Promise.all([
         await imageProcessor.resizeTestResult( report.tests[i].pair.images.absolute.test ),
         await imageProcessor.resizeTestResult( report.tests[i].pair.images.absolute.diff ),
-
-        // await bucketAdapter.upload( report.tests[i].pair.images.absolute.ref ),
-        await bucketAdapter.upload( report.tests[i].pair.images.absolute.diff ),
-        await bucketAdapter.upload( report.tests[i].pair.images.absolute.test )
       ]);
 
       const meta_testLG = results[0];
@@ -243,12 +255,21 @@ class QueueProcessor {
       report.tests[i].pair.meta_testLG = filePathsService.relativeToVrtDataPath( meta_testLG );
       report.tests[i].pair.meta_diffImageLG = filePathsService.relativeToVrtDataPath( meta_diffImageLG );
 
-      await Promise.all([
-        await bucketAdapter.upload( meta_testLG ),
-        await bucketAdapter.upload( meta_diffImageLG ),
-      ]);
+      await this._flow.RunPostProcess({
+        ref: report.tests[i].pair.images.absolute.ref,
+        diff: report.tests[i].pair.images.absolute.diff,
+        test: report.tests[i].pair.images.absolute.test,
+        meta_testLG: meta_testLG,
+        meta_diffImageLG: meta_diffImageLG
+      });
 
-      // [delete successfully uploaded images]
+      // await Promise.all([
+      //   // await bucketAdapter.upload( report.tests[i].pair.images.absolute.ref ),
+      //   await bucketAdapter.upload( report.tests[i].pair.images.absolute.diff ),
+      //   await bucketAdapter.upload( report.tests[i].pair.images.absolute.test ),
+      //   await bucketAdapter.upload( meta_testLG ),
+      //   await bucketAdapter.upload( meta_diffImageLG ),
+      // ]);
     }
 
     return report

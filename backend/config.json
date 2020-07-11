@@ -1,9 +1,11 @@
 {
-  "_storageConnectionString": "mongodb://localhost:27017",
-  "storageConnectionString": "mongodb+srv://vzGo8dbd9pg:cmmf2fg88bZgP8CVWud3y@screentestcluster0.lxjfb.mongodb.net",
+  "storageConnectionString": "mongodb://localhost:27017",
+  "_storageConnectionString": "mongodb+srv://vzGo8dbd9pg:cmmf2fg88bZgP8CVWud3y@screentestcluster0.lxjfb.mongodb.net",
   "storageOptions": {
     "useNewUrlParser": true,
     "useFindAndModify": true,
     "useUnifiedTopology": true
-  }
+  },
+  "_mediaStorageStrategy": "S3",
+  "mediaStorageStrategy": "LocalFS"
 }

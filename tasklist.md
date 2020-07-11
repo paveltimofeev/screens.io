@@ -149,18 +149,19 @@
 -- [Move to AWS: 2] STORE (PUT/GET) IMAGES AT AWS S3
 -- [TechDept] Backend: Work with File paths is inconvenient: vrtdata, test results, references, s3 - should be easily convertible to each other.
 -- Backend: Why redbullracing tests are failed without any report? *failed because of tried to load file that does not exists*
+-- [Move to AWS: 2] Support strategies of storing images at AWS S3 or at local FileSystem
 
 
+- Frontend: Comparer: allow approve only failed cases
 - [Move to AWS: 2] Backend: GET references from AWS S3 before run tests (download ref images of every scenario, delete successfully uploaded images)
-- [Move to AWS: 2] Support strategies of storing images at AWS S3 or at local FileSystem
 - [Bug] Backend: References are not uploads to s3
+- Backend: add retries to S3Adapter or ensure that aws lib already provides it. 
 
 TechDept
 - [TechDept] approve by runId, not by pair item
 - [TechDept] Frontend: Fix filters at Jobs view
 - [TechDept] Frontend: Need filtration by status at JobPage (results report) (Implement Sidebar filters for Job Page)
 - [TechDept] Frontend: *featurelost* total number of scenarios
-- [TechDept] Frontend: Close menu at mobile view after click, and do not cover header
 - [TechDept] Backend & Frontend: Viewport settings are not convenient to use and develop. Need better solution, maybe table ith togglers.
 - [TechDept] Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email
 - [TechDept] Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
@@ -190,6 +191,7 @@ BackLog
 - Check active operations with bad network / no network.
 - Frontend: Comparer view: Need to show status Failed/Passed, because when you switch between viewport sizes it's hard to understand passed this case or not. Probably it also need to highlight viewports chips with passsed/failed colors
 - Frontend: Icons at Jobs History should be the same as in Recent Runs and in scenarios' Runs history tables
+- [TechDept] Frontend: Close menu at mobile view after click, and do not cover header
 - **------------ CLOSED BETA MILESTONE ------------**
 
 - [Marketing Strategy] Persuade: Start with the exact solution for US / with a common problems for RU
@@ -267,7 +269,7 @@ BackLog
 - Restrict number of viewports
 - Filter Jobs by Starter (by me / by some user / by schedule / by webhook)
 - Loading a lot of images through AuthProxy is hard? Need to return signed link to S3 instead
-- Backend: Approve all failed/filtered tests in run
+- Backend: Approve all filtered tests in run
 - Dates should store in UTC but display in Local timezone (the same according to Tody filter)
 - support groupby=scenario for jobs history
 - Think out different UseScenarios for different Persons: The Developer, The TeamLead, The Indie (Who's he / What problems does he has / How does he expect to use me)
@@ -284,7 +286,7 @@ BackLog
 - Sanitize body and params in Auth proxy & Backend
 - [Feature] Frontend: Angular MultiLanguage support (i18n, l8n)
 - [Feature] API+APIKEY for running-with-parameters by posted config from body (Usecase: developer stores backstopjs-tests near the component, and post them to API to test against his host/params)
-- [Feature] API+APIKEY for comparing any posted screenshot against stored in DB (Usecase: dev team has environment for taking screenshots and uses API to validate them against approved, team also uses WenUI to approve cases, to monitor stability, and team uses notifications at Slack/Telegram)
+- [Feature] API+APIKEY for comparing any posted screenshot against stored in DB (Usecase: dev team has environment for taking screenshots and uses API to validate them against approved, team also uses WebUI to approve cases, to monitor stability, and team uses notifications at Slack/Telegram)
 - [Feature] Unapprove: Review and turn back any previously approved results.
 - [Feature] Locate tiny changes, and mark them more noticeably. Add "Scroll to next diff" button.
 - Think out understanding of costs (weight of s3/lambdas/queues/vm in total cost of user) to work out correct pricing strategy

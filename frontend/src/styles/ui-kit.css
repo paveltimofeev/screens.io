@@ -169,6 +169,26 @@ nav {
   background: var(--color-mobile-menu-background);
 }
 
+.view-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  _height: 70%;
+  padding-top: var(--px80);
+}
+.view-state img {
+  width: var(--px400);
+}
+.view-state h3 {
+  margin-top: 1.5em;
+  margin-bottom: 0;
+  font-size: var(--px20);
+  font-family: var(--font-normal);
+  font-weight: 400;
+}
+
 
 /* TYPOGRAPHY */
 
@@ -440,6 +460,9 @@ app-data-action-button:first-child {
   background: var(--color-failed);
 }
 .title-stats--passed {
+  background: var(--color-passed);
+}
+.title-stats--running {
   background: var(--color-passed);
 }
 

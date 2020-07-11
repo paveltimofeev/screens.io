@@ -17,6 +17,7 @@ import {
   fullHeightModeOn, imageMode,
   jobDescriptionInfo,
   jobTitle,
+  isRunning,
   breadcrumbTitle,
   resultStats,
   sidebarHeaderInfo,
@@ -33,6 +34,7 @@ export class JobPageComponent implements OnInit, OnDestroy {
 
   jobId:string;
   title$: Observable<string>;
+  isRunning$: Observable<boolean>;
   resultStats$: Observable<string>;
   breadcrumbTitle$: Observable<string>;
   cases$: Observable<any[]>;
@@ -55,6 +57,7 @@ export class JobPageComponent implements OnInit, OnDestroy {
     this.jobId = this.route.snapshot.params.id;
 
     this.title$ = this.store.select( jobTitle );
+    this.isRunning$ = this.store.select( isRunning );
     this.breadcrumbTitle$ = this.store.select( breadcrumbTitle );
     this.resultStats$ = this.store.select( resultStats );
     this.cases$ = this.store.select( cases );

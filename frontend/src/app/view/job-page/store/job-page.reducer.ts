@@ -19,6 +19,8 @@ export interface JobPageState {
   searchFilter: string;
   fullHeightModeOn: boolean;
   imageMode: string;
+
+  isRunning: boolean;
 }
 
 export const initState = {
@@ -35,7 +37,9 @@ export const initState = {
 
   searchFilter: '',
   fullHeightModeOn: false,
-  imageMode: 'Test Result'
+  imageMode: 'Test Result',
+
+  isRunning: false
 };
 
 const _reducer = createReducer(initState,
@@ -44,7 +48,8 @@ const _reducer = createReducer(initState,
 
     return {
       ...state,
-      ...action.payload
+      ...action.payload,
+      isRunning: action.payload.status === 'Running'
     }
   }),
 

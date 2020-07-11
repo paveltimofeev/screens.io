@@ -152,9 +152,7 @@
 -- [Move to AWS: 2] Support strategies of storing images at AWS S3 or at local FileSystem
 -- Frontend: Comparer: allow approve only failed cases
 -- [TechDept] approve by runId, not by pair item
-
-
-- Frontend: Show report UI for running-state jobs
+-- Frontend: Show report UI for running-state jobs
 
 
 TechDept
@@ -304,6 +302,7 @@ BackLog
 - [Legal] FontAwsome can be used for commercial project?
 - [Legal] juxtaposejs can be used for commercial project?
 - [Legal] Unsplush images can be used for commercial project?
+- [Legal] undraw.co images can be used for commercial project?
 - [Legal] Terms of Service, Privacy Policy, Cookie Policy and Beta Service Agreement - what needed?
 - [Frontend] Support dark theme (dark mode) based on 'prefers-color-scheme' css media function, to better view of big percent of light screenshots
 - Invalid css-selector could crash test

@@ -30,7 +30,7 @@ export class ComparerEffects {
           ).pipe(
             map( ([res, viewports]) => {
 
-              const idx = action.payload.testCaseIndex - 1;
+              const idx = action.payload.testCaseIndex;
 
               const status = res.report.tests[ idx ].status;
               const testCase = res.report.tests[ idx ].pair;
@@ -92,8 +92,7 @@ export class ComparerEffects {
 
       let testCase = {
         reportId: action.payload.reportId,
-        label: action.payload.scenario,
-        viewportLabel: action.payload.viewport
+        testCaseIndex: action.payload.testCaseIndex
       };
 
       return this.api.approveCase(testCase)

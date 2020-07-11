@@ -55,7 +55,8 @@
     enabled
 
 
-## Record
+## History Record / Job Item
+    _id   *JobId*
     runId
     state
     startedAt
@@ -68,7 +69,8 @@
     viewports[]
 
 
-## Report
+## Report / Json Report / Run Results
+    _id
     runId
     testSuite
     tests

@@ -6,7 +6,7 @@ import { mergeMap, map, withLatestFrom } from 'rxjs/operators';
 import { DateService } from '../../../services/date.service';
 import { environment } from '../../../../environments/environment';
 import { Store } from '@ngrx/store';
-import { failedCases } from './job-page.selectors';
+import { failedCases, cases } from './job-page.selectors';
 import { concat, of } from 'rxjs';
 
 
@@ -135,30 +135,26 @@ export class JobPageEffects {
 
   approveAllFailedCases$ = createEffect(() => this.actions$.pipe(
     ofType(approveAllFailedCases),
-    withLatestFrom(this.store.select(failedCases)),
+    withLatestFrom(this.store.select(cases)),
     mergeMap(([action, cases]) => {
 
-      const actions = cases.map( x => ({
-          type: approve.type,
-          payload: {
-            jobId: action.payload.jobId,
-            testCase: {
-              reportId: x.reportId,
-              label: x.label,
-              viewportLabel: x.viewport
-            }
-          }
-        }
-      ));
+      const actions = [];
+      
+      cases.forEach( (x, idx) => {
+        
+        if(x.status === 'fail') {
 
-      console.log(actions);
+          actions.push({
+            type: approve.type,
+            payload: {
+              jobId: action.payload.jobId,
+              testCase: { reportId: x.reportId, testCaseIndex: idx }
+            }
+          });
+        }
+        
+      });
 
       return concat(actions)
-
-      // return of({type: 'null'});
-
-      // return this.api.approveCase(action.payload.testCase).pipe(
-      //   map( res => ({ type: refresh.type, payload: { id: action.payload.jobId }}))
-      // )
     })));
 }

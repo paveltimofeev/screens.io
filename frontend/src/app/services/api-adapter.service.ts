@@ -48,8 +48,7 @@ export class ApiAdapterService {
 
   approveCase (testCase: {
     reportId: string,
-    label: string,
-    viewportLabel: string
+    testCaseIndex: number
   }): Observable<any> {
 
     return this.dataAccessService.post(

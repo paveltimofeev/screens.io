@@ -139,29 +139,14 @@ class VRT {
 
         let report = await storage.getReportById(this._db, testCase.reportId);
 
-        console.log('report.runId', report.runId)
+        const isPairExists = () => {
+            return report && report.tests && report.tests.length > testCase.testCaseIndex;
+        }
 
-        const configPaths = engine.buildConfigPaths(this._tenantId, this._userId)
-        // engine.convertReportPath(configPaths, report.runId, report)
-
-        let pairs = report
-          .tests
-          .filter( t =>
-            t.pair.label === testCase.label &&
-            t.pair.viewportLabel === testCase.viewportLabel
-          )
-          .map( x => ({
-              label: x.pair.label,
-              reference: x.pair.reference,
-              test: x.pair.test
-          }))
-
-        if (pairs && pairs.length === 1) {
-
-            let pair = pairs[0]
+        if ( isPairExists() ) {
 
             await queues.sendToApproveQueue({
-                pair,
+                data: testCase,
                 ctx: {
                     tenant: this._tenantId,
                     userid: this._userId,
@@ -179,9 +164,8 @@ class VRT {
     async getReportByRunId (runId) {
 
         const report = await storage.getReportByRunId(this._db, runId)
-        const config = await this.getConfig();
-
-        // engine.convertReportPath(config.paths, runId, report)
+        //? const config = await this.getConfig();
+        //? engine.convertReportPath(config.paths, runId, report)
 
         return report
     }

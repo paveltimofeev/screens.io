@@ -178,9 +178,28 @@ class QueueProcessor {
     }
   }
 
-  async processApproveCase (pair) {
+  async processApproveCase (data) {
 
-    console.log('[QueueProcessor] processApproveCase. pair.test:', pair.test)
+    console.log('[QueueProcessor] processApproveCase. pair.test:', data.test)
+
+    let report = await storage.getReportById(this._db, data.reportId);
+
+    if (
+      !report || 
+      !report.tests || 
+      report.tests.length <= data.testCaseIndex || 
+      !report.tests[data.testCaseIndex] || 
+      !report.tests[data.testCaseIndex].pair
+    ){
+      console.error('[QueueProcessor] ERROR processApproveCase. Cannot find pair', data);
+      return;
+    }
+
+    let pair = { 
+      label: report.tests[data.testCaseIndex].pair.label, 
+      reference: report.tests[data.testCaseIndex].pair.reference, 
+      test: report.tests[data.testCaseIndex].pair.test
+    }
 
     await this._flow.ApprovePreProcess(pair);
 

@@ -97,8 +97,8 @@ export class ComparerComponent implements OnInit, OnDestroy {
 
         this.store.dispatch( approve({ payload: {
             jobId: this.jobId,
-            testCaseIndex: this.testCaseIndex,
-            ...info
+            reportId: info.reportId,
+            testCaseIndex: this.testCaseIndex
           }
         }))
       })

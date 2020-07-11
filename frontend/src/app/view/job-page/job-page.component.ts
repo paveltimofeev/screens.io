@@ -99,19 +99,18 @@ export class JobPageComponent implements OnInit, OnDestroy {
   /* DATA ITEM ACTIONS */
 
   clickCardHandler (caseIndex: number) {
-    this.navigation.openComparer(this.jobId, caseIndex + 1)
+    this.navigation.openComparer(this.jobId, caseIndex)
   }
   clickLabelHandler (scenarioId: string) {
     this.navigation.openScenario(scenarioId)
   }
-  clickApproveHandler (testCase: any) {
+  clickApproveHandler (testCase: any, caseIndex: number) {
 
     this.store.dispatch(approve({payload:{
       jobId: this.jobId,
       testCase: {
         reportId: testCase.reportId,
-        label: testCase.label,
-        viewportLabel: testCase.viewport
+        testCaseIndex: caseIndex
       }
       }}))
   }

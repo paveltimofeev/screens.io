@@ -10,8 +10,7 @@ export const approve = createAction('[Job Page Component] approve', props<
       jobId: string,
       testCase: {
         reportId: string,
-        label: string,
-        viewportLabel: string
+        testCaseIndex: number
       }
     }
   }>());

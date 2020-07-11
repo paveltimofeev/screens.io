@@ -42,15 +42,15 @@ router.post('/test/run', async function(req, res) {
 
 router.post('/test/approvecase', async function(req, res) {
 
-    const pair = req.body; // TODO: sanitize body
+    const {reportId, testCaseIndex} = req.body;  // TODO: sanitize body
+
+    if (!reportId || testCaseIndex == null || testCaseIndex < 0) {
+        return res.status(400).send();
+    }
 
     tryWrapper(req, res, async () => {
 
-        const result = await VRT.create(req.context).enqueueApproveCase({
-            reportId: pair.reportId,
-            viewportLabel: pair.viewportLabel,
-            label: pair.label
-        })
+        const result = await VRT.create(req.context).enqueueApproveCase({reportId, testCaseIndex})
 
         console.log('[VRT] approvecase result', result);
 

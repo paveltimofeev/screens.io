@@ -31,10 +31,10 @@ const localRunQueue = new QueueWrapper(async (task) => {
 
 const localApproveQueue = new QueueWrapper(async (task) => {
 
-  const {pair, ctx} = task;
+  const {data, ctx} = task;
 
   const QueueProcessor = require('./queue-processor');
-  await QueueProcessor.create(ctx).processApproveCase(pair)
+  await QueueProcessor.create(ctx).processApproveCase(data);
 });
 
 
@@ -52,9 +52,9 @@ const sendToRunQueue = async (task) => {
 
 const sendToApproveQueue = async (task) => {
 
-  const {pair, ctx} = task;
+  const {data, ctx} = task;
 
-  if(!pair || !ctx) {
+  if(!data || !ctx) {
     console.error('Wrong approve task', task);
     throw new Error('Wrong approve task');
   }

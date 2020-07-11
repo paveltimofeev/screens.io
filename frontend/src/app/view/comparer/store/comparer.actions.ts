@@ -12,11 +12,8 @@ export const approve = createAction(
   props<{
     payload:{
       jobId: string,
-      testCaseIndex: number,
-
       reportId: string,
-      scenario: string,
-      viewport: string
+      testCaseIndex: number,
   }}>());
 
 export const runAgain = createAction(

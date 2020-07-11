@@ -134,7 +134,7 @@
           [fullHeightModeOn]="fullHeightModeOn$ | async"
           (clickCard)="clickCardHandler(idx)"
           (clickLabel)="clickLabelHandler(c.scenarioId)"
-          (clickApprove)="clickApproveHandler(c)"
+          (clickApprove)="clickApproveHandler(c, idx)"
         >
         </app-card-lg>
 
@@ -150,7 +150,7 @@
           [fullHeightModeOn]="fullHeightModeOn$ | async"
           (clickCard)="clickCardHandler(idx)"
           (clickLabel)="clickLabelHandler(c.scenarioId)"
-          (clickApprove)="clickApproveHandler(c)"
+          (clickApprove)="clickApproveHandler(c, idx)"
         >
         </app-card-lg>
       </div>

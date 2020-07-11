@@ -151,22 +151,25 @@
 -- Backend: Why redbullracing tests are failed without any report? *failed because of tried to load file that does not exists*
 -- [Move to AWS: 2] Support strategies of storing images at AWS S3 or at local FileSystem
 -- Frontend: Comparer: allow approve only failed cases
+-- [TechDept] approve by runId, not by pair item
 
 
-- [Move to AWS: 2] Backend: GET references from AWS S3 before run tests (download ref images of every scenario, delete successfully uploaded images)
-- [Bug] Backend: References are not uploads to s3
-- Backend: add retries to S3Adapter or ensure that aws lib already provides it. 
+- Frontend: Show report UI for running-state jobs
+
 
 TechDept
-- [TechDept] approve by runId, not by pair item
 - [TechDept] Frontend: Fix filters at Jobs view
 - [TechDept] Frontend: Need filtration by status at JobPage (results report) (Implement Sidebar filters for Job Page)
 - [TechDept] Frontend: *featurelost* total number of scenarios
 - [TechDept] Backend & Frontend: Viewport settings are not convenient to use and develop. Need better solution, maybe table ith togglers.
 - [TechDept] Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email
 - [TechDept] Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
+- [TechDept] Auto Stop for stuck/forever-running jobs
 
 BackLog
+- [Move to AWS: 2] Backend: GET references from AWS S3 before run tests (download ref images of every scenario, delete successfully uploaded images)
+- [Bug] Backend: References are not uploads to s3
+- Backend: add retries to S3Adapter or ensure that aws lib already provides it.
 - [Move to AWS: Preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
 - [Move to AWS: 3] Run proxy & backend on AWS VM
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
@@ -175,6 +178,8 @@ BackLog
 - Display retry button for not-ready yet history record (screens)
 - **------------ MVP MILESTONE ------------**
 
+- Frontend: Approvement of test case should not be based on idx, use guid/id generated on server-side instead. Approvement should be based on runId*caseId.
+- Frontend: JobPage: Case Card have to have NotApproved/Approving/Approved states (or maybe None/Running/Passed/Failed/Approving/Approved)
 - Frontend: Scenario Page - add Overview(Summary) with reference image 
 - **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user, copy data and files from 'Default' user)
 - Frontend: card-sm & card-lg should looks the same, they have too different styles now.

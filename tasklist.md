@@ -174,7 +174,6 @@ BackLog
 - **------------ MVP MILESTONE ------------**
 
 - Backend: add retries to S3Adapter or ensure that aws lib already provides it.
-- [Bug] Frontend: Comparer: switching to other Viewport size, opens other testCase sometimes
 - [Bug] Frontend: Seems that date in Job Page title does not respect summer/winter time
 - Frontend: JobPage: Case Card have to have NotApproved/Approving/Approved states (or maybe None/Running/Passed/Failed/Approving/Approved)
 - Frontend: Scenario Page - add Overview(Summary) with reference image 

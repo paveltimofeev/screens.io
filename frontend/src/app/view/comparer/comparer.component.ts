@@ -131,7 +131,7 @@ export class ComparerComponent implements OnInit, OnDestroy {
         .subscribe( (cases:any[]) => {
           const c = cases.find(x => x.viewportLabel === $event.value);
           if (c) {
-            this.navigation.openComparer(this.jobId, c.caseIndex + 1)
+            this.navigation.openComparer(this.jobId, c.caseIndex)
           }
           else {
             console.warn(`Cannot find "${$event.value}" in`, cases)

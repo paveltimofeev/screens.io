@@ -67,6 +67,30 @@ router.post('/test/approvecase', async function(req, res) {
 });
 
 
+router.get('/test/widgets/:widget', async function(req, res) {
+
+    const widget = req.params.widget;
+
+    tryWrapper(req, res, async () => {
+
+        const vrt = VRT.create( req.context );
+
+        switch (widget) {
+
+            case 'recently_failed':
+
+                res.status(200).send( {
+                    data: await vrt.getRecentlyFailedJob()
+                })
+                break;
+
+            default:
+                res.status(400).send()
+        }
+
+    })
+});
+
 
 router.get('/test/report/:runId', async function(req, res) {
 

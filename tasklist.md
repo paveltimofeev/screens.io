@@ -156,6 +156,7 @@
 -- Frontend: Change `JobDate` to `Job Report #...` in breadcrumbs - `Jobs History > JobDate > Scenario > Viewport`, to be consistent with Jobs History page.
 
 
+- Frontend: Stats & analytics: Recently failed Job
 - Display 'refresh' button for running job and 'break' or 'stop' for running too long.
 - [TechDept] Auto Stop for stuck/forever-running jobs
 
@@ -169,7 +170,7 @@ BackLog
 - [Move to AWS: 3] Run proxy & backend on AWS VM
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
 - [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
-- Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
+- Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Frontend: Comparer: Images are misplaced sometimes. Need to show loading process.
 - **------------ MVP MILESTONE ------------**
 

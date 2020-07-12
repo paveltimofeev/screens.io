@@ -28,9 +28,9 @@
       <app-widget
         [title]="'Recently failed'"
         [bgColor]="'gray'">
-
-        Home Page / Navigation Bar Component <br>
-        <button class="button button--white button--lg">Run Again</button>
+        {{ (widgetRecentlyFailed$ | async).scenarios[0] }}
+        <br>
+        <button class="button button--white button--lg" (click)="widget_RunAgainHandler()">Run Again</button>
 
       </app-widget>
 

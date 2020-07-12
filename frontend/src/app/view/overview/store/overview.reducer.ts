@@ -13,7 +13,9 @@ export interface OverviewState {
   scenariosLabels: string[];
 
   lastRunTime: any;
-  totalState: string
+  totalState: string;
+
+  widgets: { recently_failed:any }
 }
 
 export const initState = {
@@ -25,7 +27,13 @@ export const initState = {
   viewportsLabels: [],
 
   lastRunTime: -1,
-  totalState: ''
+  totalState: '',
+
+  widgets: {
+    recently_failed: {
+      scenarios: []
+    }
+  }
 };
 
 const _reducer = createReducer(initState,

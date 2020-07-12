@@ -58,10 +58,11 @@ export class OverviewEffects {
       return forkJoin(
         this.api.getScenarios(),
         this.api.getEnabledViewports(),
-        this.api.getFavoriteScenarios()
+        this.api.getFavoriteScenarios(),
+        this.api.getWidgetsData()
       ).pipe(
 
-        map( ([scenarios, viewports, favorites]) => {
+        map( ([scenarios, viewports, favorites, widgets]) => {
 
           return {
             type: loaded.type,
@@ -76,7 +77,9 @@ export class OverviewEffects {
               viewportsLabels: viewports.data.map(x => x.label),
 
               lastRunTime: -1,
-              totalState: ''
+              totalState: '',
+
+              widgets
             }}
         })
       )

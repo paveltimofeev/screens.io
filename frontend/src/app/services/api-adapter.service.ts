@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { DataAccessService } from './data-access.service';
 import { environment } from '../../environments/environment';
 import { FiltersService, IQueryFilter } from './filters.service';
 import { IScenario } from '../models/app.models';
+import { map } from 'rxjs/operators';
 
 export interface IConfig {
   id:string,
@@ -279,6 +280,21 @@ export class ApiAdapterService {
     return this.dataAccessService.delete(
       environment.api + 'test/scenario/' + scenarioId)
   }
+
+  getWidgetsData(): Observable<any> {
+
+    return forkJoin(
+        this.dataAccessService.get(environment.api + 'test/widgets/recently_failed')
+      )
+      .pipe(
+        map(([recently_failed]) => {
+          return {
+            recently_failed: recently_failed.data
+          }
+        })
+      )
+  }
+
 
   /// Account Management Adapter?
   getAccountInfo(): Observable<any> {

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IBarItem } from '../../ui-kit/widget-timeline/widget-timeline.component';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { favoriteScenarios, recentJobs, runFilteredWidgetData, stats } from './store/overview.selectors';
+import { favoriteScenarios, recentJobs, runFilteredWidgetData, widgetRecentlyFailed, stats } from './store/overview.selectors';
 import {
   cleanupNgrxStorage,
   refresh,
@@ -27,6 +27,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
   recentJobs$: Observable<any[]>;
   stats$: Observable<any>;
   runFilteredWidgetData$: Observable<any>;
+  widgetRecentlyFailed$: Observable<any>;
 
   constructor(
     private store: Store,
@@ -39,6 +40,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
     this.recentJobs$ = this.store.pipe(select(recentJobs))
     this.stats$ = this.store.pipe(select(stats))
     this.runFilteredWidgetData$ = this.store.pipe(select(runFilteredWidgetData))
+    this.widgetRecentlyFailed$ = this.store.pipe(select(widgetRecentlyFailed))
 
     this.store.dispatch(refresh())
     this.store.dispatch(refreshRecentRuns())
@@ -66,6 +68,10 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   runAllScenariosHandler () {
     this.store.dispatch(runAllScenarios())
+  }
+
+  widget_RunAgainHandler () {
+    console.log('RunAgainHandler not implemented')
   }
 
 

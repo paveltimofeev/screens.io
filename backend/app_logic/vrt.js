@@ -203,12 +203,26 @@ class VRT {
             if (startedSince.isValid() ) {
                 query.startedAt = startedSince.toQueryPart();
             }
+
             if (beforeStartedAt.isValid() ) {
                 query.startedAt = beforeStartedAt.toQueryPart();
             }
         }
 
         return await storage.getHistoryRecords(this._db, query, limit)
+    }
+    async getRecentlyFailedJob() {
+        
+        const records = await this.getHistoryRecords( {state: 'Failed'}, 1);
+
+        if (!records || records.length < 1 || !records[0].scenarios) {
+            return null;
+        }
+
+        return {
+            jobId: records[0]._id,
+            scenarios: records[0].scenarios.map(x => x.label)
+        };
     }
     async getHistoryRecordsCount () {
 

@@ -16,7 +16,7 @@ export const canApprove = createSelector(
 export const breadcrumbsInfo = createSelector(
   selectFeature,
   (state: ComparerState) => ({
-    job: state.job,
+    reportId: state.reportId,
     scenarioId: state.scenarioId,
     scenario: state.scenario,
     viewport: state.viewport.label

@@ -153,35 +153,33 @@
 -- Frontend: Comparer: allow approve only failed cases
 -- [TechDept] approve by runId, not by pair item
 -- Frontend: Show report UI for running-state jobs
+-- Frontend: Change `JobDate` to `Job Report #...` in breadcrumbs - `Jobs History > JobDate > Scenario > Viewport`, to be consistent with Jobs History page.
+
+
+- Display 'refresh' button for running job and 'break' or 'stop' for running too long.
+- [TechDept] Auto Stop for stuck/forever-running jobs
 
 
 TechDept
 - [TechDept] Frontend: Fix filters at Jobs view
-- [TechDept] Frontend: Need filtration by status at JobPage (results report) (Implement Sidebar filters for Job Page)
-- [TechDept] Frontend: *featurelost* total number of scenarios
-- [TechDept] Backend & Frontend: Viewport settings are not convenient to use and develop. Need better solution, maybe table ith togglers.
-- [TechDept] Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email
-- [TechDept] Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
-- [TechDept] Auto Stop for stuck/forever-running jobs
 
 BackLog
 - [Move to AWS: 2] Backend: GET references from AWS S3 before run tests (download ref images of every scenario, delete successfully uploaded images)
 - [Bug] Backend: References are not uploads to s3
-- Backend: add retries to S3Adapter or ensure that aws lib already provides it.
-- [Move to AWS: Preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
 - [Move to AWS: 3] Run proxy & backend on AWS VM
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
+- [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Frontend: Comparer: Images are misplaced sometimes. Need to show loading process.
-- Display retry button for not-ready yet history record (screens)
 - **------------ MVP MILESTONE ------------**
 
-- Frontend: Approvement of test case should not be based on idx, use guid/id generated on server-side instead. Approvement should be based on runId*caseId.
+- Backend: add retries to S3Adapter or ensure that aws lib already provides it.
+- [Bug] Frontend: Comparer: switching to other Viewport size, opens other testCase sometimes
+- [Bug] Frontend: Seems that date in Job Page title does not respect summer/winter time
 - Frontend: JobPage: Case Card have to have NotApproved/Approving/Approved states (or maybe None/Running/Passed/Failed/Approving/Approved)
 - Frontend: Scenario Page - add Overview(Summary) with reference image 
 - **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user, copy data and files from 'Default' user)
 - Frontend: card-sm & card-lg should looks the same, they have too different styles now.
-- Frontend: Change `JobDate` to `Job Report #...` in breadcrumbs - `Jobs History > JobDate > Scenario > Viewport`, to be consistent with Jobs History page.
 - [Security] Backend: Do not store authConfig login/password in plain text (need to encrypt/decrypt them). Do not transfer them to UI.
 - Terms of Service, Privacy Policy and Beta Service Agreement (links and docs)
 - [Bug] Scenarios with url without protocol (https:// or http://) fails and stucks
@@ -189,14 +187,20 @@ BackLog
 - [Bug] *use _id as label in config?* Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
 - [Bug] *use _id as label in config?* Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
 - [Bug] user can create several viewports with the same size, after that he cannot delete of disable any of them
-- Frontend & Proxy: Request Beta Access / Get Notified on Launch (Ask for name/email, place email to separate table, examples: https://quantumcomputing.com/beta, https://www.humanfirst.ai/request-beta-access, https://quantumcomputing.com/)
 - Define Metrics to collect (feature requests & feedback button) [cost of each user, typical ways to work]
-- Check active operations with bad network / no network.
+- Check active operations with bad network / no network - where are error screens or loading states have to be used?
 - Frontend: Comparer view: Need to show status Failed/Passed, because when you switch between viewport sizes it's hard to understand passed this case or not. Probably it also need to highlight viewports chips with passsed/failed colors
 - Frontend: Icons at Jobs History should be the same as in Recent Runs and in scenarios' Runs history tables
 - [TechDept] Frontend: Close menu at mobile view after click, and do not cover header
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- Frontend & Proxy: Request Beta Access / Get Notified on Launch (Ask for name/email, place email to separate table, examples: https://quantumcomputing.com/beta, https://www.humanfirst.ai/request-beta-access, https://quantumcomputing.com/)
+- Frontend: Approvement of test case should not be based on idx, use guid/id generated on server-side instead. Approvement should be based on runId*caseId.
+- [TechDept] Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email
+- [TechDept] Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
+- [TechDept] Backend & Frontend: Viewport settings are not convenient to use and develop. Need better solution, maybe table ith togglers.
+- [TechDept] Frontend: *featurelost* total number of scenarios
+- Frontend: Need filtration by status at JobPage (results report) (Implement Sidebar filters for Job Page)
 - [Marketing Strategy] Persuade: Start with the exact solution for US / with a common problems for RU
 - Proxy: Switch to TypeScript to reduce chaos
 - Backend: Switch to TypeScript to reduce chaos

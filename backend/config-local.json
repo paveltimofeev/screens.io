@@ -1,0 +1,9 @@
+{
+  "storageConnectionString": "mongodb://localhost:27017",
+  "storageOptions": {
+    "useNewUrlParser": true,
+    "useFindAndModify": true,
+    "useUnifiedTopology": true
+  },
+  "mediaStorageStrategy": "LocalFS"
+}

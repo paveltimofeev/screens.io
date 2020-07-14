@@ -154,24 +154,28 @@
 -- [TechDept] approve by runId, not by pair item
 -- Frontend: Show report UI for running-state jobs
 -- Frontend: Change `JobDate` to `Job Report #...` in breadcrumbs - `Jobs History > JobDate > Scenario > Viewport`, to be consistent with Jobs History page.
+-- Backend: add PM2 to run multiple services inside of one AWS Beanstalk application
 
 
+- [Bug] Backend: References are not uploads to s3
+- [Move to AWS: 2] Backend: GET references from AWS S3 before run tests (download ref images of every scenario, delete successfully uploaded images)
 - Frontend: Stats & analytics: Recently failed Job
-- Display 'refresh' button for running job and 'break' or 'stop' for running too long.
-- [TechDept] Auto Stop for stuck/forever-running jobs
 
 
 TechDept
 - [TechDept] Frontend: Fix filters at Jobs view
 
 BackLog
-- [Move to AWS: 2] Backend: GET references from AWS S3 before run tests (download ref images of every scenario, delete successfully uploaded images)
-- [Bug] Backend: References are not uploads to s3
-- [Move to AWS: 3] Run proxy & backend on AWS VM
+- Supports starting with local/cloud config
+- [Move to AWS: 3] Run proxy & backend on AWS Beanstalk (allow access to mongodb, s3; open :8888, add ssl)
+- [Move to AWS: 3.1] Setup CD from Github -> CodePipline -> CodeBuild -> Beanstalk
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
 - [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Frontend: Comparer: Images are misplaced sometimes. Need to show loading process.
+- Display 'refresh' button for running job and 'break' or 'stop' for running too long.
+- [TechDept] Auto Stop for stuck/forever-running jobs
+
 - **------------ MVP MILESTONE ------------**
 
 - Backend: add retries to S3Adapter or ensure that aws lib already provides it.
@@ -189,6 +193,7 @@ BackLog
 - [Bug] user can create several viewports with the same size, after that he cannot delete of disable any of them
 - Define Metrics to collect (feature requests & feedback button) [cost of each user, typical ways to work]
 - Check active operations with bad network / no network - where are error screens or loading states have to be used?
+- Check FireFox, Opera, Edge
 - Frontend: Comparer view: Need to show status Failed/Passed, because when you switch between viewport sizes it's hard to understand passed this case or not. Probably it also need to highlight viewports chips with passsed/failed colors
 - Frontend: Icons at Jobs History should be the same as in Recent Runs and in scenarios' Runs history tables
 - [TechDept] Frontend: Close menu at mobile view after click, and do not cover header

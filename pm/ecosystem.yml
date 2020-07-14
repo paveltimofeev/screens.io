@@ -1,0 +1,11 @@
+apps:
+  - script: './auth-proxy/proxy.js'
+    name: proxy
+    watch: true
+    env:
+      NODE_ENV: production
+  - script: './backend/app.js'
+    name: backend
+    watch: true
+    env:
+      NODE_ENV: production

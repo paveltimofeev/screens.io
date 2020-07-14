@@ -20,7 +20,7 @@
 }
 
 .image-frame {
-  border: 1px solid #f6f6f6;
+  _border: 1px solid #f6f6f6;
   border-top: 24px solid #f6f6f6;
   overflow-x: hidden;
   overflow-y: auto;

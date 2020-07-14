@@ -175,8 +175,8 @@ nav {
   align-items: center;
   justify-content: center;
   width: 100%;
-  _height: 70%;
-  padding-top: var(--px80);
+  height: 70%;
+  _padding-top: var(--px80);
 }
 .view-state img {
   width: var(--px400);

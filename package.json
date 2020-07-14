@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "./node_modules/.bin/pm2 start ./pm/ecosystem.yml",
-    "poststart": "node ./node_modules/pm2/bin/pm2 logs",
+    "__poststart": "node ./node_modules/pm2/bin/pm2 logs",
     "stop": "./node_modules/.bin/pm2 stop ./pm/ecosystem.yml",
     "list": "./node_modules/.bin/pm2 list",
     "plus": "./node_modules/.bin/pm2 plus",

@@ -155,8 +155,11 @@
 -- Frontend: Show report UI for running-state jobs
 -- Frontend: Change `JobDate` to `Job Report #...` in breadcrumbs - `Jobs History > JobDate > Scenario > Viewport`, to be consistent with Jobs History page.
 -- Backend: add PM2 to run multiple services inside of one AWS Beanstalk application
+-- [Move to AWS: 3.0] Run proxy & backend on AWS Beanstalk (allow access to mongodb)
+-- [Move to AWS: 3.1] Setup CodePipeline and CodeBuild for CD to Beanstalk
 
 
+- [Move to AWS: 3.2] AWS Beanstalk: allow access to s3 and add SSL
 - [Bug] Backend: References are not uploads to s3
 - [Move to AWS: 2] Backend: GET references from AWS S3 before run tests (download ref images of every scenario, delete successfully uploaded images)
 - Frontend: Stats & analytics: Recently failed Job
@@ -167,7 +170,6 @@ TechDept
 
 BackLog
 - Supports starting with local/cloud config
-- [Move to AWS: 3] Run proxy & backend on AWS Beanstalk (allow access to mongodb, s3; open :8888, add ssl)
 - [Move to AWS: 3.1] Setup CD from Github -> CodePipline -> CodeBuild -> Beanstalk
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
 - [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
@@ -199,6 +201,7 @@ BackLog
 - [TechDept] Frontend: Close menu at mobile view after click, and do not cover header
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- [AWS] Do I really need CodeBuild step at CodePipeline?
 - Frontend & Proxy: Request Beta Access / Get Notified on Launch (Ask for name/email, place email to separate table, examples: https://quantumcomputing.com/beta, https://www.humanfirst.ai/request-beta-access, https://quantumcomputing.com/)
 - Frontend: Approvement of test case should not be based on idx, use guid/id generated on server-side instead. Approvement should be based on runId*caseId.
 - [TechDept] Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email

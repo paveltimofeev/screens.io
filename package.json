@@ -1,0 +1,16 @@
+{
+  "name": "screens_beanstalk_entrypoint",
+  "version": "1.0.0",
+  "scripts": {
+    "start.eb": "./node_modules/pm2/bin/pm2-runtime start ./pm/ecosystem.yml",
+    "poststart": "node ./node_modules/pm2/bin/pm2 logs",
+    "start.win": "./node_modules/.bin/pm2 start ./pm/ecosystem.yml",
+    "stop.win": "./node_modules/.bin/pm2 stop ./pm/ecosystem.yml",
+    "list.win": "./node_modules/.bin/pm2 list",
+    "plus.win": "./node_modules/.bin/pm2 plus",
+    "logs.win": "./node_modules/.bin/pm2 logs --lines 200"
+  },
+  "dependencies": {
+    "pm2": "^4.4.0"
+  }
+}

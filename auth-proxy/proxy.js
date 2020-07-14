@@ -14,6 +14,7 @@ const { connectToDb } = require('./storage/storage-adapter')
 const loginRouter = require('./routes/login');
 const manageRouter = require('./routes/manage');
 const webuiRouter = require('./routes/manage');
+const sysRouter = require('./routes/sys');
 
 
 process.env.NODE_ENV = 'production'; // Hide stacktrace on error
@@ -76,6 +77,7 @@ app.use(express.json())
 
 /// ROUTES MIDDLEWARE
 
+app.use('/sys', sysRouter);
 app.use('/manage', manageRouter);
 app.use('/', loginRouter);
 

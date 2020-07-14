@@ -1,6 +1,6 @@
 {
   "port": 8888,
-  "backend": "http://0.0.0.0:3000",
+  "backend": "http://localhost:3000",
   "proxyPath": ["/api/", "/vrt_data/"],
   "cookieSign": "secretKey",
   "sessionSecret": "sessionSecret71R369C31V186C12BX",

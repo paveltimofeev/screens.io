@@ -5,6 +5,8 @@
     "start": "./node_modules/.bin/pm2 start ./pm/ecosystem.yml",
     "__poststart": "node ./node_modules/pm2/bin/pm2 logs",
     "stop": "./node_modules/.bin/pm2 stop ./pm/ecosystem.yml",
+    "delete": "./node_modules/.bin/pm2 delete ./pm/ecosystem.yml",
+    "restart": "./node_modules/.bin/pm2 restart ./pm/ecosystem.yml",
     "list": "./node_modules/.bin/pm2 list",
     "plus": "./node_modules/.bin/pm2 plus",
     "logs": "./node_modules/.bin/pm2 logs --lines 200"

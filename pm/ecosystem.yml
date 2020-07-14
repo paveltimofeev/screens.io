@@ -1,11 +1,15 @@
 apps:
-  - script: './auth-proxy/proxy.js'
+  - script: './proxy.js'
+    cwd: auth-proxy
     name: proxy
     watch: true
+    port: 8888
     env:
       NODE_ENV: production
-  - script: './backend/app.js'
+  - script: './bin/www'
+    cwd: backend
     name: backend
     watch: true
+    port: 3000
     env:
       NODE_ENV: production

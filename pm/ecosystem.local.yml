@@ -5,13 +5,13 @@ apps:
     watch: true
     port: 8888
     env:
-      NODE_ENV: production
-      SCREENS_ENV: CLOUD
+      NODE_ENV: development
+      SCREENS_ENV: LOCAL
   - script: './bin/www'
     cwd: backend
     name: backend
     watch: true
     port: 3000
     env:
-      NODE_ENV: production
-      SCREENS_ENV: CLOUD
+      NODE_ENV: development
+      SCREENS_ENV: LOCAL

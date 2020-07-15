@@ -194,7 +194,7 @@ BackLog
 - [Bug] *use _id as label in config?* Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
 - [Bug] user can create several viewports with the same size, after that he cannot delete of disable any of them
 - Define Metrics to collect (feature requests & feedback button) [cost of each user, typical ways to work]
-- Check active operations with bad network / no network - where are error screens or loading states have to be used?
+- Check active operations with bad network / no network - where are error screens or loading states have to be used? (*Favorite scenarios, Recent Runs*)
 - Check FireFox, Opera, Edge
 - Frontend: Comparer view: Need to show status Failed/Passed, because when you switch between viewport sizes it's hard to understand passed this case or not. Probably it also need to highlight viewports chips with passsed/failed colors
 - Frontend: Icons at Jobs History should be the same as in Recent Runs and in scenarios' Runs history tables

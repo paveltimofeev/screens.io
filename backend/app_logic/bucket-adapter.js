@@ -73,6 +73,9 @@ class BucketAdapter {
       // Expires: // The date and time at which the object is no longer cacheable. For more information, see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.21
     };
 
+    this.log('[BucketAdapter] uploadParams.Bucket', uploadParams.Bucket);
+    this.log('[BucketAdapter] uploadParams.Key', uploadParams.Key);
+
     try {
       this.log('[BucketAdapter] upload to: bucket path', uploadParams.Bucket);
       this.log('[BucketAdapter] upload to: bucket key', uploadParams.Key);
@@ -88,7 +91,7 @@ class BucketAdapter {
 
   async download (localPath) {
 
-    this.log('[BucketAdapter] download');
+    this.log('[BucketAdapter] download', localPath);
 
     const bucketPath = this.localPathToBucketPath(localPath);
 

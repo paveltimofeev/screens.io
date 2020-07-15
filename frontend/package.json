@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "frontend": "ng serve",
+    "frontend": "ng serve --port 4201",
     "frontend.local": "ng serve -c local",
     "build": "ng build",
     "test": "ng test",

@@ -8,7 +8,7 @@ const session = require('express-session')
 const MemoryStore = require('memorystore')(session)
 const cors = require('./cors');
 const appFacade = require('./app_logic/app-facade');
-const config = require('./config')
+const config = require('./app_logic/configuration');
 const { connectToDb } = require('./storage/storage-adapter')
 
 const loginRouter = require('./routes/login');

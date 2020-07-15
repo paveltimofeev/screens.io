@@ -11,7 +11,7 @@ const apiRouter = require('./routes/api');
 const resultsRouter = require('./routes/results');
 const mongoose = require('mongoose');
 
-const config = require('./config');
+const config = require('./app_logic/configuration');
 
 
 async function connectToDb() {

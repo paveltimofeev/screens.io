@@ -4,7 +4,7 @@ const { scenarioSchema } = require('../models/scenario')
 const { viewportSchema } = require('../models/viewport')
 const { reportSchema } = require('../models/report')
 const { UIError } = require('../ui-error')
-const config = require('./../config');
+const config = require('./../app_logic/configuration');
 
 class Storage {
 
@@ -89,7 +89,7 @@ class Storage {
     async _update (database, collection, schema, id, data) {
 
         this._log('update', collection);
-        
+
         return this._dbOperations(database, collection, schema, async (entity) => {
 
             // let entity = this._createEntity( database, collection, schema )
@@ -101,7 +101,7 @@ class Storage {
     async _bulkUpsert (database, collection, schema, bulkOps) {
 
         this._log('bulk upsert', collection);
-        
+
         return this._dbOperations(database, collection, schema, async (entity) => {
             // let entity = this._createEntity(database, collection, schema);
             return await entity.bulkWrite( bulkOps );
@@ -109,13 +109,13 @@ class Storage {
     }
     async _getAll (database, collection, schema) {
         this._log('get all', collection);
-        
+
         return await this._getByQuery(database, collection, schema, {})
     }
     async _getByQuery (database, collection, schema, query) {
 
         this._log('get by query', collection);
-        
+
         return this._dbOperations(database, collection, schema, async (entity) => {
             // let entity = this._createEntity(database, collection, schema)
             return await entity.find( query || {} )
@@ -124,7 +124,7 @@ class Storage {
     async _getById (database, collection, schema, id) {
 
         this._log('get by id', collection);
-        
+
         return this._dbOperations(database, collection, schema, async (entity) => {
             //let entity = this._createEntity(database, collection, schema)
             return await entity.findById( id )
@@ -133,7 +133,7 @@ class Storage {
     async _deleteById (database, collection, schema, id) {
 
         this._log('delete by id', collection);
-        
+
         return this._dbOperations(database, collection, schema, async (entity) => {
             // let entity = this._createEntity(database, collection, schema)
             return await entity.deleteOne( { _id : id } )

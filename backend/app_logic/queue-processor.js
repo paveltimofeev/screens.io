@@ -20,14 +20,14 @@ const engine = new EngineAdapter();
 const bucketAdapter = new BucketAdapter('vrtdata');
 const filePathsService = new FilePathsService();
 
-const config = require('../config.json');
+const config = require('./configuration');
 console.log('[QueueProcessor] Loading module', './media_storage_strategies/' + config.mediaStorageStrategy)
 const mediaStorageStrategy = require('./media_storage_strategies/' + config.mediaStorageStrategy);
 
 class QueueProcessor {
 
   constructor (ctx, dbName) {
-    
+
     this._db = dbName;
     this._ctx = ctx;
     this._flow = mediaStorageStrategy.createFlow();
@@ -96,7 +96,7 @@ class QueueProcessor {
     try {
 
       await this._flow.RunPreProcess( config );
-    
+
       // [download ref images of every scenario in config and place them to corresponding directory] [with retries]
       // for ( let i = 0; i < config.scenarios.length; i++ ) {
 
@@ -185,19 +185,19 @@ class QueueProcessor {
     let report = await storage.getReportById(this._db, data.reportId);
 
     if (
-      !report || 
-      !report.tests || 
-      report.tests.length <= data.testCaseIndex || 
-      !report.tests[data.testCaseIndex] || 
+      !report ||
+      !report.tests ||
+      report.tests.length <= data.testCaseIndex ||
+      !report.tests[data.testCaseIndex] ||
       !report.tests[data.testCaseIndex].pair
     ){
       console.error('[QueueProcessor] ERROR processApproveCase. Cannot find pair', data);
       return;
     }
 
-    let pair = { 
-      label: report.tests[data.testCaseIndex].pair.label, 
-      reference: report.tests[data.testCaseIndex].pair.reference, 
+    let pair = {
+      label: report.tests[data.testCaseIndex].pair.label,
+      reference: report.tests[data.testCaseIndex].pair.reference,
       test: report.tests[data.testCaseIndex].pair.test
     }
 

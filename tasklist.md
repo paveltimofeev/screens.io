@@ -157,6 +157,7 @@
 -- Backend: add PM2 to run multiple services inside of one AWS Beanstalk application
 -- [Move to AWS: 3.0] Run proxy & backend on AWS Beanstalk (allow access to mongodb)
 -- [Move to AWS: 3.1] Setup CodePipeline and CodeBuild for CD to Beanstalk
+-- Supports starting with local/cloud config
 
 
 - [Move to AWS: 3.2] AWS Beanstalk: allow access to s3 and add SSL
@@ -169,7 +170,6 @@ TechDept
 - [TechDept] Frontend: Fix filters at Jobs view
 
 BackLog
-- Supports starting with local/cloud config
 - [Move to AWS: 3.1] Setup CD from Github -> CodePipline -> CodeBuild -> Beanstalk
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
 - [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
@@ -201,6 +201,7 @@ BackLog
 - [TechDept] Frontend: Close menu at mobile view after click, and do not cover header
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- [AWS] *Security* Review security groups and policies used by Beanstalk and EC2. Add notifications and monitoring.
 - [AWS] Do I really need CodeBuild step at CodePipeline?
 - Frontend & Proxy: Request Beta Access / Get Notified on Launch (Ask for name/email, place email to separate table, examples: https://quantumcomputing.com/beta, https://www.humanfirst.ai/request-beta-access, https://quantumcomputing.com/)
 - Frontend: Approvement of test case should not be based on idx, use guid/id generated on server-side instead. Approvement should be based on runId*caseId.
@@ -208,6 +209,7 @@ BackLog
 - [TechDept] Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
 - [TechDept] Backend & Frontend: Viewport settings are not convenient to use and develop. Need better solution, maybe table ith togglers.
 - [TechDept] Frontend: *featurelost* total number of scenarios
+- Backend: Beanstalk is blocking by Ghostery
 - Frontend: Need filtration by status at JobPage (results report) (Implement Sidebar filters for Job Page)
 - [Marketing Strategy] Persuade: Start with the exact solution for US / with a common problems for RU
 - Proxy: Switch to TypeScript to reduce chaos

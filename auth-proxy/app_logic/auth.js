@@ -1,5 +1,5 @@
 const axios = require('axios');
-const config = require('../config');
+const config = require('./configuration');
 
 const utils = require('./utils');
 const { createStorageAdapter } = require('../storage/storage-adapter');

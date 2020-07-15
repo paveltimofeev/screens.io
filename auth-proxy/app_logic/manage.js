@@ -1,4 +1,4 @@
-const config = require('../config');
+const config = require('./configuration');
 const utils = require('./utils');
 const { createStorageAdapter } = require('../storage/storage-adapter');
 const storage = createStorageAdapter(config.dbUsersCollection);

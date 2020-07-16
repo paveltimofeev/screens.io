@@ -21,6 +21,7 @@
     "sharp": "^0.25.4"
   },
   "devDependencies": {
-    "mocha": "^8.0.1"
+    "mocha": "^8.0.1",
+    "sinon": "^9.0.2"
   }
 }

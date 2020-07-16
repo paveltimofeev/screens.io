@@ -160,8 +160,9 @@
 -- Supports starting with local/cloud config
 
 
+- [Bug] Backend: should not fail/freeze job if cannot download reference - should execute the job and report - 'no reference'
+- [Bug] Backend: Original reference files are not uploads to s3 (sm/md/lg are ok)
 - [Move to AWS: 3.2] AWS Beanstalk: allow access to s3 and add SSL
-- [Bug] Backend: References are not uploads to s3
 - [Move to AWS: 2] Backend: GET references from AWS S3 before run tests (download ref images of every scenario, delete successfully uploaded images)
 - Frontend: Stats & analytics: Recently failed Job
 

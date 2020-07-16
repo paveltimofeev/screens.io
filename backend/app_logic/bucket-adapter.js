@@ -9,16 +9,13 @@ const writeFile = promisify(fs.writeFile);
 
 AWS.config.update({region: 'us-east-1'});
 const s3 = new AWS.S3({apiVersion: '2006-03-01'});
-const vrtDataPath = '..\\vrt_data\\';
-
-const { FilePathsService } = require('./app-utils');
-const filePathsService = new FilePathsService();
 
 
 class BucketAdapter {
 
-  constructor (bucketName) {
+  constructor (bucketName, filePathsService) {
     this.bucket = bucketName;
+    this.filePathsService = filePathsService;
   }
 
   log (msg, arg) {
@@ -33,8 +30,8 @@ class BucketAdapter {
 
     let subFolderPath = path.join(
       '/',
-      filePathsService.vrtDataFolderName(),
-      path.dirname(filePathsService.relativeToVrtDataPath(filePath))
+      // this.filePathsService.vrtDataFolderName(),
+      path.dirname(this.filePathsService.relativeToVrtDataPath(filePath))
     );
 
     return {

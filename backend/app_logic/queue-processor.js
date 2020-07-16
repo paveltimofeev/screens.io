@@ -17,7 +17,7 @@ const writeFile = promisify(fs.writeFile);
 const mkdir = promisify(fs.mkdir);
 
 const engine = new EngineAdapter();
-const bucketAdapter = new BucketAdapter('vrtdata');
+const bucketAdapter = new BucketAdapter('vrtdata', new FilePathsService());
 const filePathsService = new FilePathsService();
 
 const config = require('./configuration');
@@ -222,14 +222,14 @@ class QueueProcessor {
     ]);
 
     const scenario = results[0];
-    const resizes = results[1];
+    const resizedReference = results[1];
 
     await Promise.all([
       await storage.updateScenario(this._db, scenario._id, {
         meta_referenceImageUrl: pair.reference,
-        meta_referenceSM: filePathsService.relativeToVrtDataPath( resizes.sm ),
-        meta_referenceMD: filePathsService.relativeToVrtDataPath( resizes.md ),
-        meta_referenceLG: filePathsService.relativeToVrtDataPath( resizes.lg ) //? NOT USED IN UI
+        meta_referenceSM: filePathsService.relativeToVrtDataPath( resizedReference.sm ),
+        meta_referenceMD: filePathsService.relativeToVrtDataPath( resizedReference.md ),
+        meta_referenceLG: filePathsService.relativeToVrtDataPath( resizedReference.lg ) //? NOT USED IN UI
       }),
 
       await storage.createHistoryRecord(this._db, {
@@ -243,14 +243,14 @@ class QueueProcessor {
 
       await this._flow.ApprovePostProcess({
         reference: pair.reference,
-        sm: resizes.sm,
-        md: resizes.md,
-        lg: resizes.lg
+        sm: resizedReference.sm,
+        md: resizedReference.md,
+        lg: resizedReference.lg
       })
       // await bucketAdapter.upload( pair.reference ),
-      // await bucketAdapter.upload( resizes.sm ),
-      // await bucketAdapter.upload( resizes.md ),
-      // await bucketAdapter.upload( resizes.lg ) //? NOT USED IN UI
+      // await bucketAdapter.upload( resizedReference.sm ),
+      // await bucketAdapter.upload( resizedReference.md ),
+      // await bucketAdapter.upload( resizedReference.lg ) //? NOT USED IN UI
     ]);
   }
 

@@ -159,25 +159,28 @@
 -- [Move to AWS: 3.1] Setup CodePipeline and CodeBuild for CD to Beanstalk
 -- Supports starting with local/cloud config
 -- Beanstalk restart app every time when new screenshot is taken because of: `Change detected on path vrt_data/... for app backend - restarting` 
+-- [Bug] Backend: should not fail/freeze job if cannot download reference - should execute the job and report - 'no reference'
+-- [Bug] Backend: Original reference files are not uploads to s3 (sm/md/lg are ok)
+-- [Move to AWS: 2] Backend: GET references from AWS S3 before run tests (download ref images of every scenario, delete successfully uploaded images)
+-- [Move to AWS: 3.2] AWS Beanstalk: allow access to s3, and run backstopjs (need to install chromium)
 
 
-- [Bug] Backend: should not fail/freeze job if cannot download reference - should execute the job and report - 'no reference'
-- [Bug] Backend: Original reference files are not uploads to s3 (sm/md/lg are ok)
-- [Move to AWS: 3.2] AWS Beanstalk: allow access to s3 and add SSL
-- [Move to AWS: 2] Backend: GET references from AWS S3 before run tests (download ref images of every scenario, delete successfully uploaded images)
-- Frontend: Stats & analytics: Recently failed Job
-
+- Frontend: Display 'refresh' button for running job and 'break' or 'stop' for running too long.
+- Frontend: Need more info on running job - you'll never know what happens, job just stuck running.
+- [Move to AWS: 2] Backend: AWS S3 mode - delete successfully uploaded images from local file system
+- [Move to AWS: 3.2] AWS Beanstalk: add SSL
+- Backend/Beanstalk: need to limit max CPU usage for backend and proxy, to prevent not responding server.
 
 TechDept
 - [TechDept] Frontend: Fix filters at Jobs view
 
 BackLog
+- Frontend: Stats & analytics: Recently failed Job
 - [Move to AWS: 3.1] Setup CD from Github -> CodePipline -> CodeBuild -> Beanstalk
 - [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
 - [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Frontend: Comparer: Images are misplaced sometimes. Need to show loading process.
-- Display 'refresh' button for running job and 'break' or 'stop' for running too long.
 - [TechDept] Auto Stop for stuck/forever-running jobs
 
 - **------------ MVP MILESTONE ------------**

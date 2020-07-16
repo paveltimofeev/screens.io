@@ -42,14 +42,12 @@ function skipPassedIfHasFailed (value, index, self) {
 }
 
 
+const config = require('./configuration')
+
 class FilePathsService {
 
-  vrtDataFolderName () {
-    return 'vrt_data'
-  }
-
   vrtDataFullPath () {
-    return path.join(__dirname, '..', this.vrtDataFolderName())
+    return config.vrtDataFullPath;
   }
 
   relativeToVrtDataPath (fullPath) {

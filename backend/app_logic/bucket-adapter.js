@@ -30,7 +30,6 @@ class BucketAdapter {
 
     let subFolderPath = path.join(
       '/',
-      // this.filePathsService.vrtDataFolderName(),
       path.dirname(this.filePathsService.relativeToVrtDataPath(filePath))
     );
 

@@ -6,5 +6,6 @@
     "useUnifiedTopology": true
   },
   "mediaStorageStrategy": "S3",
-  "_mediaStorageStrategy": "LocalFS"
+  "_mediaStorageStrategy": "LocalFS",
+  "vrtDataFullPath": "c:\\Temp\\vrtdata"
 }

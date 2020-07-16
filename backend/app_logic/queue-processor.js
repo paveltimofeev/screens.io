@@ -77,7 +77,7 @@ class QueueProcessor {
 
   async processRun (runId, config) {
 
-    console.log('[QueueProcessor] processRun. runId:', runId)
+    console.log('[QueueProcessor] STARTED processRun. runId:', runId)
 
     const record = await storage.createHistoryRecord(this._db, {
       state: 'Running',
@@ -111,8 +111,8 @@ class QueueProcessor {
       // }
 
       // await writeFile('./backstop-config.debug.json', JSON.stringify(config), 'utf-8')
+      console.log('[QueueProcessor] Starting backstop...');
       let result = await backstop('test', { config: config } )
-
       console.log('[QueueProcessor] RUN RESULT', result);
 
       try {
@@ -144,6 +144,7 @@ class QueueProcessor {
         throw err;
       }
 
+      console.log('[QueueProcessor] COMPLETED, PASSED processRun. runId:', runId);
       return runId
     }
     catch (err) {
@@ -174,13 +175,14 @@ class QueueProcessor {
         record._id,
         storage.convertToObject(record))
 
+      console.log('[QueueProcessor] COMPLETED, NOT PASSED processRun. runId:', runId);
       return runId
     }
   }
 
   async processApproveCase (data) {
 
-    console.log('[QueueProcessor] processApproveCase. pair.test:', data.test)
+    console.log('[QueueProcessor] STARTED processApproveCase. pair.test:', data.test)
 
     let report = await storage.getReportById(this._db, data.reportId);
 
@@ -247,11 +249,9 @@ class QueueProcessor {
         md: resizedReference.md,
         lg: resizedReference.lg
       })
-      // await bucketAdapter.upload( pair.reference ),
-      // await bucketAdapter.upload( resizedReference.sm ),
-      // await bucketAdapter.upload( resizedReference.md ),
-      // await bucketAdapter.upload( resizedReference.lg ) //? NOT USED IN UI
     ]);
+
+    console.log('[QueueProcessor] COMPLETED processApproveCase. reportId', data.reportId)
   }
 
   async postProcessReport (runId, jsonReport, reportLocation) {
@@ -281,14 +281,6 @@ class QueueProcessor {
         meta_testLG: meta_testLG,
         meta_diffImageLG: meta_diffImageLG
       });
-
-      // await Promise.all([
-      //   // await bucketAdapter.upload( report.tests[i].pair.images.absolute.ref ),
-      //   await bucketAdapter.upload( report.tests[i].pair.images.absolute.diff ),
-      //   await bucketAdapter.upload( report.tests[i].pair.images.absolute.test ),
-      //   await bucketAdapter.upload( meta_testLG ),
-      //   await bucketAdapter.upload( meta_diffImageLG ),
-      // ]);
     }
 
     return report

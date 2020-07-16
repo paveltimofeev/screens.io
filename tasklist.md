@@ -158,6 +158,7 @@
 -- [Move to AWS: 3.0] Run proxy & backend on AWS Beanstalk (allow access to mongodb)
 -- [Move to AWS: 3.1] Setup CodePipeline and CodeBuild for CD to Beanstalk
 -- Supports starting with local/cloud config
+-- Beanstalk restart app every time when new screenshot is taken because of: `Change detected on path vrt_data/... for app backend - restarting` 
 
 
 - [Bug] Backend: should not fail/freeze job if cannot download reference - should execute the job and report - 'no reference'
@@ -181,6 +182,7 @@ BackLog
 
 - **------------ MVP MILESTONE ------------**
 
+- Use `backstop reference` for generation default reference on save/preview scenario
 - Backend: add retries to S3Adapter or ensure that aws lib already provides it.
 - [Bug] Frontend: Seems that date in Job Page title does not respect summer/winter time
 - Frontend: JobPage: Case Card have to have NotApproved/Approving/Approved states (or maybe None/Running/Passed/Failed/Approving/Approved)

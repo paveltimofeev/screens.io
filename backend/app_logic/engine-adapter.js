@@ -69,14 +69,16 @@ class EngineAdapter {
         throwIfInvalidPathPart('tenantId', tenantId)
         throwIfInvalidPathPart('userId', userId)
 
+        const vrtDataLocation = filePathsService.vrtDataFullPath();
+
         return {
-            bitmaps_reference: `vrt_data/${tenantId}/${userId}/bitmaps_reference`,
+            bitmaps_reference: `${vrtDataLocation}/${tenantId}/${userId}/bitmaps_reference`,
             engine_scripts:    `app_logic/engine_scripts`,
 
-            bitmaps_test: `vrt_data/${tenantId}/${userId}/bitmaps_test`,
-            html_report:  `vrt_data/${tenantId}/${userId}/html_report`,
-            ci_report:    `vrt_data/${tenantId}/${userId}/ci_report`,
-            json_report:  `vrt_data/${tenantId}/${userId}/json_report`
+            bitmaps_test: `${vrtDataLocation}/${tenantId}/${userId}/bitmaps_test`,
+            html_report:  `${vrtDataLocation}/${tenantId}/${userId}/html_report`,
+            ci_report:    `${vrtDataLocation}/${tenantId}/${userId}/ci_report`,
+            json_report:  `${vrtDataLocation}/${tenantId}/${userId}/json_report`
         }
     }
 
@@ -160,7 +162,7 @@ class JsonReportAdapter {
 
         const getAbsolutePath = (value) => {
 
-            return value ? path.join( __dirname, '..', this._reportLocation, value ) : null
+            return value ? path.join( this._reportLocation, value ) : null
         };
 
         if (!jsonReport.tests) {

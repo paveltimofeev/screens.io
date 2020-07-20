@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   media: 'https://vrtdata.s3.amazonaws.com/',   // Images (AWS S3)
-  auth: 'http://screens-env.eba-mdkpz5zc.us-east-1.elasticbeanstalk.com',    // Auth proxy
-  api: 'http://screens-env.eba-mdkpz5zc.us-east-1.elasticbeanstalk.com/api/' // REST
+  auth: 'http://api.beta.patico.pro',    // Auth proxy
+  api: 'http://api.beta.patico.pro/api/' // REST
 };
 
 /*

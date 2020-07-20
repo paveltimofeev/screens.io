@@ -164,12 +164,12 @@
 -- [Move to AWS: 2] Backend: GET references from AWS S3 before run tests (download ref images of every scenario, delete successfully uploaded images)
 -- [Move to AWS: 3.2] AWS Beanstalk: allow access to s3, and run backstopjs (need to install chromium)
 -- [Move to AWS: 3.1] Setup CD from Github -> CodePipeline -> CodeBuild -> Beanstalk
+-- [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront under the "beta" domain name
+-- [Move to AWS: 4.1] AWS Frontend: add SSL
 
 
-- [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront under the "beta" domain name
-- [Move to AWS: 4.1] Setup CodePipeline for frontend: github -> s3
-- [Move to AWS: 4.3] AWS Frontend: add SSL
-- [Move to AWS: 4.4] AWS Beanstalk: add SSL
+- [Move to AWS: 4.2] Setup CodePipeline for frontend: github -> s3 + invalidate cloud front
+- [Move to AWS: 4.3] AWS Beanstalk: add SSL
 
 
 TechDept

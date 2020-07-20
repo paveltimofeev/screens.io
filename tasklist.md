@@ -163,27 +163,29 @@
 -- [Bug] Backend: Original reference files are not uploads to s3 (sm/md/lg are ok)
 -- [Move to AWS: 2] Backend: GET references from AWS S3 before run tests (download ref images of every scenario, delete successfully uploaded images)
 -- [Move to AWS: 3.2] AWS Beanstalk: allow access to s3, and run backstopjs (need to install chromium)
+-- [Move to AWS: 3.1] Setup CD from Github -> CodePipeline -> CodeBuild -> Beanstalk
 
 
-- Frontend: Display 'refresh' button for running job and 'break' or 'stop' for running too long.
-- Frontend: Need more info on running job - you'll never know what happens, job just stuck running.
-- Backend: AWS S3 mode - delete successfully uploaded images from local file system
-- [Move to AWS: 3.2] AWS Beanstalk: add SSL
-- Backend/Beanstalk: need to limit max CPU usage for backend and proxy, to prevent not responding server.
+- [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront under the "beta" domain name
+- [Move to AWS: 4.1] Setup CodePipeline for frontend: github -> s3
+- [Move to AWS: 4.3] AWS Frontend: add SSL
+- [Move to AWS: 4.4] AWS Beanstalk: add SSL
+
 
 TechDept
 - [TechDept] Frontend: Fix filters at Jobs view
+- [TechDept] Script out whole AWS deployment for Disaster Recovery procedure
 
 BackLog
-- Frontend: Stats & analytics: Recently failed Job
-- [Move to AWS: 3.1] Setup CD from Github -> CodePipline -> CodeBuild -> Beanstalk
-- [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront under the "beta" domain name
-- [Move to AWS: 4.1] Setup CodePipeline for frontend: github -> s3
-- [Move to AWS: 4.2] Use SSL for frontend
 - [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
+- Backend: AWS S3 mode - delete successfully uploaded images from local file system
+- Backend/Beanstalk: need to limit max CPU usage for backend and proxy, to prevent not responding server.
+- Frontend: Need more info on running job - you'll never know what happens, job just stuck running.
+- Frontend: Display 'refresh' button for running job and 'break' or 'stop' for running too long.
+- Frontend: Stats & analytics: Recently failed Job
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Frontend: Comparer: Images are misplaced sometimes. Need to show loading process.
-- [TechDept] Auto Stop for stuck/forever-running jobs
+- Auto Stop for stuck/forever-running jobs
 
 - **------------ MVP MILESTONE ------------**
 
@@ -203,10 +205,10 @@ BackLog
 - [Bug] user can create several viewports with the same size, after that he cannot delete of disable any of them
 - Define Metrics to collect (feature requests & feedback button) [cost of each user, typical ways to work]
 - Check active operations with bad network / no network - where are error screens or loading states have to be used? (*Favorite scenarios, Recent Runs*)
-- Check FireFox, Opera, Edge
 - Frontend: Comparer view: Need to show status Failed/Passed, because when you switch between viewport sizes it's hard to understand passed this case or not. Probably it also need to highlight viewports chips with passsed/failed colors
 - Frontend: Icons at Jobs History should be the same as in Recent Runs and in scenarios' Runs history tables
 - [TechDept] Frontend: Close menu at mobile view after click, and do not cover header
+- Check FireFox, Opera, Edge, Mobiles, Tablets
 - **------------ CLOSED BETA MILESTONE ------------**
 
 - [AWS] *Security* Review security groups and policies used by Beanstalk and EC2. Add notifications and monitoring.

@@ -166,11 +166,12 @@
 -- [Move to AWS: 3.1] Setup CD from Github -> CodePipeline -> CodeBuild -> Beanstalk
 -- [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront under the "beta" domain name
 -- [Move to AWS: 4.1] AWS Frontend: add SSL
+-- [Move to AWS: 4.2] Setup CodePipeline for frontend: github -> s3 + invalidate cloud front
 
 
-- [Move to AWS: 4.2] Setup CodePipeline for frontend: github -> s3 + invalidate cloud front
 - [Move to AWS: 4.3] AWS Beanstalk: add SSL
-
+- [Security]: Should I get public access to bucket for hosting static? `AWS: This bucket has public access. You have provided public access to this bucket. We highly recommend that you never grant any kind of public access to your S3 bucket.`
+- Organize AWS Policies names, s3 buckets names
 
 TechDept
 - [TechDept] Frontend: Fix filters at Jobs view

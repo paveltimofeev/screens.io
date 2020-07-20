@@ -1,6 +1,6 @@
 {
   "Version": "2012-10-17",
-  "Id": "BeanstalkS3Copy",
+  "Id": "BeanstalkS3Copy_REALLY_NEEDED?",
   "Statement": [
     {
       "Effect": "Allow",
@@ -18,6 +18,17 @@
         "arn:aws:s3:::vrtwebui",
         "arn:aws:s3:::vrtwebui/*"
       ]
+    },
+    {
+      "Sid": "UpdateByCodeBuild",
+      "Action": "s3:*",
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::vrtwebui/*",
+      "Principal": {
+        "AWS": [
+          "arn:aws:iam::772145494782:role/service-role/codebuild-screens-proxy-service-role"
+        ]
+      }
     }
   ]
 }

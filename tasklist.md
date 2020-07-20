@@ -167,7 +167,7 @@
 
 - Frontend: Display 'refresh' button for running job and 'break' or 'stop' for running too long.
 - Frontend: Need more info on running job - you'll never know what happens, job just stuck running.
-- [Move to AWS: 2] Backend: AWS S3 mode - delete successfully uploaded images from local file system
+- Backend: AWS S3 mode - delete successfully uploaded images from local file system
 - [Move to AWS: 3.2] AWS Beanstalk: add SSL
 - Backend/Beanstalk: need to limit max CPU usage for backend and proxy, to prevent not responding server.
 
@@ -177,7 +177,9 @@ TechDept
 BackLog
 - Frontend: Stats & analytics: Recently failed Job
 - [Move to AWS: 3.1] Setup CD from Github -> CodePipline -> CodeBuild -> Beanstalk
-- [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
+- [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront under the "beta" domain name
+- [Move to AWS: 4.1] Setup CodePipeline for frontend: github -> s3
+- [Move to AWS: 4.2] Use SSL for frontend
 - [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 - Frontend: Comparer: Images are misplaced sometimes. Need to show loading process.

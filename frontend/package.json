@@ -5,8 +5,8 @@
     "ng": "ng",
     "frontend": "ng serve --port 4201",
     "frontend.local": "ng serve -c local",
-    "build": "ng build",
-    "build.prod": "ng build -c production",
+    "build": "ng build --prod",
+    "build.dev": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

@@ -100,7 +100,7 @@ export class ScenariosComponent implements OnInit, OnDestroy {
 
   }
 
-  showMobileFilters () {
+  showMobileFilters ($event) {
 
   }
 }

@@ -13,6 +13,12 @@ export interface IScenario {
   delay: number;
   misMatchThreshold: number;
   postInteractionWait: number;
+  expect: number;
+  selectorExpansion: boolean;
+  readySelector: string;
+  readyEvent: string;
+  scrollToSelector: string;
+
   meta_recentRunStatus: string,
   authConfig: {
     enabled: boolean;

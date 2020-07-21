@@ -1,11 +1,10 @@
 
-html, body, .app-spinner-container {
+.app-spinner-container {
+  position: absolute;
   width: 100%;
   height: 100%;
-  margin: 0;
-  padding: 0;
-}
-.app-spinner-container {
+  z-index: 10000;
+
   display: flex;
   justify-content: center;
   align-items: center;

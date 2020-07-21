@@ -14,6 +14,10 @@ const mongoose = require('mongoose');
 const config = require('./app_logic/configuration');
 
 
+let connectToDbRetries = 0;
+let connectToDbRetriesMax = 5;
+let connectToDbRetriesDelay = 3000;
+
 async function connectToDb() {
 
   try {
@@ -21,8 +25,17 @@ async function connectToDb() {
     console.log('Connected to MongoDb')
   }
   catch (e) {
-    console.log('ERROR: Cannot connect to MongoDb', e)
-  }
+    console.log('ERROR: Cannot connect to MongoDb', e);
+
+    if (connectToDbRetries >= connectToDbRetriesMax) {
+      process.exit( 1 );
+    }
+    else {
+      setTimeout(
+        () => { connectToDb() },
+        connectToDbRetriesDelay
+      );
+    }
 }
 
 connectToDb()

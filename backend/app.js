@@ -25,17 +25,19 @@ async function connectToDb() {
     console.log('Connected to MongoDb')
   }
   catch (e) {
-    console.log('ERROR: Cannot connect to MongoDb', e);
+    console.log( 'ERROR: Cannot connect to MongoDb', e );
 
-    if (connectToDbRetries >= connectToDbRetriesMax) {
+    if( connectToDbRetries >= connectToDbRetriesMax ) {
       process.exit( 1 );
-    }
-    else {
+    } else {
       setTimeout(
-        () => { connectToDb() },
+        () => {
+          connectToDb()
+        },
         connectToDbRetriesDelay
       );
     }
+  }
 }
 
 connectToDb()

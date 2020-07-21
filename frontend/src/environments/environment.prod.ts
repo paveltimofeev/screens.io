@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
   media: 'https://vrtdata.s3.amazonaws.com/',
-  auth: 'http://api.beta.patico.pro',
-  api: 'http://api.beta.patico.pro/api/'
+  auth: 'https://api.beta.patico.pro',
+  api: 'https://api.beta.patico.pro/api/'
 };

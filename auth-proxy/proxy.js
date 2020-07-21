@@ -86,6 +86,10 @@ if (config.showWebUI) {
 }
 
 
+let startRetries = 0;
+let startRetriesMax = 5;
+let startRetriesDelay = 3000;
+
 async function start() {
 
   let conn;
@@ -93,7 +97,6 @@ async function start() {
   try {
 
     conn = await connectToDb( config.storageConnectionString )
-
     console.log('[Start proxy] Listening port', config.port)
 
     app.set('port', config.port);
@@ -102,7 +105,23 @@ async function start() {
   }
   catch (error) {
     console.error('[Start proxy] Error', error)
-    conn.close()
+
+    if (conn) {
+      conn.close()
+    }
+
+    if (startRetries >= startRetriesMax) {
+      process.exit( 1 );
+    }
+    else {
+
+      console.log('[Start proxy] Retry after (ms)', startRetriesDelay);
+
+      setTimeout(
+        () => { start() },
+        startRetriesDelay
+      );
+    }
   }
 }
 

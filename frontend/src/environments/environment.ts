@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   media: 'https://vrtdata.s3.amazonaws.com/',   // Images (AWS S3)
-  auth: 'https://screens.api.patico.pro',    // Auth proxy
-  api: 'https://screens.api.patico.pro/api/' // REST
+  auth: 'http://screens.api.patico.pro',    // Auth proxy
+  api: 'http://screens.api.patico.pro/api/' // REST
 };
 
 /*

@@ -170,17 +170,15 @@
 
 
 - [Move to AWS: 4.3] AWS Beanstalk: add SSL
-- [Security]: Should I get public access to bucket for hosting static? `AWS: This bucket has public access. You have provided public access to this bucket. We highly recommend that you never grant any kind of public access to your S3 bucket.`
-- Organize AWS Policies names, s3 buckets names
+
 
 TechDept
 - [TechDept] Frontend: Fix filters at Jobs view
-- [TechDept] Script out whole AWS deployment for Disaster Recovery procedure
 
 BackLog
 - [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
 - Backend: AWS S3 mode - delete successfully uploaded images from local file system
-- Backend/Beanstalk: need to limit max CPU usage for backend and proxy, to prevent not responding server.
+- Backend/Beanstalk/PM2: need to limit max CPU usage for backend and proxy, to prevent not responding server.
 - Frontend: Need more info on running job - you'll never know what happens, job just stuck running.
 - Frontend: Display 'refresh' button for running job and 'break' or 'stop' for running too long.
 - Frontend: Stats & analytics: Recently failed Job
@@ -190,13 +188,13 @@ BackLog
 
 - **------------ MVP MILESTONE ------------**
 
+- **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user, copy data and files from 'Default' user)
+- Organize AWS Policies names, s3 buckets names
 - Use `backstop reference` for generation default reference on save/preview scenario
 - Backend: add retries to S3Adapter or ensure that aws lib already provides it.
 - [Bug] Frontend: Seems that date in Job Page title does not respect summer/winter time
 - Frontend: JobPage: Case Card have to have NotApproved/Approving/Approved states (or maybe None/Running/Passed/Failed/Approving/Approved)
 - Frontend: Scenario Page - add Overview(Summary) with reference image 
-- **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user, copy data and files from 'Default' user)
-- Frontend: card-sm & card-lg should looks the same, they have too different styles now.
 - [Security] Backend: Do not store authConfig login/password in plain text (need to encrypt/decrypt them). Do not transfer them to UI.
 - Terms of Service, Privacy Policy and Beta Service Agreement (links and docs)
 - [Bug] Scenarios with url without protocol (https:// or http://) fails and stucks
@@ -216,6 +214,9 @@ BackLog
 - [AWS] Do I really need CodeBuild step at CodePipeline?
 - Frontend & Proxy: Request Beta Access / Get Notified on Launch (Ask for name/email, place email to separate table, examples: https://quantumcomputing.com/beta, https://www.humanfirst.ai/request-beta-access, https://quantumcomputing.com/)
 - Frontend: Approvement of test case should not be based on idx, use guid/id generated on server-side instead. Approvement should be based on runId*caseId.
+- Frontend: card-sm & card-lg should looks the same, they have too different styles now.
+- [Security]: Should I get public access to bucket for hosting static? `AWS: This bucket has public access. You have provided public access to this bucket. We highly recommend that you never grant any kind of public access to your S3 bucket.`
+- [TechDept] Script out whole AWS deployment for Disaster Recovery procedure
 - [TechDept] Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email
 - [TechDept] Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
 - [TechDept] Backend & Frontend: Viewport settings are not convenient to use and develop. Need better solution, maybe table ith togglers.

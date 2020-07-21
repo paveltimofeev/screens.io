@@ -1,0 +1,32 @@
+
+html, body, .app-spinner-container {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.app-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-spinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 4px solid #E6EAEE;
+  border-top: 4px solid #6087AB;
+  border-bottom: 4px solid #6087AB;
+  border-radius: 50%;
+  animation: app-spinner 1.5s linear infinite;
+  _box-shadow: 0 0 10px 0 rgba(0,0,0,.15);
+}
+
+.app-spinner:hover {
+  animation-duration: .75s;
+}
+
+@keyframes app-spinner {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

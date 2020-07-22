@@ -3,9 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "backend": "node ./bin/www"
+    "backend": "node ./bin/www",
+    "test": "mocha"
   },
   "dependencies": {
+    "aws-sdk": "^2.710.0",
     "backstopjs": "^4.5.0",
     "cookie-parser": "^1.4.5",
     "debug": "~2.6.9",
@@ -14,7 +16,12 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "mongodb": "^3.5.5",
-    "mongoose": "^5.9.7",
-    "morgan": "~1.9.1"
+    "mongoose": "^5.9.22",
+    "morgan": "~1.9.1",
+    "sharp": "^0.25.4"
+  },
+  "devDependencies": {
+    "mocha": "^8.0.1",
+    "sinon": "^9.0.2"
   }
 }

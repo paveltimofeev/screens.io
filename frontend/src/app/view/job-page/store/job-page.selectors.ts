@@ -7,6 +7,11 @@ export const jobTitle = createSelector(
   selectFeature,
   (state: JobPageState) => state.title
 );
+
+export const isRunning = createSelector(
+  selectFeature,
+  (state: JobPageState) => state.isRunning
+);
 export const breadcrumbTitle = createSelector(
   selectFeature,
   (state: JobPageState) => state.breadcrumbTitle

@@ -25,7 +25,7 @@ export class ScenariosComponent implements OnInit, OnDestroy {
 
   viewports$: Observable<any>;
   scenarios$: Observable<any>;
-  fullHeightModeOn$: Observable<boolean>;
+  fullHeightModeOn$: Observable<boolean>; // TODO: Could be removed
 
   constructor(private store: Store,
               private route: ActivatedRoute,
@@ -100,7 +100,7 @@ export class ScenariosComponent implements OnInit, OnDestroy {
 
   }
 
-  showMobileFilters () {
+  showMobileFilters ($event) {
 
   }
 }

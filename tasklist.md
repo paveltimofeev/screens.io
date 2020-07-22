@@ -142,44 +142,93 @@
 -- [Bug] userid instead of username shown in Recent Runs table 
 -- [Move to AWS: Preparation - Split services] Refactor Queue Wrappers - move them into the separate file
 -- [Move to AWS: Preparation - Split services] Refactor QueueProcessors (Run, Approve) - move them into the separate file
+-- [Move to AWS: 1] Run MongoDb in cloud.mongodb.com
+-- [Move to AWS: Preparation] Create preview images (compressed .jpg) for lg, md, sm cards (md, sm - for approved cases, lg - for test results)
+-- Proxy: Refactor utils.js - split to independent services and wrap them with facade
+-- [TechDept] Backend: Work with Reports is inconvenient. *JsonReportAdapter added*
+-- [Move to AWS: 2] STORE (PUT/GET) IMAGES AT AWS S3
+-- [TechDept] Backend: Work with File paths is inconvenient: vrtdata, test results, references, s3 - should be easily convertible to each other.
+-- Backend: Why redbullracing tests are failed without any report? *failed because of tried to load file that does not exists*
+-- [Move to AWS: 2] Support strategies of storing images at AWS S3 or at local FileSystem
+-- Frontend: Comparer: allow approve only failed cases
+-- [TechDept] approve by runId, not by pair item
+-- Frontend: Show report UI for running-state jobs
+-- Frontend: Change `JobDate` to `Job Report #...` in breadcrumbs - `Jobs History > JobDate > Scenario > Viewport`, to be consistent with Jobs History page.
+-- Backend: add PM2 to run multiple services inside of one AWS Beanstalk application
+-- [Move to AWS: 3.0] Run proxy & backend on AWS Beanstalk (allow access to mongodb)
+-- [Move to AWS: 3.1] Setup CodePipeline and CodeBuild for CD to Beanstalk
+-- Supports starting with local/cloud config
+-- Beanstalk restart app every time when new screenshot is taken because of: `Change detected on path vrt_data/... for app backend - restarting` 
+-- [Bug] Backend: should not fail/freeze job if cannot download reference - should execute the job and report - 'no reference'
+-- [Bug] Backend: Original reference files are not uploads to s3 (sm/md/lg are ok)
+-- [Move to AWS: 2] Backend: GET references from AWS S3 before run tests (download ref images of every scenario, delete successfully uploaded images)
+-- [Move to AWS: 3.2] AWS Beanstalk: allow access to s3, and run backstopjs (need to install chromium)
+-- [Move to AWS: 3.1] Setup CD from Github -> CodePipeline -> CodeBuild -> Beanstalk
+-- [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront under the "beta" domain name
+-- [Move to AWS: 4.1] AWS Frontend: add SSL
+-- [Move to AWS: 4.2] Setup CodePipeline for frontend: github -> s3 + invalidate cloud front
 
 
-- [Move to AWS: Preparation - Split services] Run Queues as separate processes 
-- [Move to AWS: Preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
-- Backend: migration script for copying data from one user to another
+- [Move to AWS: 4.3] AWS Beanstalk: add SSL
 
 
 TechDept
-- Frontend: Fix filters at Jobs view
-- Frontend: Need filtration by status at JobPage (results report) (Implement Sidebar filters for Job Page)
-- Frontend: *featurelost* total number of scenarios
-- Frontend: Close menu at mobile view after click, and do not cover header
-- Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email
-- Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
+- [TechDept] Frontend: Fix filters at Jobs view
 
 BackLog
-- [Move to AWS: 1] Run MongoDb on AWS VM
-- [Move to AWS: 2] STORE IMAGES AT AWS S3
-- [Move to AWS: 3] Run proxy & backend on AWS VM
-- [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront or github under the new domain name and SSL
-- Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Recently failed / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
-- Frontend: Scenario Page - add Overview(Summary) with reference image 
-- Display retry button for not-ready yet history record (screens)
+- [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
+- Backend: AWS S3 mode - delete successfully uploaded images from local file system
+- Backend/Beanstalk/PM2: need to limit max CPU usage for backend and proxy, to prevent not responding server.
+- Frontend: Need more info on running job - you'll never know what happens, job just stuck running.
+- Frontend: Display 'refresh' button for running job and 'break' or 'stop' for running too long.
+- Frontend: Stats & analytics: Recently failed Job
+- Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
+- Frontend: Comparer: Images are misplaced sometimes. Need to show loading process.
+- Auto Stop for stuck/forever-running jobs
+
 - **------------ MVP MILESTONE ------------**
+
 - **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user, copy data and files from 'Default' user)
+- Organize AWS Policies names, s3 buckets names
+- Use `backstop reference` for generation default reference on save/preview scenario
+- Backend: add retries to S3Adapter or ensure that aws lib already provides it.
+- [Bug] Frontend: Seems that date in Job Page title does not respect summer/winter time
+- Frontend: JobPage: Case Card have to have NotApproved/Approving/Approved states (or maybe None/Running/Passed/Failed/Approving/Approved)
+- Frontend: Scenario Page - add Overview(Summary) with reference image 
 - [Security] Backend: Do not store authConfig login/password in plain text (need to encrypt/decrypt them). Do not transfer them to UI.
 - Terms of Service, Privacy Policy and Beta Service Agreement (links and docs)
+- [Bug] Scenarios with url without protocol (https:// or http://) fails and stucks
 - [Bug] RunFiltered by one name and one viewport test produces NoReference results
 - [Bug] *use _id as label in config?* Scenario fails after rename. Because of changed ref path, as scenario label is a part of path.
 - [Bug] *use _id as label in config?* Job will not find a Scenario, after rename of scenario. Need to update all jobs, or store scenario Id instead of scenario label.
 - [Bug] user can create several viewports with the same size, after that he cannot delete of disable any of them
-- Frontend & Proxy: Request Beta Access / Get Notified on Launch (Ask for name/email, place email to separate table, examples: https://quantumcomputing.com/beta, https://www.humanfirst.ai/request-beta-access, https://quantumcomputing.com/)
 - Define Metrics to collect (feature requests & feedback button) [cost of each user, typical ways to work]
-- Check active operations with bad network / no network.
+- Check active operations with bad network / no network - where are error screens or loading states have to be used? (*Favorite scenarios, Recent Runs*)
 - Frontend: Comparer view: Need to show status Failed/Passed, because when you switch between viewport sizes it's hard to understand passed this case or not. Probably it also need to highlight viewports chips with passsed/failed colors
 - Frontend: Icons at Jobs History should be the same as in Recent Runs and in scenarios' Runs history tables
+- [TechDept] Frontend: Close menu at mobile view after click, and do not cover header
+- Check FireFox, Opera, Edge, Mobiles, Tablets
 - **------------ CLOSED BETA MILESTONE ------------**
 
+- [AWS] *Security* Review security groups and policies used by Beanstalk and EC2. Add notifications and monitoring.
+- [AWS] Do I really need CodeBuild step at CodePipeline?
+- Frontend & Proxy: Request Beta Access / Get Notified on Launch (Ask for name/email, place email to separate table, examples: https://quantumcomputing.com/beta, https://www.humanfirst.ai/request-beta-access, https://quantumcomputing.com/)
+- Frontend: Approvement of test case should not be based on idx, use guid/id generated on server-side instead. Approvement should be based on runId*caseId.
+- Frontend: card-sm & card-lg should looks the same, they have too different styles now.
+- [Security]: Should I get public access to bucket for hosting static? `AWS: This bucket has public access. You have provided public access to this bucket. We highly recommend that you never grant any kind of public access to your S3 bucket.`
+- [TechDept] Script out whole AWS deployment for Disaster Recovery procedure
+- [TechDept] Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email
+- [TechDept] Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
+- [TechDept] Backend & Frontend: Viewport settings are not convenient to use and develop. Need better solution, maybe table ith togglers.
+- [TechDept] Frontend: *featurelost* total number of scenarios
+- Backend: Beanstalk is blocking by Ghostery
+- Frontend: Need filtration by status at JobPage (results report) (Implement Sidebar filters for Job Page)
+- [Marketing Strategy] Persuade: Start with the exact solution for US / with a common problems for RU
+- Proxy: Switch to TypeScript to reduce chaos
+- Backend: Switch to TypeScript to reduce chaos
+- Backend: Storage service create and cache connection per user and never close it, even if user left site or logout.
+- Backend: migration script for copying data from one user to another
+- How to test videoplayers -> better to hide them
 - LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
 - [Feature+] Use Master term instead of Reference?
 - [Costs] ability to quickly block or limit user (to protect from overbudget)
@@ -188,6 +237,7 @@ BackLog
 - Frontend: Comparer view: Need juxtapose for Test/Ref, Diff/Ref, (?) Test/Diff
 - Frontend: Comparer view: Get rid of double scrolls in 'Fit' mode. Hot Keys [D] [R] [T]? Fixed Data actions bar? Side-by-side mode? Expand view in Full mode?
 - Frontend: Comparer view: Support DOM-elements' screens that have smaller width than viewport.
+- Frontend: Scenario Page: If user set DOM Element selector, offer him to "Create the same scenario for hover element?", after creating copy with hover shows hit notification alert with button - "open created scenario".
 - Frontend: refreshing page after approve case is annoying, need to replace it with longOp + changing state of particular case
 - Frontend: Full mobile support - scenario page tabs, settings tab, secondary page actions under the more (...) button, comparer
 - Frontend: Should logout user on Delete Account
@@ -248,7 +298,7 @@ BackLog
 - Restrict number of viewports
 - Filter Jobs by Starter (by me / by some user / by schedule / by webhook)
 - Loading a lot of images through AuthProxy is hard? Need to return signed link to S3 instead
-- Backend: Approve all failed/filtered tests in run
+- Backend: Approve all filtered tests in run
 - Dates should store in UTC but display in Local timezone (the same according to Tody filter)
 - support groupby=scenario for jobs history
 - Think out different UseScenarios for different Persons: The Developer, The TeamLead, The Indie (Who's he / What problems does he has / How does he expect to use me)
@@ -265,7 +315,7 @@ BackLog
 - Sanitize body and params in Auth proxy & Backend
 - [Feature] Frontend: Angular MultiLanguage support (i18n, l8n)
 - [Feature] API+APIKEY for running-with-parameters by posted config from body (Usecase: developer stores backstopjs-tests near the component, and post them to API to test against his host/params)
-- [Feature] API+APIKEY for comparing any posted screenshot against stored in DB (Usecase: dev team has environment for taking screenshots and uses API to validate them against approved, team also uses WenUI to approve cases, to monitor stability, and team uses notifications at Slack/Telegram)
+- [Feature] API+APIKEY for comparing any posted screenshot against stored in DB (Usecase: dev team has environment for taking screenshots and uses API to validate them against approved, team also uses WebUI to approve cases, to monitor stability, and team uses notifications at Slack/Telegram)
 - [Feature] Unapprove: Review and turn back any previously approved results.
 - [Feature] Locate tiny changes, and mark them more noticeably. Add "Scroll to next diff" button.
 - Think out understanding of costs (weight of s3/lambdas/queues/vm in total cost of user) to work out correct pricing strategy
@@ -278,6 +328,7 @@ BackLog
 - [Legal] FontAwsome can be used for commercial project?
 - [Legal] juxtaposejs can be used for commercial project?
 - [Legal] Unsplush images can be used for commercial project?
+- [Legal] undraw.co images can be used for commercial project?
 - [Legal] Terms of Service, Privacy Policy, Cookie Policy and Beta Service Agreement - what needed?
 - [Frontend] Support dark theme (dark mode) based on 'prefers-color-scheme' css media function, to better view of big percent of light screenshots
 - Invalid css-selector could crash test
@@ -303,6 +354,7 @@ BackLog
 - (?) Build community around this: disccussions, comments, approve requests/declines, viewsbase - storage of reference views and controls
 - (?) Create scenario from template/example
 - (?) [Feature+] Allow user to stub/mock some queries to its backend
+- (?) [Feature+] Integration with sitebuilders like Tilda, Wix, Ecwid, Shopify (especially if they have some post process integrations)
 
 
 

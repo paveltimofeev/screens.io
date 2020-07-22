@@ -1,0 +1,11 @@
+{
+  "storageConnectionString": "mongodb://localhost:27017",
+  "storageOptions": {
+    "useNewUrlParser": true,
+    "useFindAndModify": true,
+    "useUnifiedTopology": true
+  },
+  "mediaStorageStrategy": "S3",
+  "_mediaStorageStrategy": "LocalFS",
+  "vrtDataFullPath": "c:\\Temp\\vrtdata"
+}

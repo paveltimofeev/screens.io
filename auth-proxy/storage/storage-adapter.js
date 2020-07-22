@@ -20,7 +20,7 @@ class StorageAdapter {
       email,
       passwordHash: await encryption.hashPassword(password),
       name: user,
-      tenant: 'test-tenant'
+      tenant: user // 'test-tenant'
     })
 
     return await account.save()
@@ -184,7 +184,7 @@ const connectToDb = async (connectionString) => {
 
   console.log('[Start proxy] Connecting to db...')
 
-  await connect(
+  return await connect(
     connectionString,
     {
       useNewUrlParser: true,

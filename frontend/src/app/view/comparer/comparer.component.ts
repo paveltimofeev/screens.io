@@ -17,7 +17,7 @@ import {
   images,
   jobTitle, otherViewports,
   pageActionsInfo, runScenarioInfo,
-  sizeMode, viewport
+  sizeMode, viewport, canApprove
 } from './store/comparer.selectors';
 import { take } from 'rxjs/operators';
 import { IViewport } from '../../models/app.models';
@@ -33,6 +33,7 @@ export class ComparerComponent implements OnInit, OnDestroy {
   testCaseIndex: number;
 
   title$: Observable<string>;
+  canApprove$: Observable<boolean>;
   descriptionInfo$: Observable<any>;
   breadcrumbsInfo$: Observable<any>;
   pageActionsInfo$: Observable<any>;
@@ -52,6 +53,7 @@ export class ComparerComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.title$ = this.store.select( jobTitle );
+    this.canApprove$ = this.store.select( canApprove );
     this.descriptionInfo$ = this.store.select( descriptionInfo );
     this.breadcrumbsInfo$ = this.store.select( breadcrumbsInfo );
     this.pageActionsInfo$ = this.store.select( pageActionsInfo );
@@ -95,8 +97,8 @@ export class ComparerComponent implements OnInit, OnDestroy {
 
         this.store.dispatch( approve({ payload: {
             jobId: this.jobId,
-            testCaseIndex: this.testCaseIndex,
-            ...info
+            reportId: info.reportId,
+            testCaseIndex: this.testCaseIndex
           }
         }))
       })
@@ -129,7 +131,7 @@ export class ComparerComponent implements OnInit, OnDestroy {
         .subscribe( (cases:any[]) => {
           const c = cases.find(x => x.viewportLabel === $event.value);
           if (c) {
-            this.navigation.openComparer(this.jobId, c.caseIndex + 1)
+            this.navigation.openComparer(this.jobId, c.caseIndex)
           }
           else {
             console.warn(`Cannot find "${$event.value}" in`, cases)

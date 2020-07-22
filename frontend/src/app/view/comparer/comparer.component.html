@@ -7,7 +7,7 @@
 
   <div class="breadcrumb-placeholder">
     <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/jobs']">Jobs History</span>
-    <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/job', jobId]">{{ (breadcrumbsInfo$ | async).job }}</span>
+    <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/job', jobId]">Job Report #{{ (breadcrumbsInfo$ | async).reportId }}</span>
     <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/scenario', (breadcrumbsInfo$ | async).scenarioId]">{{ (breadcrumbsInfo$ | async).scenario }}</span>
     <span class="breadcrumb-item">{{ (breadcrumbsInfo$ | async).viewport }}</span>
   </div>
@@ -38,7 +38,7 @@
       <li class="title-actions-item">
         <button class="button button--white" (click)="runAgainHandler()">Run Again</button>
       </li>
-      <li class="title-actions-item">
+      <li class="title-actions-item" *ngIf="canApprove$ | async">
         <button class="button button--dark" (click)="approveHandler()">Approve</button>
       </li>
     </ul>

@@ -13,6 +13,12 @@ export interface IScenario {
   delay: number;
   misMatchThreshold: number;
   postInteractionWait: number;
+  expect: number;
+  selectorExpansion: boolean;
+  readySelector: string;
+  readyEvent: string;
+  scrollToSelector: string;
+
   meta_recentRunStatus: string,
   authConfig: {
     enabled: boolean;
@@ -25,6 +31,9 @@ export interface IScenario {
   },
   meta_isFavorite: boolean;
   meta_referenceImageUrl: string;
+  meta_referenceSM: string;
+  meta_referenceMD: string;
+  meta_referenceLG: string;
 }
 
 export interface IViewport {

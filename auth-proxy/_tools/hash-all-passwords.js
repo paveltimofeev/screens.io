@@ -2,11 +2,11 @@ const { model } = require('mongoose');
 const config = require('../config');
 const { userSchema } = require('./../models/user');
 const storage = require('../storage/storage-adapter');
-const encription = require('../storage/encryption');
+const encryption = require('../storage/encryption');
 
 const userModel = new model(config.dbUsersCollection, userSchema);
 
-storage.connectToDb(config.dbConnectionString)
+const conn = storage.connectToDb(config.storageConnectionString)
   .then( async () => {
 
     console.log('connected');
@@ -18,7 +18,7 @@ storage.connectToDb(config.dbConnectionString)
 
           if (user.password) {
             console.log(' - updating hash', user._id);
-            user.passwordHash = await encription.hashPassword( user.password );
+            user.passwordHash = await encryption.hashPassword( user.password );
           }
 
           if (user.password) {
@@ -30,4 +30,6 @@ storage.connectToDb(config.dbConnectionString)
           await user.save()
         })
     });
+
+    conn.close()
   });

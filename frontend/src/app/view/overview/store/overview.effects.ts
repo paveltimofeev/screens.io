@@ -58,16 +58,17 @@ export class OverviewEffects {
       return forkJoin(
         this.api.getScenarios(),
         this.api.getEnabledViewports(),
-        this.api.getFavoriteScenarios()
+        this.api.getFavoriteScenarios(),
+        this.api.getWidgetsData()
       ).pipe(
 
-        map( ([scenarios, viewports, favorites]) => {
+        map( ([scenarios, viewports, favorites, widgets]) => {
 
           return {
             type: loaded.type,
             payload: {
 
-              favoriteScenarios: favorites.data.map( x => ({...x, meta_referenceImageUrl: `${environment.media}${x.meta_referenceImageUrl}`})),
+              favoriteScenarios: favorites.data.map( x => ({...x, meta_referenceSM: `${environment.media}${x.meta_referenceSM}`})),
 
               totalScenarios: scenarios.data.length,
               totalViewports: viewports.data.length,
@@ -76,7 +77,9 @@ export class OverviewEffects {
               viewportsLabels: viewports.data.map(x => x.label),
 
               lastRunTime: -1,
-              totalState: ''
+              totalState: '',
+
+              widgets
             }}
         })
       )

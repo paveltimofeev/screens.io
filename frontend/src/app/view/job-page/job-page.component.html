@@ -7,7 +7,7 @@
 
   <div class="breadcrumb-placeholder">
     <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/jobs']">Jobs History</span>
-    <span class="breadcrumb-item">Job #{{ breadcrumbTitle$ | async }}</span>
+    <span class="breadcrumb-item">Job Report #{{ breadcrumbTitle$ | async }}</span>
   </div>
 
   <div class="description-placeholder">
@@ -24,15 +24,18 @@
   </div>
 
   <div class="page-title-placeholder">
-    <div class="title-stats" [ngClass]="{
+    <div class="title-stats" *ngIf="!(isRunning$ | async)" [ngClass]="{
       'title-stats--failed': (sidebarHeaderInfo$ | async).status === 'Failed',
       'title-stats--passed': (sidebarHeaderInfo$ | async).status === 'Passed'
     }">
       {{ resultStats$ |async }} {{ (sidebarHeaderInfo$ | async).status }}
     </div>
+    <div class="title-stats title-stats--running button--in-progress" *ngIf="isRunning$ | async">
+      Running
+    </div>
   </div>
 
-  <div class="page-actions-placeholder">
+  <div class="page-actions-placeholder" *ngIf="!(isRunning$ | async)">
 
     <ul class="page-actions">
 
@@ -117,16 +120,21 @@
     </app-data-action-button>
 
   </div>
-
+ 
   <div class="data-placeholder">
 
-    <div class="row">
+    <div class="view-state view-state--job-running" *ngIf="isRunning$ | async">
+      <img src="/assets/images/view-states/job-running.svg" alt="Job is running">
+      <h3>Job is running...</h3>
+    </div>
+
+    <div class="row" *ngIf="!(isRunning$ | async)">
       <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let c of cases$ | async; index as idx">
         <app-card-lg
           *ngIf="(imageMode$ | async) === 'Test Result'"
           [label]="c.label"
-          [imageUrl]="c.test"
-          [hoverImageUrl]="c.difference"
+          [imageUrl]="c.meta_testLG"
+          [hoverImageUrl]="c.meta_diffImageLG"
           [viewports]="[c.viewport]"
           [status]="c.status"
           [errorMessage]="c.error"
@@ -134,14 +142,14 @@
           [fullHeightModeOn]="fullHeightModeOn$ | async"
           (clickCard)="clickCardHandler(idx)"
           (clickLabel)="clickLabelHandler(c.scenarioId)"
-          (clickApprove)="clickApproveHandler(c)"
+          (clickApprove)="clickApproveHandler(c, idx)"
         >
         </app-card-lg>
 
         <app-card-lg
           *ngIf="(imageMode$ | async) === 'Difference'"
           [label]="c.label"
-          [imageUrl]="c.difference || c.test"
+          [imageUrl]="c.meta_diffImageLG || c.meta_testLG"
           [hoverImageUrl]="c.test"
           [viewports]="[c.viewport]"
           [status]="c.status"
@@ -150,7 +158,7 @@
           [fullHeightModeOn]="fullHeightModeOn$ | async"
           (clickCard)="clickCardHandler(idx)"
           (clickLabel)="clickLabelHandler(c.scenarioId)"
-          (clickApprove)="clickApproveHandler(c)"
+          (clickApprove)="clickApproveHandler(c, idx)"
         >
         </app-card-lg>
       </div>

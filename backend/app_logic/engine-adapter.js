@@ -2,7 +2,11 @@ const fs = require('fs');
 const { promisify } = require('util');
 const path = require('path');
 const readFile = promisify(fs.readFile)
-const { UIError } = require('./ui-error');
+
+const { UIError } = require('../ui-error');
+const { FilePathsService } = require('./app-utils');
+const filePathsService = new FilePathsService();
+
 
 const throwIfInvalidPathPart = (name, pathPart) => {
 
@@ -23,9 +27,9 @@ const validateArray = (name, param) => {
   }
 }
 
+
 class EngineAdapter {
 
-    /* UNUSED? */
     async getReport (reportFolder) {
 
         try {
@@ -39,6 +43,10 @@ class EngineAdapter {
     }
 
     convertReportPath (configPaths, runId, report) {
+
+        if (!report) {
+            return
+        }
 
         throwIfInvalidPathPart('html_report', configPaths.html_report)
         throwIfInvalidPathPart('runId', runId)
@@ -61,14 +69,16 @@ class EngineAdapter {
         throwIfInvalidPathPart('tenantId', tenantId)
         throwIfInvalidPathPart('userId', userId)
 
+        const vrtDataLocation = filePathsService.vrtDataFullPath();
+
         return {
-            bitmaps_reference: `vrt_data/${tenantId}/${userId}/bitmaps_reference`,
+            bitmaps_reference: `${vrtDataLocation}/${tenantId}/${userId}/bitmaps_reference`,
             engine_scripts:    `app_logic/engine_scripts`,
 
-            bitmaps_test: `vrt_data/${tenantId}/${userId}/bitmaps_test`,
-            html_report:  `vrt_data/${tenantId}/${userId}/html_report`,
-            ci_report:    `vrt_data/${tenantId}/${userId}/ci_report`,
-            json_report:  `vrt_data/${tenantId}/${userId}/json_report`
+            bitmaps_test: `${vrtDataLocation}/${tenantId}/${userId}/bitmaps_test`,
+            html_report:  `${vrtDataLocation}/${tenantId}/${userId}/html_report`,
+            ci_report:    `${vrtDataLocation}/${tenantId}/${userId}/ci_report`,
+            json_report:  `${vrtDataLocation}/${tenantId}/${userId}/json_report`
         }
     }
 
@@ -137,4 +147,60 @@ class EngineAdapter {
     }
 }
 
-module.exports = EngineAdapter
+
+class JsonReportAdapter {
+
+    constructor (jsonReport, reportLocation, runId) {
+
+        this._reportLocation = reportLocation;
+        this._report = this._convertReport(jsonReport, runId);
+    }
+
+    _convertReport(jsonReport, runId) {
+
+        jsonReport.runId = runId;
+
+        const getAbsolutePath = (value) => {
+
+            return value ? path.join( this._reportLocation, value ) : null
+        };
+
+        if (!jsonReport.tests) {
+            jsonReport.tests = [];
+        }
+
+        jsonReport.tests.forEach(test => {
+
+            let absolute = {
+                ref: getAbsolutePath( test.pair.reference ),
+                test: getAbsolutePath( test.pair.test ),
+                diff: getAbsolutePath( test.pair.diffImage ),
+            };
+
+            test.pair.images = {
+                absolute,
+                relative : {
+                    ref : filePathsService.relativeToVrtDataPath( absolute.ref ),
+                    test : filePathsService.relativeToVrtDataPath( absolute.test ),
+                    diff : filePathsService.relativeToVrtDataPath( absolute.diff ),
+                }
+            };
+
+            test.pair.reference = !test.pair.reference ? null : filePathsService.relativeToVrtDataPath(  path.resolve(this._reportLocation, test.pair.reference) );
+            test.pair.test      = !test.pair.test ? null : filePathsService.relativeToVrtDataPath(  path.resolve(this._reportLocation, test.pair.test) );
+            test.pair.diffImage = !test.pair.diffImage ? null : filePathsService.relativeToVrtDataPath(  path.resolve(this._reportLocation, test.pair.diffImage) );
+        });
+
+        return jsonReport;
+    }
+
+    get report() {
+        return this._report;
+    }
+}
+
+
+module.exports = {
+    EngineAdapter: EngineAdapter,
+    JsonReportAdapter: JsonReportAdapter
+}

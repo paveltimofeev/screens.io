@@ -4,10 +4,9 @@
 
 export const environment = {
   production: false,
-  storage: 'http://localhost:8888', // DB
-  media: 'http://localhost:8888',   // Images
-  auth: 'http://localhost:8888',    // Auth proxy
-  api: 'http://localhost:8888/api/' // REST
+  media: 'https://vrtdata.s3.amazonaws.com/',   // Images (AWS S3)
+  auth: 'http://screens.api.patico.pro',    // Auth proxy
+  api: 'http://screens.api.patico.pro/api/' // REST
 };
 
 /*

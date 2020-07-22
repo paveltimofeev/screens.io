@@ -1,8 +1,10 @@
 {
-  "storageConnectionString": "mongodb://localhost:27017/TestDb",
+  "storageConnectionString": "mongodb+srv://vzGo8dbd9pg:cmmf2fg88bZgP8CVWud3y@screentestcluster0.lxjfb.mongodb.net",
   "storageOptions": {
     "useNewUrlParser": true,
     "useFindAndModify": true,
     "useUnifiedTopology": true
-  }
+  },
+  "mediaStorageStrategy": "S3",
+  "vrtDataFullPath": "/tmp/vrtdata"
 }

@@ -11,8 +11,12 @@ const apiRouter = require('./routes/api');
 const resultsRouter = require('./routes/results');
 const mongoose = require('mongoose');
 
-const config = require('./config');
+const config = require('./app_logic/configuration');
 
+
+let connectToDbRetries = 0;
+let connectToDbRetriesMax = 5;
+let connectToDbRetriesDelay = 3000;
 
 async function connectToDb() {
 
@@ -21,7 +25,18 @@ async function connectToDb() {
     console.log('Connected to MongoDb')
   }
   catch (e) {
-    console.log('ERROR: Cannot connect to MongoDb', e)
+    console.log( 'ERROR: Cannot connect to MongoDb', e );
+
+    if( connectToDbRetries >= connectToDbRetriesMax ) {
+      process.exit( 1 );
+    } else {
+      setTimeout(
+        () => {
+          connectToDb()
+        },
+        connectToDbRetriesDelay
+      );
+    }
   }
 }
 
@@ -34,7 +49,11 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
+// app.use(logger('dev'));
+logger.token('userid', (req) => req.header('x-auth-proxy-userid'));
+app.use(logger('[Request] :method :url :status :res[content-length] - :response-time ms | :userid'));
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

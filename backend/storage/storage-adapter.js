@@ -4,27 +4,47 @@ const { scenarioSchema } = require('../models/scenario')
 const { viewportSchema } = require('../models/viewport')
 const { reportSchema } = require('../models/report')
 const { UIError } = require('../ui-error')
-
+const config = require('./../app_logic/configuration');
 
 class Storage {
 
-    convertToObject (entry) {
+    constructor () {
 
-        if (!entry) {
-            return null;
-        }
-
-        let obj = entry.toObject();
-        delete obj._id;
-        delete obj.__v;
-        return obj;
+        this.__connectionsPool = {};
     }
 
-    _createEntity (database, collection, schema) {
+    _log (message, data) {
+
+        if (!data) { console.log(`[Storage] ${message}`) }
+        else { console.log(`[Storage] ${message}`, data) }
+    }
+
+    _getConnection (database) {
 
         if (!database || database.trim() === '') {
             throw new Error('No database name')
         }
+
+        if (this.__connectionsPool[database]) {
+            // this._log('use cached conn', database);
+            return this.__connectionsPool[database];
+        }
+
+        const conn = mongoose.createConnection(`${config.storageConnectionString}/user_${database}`,
+          {
+              useNewUrlParser: true,
+              useFindAndModify: true,
+              useUnifiedTopology: true,
+              keepAlive: true,
+              socketTimeoutMS: 60 * 1000, // Close sockets after N seconds of inactivity
+              connectTimeoutMS: 30 * 1000
+          });
+
+        this.__connectionsPool[database] = conn;
+        return conn;
+    }
+
+    async _dbOperations (database, collection, schema, opsCallback) {
 
         if (!collection || collection.trim() === '') {
             throw new Error('No collection name')
@@ -34,57 +54,99 @@ class Storage {
             throw new Error('No schema')
         }
 
-        const connection = mongoose.createConnection(
-          `mongodb://localhost:27017/user_${database}`,
-          {
-              useNewUrlParser: true,
-              useFindAndModify: true,
-              useUnifiedTopology: true
-          });
+        let connection;
 
-        return connection.model(collection, schema);
+        try {
+
+            connection = this._getConnection(database);
+            let entity = connection.model( collection, schema );
+            return await opsCallback( entity );
+        }
+        catch(err) {
+
+            console.log('[DbOperations] ERROR', err);
+            throw err
+        }
+        finally {
+
+            // if (connection) {
+            //     connection.close()
+            // }
+        }
     }
 
 
     async _create (database, collection, schema, data) {
 
-        let entity = this._createEntity(database, collection, schema)
-        const newEntry = new entity(data)
-        return await newEntry.save()
+        this._log('create', collection);
+
+        return this._dbOperations(database, collection, schema, async (entity) => {
+            // let entity = this._createEntity(database, collection, schema)
+            const newEntry = new entity(data)
+            return await newEntry.save()
+        });
     }
     async _update (database, collection, schema, id, data) {
 
-        let entity = this._createEntity(database, collection, schema)
-        let entry = await entity.findById(id)
-        Object.keys(data).forEach(x => entry[x] = data[x])
-        return await entry.save()
+        this._log('update', collection);
+
+        return this._dbOperations(database, collection, schema, async (entity) => {
+
+            // let entity = this._createEntity( database, collection, schema )
+            let entry = await entity.findById( id )
+            Object.keys( data ).forEach( x => entry[ x ] = data[ x ] )
+            return await entry.save()
+        });
     }
     async _bulkUpsert (database, collection, schema, bulkOps) {
 
-        let entity = this._createEntity(database, collection, schema);
-        return await entity.bulkWrite(bulkOps);
+        this._log('bulk upsert', collection);
+
+        return this._dbOperations(database, collection, schema, async (entity) => {
+            // let entity = this._createEntity(database, collection, schema);
+            return await entity.bulkWrite( bulkOps );
+        });
     }
     async _getAll (database, collection, schema) {
+        this._log('get all', collection);
+
         return await this._getByQuery(database, collection, schema, {})
     }
     async _getByQuery (database, collection, schema, query) {
-        let entity = this._createEntity(database, collection, schema)
-        return await entity.find(query || {})
+
+        this._log('get by query', collection);
+
+        return this._dbOperations(database, collection, schema, async (entity) => {
+            // let entity = this._createEntity(database, collection, schema)
+            return await entity.find( query || {} )
+        });
     }
     async _getById (database, collection, schema, id) {
 
-        let entity = this._createEntity(database, collection, schema)
-        return await entity.findById(id)
+        this._log('get by id', collection);
+
+        return this._dbOperations(database, collection, schema, async (entity) => {
+            //let entity = this._createEntity(database, collection, schema)
+            return await entity.findById( id )
+        });
     }
     async _deleteById (database, collection, schema, id) {
 
-        let entity = this._createEntity(database, collection, schema)
-        return await entity.deleteOne({_id: id})
+        this._log('delete by id', collection);
+
+        return this._dbOperations(database, collection, schema, async (entity) => {
+            // let entity = this._createEntity(database, collection, schema)
+            return await entity.deleteOne( { _id : id } )
+        });
     }
     async _deleteAll (database, collection, schema) {
 
-        let entity = this._createEntity(database, collection, schema)
-        return await entity.remove({})
+        this._log('delete all', collection);
+
+        return this._dbOperations(database, collection, schema, async (entity) => {
+            // let entity = this._createEntity(database, collection, schema)
+            return await entity.remove( {} )
+        });
     }
 
     async getHistoryRecordById (database, id) {
@@ -98,14 +160,20 @@ class Storage {
 
         limit = isValidNumber(limit) ? parseInt(limit) : 10
 
-        let entity = this._createEntity(database, 'Record', recordSchema)
-        return await entity.find(query||{}).sort({ _id: 'desc'}).limit(limit)
+        return this._dbOperations(database, 'Record', recordSchema,
+          async(entity) => {
+
+            return await entity.find(query||{}).sort({ _id: 'desc'}).limit(limit)
+        });
     }
     async getHistoryRecordsStats (database) {
 
-        let entity = this._createEntity(database, 'Record', recordSchema)
+        let count = this._dbOperations(database, 'Record', recordSchema, async (entity) => {
+            return await entity.count()
+        });
+
         return {
-            count: await entity.count()
+            count: count
         }
     }
     async createHistoryRecord (database, data) {
@@ -158,11 +226,10 @@ class Storage {
 
         let scenario = await this.getScenarioById(database, originalScenarioId)
 
-        let newScenario = this.convertToObject(scenario)
-        delete newScenario._id
-        delete newScenario.meta_isFavorite
-        delete newScenario.meta_recentRunStatus
-        delete newScenario.meta_referenceImageUrl
+        let newScenario = this.convertToObject(scenario);
+        delete newScenario._id;
+        delete newScenario.meta_isFavorite;
+        delete newScenario.meta_recentRunStatus;
 
         return await this._create(database, 'Scenario', scenarioSchema, {
             ...newScenario,
@@ -236,6 +303,10 @@ class Storage {
 
         const postProcess = (report) => {
 
+            if (!report || !report.tests) {
+                return
+            }
+
             report.tests.forEach( t => {
                 if ( t.pair.error
                   && t.pair.error.startsWith('Reference file not found')
@@ -251,15 +322,30 @@ class Storage {
             })
         }
 
-        let entity = this._createEntity(database, 'Report', reportSchema)
+        return this._dbOperations(database, 'Report', reportSchema, async (entity) => {
+            // let entity = this._createEntity(database, 'Report', reportSchema)
 
-        let report = await entity.findOne( {runId: runId} )
-        postProcess(report)
-        return report
+            let report = await entity.findOne( { runId : runId } )
+            postProcess( report )
+            return report
+        })
     }
     async createReport (database, data) {
 
         return await this._create(database, 'Report', reportSchema, data)
+    }
+
+
+    convertToObject (entry) {
+
+        if (!entry) {
+            return null;
+        }
+
+        let obj = entry.toObject();
+        delete obj._id;
+        delete obj.__v;
+        return obj;
     }
 }
 

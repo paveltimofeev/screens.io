@@ -13,6 +13,7 @@ export interface ComparerState {
   scenario: string;
   viewport: IViewport;
   url: string;
+  canApprove: boolean;
 
   referenceImage: string;
   differenceImage: string;
@@ -33,6 +34,7 @@ export const initState = {
   scenarioId: '',
   scenario: '',
   viewport: {},
+  canApprove: false,
 
   referenceImage: '',
   differenceImage: '',

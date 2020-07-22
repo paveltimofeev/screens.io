@@ -27,7 +27,10 @@ const reportSchema = new Schema({
                     },
                     diffImage: String,
                     engineErrorMsg: String,
-                    error: String
+                    error: String,
+
+                    meta_testLG: String,        /// url of resized test result image (large size),
+                    meta_diffImageLG: String    /// url of resized difference image (large size)
                 },
                 status: String
             }

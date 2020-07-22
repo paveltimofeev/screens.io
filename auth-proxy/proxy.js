@@ -7,19 +7,23 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const MemoryStore = require('memorystore')(session)
 const cors = require('./cors');
-const {clearHeaders, checkAuth, signup, signin, signout, changePassword, getAccountInfo, updateAccountInfo, deleteAccount} = require('./app_logic/utils')
-const config = require('./config')
+const appFacade = require('./app_logic/app-facade');
+const config = require('./app_logic/configuration');
 const { connectToDb } = require('./storage/storage-adapter')
 
 const loginRouter = require('./routes/login');
 const manageRouter = require('./routes/manage');
 const webuiRouter = require('./routes/manage');
+const sysRouter = require('./routes/sys');
 
 
 process.env.NODE_ENV = 'production'; // Hide stacktrace on error
 
 var app = express();
-app.use(logger('dev'))
+
+// app.use(logger('dev'))
+logger.token('userid', (req) => req.session ? req.session.userid : '-');
+app.use(logger('[Request] :method :url :status :res[content-length] - :response-time ms | :userid'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -28,7 +32,7 @@ app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser(config.cookieSign))
 app.use(cors(config.allowedCORSHost));
-app.use(clearHeaders(['X-Powered-By']))
+app.use(appFacade.clearHeaders(['X-Powered-By']))
 
 /// Configure session storage
 /// https://github.com/expressjs/session
@@ -48,7 +52,7 @@ app.use(session({
 
 
 /// Check authorized session for proxied requests
-app.use(config.proxyPath, checkAuth)
+app.use(config.proxyPath, appFacade.checkAuth)
 
 
 /// Proxy backend calls
@@ -73,6 +77,7 @@ app.use(express.json())
 
 /// ROUTES MIDDLEWARE
 
+app.use('/sys', sysRouter);
 app.use('/manage', manageRouter);
 app.use('/', loginRouter);
 
@@ -81,12 +86,17 @@ if (config.showWebUI) {
 }
 
 
+let startRetries = 0;
+let startRetriesMax = 5;
+let startRetriesDelay = 3000;
+
 async function start() {
+
+  let conn;
 
   try {
 
-    await connectToDb( config.dbConnectionString )
-
+    conn = await connectToDb( config.storageConnectionString )
     console.log('[Start proxy] Listening port', config.port)
 
     app.set('port', config.port);
@@ -95,6 +105,23 @@ async function start() {
   }
   catch (error) {
     console.error('[Start proxy] Error', error)
+
+    if (conn) {
+      conn.close()
+    }
+
+    if (startRetries >= startRetriesMax) {
+      process.exit( 1 );
+    }
+    else {
+
+      console.log('[Start proxy] Retry after (ms)', startRetriesDelay);
+
+      setTimeout(
+        () => { start() },
+        startRetriesDelay
+      );
+    }
   }
 }
 

@@ -8,10 +8,15 @@ export const jobTitle = createSelector(
   (state: ComparerState) => state.title
 );
 
+export const canApprove = createSelector(
+  selectFeature,
+  (state: ComparerState) => state.canApprove
+);
+
 export const breadcrumbsInfo = createSelector(
   selectFeature,
   (state: ComparerState) => ({
-    job: state.job,
+    reportId: state.reportId,
     scenarioId: state.scenarioId,
     scenario: state.scenario,
     viewport: state.viewport.label

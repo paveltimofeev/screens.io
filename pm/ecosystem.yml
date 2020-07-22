@@ -1,0 +1,17 @@
+apps:
+  - script: './proxy.js'
+    cwd: auth-proxy
+    name: proxy
+    watch: false
+    port: 8888
+    env:
+      NODE_ENV: production
+      SCREENS_ENV: CLOUD
+  - script: './bin/www'
+    cwd: backend
+    name: backend
+    watch: false
+    port: 3000
+    env:
+      NODE_ENV: production
+      SCREENS_ENV: CLOUD

@@ -10,7 +10,7 @@ const email = 'guest@screen.io';
 const password = 'GUEST2020';
 
 
-storage.connectToDb(config.dbConnectionString)
+const conn = storage.connectToDb(config.storageConnectionString)
   .then( async () => {
 
     console.log('connected');
@@ -22,4 +22,6 @@ storage.connectToDb(config.dbConnectionString)
       user.passwordHash = await encryption.hashPassword( password );
       await user.save();
     });
+
+    conn.close();
   });

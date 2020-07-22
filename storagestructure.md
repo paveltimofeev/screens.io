@@ -42,6 +42,10 @@
     meta_isFavorite
     meta_recentRunStatus
     meta_referenceImageUrl
+    meta_referenceSM
+    meta_referenceMD
+    meta_referenceLG
+    
 
 
 ## Viewport
@@ -51,7 +55,8 @@
     enabled
 
 
-## Record
+## History Record / Job Item
+    _id   *JobId*
     runId
     state
     startedAt
@@ -64,7 +69,8 @@
     viewports[]
 
 
-## Report
+## Report / Json Report / Run Results
+    _id
     runId
     testSuite
     tests

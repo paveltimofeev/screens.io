@@ -8,8 +8,7 @@
   "secureCookie": false,
   "__secureCookie_note": "HTTPS needs for 'secureCookie=true' ",
   "maxAge": 36000000,
-  "allowedCORSHost": "https://screens.patico.pro",
-  "__allowedCORSHost": "http://localhost:4201",
+  "allowedCORSHost": "https://beta.patico.pro",
   "storageConnectionString": "mongodb+srv://vzGo8dbd9pg:cmmf2fg88bZgP8CVWud3y@screentestcluster0.lxjfb.mongodb.net/test",
   "dbUsersCollection": "user",
   "showWebUI": false

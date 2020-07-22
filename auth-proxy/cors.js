@@ -4,7 +4,7 @@ module.exports = (allowedHost) => {
 
     let origin = req.headers.origin;
 
-    if ( origin === allowedHost) {
+    if ( origin === allowedHost ) {
 
       res.append('Access-Control-Allow-Origin', origin);
       res.append('Access-Control-Allow-Methods', 'GET, PUT, HEAD, OPTIONS, POST, PATCH, DELETE');

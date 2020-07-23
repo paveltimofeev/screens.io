@@ -167,9 +167,10 @@
 -- [Move to AWS: 4] Deploy frontend to AWS S3/CloudFront under the "beta" domain name
 -- [Move to AWS: 4.1] AWS Frontend: add SSL
 -- [Move to AWS: 4.2] Setup CodePipeline for frontend: github -> s3 + invalidate cloud front
+-- Deployment scripts (backend, frontend)
+-- [Move to AWS: 4.3] AWS Beanstalk: add SSL
 
 
-- [Move to AWS: 4.3] AWS Beanstalk: add SSL
 
 
 TechDept
@@ -177,18 +178,18 @@ TechDept
 
 BackLog
 - [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
-- Backend: AWS S3 mode - delete successfully uploaded images from local file system
-- Backend/Beanstalk/PM2: need to limit max CPU usage for backend and proxy, to prevent not responding server.
-- Frontend: Need more info on running job - you'll never know what happens, job just stuck running.
-- Frontend: Display 'refresh' button for running job and 'break' or 'stop' for running too long.
+- Frontend: Display 'refresh' button for running job and 'break' or 'stop' for running too long. Auto Stop for stuck/forever-running jobs
 - Frontend: Stats & analytics: Recently failed Job
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
-- Frontend: Comparer: Images are misplaced sometimes. Need to show loading process.
-- Auto Stop for stuck/forever-running jobs
 
 - **------------ MVP MILESTONE ------------**
 
+- Frontend: Change Title and Logo to corresponding brand name
+- Backend: AWS S3 mode - delete successfully uploaded images from local file system
+- Backend/Beanstalk/PM2: need to limit max CPU usage for backend and proxy, to prevent not responding server.
 - **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user, copy data and files from 'Default' user)
+- Frontend: Comparer: Images are misplaced sometimes. Need to show loading process.
+- Frontend: Need more info on running job - you'll never know what happens, job just stuck running.
 - Organize AWS Policies names, s3 buckets names
 - Use `backstop reference` for generation default reference on save/preview scenario
 - Backend: add retries to S3Adapter or ensure that aws lib already provides it.
@@ -216,6 +217,7 @@ BackLog
 - Frontend: Approvement of test case should not be based on idx, use guid/id generated on server-side instead. Approvement should be based on runId*caseId.
 - Frontend: card-sm & card-lg should looks the same, they have too different styles now.
 - [Security]: Should I get public access to bucket for hosting static? `AWS: This bucket has public access. You have provided public access to this bucket. We highly recommend that you never grant any kind of public access to your S3 bucket.`
+- [Security] Complete security checks & validation. https://observatory.mozilla.org Frontend: F 6/11 (20/100), Backend: F 7/11 (20/100),  (+check by Lighthouse, threatcrowd.org, pentest-tools.com)
 - [TechDept] Script out whole AWS deployment for Disaster Recovery procedure
 - [TechDept] Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email
 - [TechDept] Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`
@@ -229,7 +231,7 @@ BackLog
 - Backend: Storage service create and cache connection per user and never close it, even if user left site or logout.
 - Backend: migration script for copying data from one user to another
 - How to test videoplayers -> better to hide them
-- LANDING PAGE (WP/Gatsby/Hugo/Jekyll/Shopify?)
+- LANDING PAGE (WP / Gatsby / Hugo / Jekyll / Shopify / Webflow + foxy.io for recurring payments)
 - [Feature+] Use Master term instead of Reference?
 - [Costs] ability to quickly block or limit user (to protect from overbudget)
 - Retry Policy for proxy<->backend, backend<->db, backend<->queue, new_user_init
@@ -290,9 +292,8 @@ BackLog
 - Add limit or paging to all jobs requests (like getScenarioHistory, no need to load all 1000k records straight away)
 - Frontend: Check on FF/Opeara/Edge. Egde - shadows, status-label, toggle animation, flex alignment (IE11 - too many bugs, too expensive to support)
 - Lazy Loading for most of images to reduce S3-traffic, pressure on backend and increase UI responsiveness
-- Deployment scripts (backend, frontend, landing)
+- Deployment scripts (landing)
 - Marketing efforts (Internet marketing, SEO, Social presence, Blogging, Video Tutorials)
-- Complete auto security checks & validation (by Lighthouse and other services)
 - Frontend: Splitter for comparer view
 - Frontend: Think out onboarding process, layout and empty state views.
 - Restrict number of viewports
@@ -342,7 +343,7 @@ BackLog
 - [Feature] SLACK BOT
 - [Feature] GITTER WEBHOOKS
 - [Feature] SCHEDULER FOR RUNS
-- PAYMENT & TRIAL-ACCOUNTS
+- PAYMENTS (recurring) & TRIAL-ACCOUNTS
 - COMPARE WITH COMPETITORS: diffy.website, screenster.io, percy.io
     - ON DEMAND AGENT (MANAGED BY SERVER) TO MAKE SCREENSHOTS (WITHOUT AUTH/OF LOCALHOST) AND SEND THEM TO THE BACKEND
     - [Feature+] GITHUB/CIRCLECI/APPVEYOR INTEGRATION like DIFFY, AutoSearch links to other pages

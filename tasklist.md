@@ -168,9 +168,9 @@
 -- [Move to AWS: 4.1] AWS Frontend: add SSL
 -- [Move to AWS: 4.2] Setup CodePipeline for frontend: github -> s3 + invalidate cloud front
 -- Deployment scripts (backend, frontend)
+-- [Move to AWS: 4.3] AWS Beanstalk: add SSL
 
 
-- [Move to AWS: 4.3] AWS Beanstalk: add SSL
 
 
 TechDept
@@ -184,6 +184,7 @@ BackLog
 
 - **------------ MVP MILESTONE ------------**
 
+- Frontend: Change Title and Logo to corresponding brand name
 - Backend: AWS S3 mode - delete successfully uploaded images from local file system
 - Backend/Beanstalk/PM2: need to limit max CPU usage for backend and proxy, to prevent not responding server.
 - **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user, copy data and files from 'Default' user)

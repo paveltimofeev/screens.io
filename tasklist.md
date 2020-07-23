@@ -169,8 +169,8 @@
 -- [Move to AWS: 4.2] Setup CodePipeline for frontend: github -> s3 + invalidate cloud front
 -- Deployment scripts (backend, frontend)
 -- [Move to AWS: 4.3] AWS Beanstalk: add SSL
-
-
+-- Proxy & Backend: Support loading of configs from ENV vars PROXY_CONFIG and BACKEND_CONFIG
+-- Proxy: Support cookie configuration from proxy config, and reorganise config structure
 
 
 TechDept
@@ -209,6 +209,8 @@ BackLog
 - Frontend: Icons at Jobs History should be the same as in Recent Runs and in scenarios' Runs history tables
 - [TechDept] Frontend: Close menu at mobile view after click, and do not cover header
 - Check FireFox, Opera, Edge, Mobiles, Tablets
+- [Security!]: Frontend + Proxy: How to make cookies secure for SPA+REST (`secure:true`, `sameSite`, `domain` and `__Secure_`-prefix are not working correctly - do not store cookie at webui domian)
+- [Security!]: Frontend: support CSP, HSTS, X-Content-Type-Options, XFO, X-XSS-Protection headers (see observatory.mozilla.org report)
 - **------------ CLOSED BETA MILESTONE ------------**
 
 - [AWS] *Security* Review security groups and policies used by Beanstalk and EC2. Add notifications and monitoring.

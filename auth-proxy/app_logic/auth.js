@@ -140,8 +140,8 @@ const _createSessionOnSuccess = (req, res, userData) => {
   req.session.tenant = userData.tenant;
   req.session.username = userData.name;
 
-  res.cookie('user', userData.user, {signed:true, sameSite:true, maxAge: config.maxAge});
-  res.cookie('_id', userData._id, {signed:true, sameSite:true, maxAge: config.maxAge});
+  res.cookie('user', userData.user, {signed:true, sameSite:true, maxAge: config.cookies.maxAge});
+  res.cookie('_id', userData._id, {signed:true, sameSite:true, maxAge: config.cookies.maxAge});
 }
 
 const _setupNewUser = async (userData) => {

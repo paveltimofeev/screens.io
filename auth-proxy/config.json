@@ -7,6 +7,7 @@
   "sessionCookieName": "__Secure-twghtf",
   "secureCookie": true,
   "maxAge": 36000000,
+  "cookieDomain": "patico.pro",
   "allowedCORSHost": "https://beta.patico.pro",
   "storageConnectionString": "mongodb+srv://vzGo8dbd9pg:cmmf2fg88bZgP8CVWud3y@screentestcluster0.lxjfb.mongodb.net/test",
   "dbUsersCollection": "user",

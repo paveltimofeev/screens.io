@@ -43,7 +43,12 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     secure: config.secureCookie,
-    maxAge: config.maxAge
+    maxAge: config.maxAge,
+    expires: new Date(Date.now() + config.maxAge),
+    httpOnly: true,
+    sameSite: 'Strict',
+    path: '/'
+    // domain: '',
   },
   store: new MemoryStore({
     checkPeriod: config.maxAge

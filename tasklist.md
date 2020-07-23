@@ -217,7 +217,7 @@ BackLog
 - Frontend: Approvement of test case should not be based on idx, use guid/id generated on server-side instead. Approvement should be based on runId*caseId.
 - Frontend: card-sm & card-lg should looks the same, they have too different styles now.
 - [Security]: Should I get public access to bucket for hosting static? `AWS: This bucket has public access. You have provided public access to this bucket. We highly recommend that you never grant any kind of public access to your S3 bucket.`
-- [Security] Complete security checks & validation. https://observatory.mozilla.org Frontend: F 6/11 (20/100), Backend: F 7/11 (20/100),  (+check by Lighthouse, threatcrowd.org, pentest-tools.com)
+- [Security] Complete security checks & validation. https://observatory.mozilla.org Frontend: F 6/11 (20/100), Backend: B 8/11 (70/100),  (+check by Lighthouse, threatcrowd.org, pentest-tools.com)
 - [TechDept] Script out whole AWS deployment for Disaster Recovery procedure
 - [TechDept] Proxy: Simplify passwordChecks by user/by email - introduce accountId as a key instead of user/email
 - [TechDept] Proxy: Simplify setting of x-auth-proxy-... headers - `userid vs user._id`, `user, name - really needed?`

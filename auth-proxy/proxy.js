@@ -46,9 +46,9 @@ app.use(session({
     maxAge: config.maxAge,
     expires: new Date(Date.now() + config.maxAge),
     httpOnly: true,
-    sameSite: 'Strict',
-    path: '/'
-    // domain: '',
+    sameSite: false, // 'Strict',
+    path: '/',
+    domain: config.cookieDomain || '',
   },
   store: new MemoryStore({
     checkPeriod: config.maxAge

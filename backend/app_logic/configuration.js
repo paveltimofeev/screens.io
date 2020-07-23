@@ -11,4 +11,19 @@ else {
   configuration = require('../config')
 }
 
+const BACKEND_CONFIG = process.env.BACKEND_CONFIG;
+if (BACKEND_CONFIG) {
+
+  console.log('[Configuration] BACKEND_CONFIG env var found. Config will parsed from PROXY_CONFIG.');
+
+  try {
+    configuration = JSON.parse(BACKEND_CONFIG);
+  }
+  catch (err) {
+    console.error(
+      '[Configuration] BACKEND_CONFIG parse failed. It should be stringified JSON',
+      err)
+  }
+}
+
 module.exports = configuration;

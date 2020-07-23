@@ -2,14 +2,22 @@
   "port": 8888,
   "backend": "http://localhost:3000",
   "proxyPath": ["/api/", "/vrt_data/"],
-  "cookieSign": "secretKey",
-  "sessionSecret": "sessionSecret71R369C31V186C12BX",
-  "sessionCookieName": "__Secure-twghtf",
-  "secureCookie": true,
-  "maxAge": 36000000,
-  "cookieDomain": "patico.pro",
-  "allowedCORSHost": "https://beta.patico.pro",
   "storageConnectionString": "mongodb+srv://vzGo8dbd9pg:cmmf2fg88bZgP8CVWud3y@screentestcluster0.lxjfb.mongodb.net/test",
   "dbUsersCollection": "user",
-  "showWebUI": false
+  "showWebUI": false,
+
+  "allowedCORSHost": "https://beta.patico.pro",
+
+  "cookieSign": "secretKey",
+  "sessionSecret": "sessionSecret71R369C31V186C12BX",
+  "sessionCookieName": "twghtf",
+
+  "cookies": {
+    "maxAge": 36000000,
+    "httpOnly": true,
+    "path": "/",
+    "_domain": "beta.patico.pro",
+    "_secure": true,
+    "_sameSite": "None"
+  }
 }

@@ -2,14 +2,21 @@
   "port": 8888,
   "backend": "http://localhost:3000",
   "proxyPath": ["/api/", "/vrt_data/"],
+  "storageConnectionString": "mongodb://localhost:27017/manage_users",
+  "dbUsersCollection": "user",
+  "showWebUI": false,
+
+  "allowedCORSHost": "http://localhost:4200",
+
   "cookieSign": "secretKey",
   "sessionSecret": "sessionSecret71R369C31V186C12BX",
   "sessionCookieName": "twghtf",
-  "secureCookie": false,
-  "__secureCookie_note": "HTTPS needs for 'secureCookie=true' ",
-  "maxAge": 36000000,
-  "allowedCORSHost": "http://localhost:4200",
-  "storageConnectionString": "mongodb://localhost:27017/manage_users",
-  "dbUsersCollection": "user",
-  "showWebUI": false
+
+  "cookies": {
+    "secure": false,
+    "maxAge": 36000000,
+    "httpOnly": false,
+    "domain": "",
+    "path": "/"
+  }
 }

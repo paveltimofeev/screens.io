@@ -36,22 +36,18 @@ app.use(appFacade.clearHeaders(['X-Powered-By']))
 
 /// Configure session storage
 /// https://github.com/expressjs/session
+const oneDay = 36000000;
 app.use(session({
   name: config.sessionCookieName,
   secret: config.sessionSecret,
   resave: false,
   saveUninitialized: true,
   cookie: {
-    secure: config.secureCookie,
-    maxAge: config.maxAge,
-    expires: new Date(Date.now() + config.maxAge),
-    httpOnly: true,
-    sameSite: false, // 'Strict',
-    path: '/',
-    domain: config.cookieDomain || '',
+    ...config.cookies,
+    expires: new Date(Date.now() + (config.cookies.maxAge || oneDay) )
   },
   store: new MemoryStore({
-    checkPeriod: config.maxAge
+    checkPeriod: config.cookies.maxAge || oneDay
   }),
 }))
 

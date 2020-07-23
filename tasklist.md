@@ -173,6 +173,9 @@
 -- Proxy: Support cookie configuration from proxy config, and reorganise config structure
 
 
+- Backend: AWS S3 mode - delete successfully uploaded images from local file system
+
+
 TechDept
 - [TechDept] Frontend: Fix filters at Jobs view
 
@@ -185,7 +188,6 @@ BackLog
 - **------------ MVP MILESTONE ------------**
 
 - Frontend: Change Title and Logo to corresponding brand name
-- Backend: AWS S3 mode - delete successfully uploaded images from local file system
 - Backend/Beanstalk/PM2: need to limit max CPU usage for backend and proxy, to prevent not responding server.
 - **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user, copy data and files from 'Default' user)
 - Frontend: Comparer: Images are misplaced sometimes. Need to show loading process.

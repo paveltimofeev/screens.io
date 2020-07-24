@@ -182,7 +182,8 @@ TechDept
 - [TechDept] Frontend: Fix filters at Jobs view
 
 BackLog
-- [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
+- [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve), `m.b. as a Docker?`
+- Backend/Beanstalk/PM2: need to limit max CPU usage for backend and proxy, to prevent not responding server - `m.b. run processing as a Docker could help to limit it?`.
 - Frontend: Display 'refresh' button for running job and 'break' or 'stop' for running too long. Auto Stop for stuck/forever-running jobs
 - Frontend: Stats & analytics: Recently failed Job
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
@@ -190,7 +191,6 @@ BackLog
 - **------------ MVP MILESTONE ------------**
 
 - Frontend: Change Title and Logo to corresponding brand name
-- Backend/Beanstalk/PM2: need to limit max CPU usage for backend and proxy, to prevent not responding server.
 - **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user, copy data and files from 'Default' user)
 - Frontend: Comparer: Images are misplaced sometimes. Need to show loading process.
 - Frontend: Need more info on running job - you'll never know what happens, job just stuck running.

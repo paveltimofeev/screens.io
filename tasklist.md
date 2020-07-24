@@ -274,7 +274,7 @@ BackLog
 - Frontend: Show Difference value at Comparer and JobPages cards (table in ListView mode), to get user knowledge for tuning test sensitivity 
 - Frontend: Implement 'Group by Scenarios' for Jobs
 - Frontend: Scenario Page - add HasValues pin; add Description (commentary) for scenario, to make puprose of scenario clearer.
-- Frontend: Not found views for scenario, job, comparer pages. Because they could be opened by Id, that does not exists.
+- Frontend: Not found views for scenario, job, comparer pages (404). Because they could be opened by Id, that does not exists.
 - Frontend: Read proof
 - Frontend: Show reference image at Scenario Overview tab
 - Frontend: Table view mode for scenarios list

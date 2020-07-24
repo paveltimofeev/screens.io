@@ -17,13 +17,19 @@ sudo aws s3 cp /etc/letsencrypt s3://vrtcerts/etc/letsencrypt --recursive
 
 # MOUNT CERTS FROM S3 to nginx
 # BY files: DIRECTIVE
+# to /etc/nginx/fullchain.pem
+# to /etc/nginx/privkey.pem
 
 
-# ATTACH TO NGINX
-# extend nginx conf by .platform/nginx/conf.d/myconf.conf
+# EXTEND NGINX CONF by placing conf at .platform/nginx/conf.d/myconf.conf
 # https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/platforms-linux-extend.html
-...
 
 
 # AUTO RENEWAL BY CRON AND GETTING RENEWAL KEYS BY aws s3 copy
-...
+#sudo aws s3 cp s3://vrtcerts/etc/letsencrypt /etc/letsencrypt --recursive
+#sudo chown -R root /etc/letsencrypt
+#sudo chmod -R 000400 /etc/letsencrypt
+#sudo certbot renew -q
+
+# Or:
+# echo "0 0,12 * * * root python -c 'import random; import time; time.sleep(random.random() * 3600)' && certbot renew -q" | sudo tee -a /etc/crontab > /dev/null

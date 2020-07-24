@@ -173,7 +173,9 @@
 -- Proxy: Support cookie configuration from proxy config, and reorganise config structure
 
 
+- Backend/Beanstalk: Fix `Failed to launch the browser process` issue
 - Backend: AWS S3 mode - delete successfully uploaded images from local file system
+- Backend: Use LG images instead of SM/MD just to save CPU, S3 storage, Traffic and speed (do not resize to sm/md, do not upload/download them, save LG ling into the SM/MD fields instead).
 
 
 TechDept

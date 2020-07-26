@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const MemoryStore = require('memorystore')(session)
 const cors = require('./cors');
+const antiScan = require('./anti-scan');
 const appFacade = require('./app_logic/app-facade');
 const config = require('./app_logic/configuration');
 const { connectToDb } = require('./storage/storage-adapter')
@@ -24,6 +25,8 @@ var app = express();
 // app.use(logger('dev'))
 logger.token('userid', (req) => req.session ? req.session.userid : '-');
 app.use(logger('[Request] :method :url :status :res[content-length] - :response-time ms | :userid'));
+
+app.use(antiScan(config.allowedCORSHost));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))

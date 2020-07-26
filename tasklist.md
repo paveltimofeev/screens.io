@@ -172,6 +172,7 @@
 -- Proxy & Backend: Support loading of configs from ENV vars PROXY_CONFIG and BACKEND_CONFIG
 -- Proxy: Support cookie configuration from proxy config, and reorganise config structure
 -- Backend/Beanstalk: Fix `Failed to launch the browser process` issue (by installing chromium via container_commands, need to fix issue - deployment crashes if already installed)
+-- Proxy: Allow only requests from allowedOrigin (frontend), return 404 to any other as soon as possible to minimize impact.
 
 
 - Backend: AWS S3 mode - delete successfully uploaded images from local file system

@@ -157,8 +157,13 @@ main {
   .app-content .title-row {
     margin-top: 0;
   }
+  .app-content .title-row .left {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-top: var(--px14);
+  }
   .app-content .page-description {
-    margin-top: 16px;
+    margin-top: 4px;
     margin-bottom: 26px;
     width: 100%;
   }

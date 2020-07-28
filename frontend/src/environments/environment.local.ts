@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  media: 'https://vrtdata.s3.amazonaws.com/',   // Images (AWS S3)
-  _media: 'http://localhost:8888/vrt_data/',   // Images (Local FileSystem)
+  _media: 'https://vrtdata.s3.amazonaws.com/',   // Images (AWS S3)
+  media: 'http://localhost:3000/vrt_data/',   // Images (Local FileSystem)
   auth: 'http://localhost:8888',    // Auth proxy
   api: 'http://localhost:8888/api/' // REST
 };

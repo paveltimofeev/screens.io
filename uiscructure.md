@@ -18,6 +18,7 @@
         Run
         
     ~ Widgets
+        - Run some predefined set of scenarios (run a project/branch)
         - Today: Nothing broken / 7 Cases Failed
         - This week: 52% Passed (37 cases of 72), +7% to previouse week
         - Passed/Failed Chart
@@ -151,6 +152,11 @@
     see https://www.enginethemes.com
     
     https://www.templatemonster.com/templates.php
+    
+    WELL DONE PAID TEMPLATES
+        (Angular 9) https://themeforest.net/item/treo-angular-9-admin-template/26276456 ($28)
+        (Angular 9) https://themeforest.net/item/skote-angular-9-admin-dashboard-template/25911071 ($22)
+    
     free templates:
         https://preview.cruip.com/switch/
         https://grayic.com/demos/shade/s03/index.html
@@ -160,6 +166,7 @@
     paid templates:
         https://themes.getbootstrap.com/product/around-multipurpose-template-ui-kit/
     interactive shapes
+    
     Images for storytelling and avatars:
         - https://ui8.net/delightdesign/products/business-administration-illustration-delight (free)
         - https://ui8.net/pixel-true-designs/products/70-beautiful-free-illustrations (free)

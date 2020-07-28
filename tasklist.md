@@ -174,9 +174,9 @@
 -- Backend/Beanstalk: Fix `Failed to launch the browser process` issue (by installing chromium via container_commands, need to fix issue - deployment crashes if already installed)
 -- Proxy: Allow only requests from allowedOrigin (frontend), return 404 to any other as soon as possible to minimize impact.
 -- [Bug] Proxy: User cannot login back, if his session was finished (do not use `cookie.expires` in session opts, have to use maxAge instead of expires)
+-- Frontend: Display 'refresh' button for running job 
 
-
-- Frontend: Display 'refresh' button for running job and 'break' or 'stop' for running too long. Auto Stop for stuck/forever-running jobs
+- [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve), `m.b. as a Docker?`
 
 
 TechDept
@@ -185,7 +185,6 @@ TechDept
 BackLog
 - Backend: AWS S3 mode - delete successfully uploaded images from local file system
 - Backend: Use LG images instead of SM/MD just to save CPU, S3 storage, Traffic and speed (do not resize to sm/md, do not upload/download them, save LG ling into the SM/MD fields instead).
-- [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve), `m.b. as a Docker?`
 - Backend/Beanstalk/PM2: need to limit max CPU usage for backend and proxy, to prevent not responding server - `m.b. run processing as a Docker could help to limit it?`.
 - Frontend: Stats & analytics: Recently failed Job
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
@@ -199,6 +198,7 @@ BackLog
 - Organize AWS Policies names, s3 buckets names
 - Use `backstop reference` for generation default reference on save/preview scenario
 - Backend: add retries to S3Adapter or ensure that aws lib already provides it.
+- Backend: 'Break execution' button backend logic running for stopping long running or stacked tasks / Auto Stop for stuck/forever-running jobs
 - [Bug] Frontend: Seems that date in Job Page title does not respect summer/winter time
 - Frontend: JobPage: Case Card have to have NotApproved/Approving/Approved states (or maybe None/Running/Passed/Failed/Approving/Approved)
 - Frontend: Scenario Page - add Overview(Summary) with reference image 

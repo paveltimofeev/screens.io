@@ -11,6 +11,8 @@ export interface JobPageState {
   scenarios: string[];
   viewports: string[];
   startedBy: string;
+  startedAt: Date;
+  runningTime: any;
   totalCases: number;
   failedCases: number;
   status: string;
@@ -30,6 +32,8 @@ export const initState = {
   scenarios: '',
   viewports: [],
   startedBy: '',
+  startedAt: null,
+  runningTime: '',
   totalCases: 0,
   failedCases: 0,
   status: '',
@@ -60,7 +64,7 @@ const _reducer = createReducer(initState,
       searchFilter: (action.payload.filter || '').toLowerCase()
     }
   }),
-  
+
   on(actions.switchFullHeightMode, (state, action) => {
 
     return {

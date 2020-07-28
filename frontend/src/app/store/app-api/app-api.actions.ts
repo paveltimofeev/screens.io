@@ -23,3 +23,12 @@ export const runFilteredScenariosOp = createAction(
     } }>()
 );
 
+
+export const breakJobExecution = createAction(
+  '[App Api Component] breakJobExecution',
+  props<{ payload:
+      {
+        correlationId: string,
+        jobId: string
+      } }>()
+);

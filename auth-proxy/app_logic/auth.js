@@ -5,6 +5,24 @@ const utils = require('./utils');
 const { createStorageAdapter } = require('../storage/storage-adapter');
 const storage = createStorageAdapter(config.dbUsersCollection);
 
+const log = (message, params, params2) => {
+
+  if (params2) {
+    console.log( '[AUTH] ' + message, params, params2);
+    return
+  }
+
+  if(params) {
+    console.log( '[AUTH] ' + message, params);
+    return
+  }
+
+  console.log( '[AUTH] ' + message);
+};
+
+const error = (message, params) => {
+  console.error('[AUTH] ERROR ' + message, params);
+};
 
 const signup = async (req, res) => {
 
@@ -17,18 +35,17 @@ const signup = async (req, res) => {
   const passwordCheck = utils._isValidPassword(password);
 
   if (!userCheck || !emailCheck || !passwordCheck) {
-    console.log('Email check:', utils._isValidEmail(email));
-    console.log('Username check:', utils._isValidUser(user));
-    console.log('Password check:', utils._isValidUser(password));
+    log('Email check:', utils._isValidEmail(email));
+    log('Username check:', utils._isValidUser(user));
+    log('Password check:', utils._isValidUser(password));
 
-    let error = new Error('Wrong username or password')
-    throw error;
+    throw new Error('Wrong username or password')
   }
   else {
 
     const userData = await storage.createUser(user, email, password)
 
-    console.log('Signup success ', `${userData.tenant}/${userData.user}`);
+    log('Signup success ', `${userData.tenant}/${userData.user}`);
     _createSessionOnSuccess(req, res, userData);
     await _setupNewUser(userData);
 
@@ -47,9 +64,11 @@ const signin = async (req, res, success, fail) => {
   const emailCheck = utils._isValidEmail(email);
   const passwordCheck = utils._isValidPassword(password);
 
+  log('Signin. Input data validation', {emailCheck, passwordCheck});
+
   if (!emailCheck || !passwordCheck) {
-    console.log('Email check:', utils._isValidEmail(email));
-    console.log('Password check:', utils._isValidUser(password));
+    log('Email check:', utils._isValidEmail(email));
+    log('Password check:', utils._isValidUser(password));
     signout(req, res, fail);
 
     let error = new Error('Invalid username or password');
@@ -63,6 +82,7 @@ const signin = async (req, res, success, fail) => {
     const userData = await storage.getUser(email, password);
 
     if (!userData) {
+      error('Signin. No userData for this email and password.');
       let error = new Error('Incorrect username or password');
       error.status = 403;
       error.uiMessage = `Incorrect username or password`;
@@ -71,7 +91,7 @@ const signin = async (req, res, success, fail) => {
 
     if (userData.email === email) {
 
-      console.log('Signin success ', `${userData.tenant}/${userData.user}`);
+      log('Signin successfylly', `${userData.tenant}/${userData.user}`);
       _createSessionOnSuccess(req, res, userData);
 
       return {
@@ -89,29 +109,47 @@ const signin = async (req, res, success, fail) => {
   }
   catch ( error ) {
 
-    console.error('[Utils] ERROR getUser', error)
+    error('getUser', error)
     throw error;
   }
 }
 
 const signout = (req, res, cb) => {
 
-  console.log('Logout. Destroy session of user:', req.session.user);
+  log('Signout. Destroy session of user:', req.session.user);
 
   req.session.authorized = false;
   req.session.user = undefined;
-  res.clearCookie('user').clearCookie('session');
+  res.clearCookie('user')
+    .clearCookie('session')
+    .clearCookie(config.sessionCookieName);
 
   req.session.destroy(function(err) {
 
     if (err) {
-      console.error('[Utils.logout] ERROR session destroy', err)
+      error('session destroy', err)
     }
 
     if (cb) {
       cb( err );
     }
   })
+};
+
+const checkAuth = (req, res, next) => {
+
+  if (!req.session.authorized && req.method !== 'OPTIONS') {
+
+    const {method, originalUrl, hostname, ip} = req;
+    error(`Not authorized request ${originalUrl}:`, {method, originalUrl, hostname, ip});
+
+    signout(req, res, () => {
+      res.status(401).send('Not authorized');
+    });
+  }
+  else {
+    next();
+  }
 }
 
 
@@ -125,13 +163,15 @@ const _createSessionOnSuccess = (req, res, userData) => {
   ) {
 
     delete userData.password;
-    console.error('ERROR createSessionOnSuccess: Invalid user data', userData);
+    error('createSessionOnSuccess: Invalid user data', userData);
 
     let error = new Error('Invalid user data');
     error.status = 403;
     error.uiMessage = 'Invalid user data';
     throw error;
   }
+
+  // req.session.regenerate(function(err) {});
 
   req.session.authorized = true;
   req.session.userid = userData._id.toString();
@@ -140,8 +180,8 @@ const _createSessionOnSuccess = (req, res, userData) => {
   req.session.tenant = userData.tenant;
   req.session.username = userData.name;
 
-  res.cookie('user', userData.user, {signed:true, sameSite:true, maxAge: config.cookies.maxAge});
-  res.cookie('_id', userData._id, {signed:true, sameSite:true, maxAge: config.cookies.maxAge});
+  res.cookie('user', userData.user, utils.getCookieOpts());
+  res.cookie('_id', userData._id, utils.getCookieOpts());
 }
 
 const _setupNewUser = async (userData) => {
@@ -169,5 +209,6 @@ const _setupNewUser = async (userData) => {
 module.exports = {
   signup,
   signin,
-  signout
+  signout,
+  checkAuth
 };

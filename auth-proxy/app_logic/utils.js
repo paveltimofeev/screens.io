@@ -1,3 +1,4 @@
+const config = require('./configuration');
 
 const clearHeaders = (headers) => {
 
@@ -8,21 +9,8 @@ const clearHeaders = (headers) => {
   }
 }
 
-const checkAuth = (req, res, next) => {
-
-  if (!req.session.authorized && req.method !== 'OPTIONS') {
-
-    const {method, originalUrl, hostname, ip} = req;
-    console.error(' > Not authorized request:',
-      {method, originalUrl, hostname, ip});
-
-    let err = new Error('Not authorized')
-    err.status = 401
-    next(err)
-  }
-  else {
-    next();
-  }
+const getCookieOpts = () => {
+  return config.cookies
 }
 
 const getAndValidateUserFromSession = (req) => {
@@ -89,7 +77,7 @@ const _isValidPassword = (val) => {
 module.exports = {
 
   clearHeaders,
-  checkAuth,
+  getCookieOpts,
   getAndValidateUserFromSession,
   getAndValidatePasswordFromBody,
   _isValidUser,

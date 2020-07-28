@@ -45,7 +45,8 @@ export const jobDescriptionInfo = createSelector(
   (state: JobPageState) => ({
     scenarios: state.scenarios,
     viewports: state.viewports,
-    startedBy: state.startedBy
+    startedBy: state.startedBy,
+    runningTime: state.runningTime
   })
 );
 

@@ -171,22 +171,28 @@
 -- [Move to AWS: 4.3] AWS Beanstalk: add SSL
 -- Proxy & Backend: Support loading of configs from ENV vars PROXY_CONFIG and BACKEND_CONFIG
 -- Proxy: Support cookie configuration from proxy config, and reorganise config structure
+-- Backend/Beanstalk: Fix `Failed to launch the browser process` issue (by installing chromium via container_commands, need to fix issue - deployment crashes if already installed)
+-- Proxy: Allow only requests from allowedOrigin (frontend), return 404 to any other as soon as possible to minimize impact.
+-- [Bug] Proxy: User cannot login back, if his session was finished (do not use `cookie.expires` in session opts, have to use maxAge instead of expires)
+
+
+- Frontend: Display 'refresh' button for running job and 'break' or 'stop' for running too long. Auto Stop for stuck/forever-running jobs
 
 
 TechDept
 - [TechDept] Frontend: Fix filters at Jobs view
 
 BackLog
-- [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve)
-- Frontend: Display 'refresh' button for running job and 'break' or 'stop' for running too long. Auto Stop for stuck/forever-running jobs
+- Backend: AWS S3 mode - delete successfully uploaded images from local file system
+- Backend: Use LG images instead of SM/MD just to save CPU, S3 storage, Traffic and speed (do not resize to sm/md, do not upload/download them, save LG ling into the SM/MD fields instead).
+- [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve), `m.b. as a Docker?`
+- Backend/Beanstalk/PM2: need to limit max CPU usage for backend and proxy, to prevent not responding server - `m.b. run processing as a Docker could help to limit it?`.
 - Frontend: Stats & analytics: Recently failed Job
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 
 - **------------ MVP MILESTONE ------------**
 
 - Frontend: Change Title and Logo to corresponding brand name
-- Backend: AWS S3 mode - delete successfully uploaded images from local file system
-- Backend/Beanstalk/PM2: need to limit max CPU usage for backend and proxy, to prevent not responding server.
 - **New User Init Process**: [Feature+] Create couple of examples scenarios demonstrating key features (for every new user, copy data and files from 'Default' user)
 - Frontend: Comparer: Images are misplaced sometimes. Need to show loading process.
 - Frontend: Need more info on running job - you'll never know what happens, job just stuck running.
@@ -270,7 +276,7 @@ BackLog
 - Frontend: Show Difference value at Comparer and JobPages cards (table in ListView mode), to get user knowledge for tuning test sensitivity 
 - Frontend: Implement 'Group by Scenarios' for Jobs
 - Frontend: Scenario Page - add HasValues pin; add Description (commentary) for scenario, to make puprose of scenario clearer.
-- Frontend: Not found views for scenario, job, comparer pages. Because they could be opened by Id, that does not exists.
+- Frontend: Not found views for scenario, job, comparer pages (404). Because they could be opened by Id, that does not exists.
 - Frontend: Read proof
 - Frontend: Show reference image at Scenario Overview tab
 - Frontend: Table view mode for scenarios list

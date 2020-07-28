@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const MemoryStore = require('memorystore')(session)
 const cors = require('./cors');
+const antiScan = require('./anti-scan');
 const appFacade = require('./app_logic/app-facade');
 const config = require('./app_logic/configuration');
 const { connectToDb } = require('./storage/storage-adapter')
@@ -25,6 +26,8 @@ var app = express();
 logger.token('userid', (req) => req.session ? req.session.userid : '-');
 app.use(logger('[Request] :method :url :status :res[content-length] - :response-time ms | :userid'));
 
+app.use(antiScan(config.allowedCORSHost));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -42,10 +45,7 @@ app.use(session({
   secret: config.sessionSecret,
   resave: false,
   saveUninitialized: true,
-  cookie: {
-    ...config.cookies,
-    expires: new Date(Date.now() + (config.cookies.maxAge || oneDay) )
-  },
+  cookie: appFacade.utils.getCookieOpts(),
   store: new MemoryStore({
     checkPeriod: config.cookies.maxAge || oneDay
   }),

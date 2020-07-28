@@ -173,10 +173,10 @@
 -- Proxy: Support cookie configuration from proxy config, and reorganise config structure
 -- Backend/Beanstalk: Fix `Failed to launch the browser process` issue (by installing chromium via container_commands, need to fix issue - deployment crashes if already installed)
 -- Proxy: Allow only requests from allowedOrigin (frontend), return 404 to any other as soon as possible to minimize impact.
+-- [Bug] Proxy: User cannot login back, if his session was finished (do not use `cookie.expires` in session opts, have to use maxAge instead of expires)
 
 
 - Frontend: Display 'refresh' button for running job and 'break' or 'stop' for running too long. Auto Stop for stuck/forever-running jobs
-- [Bug] Proxy: User cannot login back, if his session was finished
 
 
 TechDept

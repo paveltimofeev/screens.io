@@ -45,10 +45,7 @@ app.use(session({
   secret: config.sessionSecret,
   resave: false,
   saveUninitialized: true,
-  cookie: {
-    ...config.cookies,
-    expires: new Date(Date.now() + (config.cookies.maxAge || oneDay) )
-  },
+  cookie: appFacade.utils.getCookieOpts(),
   store: new MemoryStore({
     checkPeriod: config.cookies.maxAge || oneDay
   }),

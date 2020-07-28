@@ -175,17 +175,18 @@
 -- Proxy: Allow only requests from allowedOrigin (frontend), return 404 to any other as soon as possible to minimize impact.
 
 
-- Backend: AWS S3 mode - delete successfully uploaded images from local file system
-- Backend: Use LG images instead of SM/MD just to save CPU, S3 storage, Traffic and speed (do not resize to sm/md, do not upload/download them, save LG ling into the SM/MD fields instead).
+- Frontend: Display 'refresh' button for running job and 'break' or 'stop' for running too long. Auto Stop for stuck/forever-running jobs
+- [Bug] Proxy: User cannot login back, if his session was finished
 
 
 TechDept
 - [TechDept] Frontend: Fix filters at Jobs view
 
 BackLog
+- Backend: AWS S3 mode - delete successfully uploaded images from local file system
+- Backend: Use LG images instead of SM/MD just to save CPU, S3 storage, Traffic and speed (do not resize to sm/md, do not upload/download them, save LG ling into the SM/MD fields instead).
 - [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve), `m.b. as a Docker?`
 - Backend/Beanstalk/PM2: need to limit max CPU usage for backend and proxy, to prevent not responding server - `m.b. run processing as a Docker could help to limit it?`.
-- Frontend: Display 'refresh' button for running job and 'break' or 'stop' for running too long. Auto Stop for stuck/forever-running jobs
 - Frontend: Stats & analytics: Recently failed Job
 - Frontend: Stats & analytics: PASSED/FAILED, Today failed count / Most fragile +% of fails / days without fails / total scenario cases + stables count / Last run time ago / Total viewports / % of passed at this week(day) + %passed grouped by weeks(days) before
 

@@ -10,7 +10,7 @@ import {
   runFailed,
   approveAllFailedCases
 } from './store/job-page.actions';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
   cases,
@@ -24,6 +24,9 @@ import {
   viewports
 } from './store/job-page.selectors';
 import { NavigationService } from '../../services/navigation.service';
+import { breakJobExecution } from '../../store/app-api/app-api.actions';
+import { filter, take } from 'rxjs/operators';
+import { apiOperationResult } from '../../store/app-api/app-api.selectors';
 
 @Component({
   selector: 'app-job-page',
@@ -120,6 +123,57 @@ export class JobPageComponent implements OnInit, OnDestroy {
 
 
   /* DATA ACTIONS */
+
+  refreshPageHandler () {
+    this.refreshView( this.jobId )
+  }
+  breakRunningJob_InProgress:boolean = false;
+  breakRunningJobHandler () {
+
+    this.longOp(
+      () => {
+        // set inprogress state
+        this.breakRunningJob_InProgress = true;
+      },
+      (corrId) => {
+        this.store.dispatch( breakJobExecution( {
+          payload: {
+            correlationId: corrId,
+            jobId: this.jobId
+        }}));
+      },
+      () => {
+        // unset inprogress state
+        this.breakRunningJob_InProgress = false;
+      }
+    );
+
+  }
+  longOp(before:Function, action:Function, after:any):string {
+
+    if (before) {
+      before();
+    }
+
+    let corId = `${Math.random()}`;
+
+    this.store.pipe(
+      select(apiOperationResult),
+      filter(x => x.correlationId === corId),
+      take(1)
+    ).subscribe( res => {
+
+      if (after) {
+        after(res);
+      }
+    });
+
+    if (action) {
+      action(corId);
+    }
+
+    return corId;
+  }
 
   searchCaseHandler (filter: string) {
     this.store.dispatch( setSearchFilter({payload:{filter}}) );

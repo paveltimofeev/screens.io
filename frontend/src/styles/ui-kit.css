@@ -180,6 +180,7 @@ nav {
 }
 .view-state img {
   width: var(--px400);
+  max-width: 80%;
 }
 .view-state h3 {
   margin-top: 1.5em;
@@ -1929,4 +1930,10 @@ app-data-action-button:first-child {
 .widget-label .stats .stats-right em {
   font-weight: bold;
   font-style: normal;
+}
+
+@media (max-width:600px) {
+  .widget-label--xl .state {
+    font-size: var(--px50);
+  }
 }

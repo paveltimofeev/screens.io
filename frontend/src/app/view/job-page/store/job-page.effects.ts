@@ -87,6 +87,8 @@ export class JobPageEffects {
                   title:            this.date.calendar(job.startedAt),
                   breadcrumbTitle:  job._id,
                   startedBy:        job.startedBy,
+                  startedAt:        job.startedAt,
+                  runningTime:      this.date.fromNow(job.startedAt),
                   status:           job.state,
 
                   resultStats:      `${tests.filter( x => x.status === 'fail' ).length || tests.length}/${tests.length}`,
@@ -139,9 +141,9 @@ export class JobPageEffects {
     mergeMap(([action, cases]) => {
 
       const actions = [];
-      
+
       cases.forEach( (x, idx) => {
-        
+
         if(x.status === 'fail') {
 
           actions.push({
@@ -152,7 +154,7 @@ export class JobPageEffects {
             }
           });
         }
-        
+
       });
 
       return concat(actions)

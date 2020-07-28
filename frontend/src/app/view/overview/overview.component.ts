@@ -13,7 +13,7 @@ import { NavigationService } from 'src/app/services/navigation.service';
 import { Filters } from '../../ui-kit/widget-run/widget-run.component';
 import * as accountSelectors from '../../store/account-api/account-api.selectors';
 import { filter, take } from 'rxjs/operators';
-import { operationResult } from '../../store/app-api/app-api.selectors';
+import { apiOperationResult } from '../../store/app-api/app-api.selectors';
 import { runFilteredScenariosOp } from '../../store/app-api/app-api.actions';
 
 @Component({
@@ -127,7 +127,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
     let corId = `${Math.random()}`;
 
     this.store.pipe(
-      select(operationResult),
+      select(apiOperationResult),
       filter(x => x.correlationId === corId),
       take(1)
     ).subscribe(after);

@@ -1222,7 +1222,7 @@ app-data-action-button:first-child {
 }
 .info-table .label-cell {
   font-weight: bold;
-  padding-right: 20px;
+  padding-right: var(--px20);
   white-space: nowrap;
   /* vertical-align: top; */
 }
@@ -1245,7 +1245,12 @@ app-data-action-button:first-child {
 .info-table .value-cell .chips--clickable:hover {
   background: var(--color-controls-border);
 }
-
+@media (max-width: 600px) {
+  .info-table {
+    font-size: var(--px14);
+    line-height: var(--px12);
+  }
+}
 
 .rules-table {
   margin-bottom: var(--px24);

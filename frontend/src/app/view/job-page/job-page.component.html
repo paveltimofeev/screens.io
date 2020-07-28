@@ -6,7 +6,7 @@
 >
 
   <div class="breadcrumb-placeholder">
-    <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/jobs']">Jobs History</span>
+    <span class="breadcrumb-item breadcrumb-item--link" [routerLink]="['/jobs']">Jobs<span class="except-xs"> History</span></span>
     <span class="breadcrumb-item"><span class="except-xs">Job Report </span>#{{ breadcrumbTitle$ | async }}</span>
   </div>
 
@@ -111,6 +111,7 @@
     </div>
   </div>
 
+  <!-- DISABLE FILTERS AT MOBILE
   <div class="xs-filters-placeholder" *ngIf="!(isRunning$ | async)">
 
     <app-data-action-button
@@ -120,6 +121,7 @@
     </app-data-action-button>
 
   </div>
+  -->
 
   <div class="data-placeholder">
 
@@ -129,12 +131,15 @@
       <p>Started {{ (jobDescriptionInfo$ | async).runningTime }}</p>
       <p>
         <button class="button button--white" (click)="refreshPageHandler()">Refresh</button>
+        <!--
+        DISABLE 'Break execution' BUTTON BECAUSE IT'S NOT IMPLEMENTED AT BACKEND YET
         <button class="button"
                 [ngClass]="{
                   'button--white': !breakRunningJob_InProgress,
                   'button--accent1 button--in-progress': breakRunningJob_InProgress
                  }"
                 (click)="breakRunningJobHandler()">Break execution</button>
+        -->
       </p>
 
     </div>

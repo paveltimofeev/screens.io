@@ -5,7 +5,9 @@
     "useFindAndModify": true,
     "useUnifiedTopology": true
   },
-  "mediaStorageStrategy": "S3",
-  "_mediaStorageStrategy": "LocalFS",
-  "vrtDataFullPath": "c:\\Temp\\vrtdata"
+  "_mediaStorageStrategy": "S3",
+  "_vrtDataFullPath": "c:\\Temp\\vrtdata",
+
+  "mediaStorageStrategy": "LocalFS",
+  "vrtDataFullPath": "C:\\Git\\screens.io\\backend\\vrt_data"
 }

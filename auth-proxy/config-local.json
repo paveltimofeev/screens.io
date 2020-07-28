@@ -14,7 +14,7 @@
 
   "cookies": {
     "secure": false,
-    "maxAge": 30000,
+    "maxAge": 36000000,
     "httpOnly": true,
     "domain": "",
     "path": "/"

@@ -1,0 +1,23 @@
+{
+  "name": "bs-function",
+  "version": "1.0.0",
+  "description": "backstop test runner",
+  "author": "Pavel Timofeev",
+  "main": "index.js",
+  "scripts": {
+    "compile": "./node_modules/.bin/tsc",
+    "compile.watch": "./node_modules/.bin/tsc -w",
+    "tests": "node tests.js"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.59",
+    "@types/axios": "^0.14.0",
+    "@types/node": "^14.0.27",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.723.0",
+    "backstopjs": "^5.0.1",
+    "sharp": "^0.25.4"
+  }
+}

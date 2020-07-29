@@ -176,7 +176,8 @@
 -- [Bug] Proxy: User cannot login back, if his session was finished (do not use `cookie.expires` in session opts, have to use maxAge instead of expires)
 -- Frontend: Display 'refresh' button for running job 
 
-- [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve), `m.b. as a Docker?`
+
+- [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve), `m.b. as a Docker/Lambda?`
 
 
 TechDept

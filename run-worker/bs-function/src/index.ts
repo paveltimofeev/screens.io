@@ -1,5 +1,5 @@
 import { TestWorker } from './worker';
-import { QueueMessageAdapter } from './queueMessageAdapter';
+import { QueueMessageAdapter } from './queue-message-adapter';
 
 
 console.log('Loading bs-function');

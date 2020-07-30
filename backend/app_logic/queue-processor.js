@@ -110,7 +110,7 @@ class QueueProcessor {
       //   }
       // }
 
-      await writeFile('./backstop-config.debug.json', JSON.stringify(config), 'utf-8')
+      // await writeFile('./backstop-config.debug.json', JSON.stringify(config), 'utf-8')
       console.log('[QueueProcessor] Starting backstop...');
       let result = await backstop('test', { config: config } )
       console.log('[QueueProcessor] RUN RESULT', result);

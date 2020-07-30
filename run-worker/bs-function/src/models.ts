@@ -1,3 +1,7 @@
+export interface IAppConfig {
+    vrtDataFullPath: string
+}
+
 
 export interface IViewport {
 
@@ -60,4 +64,64 @@ export interface IQueueMessage {
     userId: string;
     runId: string;
     config: IConfig;
+}
+
+
+export interface IJsonReport {
+
+    id: string;
+    testSuite: string;
+    tests: IJsonReportTestCase[];
+}
+
+
+export interface IJsonReportTestCase {
+
+    status: string; // fail, pass
+    pair: {
+        reference: string;
+        test: string;
+        diffImage: string;
+
+        url: string;
+        label: string;
+        viewportLabel: string;
+
+        fileName: string;
+        selector: string;
+        misMatchThreshold: number;
+        expect: number;
+
+        diff: {
+            isSameDimensions: false;
+            dimensionDifference: {
+                width: number;
+                height: number;
+            };
+            misMatchPercentage: string;
+            analysisTime: number
+        };
+
+        /// Extended
+        images: {
+            absolute: {
+                ref: string;
+                test: string;
+                diff: string;
+            },
+            relative: {
+                ref: string;
+                test: string;
+                diff: string;
+            }
+        },
+        meta_testLG: string;
+        meta_diffImageLG: string;
+    };
+}
+
+
+export interface IReport extends IJsonReport{
+    runId?: string;
+    tests: IJsonReportTestCase[];
 }

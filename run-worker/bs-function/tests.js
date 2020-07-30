@@ -34,7 +34,7 @@ const event = {
     "debugWindow" : false,
     "paths" : {
       "bitmaps_reference" : "C:\\Git\\screens.io\\backend\\vrt_data/test-tenant/5e9767c2a802d03004b160dc/bitmaps_reference",
-      "engine_scripts" : "app_logic/engine_scripts",
+      "engine_scripts" : "engine_scripts",
       "bitmaps_test" : "C:\\Git\\screens.io\\backend\\vrt_data/test-tenant/5e9767c2a802d03004b160dc/bitmaps_test",
       "html_report" : "C:\\Git\\screens.io\\backend\\vrt_data/test-tenant/5e9767c2a802d03004b160dc/html_report",
       "ci_report" : "C:\\Git\\screens.io\\backend\\vrt_data/test-tenant/5e9767c2a802d03004b160dc/ci_report",

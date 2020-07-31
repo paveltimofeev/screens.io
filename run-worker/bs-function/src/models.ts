@@ -1,5 +1,24 @@
 export interface IAppConfig {
-    vrtDataFullPath: string
+
+    vrtDataFullPath: string;
+    bucketName: string;
+    resizeConfig: {
+        fit: string;
+        position: string;
+        withoutEnlargement: boolean;
+    }
+    resizeOpts: {
+        sm: IResizeOption;
+        md: IResizeOption;
+        lg: IResizeOption;
+    }
+}
+
+
+export interface IResizeOption {
+    width: number;
+    height?: number;
+    quality?: number;
 }
 
 
@@ -65,6 +84,7 @@ export interface IIncomingQueueMessage {
     runId: string;
     config: IConfig;
 }
+
 
 export interface IOutgoingQueueMessage {
 

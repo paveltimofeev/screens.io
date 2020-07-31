@@ -1,10 +1,12 @@
 import { FilePathsService } from './file-paths-service';
+import { Logger } from './utils';
+
+const logger = new Logger('BucketAdapter');
 
 const AWS = require('aws-sdk');
 const fs = require('fs');
 const { promisify } = require('util');
 const path = require('path');
-const mime = require('mime');
 
 const fileExists = promisify(fs.exists);
 const writeFile = promisify(fs.writeFile);
@@ -23,14 +25,6 @@ export class BucketAdapter {
     this.filePathsService = filePathsService;
   }
 
-  log (msg:string, arg:any) {
-    console.log(msg, arg);
-  }
-
-  error (msg:string, arg:any) {
-    console.error(msg, arg);
-  }
-
   localPathToBucketPath (filePath:string) {
 
     let subFolderPath = path.join(
@@ -46,22 +40,22 @@ export class BucketAdapter {
 
   async upload ( file:string ) {
 
-    this.log('[BucketAdapter] upload', file);
+    logger.log('upload', file);
 
     if (!file) {
-      this.log('[BucketAdapter] upload: empty file path.', file);
+      logger.log('upload: empty file path. RETURN', file);
       return file
     }
 
     const exist = await fileExists(file);
     if (!exist) {
-      this.log('[BucketAdapter] upload: file not exists.', file);
+      logger.log('upload: file not exists.', file);
       return null;
     }
 
     const fileStream = fs.createReadStream(file);
     fileStream.on('error', (err:any) => {
-      this.error('[BucketAdapter] ERROR. Read File Error', err);
+      logger.error('[BucketAdapter] ERROR. Read File Error', err);
     });
 
     const bucketPath = this.localPathToBucketPath(file);
@@ -74,25 +68,25 @@ export class BucketAdapter {
       // Expires: // The date and time at which the object is no longer cacheable. For more information, see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.21
     };
 
-    this.log('[BucketAdapter] uploadParams.Bucket', uploadParams.Bucket);
-    this.log('[BucketAdapter] uploadParams.Key', uploadParams.Key);
+    logger.log('uploadParams.Bucket', uploadParams.Bucket);
+    logger.log('uploadParams.Key', uploadParams.Key);
 
     try {
-      this.log('[BucketAdapter] upload to: bucket path', uploadParams.Bucket);
-      this.log('[BucketAdapter] upload to: bucket key', uploadParams.Key);
+      logger.log('upload to: bucket path', uploadParams.Bucket);
+      logger.log('upload to: bucket key', uploadParams.Key);
       return await s3.upload( uploadParams ).promise();
     }
     catch (err) {
 
       const { Bucket, Key, ACL } = uploadParams;
-      this.error('[BucketAdapter] s3.upload failed. uploadParams:', { Bucket, Key, ACL });
-      this.error('[BucketAdapter] ERROR', err);
+      logger.error('upload', err);
+      logger.error('s3.upload failed. uploadParams:', { Bucket, Key, ACL });
     }
   }
 
   async download (localPath:string) {
 
-    this.log('[BucketAdapter] download', localPath);
+    logger.log('download', localPath);
 
     const bucketPath = this.localPathToBucketPath(localPath);
 
@@ -101,16 +95,16 @@ export class BucketAdapter {
       Key: bucketPath.key
     };
 
-    this.log('[BucketAdapter] downloadParams.Bucket', downloadParams.Bucket);
-    this.log('[BucketAdapter] downloadParams.Key', downloadParams.Key);
+    logger.log('downloadParams.Bucket', downloadParams.Bucket);
+    logger.log('downloadParams.Key', downloadParams.Key);
 
     try {
       const data = await s3.getObject( downloadParams ).promise();
       await writeFile( localPath, data.Body );
-      this.log( '[BucketAdapter] downloaded to', localPath );
+      logger.log( 'downloaded to', localPath );
     }
     catch (err) {
-      this.error('[BucketAdapter] ERROR download', err)
+      logger.error('download', err)
     }
   }
 }

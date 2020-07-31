@@ -2,21 +2,22 @@ import { TestWorker } from './worker';
 import { QueueMessageAdapter } from './queue-message-adapter';
 import { EngineAdapter } from './engine-adapter';
 import { S3Flow } from './s3-flow';
+import { Logger } from './utils';
 
-
+const logger = new Logger('Handler');
 console.log('Loading bs-function');
 
 
 exports.handler =  async function(event:any, context:any) {
 
-  console.log(`[Handler] event: \n${JSON.stringify(event, null, 2)}`);
+  logger.log('event', event);
 
-  const worker = new TestWorker(
-      new EngineAdapter(),
-      new S3Flow()
-  );
+  const engine = new EngineAdapter();
+  const flow = new S3Flow();
+  const incomingMessage = QueueMessageAdapter.fromLambdaEvent(event);
 
-  worker.run( QueueMessageAdapter.fromLambdaEvent(event) );
+  const worker = new TestWorker(engine, flow);
+  await worker.run(incomingMessage);
 
   return context.logStreamName
 };

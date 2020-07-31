@@ -1,16 +1,10 @@
+import { Logger } from './utils';
+import { ConfigurationService } from './configuration-service';
+import { IResizeOption } from './models';
+
+const logger = new Logger('ImageProcessor');
+const appConfig = ConfigurationService.getAppConfig();
 const sharp = require('sharp');
-
-const resizeConfig = {
-  fit: 'cover',
-  position: 'right top',
-  withoutEnlargement: true,
-  sizes: {
-    sm: { quality: 80, width: 185, height: 150 },
-    md: { quality: 90, width: 420, height: 300 },
-    lg: { quality: 90, width: 570 },
-  }
-};
-
 
 export class ImageProcessor {
 
@@ -26,19 +20,19 @@ export class ImageProcessor {
     const jpegPath = ImageProcessor.buildPath(imagePath, '_.jpg');
 
     await sharp( imagePath )
-      .jpeg( {quality: quality} )
+      .jpeg( {quality} )
       .toFile( jpegPath );
 
     return jpegPath;
   }
 
-  static async resize ( imagePath:string, resizeImageSuffix:string, width:number, height?:number, quality?:number) {
+  static async resize ( imagePath:string, resizeImageSuffix:string, resizeOpts: IResizeOption) {
 
     const resizeImagePath = ImageProcessor.buildPath( imagePath, resizeImageSuffix);
 
     await sharp( imagePath )
-      .resize( width, height, resizeConfig)
-      .jpeg( {quality: quality} )
+      .resize( resizeOpts.width, resizeOpts.height, appConfig.resizeConfig)
+      .jpeg( {quality: resizeOpts.quality} ) ///???
       .toFile( resizeImagePath );
 
     return resizeImagePath;
@@ -46,13 +40,13 @@ export class ImageProcessor {
 
   async resizeReference (imagePath:string) {
 
-    console.log('[ImageProcessor] resizeReference', imagePath);
+    logger.log('resizeReference', imagePath);
 
     const results = await Promise.all([
 
-      await ImageProcessor.resize(imagePath, '_sm.jpg', resizeConfig.sizes.sm.width, resizeConfig.sizes.sm.height, resizeConfig.sizes.sm.quality),
-      await ImageProcessor.resize(imagePath, '_md.jpg', resizeConfig.sizes.md.width, resizeConfig.sizes.md.height, resizeConfig.sizes.md.quality),
-      await ImageProcessor.resize(imagePath, '_lg.jpg', resizeConfig.sizes.lg.width, undefined, resizeConfig.sizes.lg.quality),
+      await ImageProcessor.resize(imagePath, '_sm.jpg', appConfig.resizeOpts.sm),
+      await ImageProcessor.resize(imagePath, '_md.jpg', appConfig.resizeOpts.md),
+      await ImageProcessor.resize(imagePath, '_lg.jpg', appConfig.resizeOpts.lg),
       // await ImageProcessor.convertToJpeg(imagePath, 97)
     ]);
 
@@ -66,14 +60,19 @@ export class ImageProcessor {
 
   async resizeTestResult (imagePath:string) {
 
-    console.log('[ImageProcessor] resizeTestResult', imagePath);
+    logger.log('resizeTestResult', imagePath);
 
     if (!imagePath) {
       return imagePath;
     }
 
     // await ImageProcessor.convertToJpeg(imagePath, 97)
-    return await ImageProcessor.resize(imagePath, '_660.jpg', 660, undefined, 97);
+    const resizeOpt:IResizeOption = {
+      width: 660,
+      quality: 97
+    };
+
+    return await ImageProcessor.resize(imagePath, '_660.jpg', resizeOpt);
   }
 }
 

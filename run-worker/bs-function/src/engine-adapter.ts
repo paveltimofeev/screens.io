@@ -1,31 +1,11 @@
-import { IConfig, IJsonReport, IJsonReportTestCase, IReport, IScenario, IViewport } from './models';
+import { IConfig, IJsonReport, IScenario, IViewport } from './models';
 import { FilePathsService } from './file-paths-service';
+import { throwIfInvalidPathPart, validateArray } from './utils';
 
 const fs = require('fs');
 const { promisify } = require('util');
 const path = require('path');
 const readFile = promisify(fs.readFile);
-
-const filePathsService = new FilePathsService();
-
-
-const throwIfInvalidPathPart = (name:string, pathPart:any) => {
-
-  if (
-    !pathPart ||
-    typeof(pathPart) !== 'string' ||
-    pathPart.length === 0 ||
-    pathPart === ''
-  ) {
-    throw new Error( `Invalid path part: "${name}" = "${pathPart}"`)
-  }
-}
-const validateArray = (name:string, param:any) => {
-
-  if (!param || param.length === 0) {
-    throw new Error(`No "${name}" found. param=${ param }`)
-  }
-}
 
 
 export class EngineAdapter {
@@ -42,7 +22,7 @@ export class EngineAdapter {
         }
     }
 
-    convertReportPath (config: IConfig, runId:string, report:any) {
+    convertReportPath (config: IConfig, runId:string, report:any): IConfig {
 
         const configPaths = config.paths;
 
@@ -71,6 +51,7 @@ export class EngineAdapter {
         throwIfInvalidPathPart('tenantId', tenantId);
         throwIfInvalidPathPart('userId', userId);
 
+        const filePathsService = new FilePathsService();
         const vrtDataLocation = filePathsService.vrtDataFullPath();
 
         return {
@@ -84,7 +65,7 @@ export class EngineAdapter {
         }
     }
 
-    buildConfig (tenantId:string, userId:string, viewports:IViewport[], scenarios:IScenario[], custom:any) {
+    buildConfig (tenantId:string, userId:string, viewports:IViewport[], scenarios:IScenario[], custom:any): IConfig {
 
         if (!tenantId || tenantId === '') {
           throw new Error('buildConfigPaths: no tenantId')
@@ -146,61 +127,5 @@ export class EngineAdapter {
         result.paths = this.buildConfigPaths(tenantId, userId);
 
         return result;
-    }
-}
-
-
-export class JsonReportAdapter {
-
-    reportLocation:string;
-    _report: IReport;
-
-    get report() : IReport {
-        return this._report;
-    }
-
-
-    constructor (jsonReport: IJsonReport, reportLocation:string, runId:string) {
-
-        this.reportLocation = reportLocation;
-        this._report = this.convertReport(jsonReport, runId);
-    }
-
-    private convertReport (jsonReport: IReport, runId: string): IReport {
-
-        jsonReport.runId = runId;
-
-        if (!jsonReport.tests) {
-            jsonReport.tests = [];
-        }
-
-        jsonReport.tests.forEach( (test:IJsonReportTestCase) => {
-
-            let absolute = {
-                ref: this.getAbsolutePath( test.pair.reference ),
-                test: this.getAbsolutePath( test.pair.test ),
-                diff: this.getAbsolutePath( test.pair.diffImage ),
-            };
-
-            test.pair.images = {
-                absolute,
-                relative : {
-                    ref : filePathsService.relativeToVrtDataPath( absolute.ref ),
-                    test : filePathsService.relativeToVrtDataPath( absolute.test ),
-                    diff : filePathsService.relativeToVrtDataPath( absolute.diff ),
-                }
-            };
-
-            test.pair.reference = !test.pair.reference ? null : filePathsService.relativeToVrtDataPath(  path.resolve(this.reportLocation, test.pair.reference) );
-            test.pair.test      = !test.pair.test ? null : filePathsService.relativeToVrtDataPath(  path.resolve(this.reportLocation, test.pair.test) );
-            test.pair.diffImage = !test.pair.diffImage ? null : filePathsService.relativeToVrtDataPath(  path.resolve(this.reportLocation, test.pair.diffImage) );
-        });
-
-        return jsonReport;
-    }
-
-    private getAbsolutePath (value:string) {
-
-        return value ? path.join( this.reportLocation, value ) : null
     }
 }

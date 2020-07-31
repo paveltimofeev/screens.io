@@ -1,10 +1,10 @@
-import { IQueueMessage } from './models';
+import { IIncomingQueueMessage } from './models';
 
 
 export class QueueMessageAdapter {
 
-    static fromLambdaEvent (event:any): IQueueMessage {
-        console.log('[QueueMessageAdapter] fromLambdaEvent: convert event to IQueueMessage');
+    static fromLambdaEvent (event:any): IIncomingQueueMessage {
+        console.log('[QueueMessageAdapter] fromLambdaEvent: convert event to IIncomingQueueMessage');
 
         if (!event.tenantId) { throw new Error('Incoming event should have "tenantId" property'); }
         if (!event.userId)   { throw new Error('Incoming event should have "userId" property'); }

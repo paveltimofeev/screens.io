@@ -58,12 +58,20 @@ export interface IConfig {
 }
 
 
-export interface IQueueMessage {
+export interface IIncomingQueueMessage {
 
     tenantId: string;
     userId: string;
     runId: string;
     config: IConfig;
+}
+
+export interface IOutgoingQueueMessage {
+
+    tenantId: string;
+    userId: string;
+    runId: string;
+    report: IReport;
 }
 
 
@@ -121,7 +129,7 @@ export interface IJsonReportTestCase {
 }
 
 
-export interface IReport extends IJsonReport{
+export interface IReport extends IJsonReport {
     runId?: string;
     tests: IJsonReportTestCase[];
 }

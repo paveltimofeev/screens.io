@@ -1,5 +1,5 @@
 import { S3Flow } from './s3-flow';
-import { IConfig, IQueueMessage, IScenario, IViewport } from './models';
+import { IConfig, IIncomingQueueMessage, IScenario, IViewport } from './models';
 import { EngineAdapter, JsonReportAdapter } from './engine-adapter';
 import { FilePathsService } from './file-paths-service';
 import { ImageProcessor } from './image-processor';
@@ -19,12 +19,12 @@ const log = (message:string, args?:any) => {
 
 export class TestWorker {
 
-    private state?: {
-        readonly config: IConfig;
-        readonly scope: {
-            readonly tenantId: string;
-            readonly userId: string;
-            readonly runId: string;
+    private state: {
+        config: IConfig;
+        scope: {
+            tenantId: string;
+            userId: string;
+            runId: string;
         },
         execution: {
             failed: boolean
@@ -32,10 +32,16 @@ export class TestWorker {
         }
     };
 
-    private flow = new S3Flow();
-    private engine = new EngineAdapter();
+    private flow: S3Flow;
+    private engine: EngineAdapter;
 
-    async run (queueMessage:IQueueMessage) {
+    constructor (engine?: EngineAdapter, flow?: S3Flow) {
+
+        this.engine = engine || new EngineAdapter();
+        this.flow = flow || new S3Flow();
+    }
+
+    async run (queueMessage:IIncomingQueueMessage) {
 
         this.state = {
             ...this.state,
@@ -53,8 +59,8 @@ export class TestWorker {
 
         log('[TestWorker] run:', {
             scope: this.state.scope,
-            scenarios: this.state.config!.scenarios.map( (x:IScenario) => x._id ),
-            viewports: this.state.config!.viewports.map( (x:IViewport) => x.label )
+            scenarios: this.state.config.scenarios.map( (x:IScenario) => x._id ),
+            viewports: this.state.config.viewports.map( (x:IViewport) => x.label )
         });
 
 
@@ -72,13 +78,11 @@ export class TestWorker {
 
     async postProcessReport () {
 
+        log('[TestWorker] postProcessReport', this.state.scope.runId);
+
         const jsonReport = await this.engine.getReport( this.state.config.paths.json_report );
-        const runId = this.state.scope.runId;
-        const reportLocation = this.state.config.paths.json_report;
+        const reportAdapter = new JsonReportAdapter(jsonReport, this.state.config.paths.json_report, this.state.scope.runId);
 
-        console.log('[TestWorker] postProcessReport', runId, reportLocation);
-
-        const reportAdapter = new JsonReportAdapter(jsonReport, reportLocation, runId);
         let report = reportAdapter.report;
 
         const imageProcessor = new ImageProcessor();
@@ -112,8 +116,8 @@ export class TestWorker {
     private async downloadReference() {
         log('[TestWorker] Step: downloadReference',
             {
-                references: this.state!.config.scenarios.map((x: IScenario) => x.meta_referenceImageUrl),
-                referencesDir: this.state!.config.paths.bitmaps_reference
+                references: this.state.config.scenarios.map((x: IScenario) => x.meta_referenceImageUrl),
+                referencesDir: this.state.config.paths.bitmaps_reference
             }
         )
     }
@@ -123,7 +127,7 @@ export class TestWorker {
         log('[TestWorker] Step: executeTest');
 
         try {
-            let result = await backstop('test', { config: this.state!.config } );
+            let result = await backstop('test', { config: this.state.config } );
         }
         catch (err) {
             log('[TestWorker] ERROR: executeTest', err.message||err);

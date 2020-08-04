@@ -10,6 +10,12 @@ const readFile = promisify(fs.readFile);
 
 export class EngineAdapter {
 
+    filePathsService: FilePathsService;
+
+    constructor (filePathsService: FilePathsService) {
+        this.filePathsService = filePathsService;
+    }
+
     async getReport (reportFolder:string): Promise<IJsonReport> {
 
         try {
@@ -51,8 +57,7 @@ export class EngineAdapter {
         throwIfInvalidPathPart('tenantId', tenantId);
         throwIfInvalidPathPart('userId', userId);
 
-        const filePathsService = new FilePathsService();
-        const vrtDataLocation = filePathsService.vrtDataFullPath();
+        const vrtDataLocation = this.filePathsService.vrtDataFullPath();
 
         return {
             bitmaps_reference: `${vrtDataLocation}/${tenantId}/${userId}/bitmaps_reference`,

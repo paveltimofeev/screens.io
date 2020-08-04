@@ -1,11 +1,8 @@
-console.log( 'Tests:' );
-const handler = require( './dist/index' );
-
-const event = {
-  tenantId : 'tenant-id',
-  userId : 'user-id',
-  runId : 'run-id',
-  config : {
+{
+  "tenantId" : "tenant-id",
+  "userId" : "user-id",
+  "runId" : "run-id",
+  "config" : {
     "id" : "test-tenant",
     "viewports" : [ { "label" : "800 × 600", "width" : 800, "height" : 600, "enabled" : true } ],
     "scenarios" : [ {
@@ -41,9 +38,4 @@ const event = {
       "json_report" : "C:\\Git\\screens.io\\backend\\vrt_data\\test-tenant\\5e9767c2a802d03004b160dc\\json_report\\0e850ead-5b1c-410d-abb4-271801eed6f2"
     }
   }
-};
-
-const context = {};
-
-
-handler.handler( event, context );
+}

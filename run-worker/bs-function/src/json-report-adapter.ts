@@ -7,15 +7,17 @@ export class JsonReportAdapter {
 
     reportLocation:string;
     _report: IReport;
+    filePathsService:FilePathsService;
 
     get report() : IReport {
         return this._report;
     }
 
 
-    constructor (jsonReport: IJsonReport, reportLocation:string, runId:string) {
+    constructor (jsonReport: IJsonReport, reportLocation:string, runId:string, filePathsService:FilePathsService) {
 
         this.reportLocation = reportLocation;
+        this.filePathsService = filePathsService;
         this._report = this.convertReport(jsonReport, runId);
     }
 
@@ -26,8 +28,6 @@ export class JsonReportAdapter {
         if (!jsonReport.tests) {
             jsonReport.tests = [];
         }
-
-        const filePathsService = new FilePathsService();
 
         jsonReport.tests.forEach( (test:IJsonReportTestCase) => {
 
@@ -40,15 +40,15 @@ export class JsonReportAdapter {
             test.pair.images = {
                 absolute,
                 relative : {
-                    ref : filePathsService.relativeToVrtDataPath( absolute.ref ),
-                    test : filePathsService.relativeToVrtDataPath( absolute.test ),
-                    diff : filePathsService.relativeToVrtDataPath( absolute.diff ),
+                    ref : this.filePathsService.relativeToVrtDataPath( absolute.ref ),
+                    test : this.filePathsService.relativeToVrtDataPath( absolute.test ),
+                    diff : this.filePathsService.relativeToVrtDataPath( absolute.diff ),
                 }
             };
 
-            test.pair.reference = !test.pair.reference ? null : filePathsService.relativeToVrtDataPath(  path.resolve(this.reportLocation, test.pair.reference) );
-            test.pair.test      = !test.pair.test ? null : filePathsService.relativeToVrtDataPath(  path.resolve(this.reportLocation, test.pair.test) );
-            test.pair.diffImage = !test.pair.diffImage ? null : filePathsService.relativeToVrtDataPath(  path.resolve(this.reportLocation, test.pair.diffImage) );
+            test.pair.reference = !test.pair.reference ? null : this.filePathsService.relativeToVrtDataPath(  path.resolve(this.reportLocation, test.pair.reference) );
+            test.pair.test      = !test.pair.test ? null : this.filePathsService.relativeToVrtDataPath(  path.resolve(this.reportLocation, test.pair.test) );
+            test.pair.diffImage = !test.pair.diffImage ? null : this.filePathsService.relativeToVrtDataPath(  path.resolve(this.reportLocation, test.pair.diffImage) );
         });
 
         return jsonReport;

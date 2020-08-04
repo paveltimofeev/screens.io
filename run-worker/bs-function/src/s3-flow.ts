@@ -1,19 +1,23 @@
 import { BucketAdapter } from "./bucket-adapter";
 import { FilePathsService } from "./file-paths-service";
 import { IConfig } from './models';
-import { ConfigurationService } from './configuration-service';
 import { Logger } from './utils';
 
 const logger = new Logger('S3Flow');
-const appConfig = ConfigurationService.getAppConfig();
 const path = require('path');
 
 logger.log('[Media Storage] Init S3 Strategy');
 
 export class S3Flow {
 
-    bucketAdapter: BucketAdapter = new BucketAdapter(appConfig.bucketName, new FilePathsService());
-    filePathsService: FilePathsService = new FilePathsService();
+    bucketAdapter: BucketAdapter;
+    filePathsService: FilePathsService;
+
+    constructor (bucketAdapter: BucketAdapter, filePathsService: FilePathsService) {
+
+        this.bucketAdapter = bucketAdapter;
+        this.filePathsService = filePathsService;
+    }
 
     async RunPreProcess (config:IConfig) {
 

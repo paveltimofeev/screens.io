@@ -1,10 +1,7 @@
 import { IConfig, IIncomingQueueMessage, IOutgoingQueueMessage, IReport, IScenario, IViewport } from './models';
-import { EngineAdapter } from './engine-adapter';
 import { S3Flow } from './s3-flow';
-import { JsonReportAdapter } from './json-report-adapter';
-import { FilePathsService } from './file-paths-service';
-import { ImageProcessor } from './image-processor';
 import { Logger } from './utils';
+import { AppFactory } from './app-factory';
 
 const logger = new Logger('TestWorker');
 const backstop = require('backstopjs');
@@ -26,12 +23,13 @@ interface IWorkerState {
 export class TestWorker {
 
     private state: IWorkerState;
+    private factory: AppFactory;
     private flow: S3Flow;
-    private engine: EngineAdapter;
 
-    constructor (engine?: EngineAdapter, flow?: S3Flow) {
-        this.engine = engine || new EngineAdapter();
-        this.flow = flow || new S3Flow();
+    constructor (factory: AppFactory) {
+
+        this.factory = factory;
+        this.flow = this.factory.createFlow();
     }
 
     async run (queueMessage:IIncomingQueueMessage) : Promise<IOutgoingQueueMessage> {
@@ -79,8 +77,10 @@ export class TestWorker {
 
         logger.log('Step: readReport', this.state.scope);
 
-        const jsonReport = await this.engine.getReport( this.state.config.paths.json_report );
-        const reportAdapter = new JsonReportAdapter(
+        const engine = this.factory.createEngineAdapter();
+
+        const jsonReport = await engine.getReport( this.state.config.paths.json_report );
+        const reportAdapter = this.factory.createJsonReportAdapter(
             jsonReport,
             this.state.config.paths.json_report,
             this.state.scope.runId);
@@ -93,8 +93,8 @@ export class TestWorker {
         logger.log('Step: postProcessReport', this.state.scope);
 
         const report:IReport = this.state.execution.jsonReport;
-        const imageProcessor = new ImageProcessor();
-        const filePathsService = new FilePathsService();
+        const imageProcessor = this.factory.createImageProcessor();
+        const filePathsService = this.factory.createFilePathsService();
 
         for ( let i = 0; i < report.tests.length; i++ ) {
 

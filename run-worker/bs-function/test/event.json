@@ -4,21 +4,20 @@
   "runId" : "run-id",
   "config" : {
     "id" : "test-tenant",
-    "viewports" : [ { "label" : "800 × 600", "width" : 800, "height" : 600, "enabled" : true } ],
+    "viewports" : [
+      { "label" : "800 × 600", "width" : 800, "height" : 600, "enabled" : true },
+      { "label" : "850 × 650", "width" : 850, "height" : 650, "enabled" : true }
+    ],
     "scenarios" : [ {
-      "authConfig" : { "enabled" : false },
+      "_id" : "5f208d69d2c42e0284b88542",
+      "label" : "Habr",
+      "url" : "https://habr.com/en/all/",
       "hideSelectors" : [],
       "removeSelectors" : [],
       "selectors" : [],
       "stubContentRules" : [],
-      "_id" : "5f208d69d2c42e0284b88542",
-      "label" : "Habr",
-      "url" : "https://habr.com/en/all/",
-      "meta_recentRunStatus" : "fail",
-      "meta_referenceImageUrl" : "test-tenant\\5e9767c2a802d03004b160dc\\bitmaps_reference\\test-tenant_Habr_0_document_0_800__600.png",
-      "meta_referenceLG" : "test-tenant\\5e9767c2a802d03004b160dc\\bitmaps_reference\\test-tenant_Habr_0_document_0_800__600_lg.jpg",
-      "meta_referenceMD" : "test-tenant\\5e9767c2a802d03004b160dc\\bitmaps_reference\\test-tenant_Habr_0_document_0_800__600_md.jpg",
-      "meta_referenceSM" : "test-tenant\\5e9767c2a802d03004b160dc\\bitmaps_reference\\test-tenant_Habr_0_document_0_800__600_sm.jpg"
+      "authConfig" : { "enabled" : false },
+      "meta_referenceImageUrl" : "test-tenant\\5e9767c2a802d03004b160dc\\bitmaps_reference\\test-tenant_Habr_0_document_0_800__600.png"
     } ],
     "onBeforeScript" : "puppet/onBefore.js",
     "onReadyScript" : "puppet/onReady.js",

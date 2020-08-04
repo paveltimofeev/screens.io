@@ -1,4 +1,5 @@
 const assert = require('assert');
+const sinon = require('sinon');
 const event = require('./event');
 const handler = require( '../dist' ).handler;
 const QueueMessageAdapter = require( '../dist/queue-message-adapter' ).QueueMessageAdapter;
@@ -6,15 +7,58 @@ const TestWorker = require( '../dist/worker' ).TestWorker;
 const AppFactory = require( '../dist/app-factory' ).AppFactory;
 
 
+const shouldHaveImage = (report, testCaseIdx, imageKey) => {
+
+  assert.notEqual(
+    !report.tests[testCaseIdx].pair[imageKey],
+    true,
+    'should has "'+imageKey+'" for first test case');
+
+  assert.equal(report.tests[testCaseIdx].pair[imageKey].length > 0,
+    true,
+    '"'+imageKey+'" should be longer then 0.')
+};
+
+const shouldNotHaveImage = (report, testCaseIdx, imageKey) => {
+
+  assert.notEqual(
+    !report.tests[testCaseIdx].pair[imageKey],
+    false,
+    'should NOT has "'+imageKey+'" for first test case');
+};
+
+const shouldHaveDifferentImages = (report, imageKey) => {
+
+  assert.notEqual(
+    report.tests[0].pair[imageKey],
+    report.tests[1].pair[imageKey],
+    'should not has the same "'+imageKey+'" images for different viewport cases');
+};
+
+
 describe('TestWorker', () => {
+
+  const sandbox = sinon.createSandbox();
+  const factory = new AppFactory();
+
+  beforeEach(function() {
+    sandbox.spy(factory, "createBucketAdapter");
+    sandbox.spy(factory, "createFilePathsService");
+  });
+
+  afterEach(function() {
+    sandbox.restore();
+  });
 
   it('should return outgoingMessage with the same scope', async () => {
 
     const incomingMessage = QueueMessageAdapter.fromLambdaEvent(event);
 
-    const factory = new AppFactory();
     const worker = new TestWorker(factory);
     const outgoingMessage = await worker.run(incomingMessage);
+
+    console.log( '> createBucketAdapter callCount', factory.createBucketAdapter.callCount );
+    console.log( '> createFilePathsService callCount', factory.createFilePathsService.callCount );
 
     assert.equal(outgoingMessage.tenantId, incomingMessage.tenantId);
     assert.equal(outgoingMessage.runId, incomingMessage.runId);
@@ -22,33 +66,22 @@ describe('TestWorker', () => {
 
     assert.equal(outgoingMessage.report.tests.length, incomingMessage.config.scenarios.length * incomingMessage.config.viewports.length);
 
-    assert.notEqual(!outgoingMessage.report.tests[0].pair.reference, true, 'should has REFERENCE for first test case');
-    assert.notEqual(!outgoingMessage.report.tests[0].pair.test, true, 'should has TEST for first test case');
-    assert.notEqual(!outgoingMessage.report.tests[0].pair.diffImage, true, 'should has DIFFIMAGE for first test case');
-    assert.notEqual(!outgoingMessage.report.tests[0].pair.meta_testLG, true, 'should has META_TESTLG for first test case');
-    assert.notEqual(!outgoingMessage.report.tests[0].pair.meta_diffImageLG, true, 'should has META_DIFFIMAGELG for first test case');
+    shouldHaveImage(outgoingMessage.report, 0, 'reference');
+    shouldHaveImage(outgoingMessage.report, 0, 'test');
+    shouldHaveImage(outgoingMessage.report, 0, 'meta_testLG');
+    shouldHaveImage(outgoingMessage.report, 0, 'diffImage');
+    shouldHaveImage(outgoingMessage.report, 0, 'meta_diffImageLG');
 
-    assert.notEqual(!outgoingMessage.report.tests[1].pair.reference, true, 'should has REFERENCE for second test case');
-    assert.notEqual(!outgoingMessage.report.tests[1].pair.test, true, 'should has TEST for second test case');
-    // assert.notEqual(!outgoingMessage.report.tests[1].pair.diffImage, true, 'should has DIFFIMAGE for second test case');
-    assert.notEqual(!outgoingMessage.report.tests[1].pair.meta_testLG, true, 'should has META_TESTLG for second test case');
-    // assert.notEqual(!outgoingMessage.report.tests[1].pair.meta_diffImageLG, true, 'should has META_DIFFIMAGELG for second test case');
+    shouldHaveImage(outgoingMessage.report, 1, 'reference');
+    shouldHaveImage(outgoingMessage.report, 1, 'test');
+    shouldHaveImage(outgoingMessage.report, 1, 'meta_testLG');
+    shouldNotHaveImage(outgoingMessage.report, 1, 'diffImage');
+    shouldNotHaveImage(outgoingMessage.report, 1, 'meta_diffImageLG');
 
-    assert.notEqual(
-      outgoingMessage.report.tests[0].pair.reference,
-      outgoingMessage.report.tests[1].pair.reference, 'should not has the same REFERENCE images for different viewport cases');
-    assert.notEqual(
-      outgoingMessage.report.tests[0].pair.test,
-      outgoingMessage.report.tests[1].pair.test, 'should not has the same TEST images for different viewport cases');
-    assert.notEqual(
-      outgoingMessage.report.tests[0].pair.diffImage,
-      outgoingMessage.report.tests[1].pair.diffImage, 'should not has the same DIFFIMAGE images for different viewport cases');
-    assert.notEqual(
-      outgoingMessage.report.tests[0].pair.meta_testLG,
-      outgoingMessage.report.tests[1].pair.meta_testLG, 'should not has the same META_TESTLG images for different viewport cases');
-    assert.notEqual(
-      outgoingMessage.report.tests[0].pair.meta_diffImageLG,
-      outgoingMessage.report.tests[1].pair.meta_diffImageLG, 'should not has the same META_DIFFIMAGELG images for different viewport cases');
-
+    shouldHaveDifferentImages(outgoingMessage.report, 'reference');
+    shouldHaveDifferentImages(outgoingMessage.report, 'test');
+    shouldHaveDifferentImages(outgoingMessage.report, 'diffImage');
+    shouldHaveDifferentImages(outgoingMessage.report, 'meta_testLG');
+    shouldHaveDifferentImages(outgoingMessage.report, 'meta_diffImageLG');
   })
 });

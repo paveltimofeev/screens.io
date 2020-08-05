@@ -1,31 +1,31 @@
 import { FilePathsService } from './file-paths-service';
 import { Logger } from './utils';
+import S3 = require('aws-sdk/clients/s3');
 
 const logger = new Logger('BucketAdapter');
 
-const AWS = require('aws-sdk');
 const fs = require('fs');
 const { promisify } = require('util');
 const path = require('path');
 
 const fileExists = promisify(fs.exists);
 const writeFile = promisify(fs.writeFile);
-
-AWS.config.update({region: 'us-east-1'});
-const s3 = new AWS.S3({apiVersion: '2006-03-01'});
+const deleteFile = promisify(fs.unlink);
 
 
 export class BucketAdapter {
 
-  bucket:string;
+  s3: S3;
+  bucket: string;
   filePathsService: FilePathsService;
 
-  constructor (bucketName:string, filePathsService: FilePathsService) {
+  constructor (s3: S3, bucketName: string, filePathsService: FilePathsService) {
+    this.s3 = s3;
     this.bucket = bucketName;
     this.filePathsService = filePathsService;
   }
 
-  localPathToBucketPath (filePath:string) {
+  private localPathToBucketPath (filePath:string) {
 
     let subFolderPath = path.join(
       '/',
@@ -38,43 +38,43 @@ export class BucketAdapter {
     }
   }
 
-  async upload ( file:string ) {
+  async uploadAndDelete (filePath: string) {
 
-    logger.log('upload', file);
-
-    if (!file) {
-      logger.log('upload: empty file path. RETURN', file);
-      return file
+    if (!filePath) {
+      logger.log('upload: empty file path. Return.', filePath);
+      return filePath
     }
 
-    const exist = await fileExists(file);
+    logger.log(`upload: ${filePath}`);
+
+    const exist = await fileExists(filePath);
     if (!exist) {
-      logger.log('upload: file not exists.', file);
+      logger.log('upload: file not exists.', filePath);
       return null;
     }
 
-    const fileStream = fs.createReadStream(file);
+    const fileStream = fs.createReadStream(filePath);
     fileStream.on('error', (err:any) => {
       logger.error('[BucketAdapter] ERROR. Read File Error', err);
     });
 
-    const bucketPath = this.localPathToBucketPath(file);
+    const bucketPath = this.localPathToBucketPath(filePath);
 
     const uploadParams = {
       Bucket: this.bucket + bucketPath.subFolder,
       Key: bucketPath.key,
       Body: fileStream,
       ACL: 'public-read',
-      // Expires: // The date and time at which the object is no longer cacheable. For more information, see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.21
+      // Expires: // The date and time at which the object is no longer cacheable.
+      // For more information, see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.21
     };
-
-    logger.log('uploadParams.Bucket', uploadParams.Bucket);
-    logger.log('uploadParams.Key', uploadParams.Key);
 
     try {
       logger.log('upload to: bucket path', uploadParams.Bucket);
       logger.log('upload to: bucket key', uploadParams.Key);
-      return await s3.upload( uploadParams ).promise();
+      await this.s3.upload( uploadParams ).promise();
+      logger.log('delete uploaded', filePath);
+      await deleteFile(filePath)
     }
     catch (err) {
 
@@ -84,12 +84,11 @@ export class BucketAdapter {
     }
   }
 
-  async download (localPath:string) {
+  async download (localPath: string): Promise<boolean> {
 
-    logger.log('download', localPath);
+    logger.log('download to', localPath);
 
     const bucketPath = this.localPathToBucketPath(localPath);
-
     const downloadParams = {
       Bucket: this.bucket + bucketPath.subFolder,
       Key: bucketPath.key
@@ -99,12 +98,18 @@ export class BucketAdapter {
     logger.log('downloadParams.Key', downloadParams.Key);
 
     try {
-      const data = await s3.getObject( downloadParams ).promise();
+
+      const data = await this.s3.getObject( downloadParams ).promise();
+      logger.log( 'downloaded, write to', localPath );
       await writeFile( localPath, data.Body );
-      logger.log( 'downloaded to', localPath );
+      logger.log( 'written to', localPath );
+
+      return true
     }
     catch (err) {
-      logger.error('download', err)
+      logger.error('download', err);
+
+      return false
     }
   }
 }

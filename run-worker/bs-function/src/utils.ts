@@ -1,3 +1,7 @@
+import { IAppConfig } from './models';
+import { ConfigurationService } from './configuration-service';
+
+const config: IAppConfig = ConfigurationService.getAppConfig();
 
 export class Logger {
 
@@ -9,8 +13,12 @@ export class Logger {
 
     log (message:string, args?:any) {
 
+        if (!config.enableLogging) {
+            return;
+        }
+
         if (args) {
-            console.log(`[${this.serviceName}] ${message}\n`,
+            console.log(`[${this.serviceName}] ${message}`,
                 JSON.stringify(args, null, 2));
         }
         else {
@@ -19,6 +27,10 @@ export class Logger {
     };
 
     error (message:string, args?:any) {
+
+        if (!config.enableLogging) {
+            return;
+        }
 
         if (args) {
             console.error(`[${this.serviceName}] ERROR: ${message}\n`,

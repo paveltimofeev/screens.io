@@ -5,6 +5,7 @@ const handler = require( '../dist' ).handler;
 const QueueMessageAdapter = require( '../dist/queue-message-adapter' ).QueueMessageAdapter;
 const TestWorker = require( '../dist/worker' ).TestWorker;
 const AppFactory = require( '../dist/app-factory' ).AppFactory;
+const QueueAdapter = require( '../dist/queue-adapter' ).QueueAdapter;
 
 
 const shouldHaveImage = (report, testCaseIdx, imageKey) => {
@@ -12,7 +13,7 @@ const shouldHaveImage = (report, testCaseIdx, imageKey) => {
   assert.notEqual(
     !report.tests[testCaseIdx].pair[imageKey],
     true,
-    'should has "'+imageKey+'" for first test case');
+    'should has "'+imageKey+'" for '+testCaseIdx+' test case');
 
   assert.equal(report.tests[testCaseIdx].pair[imageKey].length > 0,
     true,
@@ -66,22 +67,53 @@ describe('TestWorker', () => {
 
     assert.equal(outgoingMessage.report.tests.length, incomingMessage.config.scenarios.length * incomingMessage.config.viewports.length);
 
+    assert.equal(outgoingMessage.report.tests[0].status, 'fail');
+    assert.equal(outgoingMessage.report.tests[1].status, 'fail');
+
     shouldHaveImage(outgoingMessage.report, 0, 'reference');
     shouldHaveImage(outgoingMessage.report, 0, 'test');
-    shouldHaveImage(outgoingMessage.report, 0, 'meta_testLG');
-    shouldHaveImage(outgoingMessage.report, 0, 'diffImage');
-    shouldHaveImage(outgoingMessage.report, 0, 'meta_diffImageLG');
+    // shouldHaveImage(outgoingMessage.report, 0, 'diffImage');
 
     shouldHaveImage(outgoingMessage.report, 1, 'reference');
     shouldHaveImage(outgoingMessage.report, 1, 'test');
-    shouldHaveImage(outgoingMessage.report, 1, 'meta_testLG');
     shouldNotHaveImage(outgoingMessage.report, 1, 'diffImage');
-    shouldNotHaveImage(outgoingMessage.report, 1, 'meta_diffImageLG');
 
     shouldHaveDifferentImages(outgoingMessage.report, 'reference');
     shouldHaveDifferentImages(outgoingMessage.report, 'test');
-    shouldHaveDifferentImages(outgoingMessage.report, 'diffImage');
-    shouldHaveDifferentImages(outgoingMessage.report, 'meta_testLG');
-    shouldHaveDifferentImages(outgoingMessage.report, 'meta_diffImageLG');
+    // shouldHaveDifferentImages(outgoingMessage.report, 'diffImage');
+
+
+    console.log('> reference', outgoingMessage.report.tests[0].pair.reference);
+    console.log('> test', outgoingMessage.report.tests[0].pair.test);
+    console.log('> diffImage', outgoingMessage.report.tests[0].pair.diffImage);
+
+    assert.equal(
+      outgoingMessage.report.tests[0].pair.reference.toLowerCase().startsWith('c:\\'),
+      false,
+      'reference path should not start be absolute');
+
+
+
   })
+});
+
+describe('QueueAdapter', () => {
+
+  it('should send a message to valid queue', async () => {
+
+    const outgoingMessage = {
+      tenantId: 'tenant-id',
+      userId: 'user-id',
+      runId: 'run-id',
+      report: null
+    };
+
+    const factory = new AppFactory();
+    const queueAdapter = factory.createQueueAdapter();
+    const result = await queueAdapter.sendMessage(outgoingMessage);
+
+    assert.notEqual(result.ResponseMetadata.RequestId, null);
+    assert.notEqual(result.MessageId, null);
+    assert.notEqual(result.MD5OfMessageBody, null);
+  });
 });

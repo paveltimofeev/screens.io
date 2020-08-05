@@ -7,7 +7,7 @@
   "scripts": {
     "compile": "./node_modules/.bin/tsc",
     "compile.watch": "./node_modules/.bin/tsc -w",
-    "tests": "mocha -t 30000"
+    "tests": "mocha -t 60000"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.59",

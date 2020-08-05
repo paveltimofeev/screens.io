@@ -6,8 +6,10 @@ export class ConfigurationService {
     static getAppConfig(): IAppConfig {
 
         return {
-            vrtDataFullPath: '/tmp/vrtData',
+            enableLogging: true,
+            vrtDataFullPath: 'c:\\tmp\\vrtData',
             bucketName: 'vrtdata',
+            outgoingQueueUrl: 'https://sqs.us-east-1.amazonaws.com/772145494782/vrt_results',
             resizeConfig: {
                 fit: 'cover',
                 position: 'right top',

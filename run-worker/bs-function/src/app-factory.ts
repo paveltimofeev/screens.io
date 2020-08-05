@@ -6,6 +6,12 @@ import { ImageProcessor } from './image-processor';
 import { FilePathsService } from './file-paths-service';
 import { BucketAdapter } from './bucket-adapter';
 import { ConfigurationService } from './configuration-service';
+import { QueueAdapter } from './queue-adapter';
+
+const AWS = require('aws-sdk');
+AWS.config.update({region: 'us-east-1'});
+var sqs = new AWS.SQS();
+const s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
 const appConfig = ConfigurationService.getAppConfig();
 
@@ -26,9 +32,15 @@ export class AppFactory {
 
     createBucketAdapter () {
         return new BucketAdapter(
+            s3,
             appConfig.bucketName,
             this.createFilePathsService()
         );
+    }
+
+    createQueueAdapter () {
+
+        return new QueueAdapter(sqs);
     }
 
     createJsonReportAdapter (report: IJsonReport, reportLocation:string, runId:string) {

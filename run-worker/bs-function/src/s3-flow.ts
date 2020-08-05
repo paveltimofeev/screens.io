@@ -23,41 +23,31 @@ export class S3Flow {
 
         logger.log('RunPreProcess');
 
-      /// download ref images of every scenario in config and place them to corresponding directory
+        // download ref images of every scenario in config
+        // and place them to corresponding directory
 
-      for ( let i = 0; i < config.scenarios.length; i++ ) {
+        for (let i = 0; i < config.scenarios.length; i++) {
 
-        if (config.scenarios[i].meta_referenceImageUrl) {
+            if (config.scenarios[i].meta_referenceImageUrl) {
 
-          await this.bucketAdapter.download(
-            path.join(
-              this.filePathsService.vrtDataFullPath(),
-              config.scenarios[ i ].meta_referenceImageUrl
-            )
-          );
+                const success = await this.bucketAdapter.download(
+                    path.join(
+                        this.filePathsService.vrtDataFullPath(),
+                        config.scenarios[i].meta_referenceImageUrl
+                    )
+                );
+            }
         }
-      }
     }
 
-    async RunPostProcess (images:{
-        ref:string,
-        diff:string,
-        test: string,
-        meta_testLG: string,
-        meta_diffImageLG: string
-    }) {
+    async RunPostProcess (images: {diff:string, test:string}) {
 
         logger.log('RunPostProcess');
 
-      await Promise.all([
-     // await this.bucketAdapter.upload( images.ref ),
-        await this.bucketAdapter.upload( images.diff ),
-        await this.bucketAdapter.upload( images.test ),
-        await this.bucketAdapter.upload( images.meta_testLG ),
-        await this.bucketAdapter.upload( images.meta_diffImageLG ),
-      ]);
-
-      // [delete successfully uploaded images]
+        await Promise.all([
+            await this.bucketAdapter.uploadAndDelete( images.diff ),
+            await this.bucketAdapter.uploadAndDelete( images.test )
+        ]);
     }
 
     async ApprovePreProcess (pair: { test:string }) {
@@ -82,12 +72,10 @@ export class S3Flow {
         logger.log('ApprovePostProcess');
 
         await Promise.all([
-            await this.bucketAdapter.upload( images.reference ),
-            await this.bucketAdapter.upload( images.sm ),
-            await this.bucketAdapter.upload( images.md ),
-            await this.bucketAdapter.upload( images.lg ) //? NOT USED IN UI
+            await this.bucketAdapter.uploadAndDelete( images.reference ),
+            await this.bucketAdapter.uploadAndDelete( images.sm ),
+            await this.bucketAdapter.uploadAndDelete( images.md ),
+            await this.bucketAdapter.uploadAndDelete( images.lg ) //? NOT USED IN UI
         ]);
-
-        // [delete successfully uploaded images]
     }
 }

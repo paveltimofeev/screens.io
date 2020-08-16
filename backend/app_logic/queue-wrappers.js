@@ -1,3 +1,5 @@
+const { QueueAdapter } = require('./queue-adapter');
+const config = require('./configuration');
 
 class QueueWrapper {
 
@@ -21,13 +23,14 @@ class QueueWrapper {
   }
 }
 
-const localRunQueue = new QueueWrapper(async (task) => {
+const taskProcessor = async (task) => {
 
   const {runId, config, ctx} = task;
-
   const QueueProcessor = require('./queue-processor');
   await QueueProcessor.create(ctx).processRun(runId, config)
-});
+}
+
+const localRunQueue = new QueueWrapper(taskProcessor);
 
 const localApproveQueue = new QueueWrapper(async (task) => {
 
@@ -37,6 +40,17 @@ const localApproveQueue = new QueueWrapper(async (task) => {
   await QueueProcessor.create(ctx).processApproveCase(data);
 });
 
+const taskQueue = new QueueAdapter(config.taskQueueUrl);
+
+setInterval(async () => {
+  
+  taskQueue.receiveAndDelete( async (tasks) => {
+    for (let i = 0; i < tasks.length; i++) {
+      await taskProcessor(tasks[i]);
+    }
+  });
+
+}, 500);
 
 const sendToRunQueue = async (task) => {
 
@@ -47,6 +61,7 @@ const sendToRunQueue = async (task) => {
     throw new Error('Wrong run task');
   }
 
+  await taskQueue.push(task);
   await localRunQueue.push(task);
 };
 

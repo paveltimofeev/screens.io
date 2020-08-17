@@ -1,5 +1,6 @@
 const path = require('path');
 const config = require('./configuration');
+const { UIError } = require('../ui-error');
 
 
 const uuidv4 = () => {
@@ -54,6 +55,25 @@ const skipPassedIfHasFailed = (value, index, self) => {
   return  found  === index || found === -1;
 };
 
+const throwIfInvalidPathPart = (name, pathPart) => {
+
+  if (
+    !pathPart ||
+    typeof(pathPart) !== 'string' ||
+    pathPart.length === 0 ||
+    pathPart === '' ||
+    pathPart >= 0
+  ) {
+    throw new Error( `Invalid path part: "${name}" = "${pathPart}"`)
+  }
+}
+
+const validateArray = (name, param) => {
+
+  if (!param || param.length === 0) {
+    UIError.throw(`No "${name}" found`, {name, param})
+  }
+}
 
 class FilePathsService {
 
@@ -90,6 +110,8 @@ module.exports = {
   validateScenario: validateScenario,
   skipPassedIfHasFailed: skipPassedIfHasFailed,
   safeParse: safeParse,
+  throwIfInvalidPathPart: throwIfInvalidPathPart,
+  validateArray: validateArray,
 
   FilePathsService: FilePathsService
 };

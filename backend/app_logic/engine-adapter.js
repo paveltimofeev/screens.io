@@ -1,31 +1,10 @@
 const fs = require('fs');
 const { promisify } = require('util');
 const path = require('path');
-const readFile = promisify(fs.readFile)
+const appUtils = require('./app-utils');
+const readFile = promisify(fs.readFile);
 
-const { UIError } = require('../ui-error');
-const { FilePathsService } = require('./app-utils');
-const filePathsService = new FilePathsService();
-
-
-const throwIfInvalidPathPart = (name, pathPart) => {
-
-  if (
-    !pathPart ||
-    typeof(pathPart) !== 'string' ||
-    pathPart.length === 0 ||
-    pathPart === '' ||
-    pathPart >= 0
-  ) {
-    throw new Error( `Invalid path part: "${name}" = "${pathPart}"`)
-  }
-}
-const validateArray = (name, param) => {
-
-  if (!param || param.length === 0) {
-    UIError.throw(`No "${name}" found`, {name, param})
-  }
-}
+const filePathsService = new appUtils.FilePathsService();
 
 
 class EngineAdapter {
@@ -48,8 +27,8 @@ class EngineAdapter {
             return
         }
 
-        throwIfInvalidPathPart('html_report', configPaths.html_report)
-        throwIfInvalidPathPart('runId', runId)
+        appUtils.throwIfInvalidPathPart('html_report', configPaths.html_report)
+        appUtils.throwIfInvalidPathPart('runId', runId)
 
         report.tests.forEach( t => {
 
@@ -66,8 +45,8 @@ class EngineAdapter {
 
     buildConfigPaths (tenantId, userId) {
 
-        throwIfInvalidPathPart('tenantId', tenantId)
-        throwIfInvalidPathPart('userId', userId)
+        appUtils.throwIfInvalidPathPart('tenantId', tenantId)
+        appUtils.throwIfInvalidPathPart('userId', userId)
 
         const vrtDataLocation = filePathsService.vrtDataFullPath();
 
@@ -92,8 +71,8 @@ class EngineAdapter {
           throw new Error('buildConfigPaths: no userId')
         }
 
-        validateArray('viewports', viewports)
-        validateArray('scenarios', scenarios)
+        appUtils.validateArray('viewports', viewports)
+        appUtils.validateArray('scenarios', scenarios)
 
         const removeEmptyArraysInObject = (obj, propName) => {
 

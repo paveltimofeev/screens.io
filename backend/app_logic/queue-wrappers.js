@@ -1,6 +1,6 @@
 const { QueueAdapter } = require('./queue-adapter');
 const config = require('./configuration');
-const appUtils = require( "./app-utils" );
+const appUtils = require('./app-utils');
 
 
 class RemoteQueueWrapper {
@@ -57,23 +57,27 @@ class QueueWrapper {
   }
 }
 
+
 const taskProcessor = async (task) => {
 
   const {runId, config, ctx} = task;
-  console.log( '---[taskProcessor]. runId', runId );
+
   const QueueProcessor = require('./queue-processor');
   await QueueProcessor.create(ctx).processRun(runId, config)
-}
+};
 
-const localRunQueue = new RemoteQueueWrapper(taskProcessor, config.taskQueueUrl);
-
-const localApproveQueue = new QueueWrapper(async (task) => {
+const approveProcessor = async (task) => {
 
   const {data, ctx} = task;
 
   const QueueProcessor = require('./queue-processor');
   await QueueProcessor.create(ctx).processApproveCase(data);
-});
+};
+
+
+const localRunQueue = new RemoteQueueWrapper(taskProcessor, config.taskQueueUrl);
+
+const localApproveQueue = new QueueWrapper(approveProcessor);
 
 
 const sendToRunQueue = async (task) => {

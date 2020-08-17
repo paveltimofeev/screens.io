@@ -28,8 +28,8 @@ class QueueAdapter {
             MaxNumberOfMessages: 10,
             VisibilityTimeout: 20,
             WaitTimeSeconds: 0,
-            AttributeNames: [ "SentTimestamp" ],
-            MessageAttributeNames: [ "All" ]
+            AttributeNames: [ 'SentTimestamp' ],
+            MessageAttributeNames: [ 'All' ]
         };
 
         return await this.sqs.receiveMessage( params ).promise();
@@ -41,23 +41,8 @@ class QueueAdapter {
             QueueUrl: this.queueUrl,
             ReceiptHandle: messageOrHandler.ReceiptHandle || messageOrHandler
         };
-        console.log("[QueueAdapter] deleting", params);
+        console.log('[QueueAdapter] deleting', params);
         await this.sqs.deleteMessage( params ).promise();
-    }
-
-    async receiveAndDelete (processingAsync) {
-
-        const messages = await this.receive()
-
-        if (!messages.Messages) {
-            return;
-        }
-
-        await processingAsync( messages.Messages.map( x => JSON.parse( x.Body ) ) )
-
-        for (let i = 0; i < messages.length; i++) {
-            await this.delete(messages[i].ReceiptHandle)
-        }
     }
 }
 

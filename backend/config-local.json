@@ -10,5 +10,6 @@
 
   "mediaStorageStrategy": "LocalFS",
   "vrtDataFullPath": "C:\\Git\\screens.io\\backend\\vrt_data",
-  "taskQueueUrl": "https://sqs.us-east-1.amazonaws.com/772145494782/vrt_task"
+  "taskQueueUrl": "https://sqs.us-east-1.amazonaws.com/772145494782/vrt_task",
+  "queuePollInterval": 500
 }

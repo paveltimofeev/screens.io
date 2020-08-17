@@ -1,4 +1,5 @@
 const path = require('path')
+const config = require('./configuration')
 
 function uuidv4() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -34,15 +35,23 @@ const validateScenario = (data) => {
   allowStringArraysOnly(data, 'selectors');
 }
 
+const safeParse = (strData, defValue) => {
+
+  try {
+    return JSON.parse(strData);
+  }
+  catch (err) {
+    console.error('[safeParse] ERROR', err);
+    return defValue;
+  }
+};
+
 function skipPassedIfHasFailed (value, index, self) {
   let found = self.findIndex(x => {
     return x.label === value.label && x.status === 'Failed'
   })
   return  found  === index || found === -1;
 }
-
-
-const config = require('./configuration')
 
 class FilePathsService {
 
@@ -78,6 +87,7 @@ module.exports = {
   uniqueOnly: uniqueOnly,
   validateScenario: validateScenario,
   skipPassedIfHasFailed: skipPassedIfHasFailed,
+  safeParse: safeParse,
 
   FilePathsService: FilePathsService
 };

@@ -1,5 +1,7 @@
 const { QueueAdapter } = require('./queue-adapter');
 const config = require('./configuration');
+const appUtils = require( "./app-utils" );
+
 
 class RemoteQueueWrapper {
 
@@ -16,7 +18,7 @@ class RemoteQueueWrapper {
 
       const tasks = m.Messages.map( x => ({
         handle: x.ReceiptHandle,
-        body: JSON.parse(x.Body)
+        body: appUtils.safeParse(x.Body)
       }));
 
       for (let i = 0; i < tasks.length; i++) {
@@ -24,7 +26,7 @@ class RemoteQueueWrapper {
         await this.runQueue.delete(tasks[i].handle)
       }
 
-    }, 500);
+    }, config.queuePollInterval || 500);
   }
 
   push (obj) {

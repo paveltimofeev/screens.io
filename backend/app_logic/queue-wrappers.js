@@ -1,6 +1,38 @@
 const { QueueAdapter } = require('./queue-adapter');
 const config = require('./configuration');
 
+class RemoteQueueWrapper {
+
+  constructor (processingCallback, queueUrl) {
+
+    this.runQueue = new QueueAdapter(queueUrl);
+
+    setInterval(async () => {
+
+      const m = await this.runQueue.receive();
+      if (!m.Messages) {
+        return;
+      }
+
+      const tasks = m.Messages.map( x => ({
+        handle: x.ReceiptHandle,
+        body: JSON.parse(x.Body)
+      }));
+
+      for (let i = 0; i < tasks.length; i++) {
+        processingCallback(tasks[i].body);
+        await this.runQueue.delete(tasks[i].handle)
+      }
+
+    }, 500);
+  }
+
+  push (obj) {
+    this.runQueue.push(obj)
+    console.log( '---[RemoteQueueWrapper]. Pushed item to Queue. Length', this.runQueue.length )
+  }
+}
+
 class QueueWrapper {
 
   constructor (processingCallback) {
@@ -19,18 +51,19 @@ class QueueWrapper {
 
   push (obj) {
     this.runQueue.push(obj)
-    console.log( '---[Process Queue]. Pushed item to Queue. Length', this.runQueue.length )
+    console.log( '---[QueueWrapper]. Pushed item to Queue. Length', this.runQueue.length )
   }
 }
 
 const taskProcessor = async (task) => {
 
   const {runId, config, ctx} = task;
+  console.log( '---[taskProcessor]. runId', runId );
   const QueueProcessor = require('./queue-processor');
   await QueueProcessor.create(ctx).processRun(runId, config)
 }
 
-const localRunQueue = new QueueWrapper(taskProcessor);
+const localRunQueue = new RemoteQueueWrapper(taskProcessor, config.taskQueueUrl);
 
 const localApproveQueue = new QueueWrapper(async (task) => {
 
@@ -40,17 +73,6 @@ const localApproveQueue = new QueueWrapper(async (task) => {
   await QueueProcessor.create(ctx).processApproveCase(data);
 });
 
-const taskQueue = new QueueAdapter(config.taskQueueUrl);
-
-setInterval(async () => {
-  
-  taskQueue.receiveAndDelete( async (tasks) => {
-    for (let i = 0; i < tasks.length; i++) {
-      await taskProcessor(tasks[i]);
-    }
-  });
-
-}, 500);
 
 const sendToRunQueue = async (task) => {
 
@@ -61,7 +83,6 @@ const sendToRunQueue = async (task) => {
     throw new Error('Wrong run task');
   }
 
-  await taskQueue.push(task);
   await localRunQueue.push(task);
 };
 

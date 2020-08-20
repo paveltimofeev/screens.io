@@ -1,5 +1,5 @@
-import { IOutgoingQueueMessage } from '../domain/models';
-import { Logger } from '../infrastructure/utils';
+import { IConfig, IIncomingQueueMessage, IOutgoingQueueMessage } from '../domain/models';
+import { Logger, safeParse } from '../infrastructure/utils';
 import { ConfigurationService } from './configuration-service';
 import SQS = require('aws-sdk/clients/sqs');
 
@@ -26,4 +26,31 @@ export class QueueAdapter {
 
         return await this.sqs.sendMessage(outgoingParams).promise();
     }
+
+    async receiveMessages () : Promise<IIncomingQueueMessage[]> {
+
+        const params = {
+            QueueUrl: config.incomingQueueUrl,
+            MaxNumberOfMessages: 10,
+            VisibilityTimeout: 20,
+            WaitTimeSeconds: 0,
+            AttributeNames: [ 'SentTimestamp' ],
+            MessageAttributeNames: [ 'All' ]
+        };
+
+        let messages = await this.sqs.receiveMessage( params ).promise();
+
+        if (!messages || !messages.Messages) {
+            return [];
+        }
+
+        logger.log('receiveMessages', messages.Messages.length);
+
+        return messages.Messages
+            .map( x => {
+                return safeParse<IIncomingQueueMessage>(x.Body, null);
+            })
+            .filter( x => !x);
+    }
+
 }

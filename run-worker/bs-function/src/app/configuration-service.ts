@@ -9,6 +9,7 @@ export class ConfigurationService {
             enableLogging: true,
             vrtDataFullPath: 'c:\\tmp\\vrtData',
             bucketName: 'vrtdata',
+            incomingQueueUrl: 'https://sqs.us-east-1.amazonaws.com/772145494782/vrt_task',
             outgoingQueueUrl: 'https://sqs.us-east-1.amazonaws.com/772145494782/vrt_results',
             resizeConfig: {
                 fit: 'cover',

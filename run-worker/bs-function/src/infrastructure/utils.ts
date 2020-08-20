@@ -62,3 +62,15 @@ export const validateArray = (name:string, param:any) => {
         throw new Error(`No "${name}" found. param=${ param }`)
     }
 };
+
+
+export const safeParse = <T>(strData:string, defValue:T) => {
+
+    try {
+        return JSON.parse(strData) as T;
+    }
+    catch (err) {
+        console.error('[safeParse] ERROR', err);
+        return defValue;
+    }
+};

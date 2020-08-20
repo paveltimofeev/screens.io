@@ -1,0 +1,40 @@
+{
+  "tenantId" : "tenant-id",
+  "userId" : "user-id",
+  "runId" : "run-id",
+  "config" : {
+    "id" : "test-tenant",
+    "viewports" : [
+      { "label" : "800 × 600", "width" : 800, "height" : 600, "enabled" : true },
+      { "label" : "850 × 650", "width" : 850, "height" : 650, "enabled" : true }
+    ],
+    "scenarios" : [ {
+      "_id" : "5f208d69d2c42e0284b88542",
+      "label" : "Habr",
+      "url" : "https://habr.com/en/all/",
+      "hideSelectors" : [],
+      "removeSelectors" : [],
+      "selectors" : [],
+      "stubContentRules" : [],
+      "authConfig" : { "enabled" : false },
+      "meta_referenceImageUrl" : "test-tenant\\5e9767c2a802d03004b160dc\\bitmaps_reference\\test-tenant_Habr_0_document_0_800__600_lg.jpg"
+    } ],
+    "onBeforeScript" : "puppet/onBefore.js",
+    "onReadyScript" : "puppet/onReady.js",
+    "report" : [ "CI", "json" ],
+    "engine" : "puppeteer",
+    "engineOptions" : { "args" : [ "--no-sandbox" ] },
+    "asyncCaptureLimit" : 5,
+    "asyncCompareLimit" : 50,
+    "debug" : false,
+    "debugWindow" : false,
+    "paths" : {
+      "engine_scripts" : "engine_scripts",
+      "bitmaps_reference" : "vrt_data/test-tenant/5e9767c2a802d03004b160dc/bitmaps_reference",
+      "bitmaps_test" : "vrt_data/test-tenant/5e9767c2a802d03004b160dc/bitmaps_test",
+      "html_report" : "vrt_data/test-tenant/5e9767c2a802d03004b160dc/html_report",
+      "ci_report" : "vrt_data/test-tenant/5e9767c2a802d03004b160dc/ci_report",
+      "json_report" : "vrt_data/test-tenant/5e9767c2a802d03004b160dc/json_report/0e850ead-5b1c-410d-abb4-271801eed6f2"
+    }
+  }
+}

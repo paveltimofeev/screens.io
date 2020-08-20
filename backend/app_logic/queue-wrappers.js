@@ -1,3 +1,39 @@
+const { QueueAdapter } = require('./queue-adapter');
+const config = require('./configuration');
+const appUtils = require('./app-utils');
+
+
+class RemoteQueueWrapper {
+
+  constructor (processingCallback, queueUrl) {
+
+    this.runQueue = new QueueAdapter(queueUrl);
+
+    setInterval(async () => {
+
+      const m = await this.runQueue.receive();
+      if (!m.Messages) {
+        return;
+      }
+
+      const tasks = m.Messages.map( x => ({
+        handle: x.ReceiptHandle,
+        body: appUtils.safeParse(x.Body)
+      }));
+
+      for (let i = 0; i < tasks.length; i++) {
+        processingCallback(tasks[i].body);
+        await this.runQueue.delete(tasks[i].handle)
+      }
+
+    }, config.queuePollInterval || 500);
+  }
+
+  push (obj) {
+    this.runQueue.push(obj)
+    console.log( '---[RemoteQueueWrapper]. Pushed item to Queue. Length', this.runQueue.length )
+  }
+}
 
 class QueueWrapper {
 
@@ -17,25 +53,31 @@ class QueueWrapper {
 
   push (obj) {
     this.runQueue.push(obj)
-    console.log( '---[Process Queue]. Pushed item to Queue. Length', this.runQueue.length )
+    console.log( '---[QueueWrapper]. Pushed item to Queue. Length', this.runQueue.length )
   }
 }
 
-const localRunQueue = new QueueWrapper(async (task) => {
+
+const taskProcessor = async (task) => {
 
   const {runId, config, ctx} = task;
 
   const QueueProcessor = require('./queue-processor');
   await QueueProcessor.create(ctx).processRun(runId, config)
-});
+};
 
-const localApproveQueue = new QueueWrapper(async (task) => {
+const approveProcessor = async (task) => {
 
   const {data, ctx} = task;
 
   const QueueProcessor = require('./queue-processor');
   await QueueProcessor.create(ctx).processApproveCase(data);
-});
+};
+
+
+const localRunQueue = new RemoteQueueWrapper(taskProcessor, config.taskQueueUrl);
+
+const localApproveQueue = new QueueWrapper(approveProcessor);
 
 
 const sendToRunQueue = async (task) => {

@@ -1,17 +1,20 @@
-const path = require('path')
+const path = require('path');
+const config = require('./configuration');
+const { UIError } = require('../ui-error');
 
-function uuidv4() {
+
+const uuidv4 = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
     var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
     return v.toString(16);
   });
-}
+};
 
-function uniqueOnly (value, index, self) {
+const uniqueOnly = (value, index, self) => {
   return self.findIndex(x => {
     return x.label === value.label && x.status === value.status
   }) === index;
-}
+};
 
 const validateScenario = (data) => {
 
@@ -32,17 +35,45 @@ const validateScenario = (data) => {
   allowStringArraysOnly(data, 'clickSelectors');
   allowStringArraysOnly(data, 'hoverSelectors');
   allowStringArraysOnly(data, 'selectors');
-}
+};
 
-function skipPassedIfHasFailed (value, index, self) {
+const safeParse = (strData, defValue) => {
+
+  try {
+    return JSON.parse(strData);
+  }
+  catch (err) {
+    console.error('[safeParse] ERROR', err);
+    return defValue;
+  }
+};
+
+const skipPassedIfHasFailed = (value, index, self) => {
   let found = self.findIndex(x => {
     return x.label === value.label && x.status === 'Failed'
-  })
+  });
   return  found  === index || found === -1;
+};
+
+const throwIfInvalidPathPart = (name, pathPart) => {
+
+  if (
+    !pathPart ||
+    typeof(pathPart) !== 'string' ||
+    pathPart.length === 0 ||
+    pathPart === '' ||
+    pathPart >= 0
+  ) {
+    throw new Error( `Invalid path part: "${name}" = "${pathPart}"`)
+  }
 }
 
+const validateArray = (name, param) => {
 
-const config = require('./configuration')
+  if (!param || param.length === 0) {
+    UIError.throw(`No "${name}" found`, {name, param})
+  }
+}
 
 class FilePathsService {
 
@@ -78,6 +109,9 @@ module.exports = {
   uniqueOnly: uniqueOnly,
   validateScenario: validateScenario,
   skipPassedIfHasFailed: skipPassedIfHasFailed,
+  safeParse: safeParse,
+  throwIfInvalidPathPart: throwIfInvalidPathPart,
+  validateArray: validateArray,
 
   FilePathsService: FilePathsService
 };

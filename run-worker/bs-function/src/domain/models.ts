@@ -3,8 +3,16 @@ export interface IAppConfig {
     enableLogging: boolean,
     vrtDataFullPath: string;
     bucketName: string;
-    incomingQueueUrl:string;
-    outgoingQueueUrl:string;
+    incomingQueue: {
+        queueUrl: string;
+        pollingInterval: number;
+        maxNumberOfMessages: number;
+        visibilityTimeout: number;
+        waitTimeSeconds: number;
+    },
+    outgoingQueue: {
+        queueUrl: string;
+    };
     resizeConfig: {
         fit: string;
         position: string;

@@ -9,8 +9,16 @@ export class ConfigurationService {
             enableLogging: true,
             vrtDataFullPath: 'c:\\tmp\\vrtData',
             bucketName: 'vrtdata',
-            incomingQueueUrl: 'https://sqs.us-east-1.amazonaws.com/772145494782/vrt_task',
-            outgoingQueueUrl: 'https://sqs.us-east-1.amazonaws.com/772145494782/vrt_results',
+            incomingQueue: {
+                queueUrl: 'https://sqs.us-east-1.amazonaws.com/772145494782/vrt_task',
+                pollingInterval: 2000,
+                maxNumberOfMessages: 10,
+                visibilityTimeout: 60,
+                waitTimeSeconds: 0,
+            },
+            outgoingQueue: {
+                queueUrl: 'https://sqs.us-east-1.amazonaws.com/772145494782/vrt_results'
+            },
             resizeConfig: {
                 fit: 'cover',
                 position: 'right top',

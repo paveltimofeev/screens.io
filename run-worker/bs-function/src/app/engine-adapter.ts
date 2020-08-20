@@ -61,7 +61,7 @@ export class EngineAdapter {
 
         return {
             bitmaps_reference: `${vrtDataLocation}/${tenantId}/${userId}/bitmaps_reference`,
-            engine_scripts:    `app_logic/engine_scripts`,
+            engine_scripts:    `engine_scripts`,
 
             bitmaps_test: `${vrtDataLocation}/${tenantId}/${userId}/bitmaps_test`,
             html_report:  `${vrtDataLocation}/${tenantId}/${userId}/html_report`,

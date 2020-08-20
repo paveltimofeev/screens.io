@@ -9,24 +9,27 @@ class RemoteQueueWrapper {
 
     this.runQueue = new QueueAdapter(queueUrl);
 
-    setInterval(async () => {
+    // Do not poll queue if there is no processor
+    if (processingCallback) {
+      setInterval( async () => {
 
-      const m = await this.runQueue.receive();
-      if (!m.Messages) {
-        return;
-      }
+        const m = await this.runQueue.receive();
+        if( !m.Messages ) {
+          return;
+        }
 
-      const tasks = m.Messages.map( x => ({
-        handle: x.ReceiptHandle,
-        body: appUtils.safeParse(x.Body)
-      }));
+        const tasks = m.Messages.map( x => ({
+          handle : x.ReceiptHandle,
+          body : appUtils.safeParse( x.Body )
+        }) );
 
-      for (let i = 0; i < tasks.length; i++) {
-        processingCallback(tasks[i].body);
-        await this.runQueue.delete(tasks[i].handle)
-      }
+        for ( let i = 0; i < tasks.length; i++ ) {
+          processingCallback( tasks[ i ].body );
+          await this.runQueue.delete( tasks[ i ].handle )
+        }
 
-    }, config.queuePollInterval || 500);
+      }, config.queuePollInterval || 500 );
+    }
   }
 
   push (obj) {
@@ -75,9 +78,9 @@ const approveProcessor = async (task) => {
 };
 
 
-const localRunQueue = new RemoteQueueWrapper(taskProcessor, config.taskQueueUrl);
-
 const localApproveQueue = new QueueWrapper(approveProcessor);
+const localRunQueue = new QueueWrapper(taskProcessor);
+const remoteRunQueue = new RemoteQueueWrapper(null, config.taskQueueUrl);
 
 
 const sendToRunQueue = async (task) => {
@@ -90,6 +93,7 @@ const sendToRunQueue = async (task) => {
   }
 
   await localRunQueue.push(task);
+  await remoteRunQueue.push(task);
 };
 
 const sendToApproveQueue = async (task) => {

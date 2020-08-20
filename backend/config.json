@@ -8,5 +8,5 @@
   "mediaStorageStrategy": "S3",
   "vrtDataFullPath": "/tmp/vrtdata",
   "taskQueueUrl": "https://sqs.us-east-1.amazonaws.com/772145494782/vrt_task",
-  "queuePollInterval": 500
+  "queuePollInterval": 5000
 }

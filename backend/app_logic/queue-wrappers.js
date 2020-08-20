@@ -28,7 +28,7 @@ class RemoteQueueWrapper {
           await this.runQueue.delete( tasks[ i ].handle )
         }
 
-      }, config.queuePollInterval || 500 );
+      }, config.queuePollInterval || 5000 ); // 5sec
     }
   }
 

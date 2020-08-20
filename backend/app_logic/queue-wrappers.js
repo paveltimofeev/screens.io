@@ -77,10 +77,14 @@ const approveProcessor = async (task) => {
   await QueueProcessor.create(ctx).processApproveCase(data);
 };
 
+const resultsProcessor = async (result) => {
+  console.log(`test results ${result.runId}`, result);
+};
 
 const localApproveQueue = new QueueWrapper(approveProcessor);
 const localRunQueue = new QueueWrapper(taskProcessor);
 const remoteRunQueue = new RemoteQueueWrapper(null, config.taskQueueUrl);
+const remoteResultsQueue = new RemoteQueueWrapper(resultsProcessor, config.resultsQueueUrl);
 
 
 const sendToRunQueue = async (task) => {

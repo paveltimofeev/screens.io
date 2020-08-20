@@ -1,4 +1,4 @@
-import { IConfig, IIncomingQueueMessage, IOutgoingQueueMessage } from '../domain/models';
+import { IIncomingQueueMessage, IOutgoingQueueMessage } from '../domain/models';
 import { Logger, safeParse } from '../infrastructure/utils';
 import { ConfigurationService } from './configuration-service';
 import SQS = require('aws-sdk/clients/sqs');

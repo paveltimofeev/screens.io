@@ -1,5 +1,5 @@
-import { IAppConfig } from './models';
-import { ConfigurationService } from './configuration-service';
+import { IAppConfig } from '../domain/models';
+import { ConfigurationService } from '../app/configuration-service';
 
 const config: IAppConfig = ConfigurationService.getAppConfig();
 

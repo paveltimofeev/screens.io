@@ -1,6 +1,6 @@
-import { Logger } from './utils';
+import { Logger } from '../infrastructure/utils';
 import { ConfigurationService } from './configuration-service';
-import { IResizeOption } from './models';
+import { IResizeOption } from '../domain/models';
 
 const logger = new Logger('ImageProcessor');
 const appConfig = ConfigurationService.getAppConfig();

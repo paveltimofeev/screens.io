@@ -1,6 +1,6 @@
-import { IConfig, IJsonReport, IScenario, IViewport } from './models';
+import { IConfig, IJsonReport, IScenario, IViewport } from '../domain/models';
 import { FilePathsService } from './file-paths-service';
-import { throwIfInvalidPathPart, validateArray } from './utils';
+import { throwIfInvalidPathPart, validateArray } from '../infrastructure/utils';
 
 const fs = require('fs');
 const { promisify } = require('util');

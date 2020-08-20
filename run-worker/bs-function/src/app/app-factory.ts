@@ -1,7 +1,7 @@
 import { EngineAdapter } from './engine-adapter';
 import { S3Flow } from './s3-flow';
-import { JsonReportAdapter } from './json-report-adapter';
-import { IJsonReport } from './models';
+import { JsonReportAdapter } from '../domain/json-report-adapter';
+import { IJsonReport } from '../domain/models';
 import { ImageProcessor } from './image-processor';
 import { FilePathsService } from './file-paths-service';
 import { BucketAdapter } from './bucket-adapter';

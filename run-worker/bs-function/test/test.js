@@ -2,10 +2,10 @@ const assert = require('assert');
 const sinon = require('sinon');
 const event = require('./event');
 const handler = require( '../dist' ).handler;
-const QueueMessageAdapter = require( '../dist/queue-message-adapter' ).QueueMessageAdapter;
-const TestWorker = require( '../dist/worker' ).TestWorker;
-const AppFactory = require( '../dist/app-factory' ).AppFactory;
-const QueueAdapter = require( '../dist/queue-adapter' ).QueueAdapter;
+const QueueMessageAdapter = require( '../dist/app/queue-message-adapter' ).QueueMessageAdapter;
+const TestWorker = require( '../dist/domain/worker' ).TestWorker;
+const AppFactory = require( '../dist/app/app-factory' ).AppFactory;
+const QueueAdapter = require( '../dist/app/queue-adapter' ).QueueAdapter;
 
 
 const shouldHaveImage = (report, testCaseIdx, imageKey) => {

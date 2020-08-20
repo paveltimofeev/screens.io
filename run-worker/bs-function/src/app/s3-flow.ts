@@ -1,7 +1,7 @@
 import { BucketAdapter } from "./bucket-adapter";
 import { FilePathsService } from "./file-paths-service";
-import { IConfig } from './models';
-import { Logger } from './utils';
+import { IConfig } from '../domain/models';
+import { Logger } from '../infrastructure/utils';
 
 const logger = new Logger('S3Flow');
 const path = require('path');

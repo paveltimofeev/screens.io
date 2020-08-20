@@ -1,7 +1,7 @@
-import { TestWorker } from './worker';
-import { QueueMessageAdapter } from './queue-message-adapter';
-import { Logger } from './utils';
-import { AppFactory } from './app-factory';
+import { TestWorker } from './domain/worker';
+import { QueueMessageAdapter } from './app/queue-message-adapter';
+import { Logger } from './infrastructure/utils';
+import { AppFactory } from './app/app-factory';
 
 const logger = new Logger('Handler');
 console.log('Loading bs-function');

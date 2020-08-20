@@ -1,5 +1,5 @@
 import { IJsonReport, IJsonReportTestCase, IReport } from './models';
-import { FilePathsService } from './file-paths-service';
+import { FilePathsService } from '../app/file-paths-service';
 const path = require('path');
 
 

@@ -1,5 +1,5 @@
-import { IOutgoingQueueMessage } from './models';
-import { Logger } from './utils';
+import { IOutgoingQueueMessage } from '../domain/models';
+import { Logger } from '../infrastructure/utils';
 import { ConfigurationService } from './configuration-service';
 import SQS = require('aws-sdk/clients/sqs');
 

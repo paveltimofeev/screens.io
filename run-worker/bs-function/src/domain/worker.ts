@@ -1,7 +1,7 @@
 import { IConfig, IIncomingQueueMessage, IOutgoingQueueMessage, IReport, IScenario, IViewport } from './models';
-import { S3Flow } from './s3-flow';
-import { Logger } from './utils';
-import { AppFactory } from './app-factory';
+import { S3Flow } from '../app/s3-flow';
+import { Logger } from '../infrastructure/utils';
+import { AppFactory } from '../app/app-factory';
 
 const logger = new Logger('TestWorker');
 const backstop = require('backstopjs');

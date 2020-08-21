@@ -27,7 +27,9 @@ export class AppFactory {
 
     createEngine () : IEngine {
 
-        return new BackstopJsWrapper()
+        return new BackstopJsWrapper(
+            new Logger('BackstopJsWrapper')
+        )
     }
 
     createFlow () : IFlow {

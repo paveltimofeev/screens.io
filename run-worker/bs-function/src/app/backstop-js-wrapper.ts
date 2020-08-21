@@ -1,23 +1,28 @@
-import { IConfig, IEngine, IEngineTestResult } from '../domain/models';
-import { Logger } from '../infrastructure/utils';
+import { IConfig, IEngine, IEngineTestResult, ILogger } from '../domain/models';
 const backstop = require('backstopjs');
 
-const logger = new Logger('BackstopJsWrapper');
 
 export class BackstopJsWrapper implements IEngine {
 
+    private logger: ILogger;
+
+    constructor (logger: ILogger) {
+        this.logger = logger;
+    }
+
     async test (config: IConfig): Promise<IEngineTestResult> {
 
-        logger.log('test');
+        this.logger.log('test');
 
         try {
 
             await backstop('test', { config: config } );
+            this.logger.log('test completed successfully');
             return { success: true, error: null }
         }
         catch (err) {
 
-            logger.error('executeTest', err.message||err);
+            this.logger.error('executeTest', err.message||err);
             return { success: false, error: err }
         }
     }

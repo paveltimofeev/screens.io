@@ -79,6 +79,27 @@ const approveProcessor = async (task) => {
 
 const resultsProcessor = async (result) => {
   console.log(`test results ${result.runId}`, result);
+
+  const {runId, config, ctx} = result;
+
+  const validate = (param, errMessage) => {
+    if( !param ) {
+      console.error( errMessage, result );
+      return false;
+    }
+    return true;
+  };
+
+  if (
+    !validate(runId, 'No runId') ||
+    !validate(config, 'No runId') ||
+    !validate(ctx, 'No ctx')
+  ) {
+    return;
+  }
+
+  const QueueProcessor = require('./queue-processor');
+  await QueueProcessor.create(ctx).postProcessReport(runId, config)
 };
 
 const localApproveQueue = new QueueWrapper(approveProcessor);

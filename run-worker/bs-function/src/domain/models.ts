@@ -1,3 +1,5 @@
+import { bool } from 'aws-sdk/clients/signer';
+
 export interface IAppConfig {
 
     enableLogging: boolean,
@@ -163,4 +165,16 @@ export interface IJsonReportTestCase {
 export interface IReport extends IJsonReport {
     runId?: string;
     tests: IJsonReportTestCase[];
+}
+
+
+export interface IEngineTestResult {
+    success: boolean;
+    error: any;
+}
+
+
+export interface IEngine {
+
+    test(config:IConfig): Promise<IEngineTestResult>;
 }

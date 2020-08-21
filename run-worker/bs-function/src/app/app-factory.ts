@@ -1,12 +1,13 @@
 import { EngineAdapter } from './engine-adapter';
 import { S3Flow } from './s3-flow';
 import { JsonReportAdapter } from '../domain/json-report-adapter';
-import { IJsonReport } from '../domain/models';
+import { IEngine, IFlow, IJsonReport } from '../domain/models';
 import { ImageProcessor } from './image-processor';
 import { FilePathsService } from './file-paths-service';
 import { BucketAdapter } from './bucket-adapter';
 import { ConfigurationService } from './configuration-service';
 import { QueueAdapter } from './queue-adapter';
+import { BackstopJsWrapper } from './backstop-js-wrapper';
 
 const AWS = require('aws-sdk');
 AWS.config.update({region: 'us-east-1'});
@@ -23,7 +24,13 @@ export class AppFactory {
         );
     }
 
-    createFlow () {
+    createEngine () : IEngine {
+
+        return new BackstopJsWrapper()
+    }
+
+    createFlow () : IFlow {
+
         return new S3Flow(
             this.createBucketAdapter(),
             this.createFilePathsService()

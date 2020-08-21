@@ -168,13 +168,38 @@ export interface IReport extends IJsonReport {
 }
 
 
-export interface IEngineTestResult {
-    success: boolean;
-    error: any;
+export interface IWorkerState {
+    config: IConfig;
+    scope: {
+        tenantId: string;
+        userId: string;
+        runId: string;
+    },
+    execution: {
+        failed: boolean;
+        error: any;
+        jsonReport: IReport;
+    }
 }
 
 
 export interface IEngine {
 
     test(config:IConfig): Promise<IEngineTestResult>;
+}
+
+
+export interface IEngineTestResult {
+    success: boolean;
+    error?: any;
+}
+
+
+export interface IFlow {
+
+    RunPreProcess(config:IConfig): Promise<any>;
+    RunPostProcess(images: {
+        diff: string;
+        test: string;
+    }): Promise<any>;
 }

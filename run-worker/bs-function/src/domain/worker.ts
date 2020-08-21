@@ -1,39 +1,31 @@
-import { IConfig, IIncomingQueueMessage, IOutgoingQueueMessage, IReport, IScenario, IViewport } from './models';
-import { S3Flow } from '../app/s3-flow';
-import { Logger } from '../infrastructure/utils';
+import {
+    IEngine, IEngineTestResult, IFlow,
+    IIncomingQueueMessage,
+    IOutgoingQueueMessage,
+    IReport, IWorkerState
+} from './models';
 import { AppFactory } from '../app/app-factory';
 
+import { Logger } from '../infrastructure/utils';
 const logger = new Logger('TestWorker');
-const backstop = require('backstopjs');
-
-interface IWorkerState {
-    config: IConfig;
-    scope: {
-        tenantId: string;
-        userId: string;
-        runId: string;
-    },
-    execution: {
-        failed: boolean;
-        error: any;
-        jsonReport: IReport;
-    }
-}
 
 export class TestWorker {
 
     private state: IWorkerState;
     private factory: AppFactory;
-    private flow: S3Flow;
+    private flow: IFlow;
+    private engine: IEngine;
 
     constructor (factory: AppFactory) {
 
         this.factory = factory;
         this.flow = this.factory.createFlow();
+        this.engine = this.factory.createEngine();
     }
 
     async run (queueMessage:IIncomingQueueMessage) : Promise<IOutgoingQueueMessage> {
 
+        // Fix: override engine_scripts location got from incoming message
         queueMessage.config.paths.engine_scripts = 'engine_scripts';
 
         this.state = {
@@ -63,25 +55,18 @@ export class TestWorker {
 
         logger.log('Step: executeTest', this.state.scope);
 
-        try {
-            await backstop('test', { config: this.state.config } );
-            this.state.execution.failed = false;
-            this.state.execution.error = null;
-        }
-        catch (err) {
-            logger.error('executeTest', err.message||err);
-            this.state.execution.failed = true;
-            this.state.execution.error = err;
-        }
+        const result: IEngineTestResult = await this.engine.test(this.state.config);
+        this.state.execution.failed = !result.success;
+        this.state.execution.error = result.error;
     }
 
     private async readReport () {
 
         logger.log('Step: readReport', this.state.scope);
 
-        const engine = this.factory.createEngineAdapter();
+        const engineAdapter = this.factory.createEngineAdapter();
 
-        const jsonReport = await engine.getReport( this.state.config.paths.json_report );
+        const jsonReport = await engineAdapter.getReport( this.state.config.paths.json_report );
         const reportAdapter = this.factory.createJsonReportAdapter(
             jsonReport,
             this.state.config.paths.json_report,

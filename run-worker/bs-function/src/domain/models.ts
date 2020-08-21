@@ -203,3 +203,10 @@ export interface IFlow {
         test: string;
     }): Promise<any>;
 }
+
+
+export interface ILogger {
+
+    log (message:string, args?:any): void;
+    error (message:string, args?:any): void;
+}

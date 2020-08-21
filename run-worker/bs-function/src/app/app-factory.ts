@@ -8,6 +8,7 @@ import { BucketAdapter } from './bucket-adapter';
 import { ConfigurationService } from './configuration-service';
 import { QueueAdapter } from './queue-adapter';
 import { BackstopJsWrapper } from './backstop-js-wrapper';
+import { Logger } from '../infrastructure/utils';
 
 const AWS = require('aws-sdk');
 AWS.config.update({region: 'us-east-1'});
@@ -65,5 +66,10 @@ export class AppFactory {
 
     createFilePathsService () {
         return new FilePathsService();
+    }
+
+    createLogger (label:string) : Logger {
+
+        return new Logger(label);
     }
 }

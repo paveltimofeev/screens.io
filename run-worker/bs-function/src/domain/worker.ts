@@ -1,13 +1,11 @@
 import {
     IEngine, IEngineTestResult, IFlow,
-    IIncomingQueueMessage,
+    IIncomingQueueMessage, ILogger,
     IOutgoingQueueMessage,
     IReport, IWorkerState
 } from './models';
 import { AppFactory } from '../app/app-factory';
 
-import { Logger } from '../infrastructure/utils';
-const logger = new Logger('TestWorker');
 
 export class TestWorker {
 
@@ -15,12 +13,14 @@ export class TestWorker {
     private factory: AppFactory;
     private flow: IFlow;
     private engine: IEngine;
+    private logger: ILogger;
 
     constructor (factory: AppFactory) {
 
         this.factory = factory;
         this.flow = this.factory.createFlow();
         this.engine = this.factory.createEngine();
+        this.logger = this.factory.createLogger('TestWorker')
     }
 
     async run (queueMessage:IIncomingQueueMessage) : Promise<IOutgoingQueueMessage> {
@@ -42,7 +42,7 @@ export class TestWorker {
             }
         };
 
-        logger.log('run:', this.state.scope);
+        this.logger.log('run:', this.state.scope);
 
         await this.flow.RunPreProcess(this.state.config);
         await this.executeTest();
@@ -53,7 +53,7 @@ export class TestWorker {
 
     private async executeTest() {
 
-        logger.log('Step: executeTest', this.state.scope);
+        this.logger.log('Step: executeTest', this.state.scope);
 
         const result: IEngineTestResult = await this.engine.test(this.state.config);
         this.state.execution.failed = !result.success;
@@ -62,7 +62,7 @@ export class TestWorker {
 
     private async readReport () {
 
-        logger.log('Step: readReport', this.state.scope);
+        this.logger.log('Step: readReport', this.state.scope);
 
         const engineAdapter = this.factory.createEngineAdapter();
 
@@ -77,7 +77,7 @@ export class TestWorker {
 
     private async postProcessReport () {
 
-        logger.log('Step: postProcessReport', this.state.scope);
+        this.logger.log('Step: postProcessReport', this.state.scope);
 
         const report:IReport = this.state.execution.jsonReport;
 
@@ -95,7 +95,7 @@ export class TestWorker {
 
     private sendResultsToOutgoingQueue(): IOutgoingQueueMessage {
 
-        logger.log('Step: sendResultsToOutgoingQueue', this.state.scope);
+        this.logger.log('Step: sendResultsToOutgoingQueue', this.state.scope);
 
         return {
             tenantId: this.state.scope.tenantId,

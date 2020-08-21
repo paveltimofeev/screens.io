@@ -1,9 +1,9 @@
-import { IAppConfig } from '../domain/models';
+import { IAppConfig, ILogger } from '../domain/models';
 import { ConfigurationService } from '../app/configuration-service';
 
 const config: IAppConfig = ConfigurationService.getAppConfig();
 
-export class Logger {
+export class Logger implements ILogger {
 
     private readonly serviceName:string;
 

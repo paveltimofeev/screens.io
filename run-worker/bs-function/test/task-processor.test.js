@@ -27,7 +27,21 @@ describe('TaskProcessor', () => {
             queueService
         )
 
-        const task = {};
+        const task = {
+            message: { 
+                config: {
+                    scenarios: [
+                        { meta_referenceImageUrl: 'ref/image-1.png' },
+                        { meta_referenceImageUrl: 'ref/image-2.png' }
+                    ],
+                    paths: {
+                        bitmaps_reference: 'ref-folder',
+                        json_report: 'report-folder'
+                    }
+                }
+            },
+            handler: 'queue-message-handler'
+        };
 
         await processor.run( task );
     })

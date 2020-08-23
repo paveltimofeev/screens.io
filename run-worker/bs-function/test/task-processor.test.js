@@ -11,7 +11,7 @@ describe('TaskProcessor', () => {
         assert.equal(1,1)
     })
 
-    it('', async () => {
+    it('should run', async () => {
 
         const factory = new AppFactory();
 
@@ -20,6 +20,19 @@ describe('TaskProcessor', () => {
         const reportReader = factory.createReportReader();
         const queueService = factory.createQueueService();
 
+        var spy = sinon.spy();
+        var storageServiceMock = sinon.mock(storageService);
+        storageServiceMock.expects('get').once().returns(true);
+        
+        var engineMock = sinon.mock(engine);
+        engineMock.expects('test').once().returns( {success: true} );
+        
+        var reportReaderMock = sinon.mock(reportReader);
+        reportReaderMock.expects('read').once().returns( {resultFiles: [
+            'results/test1.png',
+            'results/diff1.png'
+        ]} );
+        
         const processor = new TaskProcessor(
             storageService,
             engine,

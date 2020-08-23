@@ -9,6 +9,10 @@ import { ConfigurationService } from './configuration-service';
 import { QueueAdapter } from './queue-adapter';
 import { BackstopJsWrapper } from './backstop-js-wrapper';
 import { Logger } from '../infrastructure/utils';
+import { IStorageService, IQueueService, IReportReader } from '../domain/task-processor';
+import { StorageService } from '../modules/aws/storage.service';
+import { ReportReader } from '../modules/backstopjs/report-reader';
+import { QueueService } from '../modules/aws/queue.service';
 
 const AWS = require('aws-sdk');
 AWS.config.update({region: 'us-east-1'});
@@ -73,5 +77,15 @@ export class AppFactory {
     createLogger (label:string) : Logger {
 
         return new Logger(label);
+    }
+
+    createStorageService(): IStorageService {
+        return new StorageService(appConfig.bucketName);
+    }
+    createQueueService(): IQueueService {
+        return new QueueService();
+    }
+    createReportReader(): IReportReader {
+        return new ReportReader();        
     }
 }

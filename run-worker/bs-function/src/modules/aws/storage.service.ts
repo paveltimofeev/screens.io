@@ -26,7 +26,9 @@ export class StorageService implements IStorageService {
         return path.normalize(uri).replace(/\\/gi, '/');
     }
 
-    async get(fileUris: string[], targetFolder: string): Promise<string[]> {
+    async get(tenantId:string, userId:string, fileUris: string[], targetFolder: string): Promise<string[]> {
+
+        this._logger.log(`get tenantId=${tenantId} userId=${userId}`);
 
         let downloadedFiles: string[] = [];
 
@@ -65,7 +67,9 @@ export class StorageService implements IStorageService {
         return downloadedFiles;
     }
 
-    async save(files: string[], fromFolder: string): Promise<boolean> {
+    async save(tenantId:string, userId:string, files: string[], fromFolder: string): Promise<boolean> {
+
+        this._logger.log(`save tenantId=${tenantId} userId=${userId}`);
 
         for (let i = 0; i < files.length; i++) {
 
@@ -95,11 +99,13 @@ export class StorageService implements IStorageService {
                 this._logger.error(`Cannot read file "${file}"`, err);
             });
 
-            const tenant = '';
-            const user = '';
-
             const uploadParams = {
-                Bucket: this._normalize(this._bucketName + '/' + tenant + user + path.relative(fromFolder, filePath)),
+                Bucket: this._normalize( path.join(
+                    this._bucketName,
+                    tenantId,
+                    userId,
+                    path.relative(fromFolder, filePath)
+                )),
                 Key: fileName,
                 Body: fileStream,
                 ACL: 'public-read',

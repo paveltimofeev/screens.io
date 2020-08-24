@@ -1,4 +1,4 @@
-import { IIncomingQueueMessage, IOutgoingQueueMessage } from '../domain/models';
+import { IConfig, IIncomingQueueMessage, IOutgoingQueueMessage } from '../domain/models';
 import { Logger } from '../infrastructure/logger';
 import { safeParse } from '../infrastructure/utils';
 import { ConfigurationService } from './configuration-service';

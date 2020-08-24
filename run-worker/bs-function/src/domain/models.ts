@@ -96,6 +96,11 @@ export interface IIncomingQueueMessage {
     userId: string;
     runId: string;
     config: IConfig;
+
+    ctx?: {
+        tenant: string;
+        userid: string;
+    }
 }
 
 

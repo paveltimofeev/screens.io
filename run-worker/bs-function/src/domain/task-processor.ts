@@ -4,21 +4,21 @@ import { IIncomingQueueMessage, IEngine, IJsonReport, IConfig, ILogger, IAppConf
 export interface IInputReader {
     getTask(): Task;
 }
-export class Task {
-
-    handler: string;
-    message: IIncomingQueueMessage;
-}
 export interface IQueueService {
     sendMessage(queueUri:string, messageBody:string): Promise<boolean>;
     deleteMessage(queueUri:string, messageHandler:string): Promise<boolean>;
 }
 export interface IStorageService {
-    get(fileUris:string[], targetFolder:string): Promise<string[]>;
-    save(files:string[], fromFolder: string): Promise<boolean>;
+    get(tenantId:string, userId:string, fileUris:string[], targetFolder:string): Promise<string[]>;
+    save(tenantId:string, userId:string, files:string[], fromFolder: string): Promise<boolean>;
 }
 export interface IReportReader {
     read(folder:string): Promise<Report>
+}
+export class Task {
+
+    handler: string;
+    message: IIncomingQueueMessage;
 }
 export class Report {
     jsonReport: IJsonReport;
@@ -37,7 +37,31 @@ export class TaskProcessor {
         private readonly _logger: ILogger,
     ) {}
 
+    private _validateTask (task: Task): boolean {
+
+        if (!task) {
+            this._logger.error('No task');
+            return false;
+        }
+
+        if (!task.message.ctx.tenant) {
+            this._logger.error('No tenantId');
+            return false;
+        }
+
+        if (!task.message.ctx.userid) {
+            this._logger.error('No userId');
+            return false;
+        }
+
+        return true;
+    }
+
     async run (task: Task): Promise<boolean> {
+
+        if ( !this._validateTask( task ) ) {
+            return false;
+        }
 
         const config: IConfig = task.message.config;
         const references = config.scenarios
@@ -45,6 +69,8 @@ export class TaskProcessor {
                     .filter(Boolean);
 
         await this._storage.get(
+            task.message.ctx.tenant,
+            task.message.ctx.userid,
             references,
             config.paths.bitmaps_reference
         );
@@ -56,9 +82,9 @@ export class TaskProcessor {
 
         const report = await this._reportReader.read( config.paths.json_report );
 
-        // task.message.tenantId
-        // task.message.userId
         const uploaded = await this._storage.save(
+            task.message.ctx.tenant,
+            task.message.ctx.userid,
             report.resultFiles,
             config.paths.bitmaps_test
         );

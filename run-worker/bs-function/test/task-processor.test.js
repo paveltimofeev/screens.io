@@ -64,6 +64,10 @@ describe('TaskProcessor', () => {
                         bitmaps_reference: 'ref-folder',
                         json_report: 'report-folder'
                     }
+                },
+                ctx: {
+                    userid: 'user-id',
+                    tenant: 'tenant-id'
                 }
             },
             handler: 'queue-message-handler'

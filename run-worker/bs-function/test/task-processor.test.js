@@ -83,6 +83,8 @@ describe('TaskProcessor', () => {
     });
 
     xit('should not fail if cannot download references', async () => {});
+
+    xit('should take into account tenant and username info', async () => {});
 });
 
 describe('ReportReader', () => {

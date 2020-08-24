@@ -19,7 +19,12 @@ export class StorageService implements IStorageService {
     constructor (
         private readonly _bucketName: string,
         private readonly _logger: ILogger
-        ) {}
+    ) {}
+
+    private _normalize (uri:string): string {
+
+        return path.normalize(uri).replace(/\\/gi, '/');
+    }
 
     async get(fileUris: string[], targetFolder: string): Promise<string[]> {
 
@@ -33,7 +38,7 @@ export class StorageService implements IStorageService {
             const targetFile = path.join( targetFolder, fileName )
 
             const downloadParams = {
-                Bucket: path.normalize( path.join(this._bucketName, filePath) ).replace(/\\/gi, '/'),
+                Bucket: this._normalize( path.join(this._bucketName, filePath) ),
                 Key: fileName
             };
 
@@ -65,6 +70,16 @@ export class StorageService implements IStorageService {
         for (let i = 0; i < files.length; i++) {
 
             const file = files[i]
+
+            /*
+                file:
+                vrt_data_dir | tenant | user-id | files_type | date | file.png
+
+                C:\tmp\vrtdata\test-tenant\5efdff882670d284bcde2a28\bitmaps_test\20200824-230823\test-tenant_RedBullRacing_0_document_0_1920__1080.png
+                /tmp/vrtdata/test-tenant/5efdff882670d284bcde2a28/bitmaps_test
+                vrtdata
+            */
+
             this._logger.log(`upload "${file}" from folder "${fromFolder}" to`, this._bucketName);
             const filePath = path.dirname( file )
             const fileName = path.basename( file )
@@ -84,7 +99,7 @@ export class StorageService implements IStorageService {
             const user = '';
 
             const uploadParams = {
-                Bucket: this._bucketName + '/' + tenant + user + path.relative(fromFolder, filePath).replace(/\\/gi, '/'),
+                Bucket: this._normalize(this._bucketName + '/' + tenant + user + path.relative(fromFolder, filePath)),
                 Key: fileName,
                 Body: fileStream,
                 ACL: 'public-read',

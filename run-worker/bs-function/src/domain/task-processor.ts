@@ -56,6 +56,8 @@ export class TaskProcessor {
 
         const report = await this._reportReader.read( config.paths.json_report );
 
+        // task.message.tenantId
+        // task.message.userId
         const uploaded = await this._storage.save(
             report.resultFiles,
             config.paths.bitmaps_test

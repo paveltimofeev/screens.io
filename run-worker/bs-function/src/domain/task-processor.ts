@@ -15,7 +15,7 @@ export interface IQueueService {
 }
 export interface IStorageService {
     get(fileUris:string[], targetFolder:string): Promise<string[]>;
-    save(files:string[]): Promise<boolean>;
+    save(files:string[], fromFolder: string): Promise<boolean>;
 }
 export interface IReportReader {
     read(folder:string): Promise<Report>
@@ -47,7 +47,7 @@ export class TaskProcessor {
         const downloadedRefs = await this._storage.get(
             references,
             config.paths.bitmaps_reference
-            );
+        );
 
         const tested = await this._engine.test( config );
 
@@ -56,7 +56,10 @@ export class TaskProcessor {
         }
 
         const report = await this._reportReader.read( config.paths.json_report );
-        const uploaded = await this._storage.save(report.resultFiles);
+        const uploaded = await this._storage.save(
+            report.resultFiles,
+            config.paths.bitmaps_test
+        );
 
         if (!uploaded) {
             this._logger.error('Cannot upload result screenshots and difference images');

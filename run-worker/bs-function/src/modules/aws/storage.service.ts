@@ -1,10 +1,9 @@
 import { IStorageService } from "../../domain/task-processor";
-import S3 = require('aws-sdk/clients/s3');
 import { ILogger } from '../../domain/models';
 const path = require('path');
 const fs = require('fs');
-const { promisify } = require('util');
 
+const { promisify } = require('util');
 const fileExists = promisify(fs.exists);
 const writeFile = promisify(fs.writeFile);
 const mkdir = promisify(fs.mkdir);
@@ -46,7 +45,7 @@ export class StorageService implements IStorageService {
             }
             catch (err) {
 
-                this._logger.log(`cannot download Bucket=${downloadParams.Bucket} Key=${downloadParams.Key}`)
+                this._logger.error(`cannot download Bucket=${downloadParams.Bucket} Key=${downloadParams.Key}`, err)
                 return;
             }
 
@@ -61,11 +60,12 @@ export class StorageService implements IStorageService {
         return downloadedFiles;
     }
 
-    async save(files: string[]): Promise<boolean> {
+    async save(files: string[], fromFolder: string): Promise<boolean> {
 
         for (let i = 0; i < files.length; i++) {
 
             const file = files[i]
+            this._logger.log(`upload "${file}" from folder "${fromFolder}" to`, this._bucketName);
             const filePath = path.dirname( file )
             const fileName = path.basename( file )
 
@@ -77,12 +77,14 @@ export class StorageService implements IStorageService {
 
             const fileStream = fs.createReadStream(file);
             fileStream.on('error', (err:any) => {
-                console.error('[BucketAdapter] ERROR. Read File Error', err);
+                this._logger.error(`Cannot read file "${file}"`, err);
             });
 
+            const tenant = '';
+            const user = '';
 
             const uploadParams = {
-                Bucket: this._bucketName + '/' + filePath,
+                Bucket: this._bucketName + '/' + tenant + user + path.relative(fromFolder, filePath).replace(/\\/gi, '/'),
                 Key: fileName,
                 Body: fileStream,
                 ACL: 'public-read',
@@ -90,8 +92,13 @@ export class StorageService implements IStorageService {
                 // For more information, see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.21
               };
 
+            this._logger.log(`uploading to Bucket= ${uploadParams.Bucket} Key= ${uploadParams.Key}`)
             await s3.upload( uploadParams ).promise();
+
+            this._logger.log(`deleting local file "${file}"`)
             await deleteFile(file)
+
+            this._logger.log(`uploaded`)
         }
 
         return true;

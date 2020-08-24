@@ -25,9 +25,6 @@ export class TestWorker {
 
     async run (queueMessage:IIncomingQueueMessage) : Promise<IOutgoingQueueMessage> {
 
-        // Fix: override engine_scripts location got from incoming message
-        queueMessage.config.paths.engine_scripts = 'engine_scripts';
-
         this.state = {
             config: queueMessage.config,
             scope: {

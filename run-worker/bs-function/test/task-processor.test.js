@@ -95,8 +95,10 @@ describe('ReportReader', () => {
         assert.notEqual(report.jsonReport, null);
         assert.notEqual(report.jsonReport, undefined);
 
-        assert.equal(report.resultFiles.length === 2, true, 'Should return 2 path, one for Test ans 1 for Diff');
-        assert.equal(report.resultFiles[0].length > 0, true);
-        assert.equal(report.resultFiles[1].length > 0, true);
+        assert.equal(report.resultFiles.length === 17, true);
+        assert.equal(
+          report.resultFiles.every(x => x.length > 0),
+          true,
+          'all returned paths should not be empty sting');
     });
 });

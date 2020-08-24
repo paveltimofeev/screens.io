@@ -14,17 +14,19 @@ export class ReportReader implements IReportReader {
         const reportPath = path.join(folder, 'jsonReport.json');
 
         const jsonReport = await this.getReport(reportPath);
+        const resultFiles = jsonReport.tests
+            .map( x => {
+                return [
+                    path.resolve(path.join(folder, x.pair.test)),
+                    x.pair.diffImage ?
+                        path.resolve(path.join(folder, x.pair.diffImage)):
+                        undefined
+                ];
+            });
 
         let report = new Report();
         report.jsonReport = jsonReport;
-        report.resultFiles = jsonReport.tests
-            .map( x => {
-                return [
-                    path.resolve( path.join(folder, x.pair.test) ),
-                    path.resolve( path.join(folder, x.pair.diffImage) )
-                ];
-            })
-            .reduce( (a, b) => a.concat(b) ); // flat array of array
+        report.resultFiles = resultFiles.reduce( (a,b) => a.concat(b) ).filter(Boolean); // flat & skip empty
 
         return report;
     }

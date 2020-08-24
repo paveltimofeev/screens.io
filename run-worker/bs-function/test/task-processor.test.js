@@ -82,3 +82,21 @@ describe('TaskProcessor', () => {
         loggerMock.verify();
     });
 });
+
+describe('ReportReader', () => {
+
+    it('should read jsonReport', async () => {
+
+        const factory = new AppFactory();
+        const reportReader = factory.createReportReader();
+
+        const report = await reportReader.read('./test/');
+
+        assert.notEqual(report.jsonReport, null);
+        assert.notEqual(report.jsonReport, undefined);
+
+        assert.equal(report.resultFiles.length === 2, true, 'Should return 2 path, one for Test ans 1 for Diff');
+        assert.equal(report.resultFiles[0].length > 0, true);
+        assert.equal(report.resultFiles[1].length > 0, true);
+    });
+});

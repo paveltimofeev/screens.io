@@ -37,7 +37,7 @@ const shouldHaveDifferentImages = (report, imageKey) => {
 };
 
 
-describe('TestWorker', () => {
+xdescribe('TestWorker', () => {
 
   const sandbox = sinon.createSandbox();
   const factory = new AppFactory();
@@ -97,7 +97,7 @@ describe('TestWorker', () => {
   })
 });
 
-describe('QueueAdapter', () => {
+xdescribe('QueueAdapter', () => {
 
   it('should send a message to valid queue', async () => {
 

@@ -16,6 +16,7 @@ export class EngineAdapter {
         this.filePathsService = filePathsService;
     }
 
+    // Moved to ReportReader
     async getReport (reportFolder:string): Promise<IJsonReport> {
 
         try {

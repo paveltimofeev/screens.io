@@ -18,7 +18,7 @@ export interface IStorageService {
     save(files:string[]): Promise<boolean>;
 }
 export interface IReportReader {
-    read(path:string): Promise<Report>
+    read(folder:string): Promise<Report>
 }
 export class Report {
     jsonReport: IJsonReport;

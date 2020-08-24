@@ -1,5 +1,5 @@
 import { IQueueService } from "../../domain/task-processor";
-import SQS = require('aws-sdk/clients/sqs');
+import { ILogger } from '../../domain/models';
 
 
 const AWS = require('aws-sdk');
@@ -8,12 +8,14 @@ var sqs = new AWS.SQS();
 
 
 export class QueueService implements IQueueService {
-    
-    constructor (){}
+
+    constructor (
+        private readonly _logger: ILogger
+    ){}
 
     async sendMessage(queueUri: string, messageBody: string): Promise<boolean> {
 
-        console.log('sendMessage');
+        this._logger.log('sendMessage');
 
         const outgoingParams = {
             QueueUrl: queueUri,
@@ -21,19 +23,18 @@ export class QueueService implements IQueueService {
         };
 
         try {
-            const res = await sqs.sendMessage(outgoingParams).promise();
-            console.log(res);
+            await sqs.sendMessage(outgoingParams).promise();
             return true;
         }
         catch(err) {
-            console.error(err);
+            this._logger.error('Cannot send message to SQS', err);
             return false;
         }
     }
-    
+
     async deleteMessage(queueUri: string, messageHandler: string): Promise<boolean> {
-        
-        console.log('deleteMessage');
+
+        this._logger.log('deleteMessage');
 
         const params = {
             QueueUrl: queueUri,
@@ -41,12 +42,11 @@ export class QueueService implements IQueueService {
         };
 
         try {
-            const res = await sqs.deleteMessage(params).promise();
-            console.log(res);
+            await sqs.deleteMessage(params).promise();
             return true;
         }
         catch(err){
-            console.error(err);
+            this._logger.error('Cannot delete message', err);
             return false;
         }
     }

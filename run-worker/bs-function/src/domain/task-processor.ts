@@ -44,23 +44,22 @@ export class TaskProcessor {
                     .map(x => x.meta_referenceImageUrl)
                     .filter(Boolean);
 
-        const downloadedRefs = await this._storage.get(
+        await this._storage.get(
             references,
             config.paths.bitmaps_reference
         );
 
         const tested = await this._engine.test( config );
-
         if (!tested.success) {
             this._logger.log('Test execution failed. That\'s Ok');
         }
 
         const report = await this._reportReader.read( config.paths.json_report );
+
         const uploaded = await this._storage.save(
             report.resultFiles,
             config.paths.bitmaps_test
         );
-
         if (!uploaded) {
             this._logger.error('Cannot upload result screenshots and difference images');
             return false;
@@ -70,7 +69,6 @@ export class TaskProcessor {
             this._appConfig.outgoingQueue.queueUrl,
             JSON.stringify(report.jsonReport)
         );
-
         if (!sent) {
             this._logger.error('Cannot send report to', this._appConfig.outgoingQueue.queueUrl);
             return false;
@@ -80,7 +78,6 @@ export class TaskProcessor {
             this._appConfig.incomingQueue.queueUrl,
             task.handler
         );
-
         if (!deleted) {
             this._logger.error('Cannot delete task message at', this._appConfig.incomingQueue.queueUrl);
             return false;
@@ -90,18 +87,3 @@ export class TaskProcessor {
         return true;
     }
 }
-
-
-/// RUNNER
-/*
-
-const input: IInputReader = undefined;
-const processor = new TaskProcessor(
-    undefined,
-    undefined,
-    undefined,
-    undefined);
-
-processor.run(input.getTask());
-
-*/

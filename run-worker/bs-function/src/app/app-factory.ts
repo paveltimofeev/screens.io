@@ -90,9 +90,13 @@ export class AppFactory {
             );
     }
     createQueueService(): IQueueService {
-        return new QueueService();
+        return new QueueService(
+            this.createLogger('AWS:QueueService')
+        );
     }
     createReportReader(): IReportReader {
-        return new ReportReader();
+        return new ReportReader(
+            this.createLogger('BackstopJS:ReportReader')
+        );
     }
 }

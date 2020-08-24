@@ -1,4 +1,4 @@
-import { Logger } from '../infrastructure/utils';
+import { Logger } from '../infrastructure/logger';
 import { ConfigurationService } from './configuration-service';
 import { IResizeOption } from '../domain/models';
 

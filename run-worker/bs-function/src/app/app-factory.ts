@@ -1,14 +1,14 @@
 import { EngineAdapter } from './engine-adapter';
 import { S3Flow } from './s3-flow';
 import { JsonReportAdapter } from '../domain/json-report-adapter';
-import { IEngine, IFlow, IJsonReport } from '../domain/models';
+import { IAppConfig, IEngine, IFlow, IJsonReport } from '../domain/models';
 import { ImageProcessor } from './image-processor';
 import { FilePathsService } from './file-paths-service';
 import { BucketAdapter } from './bucket-adapter';
 import { ConfigurationService } from './configuration-service';
 import { QueueAdapter } from './queue-adapter';
 import { BackstopJsWrapper } from './backstop-js-wrapper';
-import { Logger } from '../infrastructure/utils';
+import { Logger } from '../infrastructure/logger';
 import { IStorageService, IQueueService, IReportReader } from '../domain/task-processor';
 import { StorageService } from '../modules/aws/storage.service';
 import { ReportReader } from '../modules/backstopjs/report-reader';
@@ -22,6 +22,10 @@ const s3 = new AWS.S3({apiVersion: '2006-03-01'});
 const appConfig = ConfigurationService.getAppConfig();
 
 export class AppFactory {
+
+    getAppConfig (): IAppConfig {
+        return ConfigurationService.getAppConfig();
+    }
 
     createEngineAdapter () {
         return new EngineAdapter(
@@ -86,6 +90,6 @@ export class AppFactory {
         return new QueueService();
     }
     createReportReader(): IReportReader {
-        return new ReportReader();        
+        return new ReportReader();
     }
 }

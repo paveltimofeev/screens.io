@@ -1,6 +1,6 @@
 import { TestWorker } from './domain/worker';
 import { QueueMessageAdapter } from './app/queue-message-adapter';
-import { Logger } from './infrastructure/utils';
+import { Logger } from './infrastructure/logger';
 import { AppFactory } from './app/app-factory';
 
 const logger = new Logger('Handler');

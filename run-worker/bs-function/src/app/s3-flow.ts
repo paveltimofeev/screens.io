@@ -1,12 +1,11 @@
 import { BucketAdapter } from "./bucket-adapter";
 import { FilePathsService } from "./file-paths-service";
 import { IConfig, IFlow } from '../domain/models';
-import { Logger } from '../infrastructure/utils';
+import { Logger } from '../infrastructure/logger';
 
 const logger = new Logger('S3Flow');
 const path = require('path');
 
-logger.log('[Media Storage] Init S3 Strategy');
 
 export class S3Flow implements IFlow {
 

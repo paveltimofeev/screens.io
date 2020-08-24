@@ -1,4 +1,4 @@
-import { IIncomingQueueMessage, IEngine, IJsonReport, IConfig } from "./models";
+import { IIncomingQueueMessage, IEngine, IJsonReport, IConfig, ILogger, IAppConfig } from "./models";
 
 
 export interface IInputReader {
@@ -26,29 +26,23 @@ export class Report {
 }
 
 
-const INCOMING_QUEUE_URI = '';
-const OUTGOING_QUEUE_URI = '';
-
-
 export class TaskProcessor {
 
     constructor (
         private readonly _storage: IStorageService,
         private readonly _engine: IEngine,
         private readonly _reportReader: IReportReader,
-        private readonly _queue: IQueueService
+        private readonly _queue: IQueueService,
+        private readonly _appConfig: IAppConfig,
+        private readonly _logger: ILogger,
     ) {}
 
-    log (msg:string) {
-        console.log('[TaskProcessor]', msg)
-    }
-
-    async run (task: Task) {
+    async run (task: Task): Promise<boolean> {
 
         const config: IConfig = task.message.config;
         const references = config.scenarios
                     .map(x => x.meta_referenceImageUrl)
-                    .filter(Boolean)
+                    .filter(Boolean);
 
         const downloaded = await this._storage.get(
             references,
@@ -56,38 +50,47 @@ export class TaskProcessor {
             );
 
         if (!downloaded) {
-            this.log('ERROR: Cannot download screenshot references');
-            return;
+            this._logger.error('ERROR: Cannot download screenshot references');
+            return false;
         }
 
         const tested = await this._engine.test( config );
-        
+
         if (!tested.success) {
-            this.log('ERROR: Test execution failed');
-            return;
+            this._logger.error('ERROR: Test execution failed');
+            return false;
         }
 
         const report = await this._reportReader.read( config.paths.json_report );
         const uploaded = await this._storage.save(report.resultFiles);
-        
+
         if (!uploaded) {
-            this.log('ERROR: Cannot upload result screenshots and difference images');
-            return;
+            this._logger.error('ERROR: Cannot upload result screenshots and difference images');
+            return false;
         }
 
-        const sent = await this._queue.sendMessage(OUTGOING_QUEUE_URI, JSON.stringify(report.jsonReport));
-        
+        const sent = await this._queue.sendMessage(
+            this._appConfig.outgoingQueue.queueUrl,
+            JSON.stringify(report.jsonReport)
+        );
+
         if (!sent) {
-            this.log('ERROR: Cannot send report');
-            return;
+            this._logger.error('ERROR: Cannot send report to', this._appConfig.outgoingQueue.queueUrl);
+            return false;
         }
 
-        const deleted = await this._queue.deleteMessage(INCOMING_QUEUE_URI, task.handler);
+        const deleted = await this._queue.deleteMessage(
+            this._appConfig.incomingQueue.queueUrl,
+            task.handler
+        );
 
         if (!deleted) {
-            this.log('ERROR: Cannot delete task message');
-            return;
+            this._logger.error('ERROR: Cannot delete task message at', this._appConfig.incomingQueue.queueUrl);
+            return false;
         }
+
+        this._logger.log('SUCCESS: Task completed.');
+        return true;
     }
 }
 

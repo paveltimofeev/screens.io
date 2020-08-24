@@ -1,5 +1,5 @@
 import { AppFactory } from './app/app-factory';
-import { Logger } from './infrastructure/utils';
+import { Logger } from './infrastructure/logger';
 import { ConfigurationService } from './app/configuration-service';
 import { TestWorker } from './domain/worker';
 import { IIncomingQueueMessage } from './domain/models';

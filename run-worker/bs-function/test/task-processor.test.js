@@ -5,11 +5,18 @@ const { AppFactory } = require( '../dist/app/app-factory' );
 const { TaskProcessor } = require( '../dist/domain/task-processor' );
 
 
+function mockMethod (mockingObj, method, returnValue) {
+
+    let mock = sinon.mock(mockingObj);
+    mock.expects(method).once().returns(returnValue);
+    return mock;
+}
+
 describe('TaskProcessor', () => {
 
     it('should be green', () => {
         assert.equal(1,1)
-    })
+    });
 
     it('should run', async () => {
 
@@ -19,29 +26,35 @@ describe('TaskProcessor', () => {
         const engine = factory.createEngine();
         const reportReader = factory.createReportReader();
         const queueService = factory.createQueueService();
+        const logger = factory.createLogger('TaskProcessor');
+        const appConfig = factory.getAppConfig();
 
-        var spy = sinon.spy();
-        var storageServiceMock = sinon.mock(storageService);
-        storageServiceMock.expects('get').once().returns(true);
-        
-        var engineMock = sinon.mock(engine);
-        engineMock.expects('test').once().returns( {success: true} );
-        
-        var reportReaderMock = sinon.mock(reportReader);
-        reportReaderMock.expects('read').once().returns( {resultFiles: [
-            'results/test1.png',
-            'results/diff1.png'
-        ]} );
-        
+        const storageService_getMock = mockMethod(storageService, 'get', true);
+        const engineMock = mockMethod(engine, 'test', {success: true});
+        const reportReaderMock = mockMethod(reportReader, 'read', {
+            resultFiles : [
+                'results/test1.png',
+                'results/diff1.png',
+                'results/test2.png',
+                'results/diff2.png'
+            ]
+        });
+        const storageService_saveMock = mockMethod(storageService, 'save', true);
+        const queueService_sendMock = mockMethod(queueService, 'sendMessage', true);
+        const queueService_delMock = mockMethod(queueService, 'deleteMessage', true);
+        const loggerMock = mockMethod(logger, 'log', null);
+
         const processor = new TaskProcessor(
             storageService,
             engine,
             reportReader,
-            queueService
-        )
+            queueService,
+            appConfig,
+            logger
+        );
 
         const task = {
-            message: { 
+            message: {
                 config: {
                     scenarios: [
                         { meta_referenceImageUrl: 'ref/image-1.png' },
@@ -56,6 +69,16 @@ describe('TaskProcessor', () => {
             handler: 'queue-message-handler'
         };
 
-        await processor.run( task );
-    })
-})
+        const success = await processor.run( task );
+
+        assert.equal(success, true, 'TaskProcessor.run() should returns true in case of success')
+
+        storageService_getMock.verify();
+        engineMock.verify();
+        reportReaderMock.verify();
+        storageService_saveMock.verify();
+        queueService_sendMock.verify();
+        queueService_delMock.verify();
+        loggerMock.verify();
+    });
+});

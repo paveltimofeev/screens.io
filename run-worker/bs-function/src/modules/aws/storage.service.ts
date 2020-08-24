@@ -32,6 +32,7 @@ export class StorageService implements IStorageService {
 
         let downloadedFiles: string[] = [];
 
+        // TODO: parallel download?
         for (let i = 0; i < fileUris.length; i++) {
 
             const file = fileUris[i]
@@ -104,6 +105,7 @@ export class StorageService implements IStorageService {
                     this._bucketName,
                     tenantId,
                     userId,
+                    'bitmaps_test', // TODO: ?
                     path.relative(fromFolder, filePath)
                 )),
                 Key: fileName,

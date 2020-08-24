@@ -82,6 +82,7 @@ export class TaskProcessor {
 
         const report = await this._reportReader.read( config.paths.json_report );
 
+        // TODO: need to upload passed tests' screen? it's the same as ref
         const uploaded = await this._storage.save(
             task.message.ctx.tenant,
             task.message.ctx.userid,

@@ -44,28 +44,22 @@ export class TaskProcessor {
                     .map(x => x.meta_referenceImageUrl)
                     .filter(Boolean);
 
-        const downloaded = await this._storage.get(
+        const downloadedRefs = await this._storage.get(
             references,
             config.paths.bitmaps_reference
             );
 
-        if (!downloaded) {
-            this._logger.error('ERROR: Cannot download screenshot references');
-            return false;
-        }
-
         const tested = await this._engine.test( config );
 
         if (!tested.success) {
-            this._logger.error('ERROR: Test execution failed');
-            return false;
+            this._logger.log('Test execution failed. That\'s Ok');
         }
 
         const report = await this._reportReader.read( config.paths.json_report );
         const uploaded = await this._storage.save(report.resultFiles);
 
         if (!uploaded) {
-            this._logger.error('ERROR: Cannot upload result screenshots and difference images');
+            this._logger.error('Cannot upload result screenshots and difference images');
             return false;
         }
 
@@ -75,7 +69,7 @@ export class TaskProcessor {
         );
 
         if (!sent) {
-            this._logger.error('ERROR: Cannot send report to', this._appConfig.outgoingQueue.queueUrl);
+            this._logger.error('Cannot send report to', this._appConfig.outgoingQueue.queueUrl);
             return false;
         }
 
@@ -85,7 +79,7 @@ export class TaskProcessor {
         );
 
         if (!deleted) {
-            this._logger.error('ERROR: Cannot delete task message at', this._appConfig.incomingQueue.queueUrl);
+            this._logger.error('Cannot delete task message at', this._appConfig.incomingQueue.queueUrl);
             return false;
         }
 

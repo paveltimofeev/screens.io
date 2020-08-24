@@ -84,7 +84,10 @@ export class AppFactory {
     }
 
     createStorageService(): IStorageService {
-        return new StorageService(appConfig.bucketName);
+        return new StorageService(
+            appConfig.bucketName,
+            this.createLogger('AWS:StorageService')
+            );
     }
     createQueueService(): IQueueService {
         return new QueueService();

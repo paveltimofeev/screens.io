@@ -14,6 +14,8 @@ export class BackstopJsWrapper implements IEngine {
 
         this.logger.log('test');
 
+        config.paths.engine_scripts = 'engine_scripts';
+
         try {
 
             await backstop('test', { config: config } );

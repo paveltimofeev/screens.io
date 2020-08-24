@@ -1,11 +1,13 @@
 import { IStorageService } from "../../domain/task-processor";
 import S3 = require('aws-sdk/clients/s3');
+import { ILogger } from '../../domain/models';
 const path = require('path');
 const fs = require('fs');
 const { promisify } = require('util');
 
 const fileExists = promisify(fs.exists);
 const writeFile = promisify(fs.writeFile);
+const mkdir = promisify(fs.mkdir);
 const deleteFile = promisify(fs.unlink);
 
 const AWS = require('aws-sdk');
@@ -14,13 +16,14 @@ const s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
 
 export class StorageService implements IStorageService {
-    
+
     constructor (
-        private readonly _bucketName: string
+        private readonly _bucketName: string,
+        private readonly _logger: ILogger
         ) {}
 
     async get(fileUris: string[], targetFolder: string): Promise<string[]> {
-        
+
         let downloadedFiles: string[] = [];
 
         for (let i = 0; i < fileUris.length; i++) {
@@ -31,21 +34,35 @@ export class StorageService implements IStorageService {
             const targetFile = path.join( targetFolder, fileName )
 
             const downloadParams = {
-                Bucket: path.join(this._bucketName, filePath),
+                Bucket: path.normalize( path.join(this._bucketName, filePath) ).replace(/\\/gi, '/'),
                 Key: fileName
             };
 
-            const data = await s3.getObject( downloadParams ).promise()
+            this._logger.log(`download file from Bucket=${downloadParams.Bucket} Key=${downloadParams.Key}`)
 
+            let data;
+            try {
+                data = await s3.getObject(downloadParams).promise()
+            }
+            catch (err) {
+
+                this._logger.log(`cannot download Bucket=${downloadParams.Bucket} Key=${downloadParams.Key}`)
+                return;
+            }
+
+            this._logger.log(`write file to`, targetFile)
+            await mkdir( path.dirname(targetFile), {recursive:true} )
             await writeFile( targetFile, data.Body )
+
             downloadedFiles.push( targetFile )
+            this._logger.log(`downloaded`)
         }
 
         return downloadedFiles;
     }
-    
+
     async save(files: string[]): Promise<boolean> {
-        
+
         for (let i = 0; i < files.length; i++) {
 
             const file = files[i]
@@ -63,7 +80,7 @@ export class StorageService implements IStorageService {
                 console.error('[BucketAdapter] ERROR. Read File Error', err);
             });
 
-            
+
             const uploadParams = {
                 Bucket: this._bucketName + '/' + filePath,
                 Key: fileName,

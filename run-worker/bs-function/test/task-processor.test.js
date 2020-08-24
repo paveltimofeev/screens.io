@@ -81,6 +81,8 @@ describe('TaskProcessor', () => {
         queueService_delMock.verify();
         loggerMock.verify();
     });
+
+    xit('should not fail if cannot download references', async () => {});
 });
 
 describe('ReportReader', () => {

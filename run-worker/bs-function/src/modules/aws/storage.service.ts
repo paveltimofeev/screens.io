@@ -1,4 +1,4 @@
-import { IStorageService } from "../../domain/task-processor";
+import { IReportFile, IStorageService } from "../../domain/task-processor";
 import { ILogger } from '../../domain/models';
 const path = require('path');
 const fs = require('fs');
@@ -26,7 +26,7 @@ export class StorageService implements IStorageService {
         return path.normalize(uri).replace(/\\/gi, '/');
     }
 
-    async get(tenantId:string, userId:string, fileUris: string[], targetFolder: string): Promise<string[]> {
+    async getReferences(tenantId:string, userId:string, fileUris: string[], targetFolder: string): Promise<string[]> {
 
         this._logger.log(`get tenantId=${tenantId} userId=${userId}`);
 
@@ -45,6 +45,12 @@ export class StorageService implements IStorageService {
                 Key: fileName
             };
 
+            /*
+                Bucket= vrtdata/test-tenant/5efdff882670d284bcde2a28/bitmaps_reference
+                Key= test-tenant_HackerNews_0_document_0_1920__1080.png
+
+                bucket | tenant | userid | files_type | file.png
+            */
             this._logger.log(`download file from Bucket=${downloadParams.Bucket} Key=${downloadParams.Key}`)
 
             let data;
@@ -68,13 +74,13 @@ export class StorageService implements IStorageService {
         return downloadedFiles;
     }
 
-    async save(tenantId:string, userId:string, files: string[], fromFolder: string): Promise<boolean> {
+    async saveResults(tenantId:string, userId:string, files: IReportFile[], fromFolder: string): Promise<boolean> {
 
         this._logger.log(`save tenantId=${tenantId} userId=${userId}`);
 
         for (let i = 0; i < files.length; i++) {
 
-            const file = files[i]
+            const file = files[i].localPath
 
             /*
                 file:
@@ -86,8 +92,6 @@ export class StorageService implements IStorageService {
             */
 
             this._logger.log(`upload "${file}" from folder "${fromFolder}" to`, this._bucketName);
-            const filePath = path.dirname( file )
-            const fileName = path.basename( file )
 
             const exist = await fileExists(file);
             if (!exist) {
@@ -105,10 +109,9 @@ export class StorageService implements IStorageService {
                     this._bucketName,
                     tenantId,
                     userId,
-                    'bitmaps_test', // TODO: ?
-                    path.relative(fromFolder, filePath)
+                    path.dirname( files[i].keyPath )
                 )),
-                Key: fileName,
+                Key: path.basename( files[i].keyPath ),
                 Body: fileStream,
                 ACL: 'public-read',
                 // Expires: // The date and time at which the object is no longer cacheable.

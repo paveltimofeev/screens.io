@@ -9,8 +9,8 @@ export interface IQueueService {
     deleteMessage(queueUri:string, messageHandler:string): Promise<boolean>;
 }
 export interface IStorageService {
-    get(tenantId:string, userId:string, fileUris:string[], targetFolder:string): Promise<string[]>;
-    save(tenantId:string, userId:string, files:string[], fromFolder: string): Promise<boolean>;
+    getReferences(tenantId:string, userId:string, fileUris:string[], targetFolder:string): Promise<string[]>;
+    saveResults(tenantId:string, userId:string, files:IReportFile[], fromFolder: string): Promise<boolean>;
 }
 export interface IReportReader {
     read(folder:string): Promise<Report>
@@ -20,9 +20,13 @@ export class Task {
     handler: string;
     message: IIncomingQueueMessage;
 }
+export interface IReportFile {
+    localPath: string;
+    keyPath: string;
+}
 export class Report {
     jsonReport: IJsonReport;
-    resultFiles: string[];
+    files: IReportFile[];
 }
 
 
@@ -68,7 +72,7 @@ export class TaskProcessor {
                     .map(x => x.meta_referenceImageUrl)
                     .filter(Boolean);
 
-        await this._storage.get(
+        await this._storage.getReferences(
             task.message.ctx.tenant,
             task.message.ctx.userid,
             references,
@@ -83,10 +87,10 @@ export class TaskProcessor {
         const report = await this._reportReader.read( config.paths.json_report );
 
         // TODO: need to upload passed tests' screen? it's the same as ref
-        const uploaded = await this._storage.save(
+        const uploaded = await this._storage.saveResults(
             task.message.ctx.tenant,
             task.message.ctx.userid,
-            report.resultFiles,
+            report.files,
             config.paths.bitmaps_test
         );
         if (!uploaded) {

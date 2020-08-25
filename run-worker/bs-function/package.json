@@ -5,7 +5,7 @@
   "author": "Pavel Timofeev",
   "main": "index.js",
   "scripts": {
-    "serve": "node ./dist/watcher.js",
+    "worker": "node ./dist/watcher.js",
     "compile": "./node_modules/.bin/tsc",
     "compile.watch": "./node_modules/.bin/tsc -w",
     "tests": "mocha -t 60000"

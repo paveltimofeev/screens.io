@@ -1,4 +1,4 @@
-import { IReportReader, Report } from "../../domain/task-processor";
+import { IReportFile, IReportReader, Report } from "../../domain/task-processor";
 import { IJsonReport, ILogger } from '../../domain/models';
 
 const fs = require('fs');
@@ -22,6 +22,7 @@ export class ReportReader implements IReportReader {
         const jsonReport = await this.getReport(reportPath);
         const resultFiles = jsonReport.tests
             .map( x => {
+
                 return [
                     path.resolve(path.join(folder, x.pair.test)),
                     x.pair.diffImage ?
@@ -32,7 +33,15 @@ export class ReportReader implements IReportReader {
 
         let report = new Report();
         report.jsonReport = jsonReport;
-        report.resultFiles = resultFiles.reduce( (a,b) => a.concat(b) ).filter(Boolean); // flat & skip empty
+        report.files = resultFiles
+            .reduce( (a,b) => a.concat(b) ) // flat
+            .filter(Boolean)                // skip empty
+            .map( x => {
+                    return {
+                        localPath: x,
+                        keyPath: path.relative(path.join(folder, '..', '..'), x)
+                    }
+            });
 
         this._logger.log('return files count', resultFiles.length);
 

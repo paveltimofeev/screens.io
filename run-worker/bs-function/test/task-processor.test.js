@@ -29,7 +29,7 @@ describe('TaskProcessor', () => {
         const logger = factory.createLogger('TaskProcessor');
         const appConfig = factory.getAppConfig();
 
-        const storageService_getMock = mockMethod(storageService, 'get', true);
+        const storageService_getMock = mockMethod(storageService, 'getReferences', true);
         const engineMock = mockMethod(engine, 'test', {success: true});
         const reportReaderMock = mockMethod(reportReader, 'read', {
             resultFiles : [
@@ -39,7 +39,7 @@ describe('TaskProcessor', () => {
                 'results/diff2.png'
             ]
         });
-        const storageService_saveMock = mockMethod(storageService, 'save', true);
+        const storageService_saveMock = mockMethod(storageService, 'saveResults', true);
         const queueService_sendMock = mockMethod(queueService, 'sendMessage', true);
         const queueService_delMock = mockMethod(queueService, 'deleteMessage', true);
         const loggerMock = mockMethod(logger, 'log', null);
@@ -62,6 +62,7 @@ describe('TaskProcessor', () => {
                     ],
                     paths: {
                         bitmaps_reference: 'ref-folder',
+                        bitmaps_test: './',
                         json_report: 'report-folder'
                     }
                 },
@@ -103,9 +104,11 @@ describe('ReportReader', () => {
         assert.notEqual(report.jsonReport, null);
         assert.notEqual(report.jsonReport, undefined);
 
-        assert.equal(report.resultFiles.length === 17, true);
+        assert.equal(report.files.length === 17, true);
         assert.equal(
-          report.resultFiles.every(x => x.length > 0),
+          report.files.every(x =>
+            x.localPath.length > 0 && x.keyPath.length > 0
+          ),
           true,
           'all returned paths should not be empty sting');
     });

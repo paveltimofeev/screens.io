@@ -1,18 +1,21 @@
 import { EngineAdapter } from './engine-adapter';
 import { S3Flow } from './s3-flow';
 import { JsonReportAdapter } from '../domain/json-report-adapter';
-import { IAppConfig, IEngine, IFlow, IJsonReport } from '../domain/models';
 import { ImageProcessor } from './image-processor';
 import { FilePathsService } from './file-paths-service';
 import { BucketAdapter } from './bucket-adapter';
-import { ConfigurationService } from './configuration-service';
 import { QueueAdapter } from './queue-adapter';
+
 import { BackstopJsWrapper } from './backstop-js-wrapper';
+import { ConfigurationService } from './configuration-service';
 import { Logger } from '../infrastructure/logger';
+
+import { IAppConfig, IEngine, IFlow, IJsonReport, ILogger } from '../domain/models';
 import { IStorageService, IQueueService, IReportReader } from '../domain/task-processor';
-import { StorageService } from '../modules/aws/storage.service';
-import { ReportReader } from '../modules/backstopjs/report-reader';
-import { QueueService } from '../modules/aws/queue.service';
+
+import { AwsFactory } from '../modules/aws/aws-factory';
+import { EngineFactory } from '../modules/backstopjs/engine-factory';
+
 
 const AWS = require('aws-sdk');
 AWS.config.update({region: 'us-east-1'});
@@ -36,7 +39,7 @@ export class AppFactory {
     createEngine () : IEngine {
 
         return new BackstopJsWrapper(
-            new Logger('BackstopJsWrapper')
+            this.createLogger('Engine:BackstopJsWrapper')
         )
     }
 
@@ -78,24 +81,27 @@ export class AppFactory {
         return new FilePathsService();
     }
 
-    createLogger (label:string) : Logger {
+    createLogger (label:string) : ILogger {
 
         return new Logger(label);
     }
 
     createStorageService(): IStorageService {
-        return new StorageService(
+
+        return AwsFactory.createStorageService(
             appConfig.bucketName,
             this.createLogger('AWS:StorageService')
-            );
+        );
     }
     createQueueService(): IQueueService {
-        return new QueueService(
+
+        return AwsFactory.createQueueService(
             this.createLogger('AWS:QueueService')
         );
     }
     createReportReader(): IReportReader {
-        return new ReportReader(
+
+        return EngineFactory.createReportReader(
             this.createLogger('BackstopJS:ReportReader')
         );
     }

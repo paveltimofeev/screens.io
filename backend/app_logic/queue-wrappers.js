@@ -28,7 +28,7 @@ class RemoteQueueWrapper {
           await this.runQueue.delete( tasks[ i ].handle )
         }
 
-      }, config.queuePollInterval || 500 );
+      }, config.queuePollInterval || 5000 ); // 5sec
     }
   }
 
@@ -77,10 +77,35 @@ const approveProcessor = async (task) => {
   await QueueProcessor.create(ctx).processApproveCase(data);
 };
 
+const resultsProcessor = async (result) => {
+  console.log(`test results ${result.runId}`, result);
+
+  const {runId, config, ctx} = result;
+
+  const validate = (param, errMessage) => {
+    if( !param ) {
+      console.error( errMessage, result );
+      return false;
+    }
+    return true;
+  };
+
+  if (
+    !validate(runId, 'No runId') ||
+    !validate(config, 'No runId') ||
+    !validate(ctx, 'No ctx')
+  ) {
+    return;
+  }
+
+  const QueueProcessor = require('./queue-processor');
+  await QueueProcessor.create(ctx).postProcessReport(runId, config)
+};
 
 const localApproveQueue = new QueueWrapper(approveProcessor);
 const localRunQueue = new QueueWrapper(taskProcessor);
 const remoteRunQueue = new RemoteQueueWrapper(null, config.taskQueueUrl);
+const remoteResultsQueue = new RemoteQueueWrapper(resultsProcessor, config.resultsQueueUrl);
 
 
 const sendToRunQueue = async (task) => {

@@ -1,10 +1,20 @@
+import { bool } from 'aws-sdk/clients/signer';
+
 export interface IAppConfig {
 
     enableLogging: boolean,
     vrtDataFullPath: string;
     bucketName: string;
-    incomingQueueUrl:string;
-    outgoingQueueUrl:string;
+    incomingQueue: {
+        queueUrl: string;
+        pollingInterval: number;
+        maxNumberOfMessages: number;
+        visibilityTimeout: number;
+        waitTimeSeconds: number;
+    },
+    outgoingQueue: {
+        queueUrl: string;
+    };
     resizeConfig: {
         fit: string;
         position: string;
@@ -86,6 +96,11 @@ export interface IIncomingQueueMessage {
     userId: string;
     runId: string;
     config: IConfig;
+
+    ctx?: {
+        tenant: string;
+        userid: string;
+    }
 }
 
 
@@ -155,4 +170,48 @@ export interface IJsonReportTestCase {
 export interface IReport extends IJsonReport {
     runId?: string;
     tests: IJsonReportTestCase[];
+}
+
+
+export interface IWorkerState {
+    config: IConfig;
+    scope: {
+        tenantId: string;
+        userId: string;
+        runId: string;
+    },
+    execution: {
+        failed: boolean;
+        error: any;
+        jsonReport: IReport;
+    }
+}
+
+
+export interface IEngine {
+
+    test(config:IConfig): Promise<IEngineTestResult>;
+}
+
+
+export interface IEngineTestResult {
+    success: boolean;
+    error?: any;
+}
+
+
+export interface IFlow {
+
+    RunPreProcess(config:IConfig): Promise<any>;
+    RunPostProcess(images: {
+        diff: string;
+        test: string;
+    }): Promise<any>;
+}
+
+
+export interface ILogger {
+
+    log (message:string, args?:any): void;
+    error (message:string, args?:any): void;
 }

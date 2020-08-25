@@ -1,5 +1,6 @@
 import { IConfig, IIncomingQueueMessage, IOutgoingQueueMessage } from '../domain/models';
-import { Logger, safeParse } from '../infrastructure/utils';
+import { Logger } from '../infrastructure/logger';
+import { safeParse } from '../infrastructure/utils';
 import { ConfigurationService } from './configuration-service';
 import SQS = require('aws-sdk/clients/sqs');
 
@@ -11,7 +12,6 @@ export class QueueAdapter {
     private sqs: SQS;
 
     constructor (sqs: SQS) {
-
         this.sqs = sqs;
     }
 
@@ -20,20 +20,20 @@ export class QueueAdapter {
         logger.log('sendMessage. runId', message.runId);
 
         const outgoingParams = {
-            QueueUrl: config.outgoingQueueUrl,
+            QueueUrl: config.outgoingQueue.queueUrl,
             MessageBody: JSON.stringify( message )
         };
 
         return await this.sqs.sendMessage(outgoingParams).promise();
     }
 
-    async receiveMessages () : Promise<IIncomingQueueMessage[]> {
+    async receiveMessages () : Promise<{handle: string, body: IIncomingQueueMessage}[]> {
 
         const params = {
-            QueueUrl: config.incomingQueueUrl,
-            MaxNumberOfMessages: 10,
-            VisibilityTimeout: 20,
-            WaitTimeSeconds: 0,
+            QueueUrl: config.incomingQueue.queueUrl,
+            MaxNumberOfMessages: config.incomingQueue.maxNumberOfMessages,
+            VisibilityTimeout: config.incomingQueue.visibilityTimeout,
+            WaitTimeSeconds: config.incomingQueue.waitTimeSeconds,
             AttributeNames: [ 'SentTimestamp' ],
             MessageAttributeNames: [ 'All' ]
         };
@@ -48,9 +48,24 @@ export class QueueAdapter {
 
         return messages.Messages
             .map( x => {
-                return safeParse<IIncomingQueueMessage>(x.Body, null);
+
+                return {
+                    handle: x.ReceiptHandle,
+                    body: safeParse<IIncomingQueueMessage>(x.Body, null)
+                };
             })
-            .filter( x => !x);
+            .filter(x => x.body !== null);
     }
 
+    async deleteMessage (handler:string) {
+
+        logger.log('deleteMessage');
+
+        const params = {
+            QueueUrl: config.incomingQueue.queueUrl,
+            ReceiptHandle: handler
+        };
+
+        return this.sqs.deleteMessage(params).promise();
+    }
 }

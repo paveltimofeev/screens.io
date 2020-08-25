@@ -1,0 +1,254 @@
+{
+  "testSuite": "BackstopJS",
+  "tests": [
+    {
+      "pair": {
+        "reference": "..\\..\\bitmaps_reference\\test-tenant_Coursetro_0_document_0_1920__1080.png",
+        "test": "..\\..\\bitmaps_test\\20200824-212337\\test-tenant_Coursetro_0_document_0_1920__1080.png",
+        "selector": "document",
+        "fileName": "test-tenant_Coursetro_0_document_0_1920__1080.png",
+        "label": "Coursetro",
+        "misMatchThreshold": 0.1,
+        "url": "https://coursetro.com/",
+        "expect": 0,
+        "viewportLabel": "1920 × 1080",
+        "diff": {
+          "isSameDimensions": false,
+          "dimensionDifference": {
+            "width": 0,
+            "height": -75
+          },
+          "misMatchPercentage": "34.96",
+          "analysisTime": 166
+        },
+        "diffImage": "..\\..\\bitmaps_test\\20200817-223506\\failed_diff_test-tenant_Coursetro_0_document_0_1920__1080.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "..\\..\\bitmaps_reference\\test-tenant_HackerNews_0_document_0_1920__1080.png",
+        "test": "..\\..\\bitmaps_test\\20200824-212337\\test-tenant_HackerNews_0_document_0_1920__1080.png",
+        "selector": "document",
+        "fileName": "test-tenant_HackerNews_0_document_0_1920__1080.png",
+        "label": "HackerNews",
+        "misMatchThreshold": 0.1,
+        "url": "https://news.ycombinator.com/",
+        "expect": 0,
+        "viewportLabel": "1920 × 1080",
+        "error": "Reference file not found C:\\tmp\\vrtdata\\test-tenant\\5efdff882670d284bcde2a28\\bitmaps_reference\\test-tenant_HackerNews_0_document_0_1920__1080.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "..\\..\\bitmaps_reference\\test-tenant_TheNextWeb_0_document_0_1920__1080.png",
+        "test": "..\\..\\bitmaps_test\\20200824-212337\\test-tenant_TheNextWeb_0_document_0_1920__1080.png",
+        "selector": "document",
+        "fileName": "test-tenant_TheNextWeb_0_document_0_1920__1080.png",
+        "label": "TheNextWeb",
+        "misMatchThreshold": 0.1,
+        "url": "https://thenextweb.com/",
+        "expect": 0,
+        "viewportLabel": "1920 × 1080",
+        "error": "Reference file not found C:\\tmp\\vrtdata\\test-tenant\\5efdff882670d284bcde2a28\\bitmaps_reference\\test-tenant_TheNextWeb_0_document_0_1920__1080.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "..\\..\\bitmaps_reference\\test-tenant_Instagram_0_document_0_1920__1080.png",
+        "test": "..\\..\\bitmaps_test\\20200824-212337\\test-tenant_Instagram_0_document_0_1920__1080.png",
+        "selector": "document",
+        "fileName": "test-tenant_Instagram_0_document_0_1920__1080.png",
+        "label": "Instagram",
+        "misMatchThreshold": 0.1,
+        "url": "http://instagram.com/",
+        "expect": 0,
+        "viewportLabel": "1920 × 1080",
+        "error": "Reference file not found C:\\tmp\\vrtdata\\test-tenant\\5efdff882670d284bcde2a28\\bitmaps_reference\\test-tenant_Instagram_0_document_0_1920__1080.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "..\\..\\bitmaps_reference\\test-tenant_Hashnode_0_document_0_1920__1080.png",
+        "test": "..\\..\\bitmaps_test\\20200824-212337\\test-tenant_Hashnode_0_document_0_1920__1080.png",
+        "selector": "document",
+        "fileName": "test-tenant_Hashnode_0_document_0_1920__1080.png",
+        "label": "Hashnode",
+        "misMatchThreshold": 0.1,
+        "url": "https://hashnode.com/",
+        "expect": 0,
+        "viewportLabel": "1920 × 1080",
+        "error": "Reference file not found C:\\tmp\\vrtdata\\test-tenant\\5efdff882670d284bcde2a28\\bitmaps_reference\\test-tenant_Hashnode_0_document_0_1920__1080.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "..\\..\\bitmaps_reference\\test-tenant_CodeProject_0_document_0_1920__1080.png",
+        "test": "..\\..\\bitmaps_test\\20200824-212337\\test-tenant_CodeProject_0_document_0_1920__1080.png",
+        "selector": "document",
+        "fileName": "test-tenant_CodeProject_0_document_0_1920__1080.png",
+        "label": "CodeProject",
+        "misMatchThreshold": 0.1,
+        "url": "https://www.codeproject.com/",
+        "expect": 0,
+        "viewportLabel": "1920 × 1080",
+        "error": "Reference file not found C:\\tmp\\vrtdata\\test-tenant\\5efdff882670d284bcde2a28\\bitmaps_reference\\test-tenant_CodeProject_0_document_0_1920__1080.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "..\\..\\bitmaps_reference\\test-tenant_Bytes_0_document_0_1920__1080.png",
+        "test": "..\\..\\bitmaps_test\\20200824-212337\\test-tenant_Bytes_0_document_0_1920__1080.png",
+        "selector": "document",
+        "fileName": "test-tenant_Bytes_0_document_0_1920__1080.png",
+        "label": "Bytes",
+        "misMatchThreshold": 0.1,
+        "url": "https://bytes.com/",
+        "expect": 0,
+        "viewportLabel": "1920 × 1080",
+        "error": "Reference file not found C:\\tmp\\vrtdata\\test-tenant\\5efdff882670d284bcde2a28\\bitmaps_reference\\test-tenant_Bytes_0_document_0_1920__1080.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "..\\..\\bitmaps_reference\\test-tenant_CoderWall_0_document_0_1920__1080.png",
+        "test": "..\\..\\bitmaps_test\\20200824-212337\\test-tenant_CoderWall_0_document_0_1920__1080.png",
+        "selector": "document",
+        "fileName": "test-tenant_CoderWall_0_document_0_1920__1080.png",
+        "label": "CoderWall",
+        "misMatchThreshold": 0.1,
+        "url": "https://coderwall.com/",
+        "expect": 0,
+        "viewportLabel": "1920 × 1080",
+        "error": "Reference file not found C:\\tmp\\vrtdata\\test-tenant\\5efdff882670d284bcde2a28\\bitmaps_reference\\test-tenant_CoderWall_0_document_0_1920__1080.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "..\\..\\bitmaps_reference\\test-tenant_RedBullRacing_0_document_0_1920__1080.png",
+        "test": "..\\..\\bitmaps_test\\20200824-212337\\test-tenant_RedBullRacing_0_document_0_1920__1080.png",
+        "selector": "document",
+        "fileName": "test-tenant_RedBullRacing_0_document_0_1920__1080.png",
+        "label": "RedBullRacing",
+        "misMatchThreshold": 0.1,
+        "url": "https://www.redbull.com/int-en/redbullracing",
+        "expect": 0,
+        "viewportLabel": "1920 × 1080",
+        "error": "Reference file not found C:\\tmp\\vrtdata\\test-tenant\\5efdff882670d284bcde2a28\\bitmaps_reference\\test-tenant_RedBullRacing_0_document_0_1920__1080.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "..\\..\\bitmaps_reference\\test-tenant_Yandex_0_document_0_1920__1080.png",
+        "test": "..\\..\\bitmaps_test\\20200824-212337\\test-tenant_Yandex_0_document_0_1920__1080.png",
+        "selector": "document",
+        "fileName": "test-tenant_Yandex_0_document_0_1920__1080.png",
+        "label": "Yandex",
+        "misMatchThreshold": 0.1,
+        "url": "https://yandex.ru",
+        "expect": 0,
+        "viewportLabel": "1920 × 1080",
+        "error": "Reference file not found C:\\tmp\\vrtdata\\test-tenant\\5efdff882670d284bcde2a28\\bitmaps_reference\\test-tenant_Yandex_0_document_0_1920__1080.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "..\\..\\bitmaps_reference\\test-tenant_Google_0_document_0_1920__1080.png",
+        "test": "..\\..\\bitmaps_test\\20200824-212337\\test-tenant_Google_0_document_0_1920__1080.png",
+        "selector": "document",
+        "fileName": "test-tenant_Google_0_document_0_1920__1080.png",
+        "label": "Google",
+        "misMatchThreshold": 0.1,
+        "url": "https://google.com",
+        "expect": 0,
+        "viewportLabel": "1920 × 1080",
+        "error": "Reference file not found C:\\tmp\\vrtdata\\test-tenant\\5efdff882670d284bcde2a28\\bitmaps_reference\\test-tenant_Google_0_document_0_1920__1080.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "..\\..\\bitmaps_reference\\test-tenant_Webflow___Landkit___Home-1_0_document_0_1920__1080.png",
+        "test": "..\\..\\bitmaps_test\\20200824-212337\\test-tenant_Webflow___Landkit___Home-1_0_document_0_1920__1080.png",
+        "selector": "document",
+        "fileName": "test-tenant_Webflow___Landkit___Home-1_0_document_0_1920__1080.png",
+        "label": "Webflow / Landkit / Home-1",
+        "misMatchThreshold": 0.1,
+        "url": "https://landkit.webflow.io/homes/home-1",
+        "expect": 0,
+        "viewportLabel": "1920 × 1080",
+        "error": "Reference file not found C:\\tmp\\vrtdata\\test-tenant\\5efdff882670d284bcde2a28\\bitmaps_reference\\test-tenant_Webflow___Landkit___Home-1_0_document_0_1920__1080.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "..\\..\\bitmaps_reference\\test-tenant_Webflowcom_0_document_0_1920__1080.png",
+        "test": "..\\..\\bitmaps_test\\20200824-212337\\test-tenant_Webflowcom_0_document_0_1920__1080.png",
+        "selector": "document",
+        "fileName": "test-tenant_Webflowcom_0_document_0_1920__1080.png",
+        "label": "Webflow.com",
+        "misMatchThreshold": 0.1,
+        "url": "https://webflow.com/",
+        "expect": 0,
+        "viewportLabel": "1920 × 1080",
+        "error": "Reference file not found C:\\tmp\\vrtdata\\test-tenant\\5efdff882670d284bcde2a28\\bitmaps_reference\\test-tenant_Webflowcom_0_document_0_1920__1080.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "..\\..\\bitmaps_reference\\test-tenant_Webflowcom___Templates_0_document_0_1920__1080.png",
+        "test": "..\\..\\bitmaps_test\\20200824-212337\\test-tenant_Webflowcom___Templates_0_document_0_1920__1080.png",
+        "selector": "document",
+        "fileName": "test-tenant_Webflowcom___Templates_0_document_0_1920__1080.png",
+        "label": "Webflow.com / Templates",
+        "misMatchThreshold": 0.1,
+        "url": "https://webflow.com/templates",
+        "expect": 0,
+        "viewportLabel": "1920 × 1080",
+        "error": "Reference file not found C:\\tmp\\vrtdata\\test-tenant\\5efdff882670d284bcde2a28\\bitmaps_reference\\test-tenant_Webflowcom___Templates_0_document_0_1920__1080.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "..\\..\\bitmaps_reference\\test-tenant_Webflowcom___Ebooks_0_document_0_1920__1080.png",
+        "test": "..\\..\\bitmaps_test\\20200824-212337\\test-tenant_Webflowcom___Ebooks_0_document_0_1920__1080.png",
+        "selector": "document",
+        "fileName": "test-tenant_Webflowcom___Ebooks_0_document_0_1920__1080.png",
+        "label": "Webflow.com / Ebooks",
+        "misMatchThreshold": 0.1,
+        "url": "https://ebooks.webflow.com/",
+        "expect": 0,
+        "viewportLabel": "1920 × 1080",
+        "error": "Reference file not found C:\\tmp\\vrtdata\\test-tenant\\5efdff882670d284bcde2a28\\bitmaps_reference\\test-tenant_Webflowcom___Ebooks_0_document_0_1920__1080.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "..\\..\\bitmaps_reference\\test-tenant_Habr_0_document_0_1920__1080.png",
+        "test": "..\\..\\bitmaps_test\\20200824-212337\\test-tenant_Habr_0_document_0_1920__1080.png",
+        "selector": "document",
+        "fileName": "test-tenant_Habr_0_document_0_1920__1080.png",
+        "label": "Habr",
+        "misMatchThreshold": 0.1,
+        "url": "https://habr.com/en/all/",
+        "expect": 0,
+        "viewportLabel": "1920 × 1080",
+        "error": "Reference file not found C:\\tmp\\vrtdata\\test-tenant\\5efdff882670d284bcde2a28\\bitmaps_reference\\test-tenant_Habr_0_document_0_1920__1080.png"
+      },
+      "status": "fail"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 import { FilePathsService } from './file-paths-service';
-import { Logger } from '../infrastructure/utils';
+import { Logger } from '../infrastructure/logger';
 import S3 = require('aws-sdk/clients/s3');
 
 const logger = new Logger('BucketAdapter');

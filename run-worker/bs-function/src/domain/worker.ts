@@ -1,35 +1,26 @@
-import { IConfig, IIncomingQueueMessage, IOutgoingQueueMessage, IReport, IScenario, IViewport } from './models';
-import { S3Flow } from '../app/s3-flow';
-import { Logger } from '../infrastructure/utils';
+import {
+    IEngine, IEngineTestResult, IFlow,
+    IIncomingQueueMessage, ILogger,
+    IOutgoingQueueMessage,
+    IReport, IWorkerState
+} from './models';
 import { AppFactory } from '../app/app-factory';
 
-const logger = new Logger('TestWorker');
-const backstop = require('backstopjs');
-
-interface IWorkerState {
-    config: IConfig;
-    scope: {
-        tenantId: string;
-        userId: string;
-        runId: string;
-    },
-    execution: {
-        failed: boolean;
-        error: any;
-        jsonReport: IReport;
-    }
-}
 
 export class TestWorker {
 
     private state: IWorkerState;
     private factory: AppFactory;
-    private flow: S3Flow;
+    private flow: IFlow;
+    private engine: IEngine;
+    private logger: ILogger;
 
     constructor (factory: AppFactory) {
 
         this.factory = factory;
         this.flow = this.factory.createFlow();
+        this.engine = this.factory.createEngine();
+        this.logger = this.factory.createLogger('TestWorker')
     }
 
     async run (queueMessage:IIncomingQueueMessage) : Promise<IOutgoingQueueMessage> {
@@ -48,7 +39,7 @@ export class TestWorker {
             }
         };
 
-        logger.log('run:', this.state.scope);
+        this.logger.log('run:', this.state.scope);
 
         await this.flow.RunPreProcess(this.state.config);
         await this.executeTest();
@@ -59,27 +50,20 @@ export class TestWorker {
 
     private async executeTest() {
 
-        logger.log('Step: executeTest', this.state.scope);
+        this.logger.log('Step: executeTest', this.state.scope);
 
-        try {
-            await backstop('test', { config: this.state.config } );
-            this.state.execution.failed = false;
-            this.state.execution.error = null;
-        }
-        catch (err) {
-            logger.error('executeTest', err.message||err);
-            this.state.execution.failed = true;
-            this.state.execution.error = err;
-        }
+        const result: IEngineTestResult = await this.engine.test(this.state.config);
+        this.state.execution.failed = !result.success;
+        this.state.execution.error = result.error;
     }
 
     private async readReport () {
 
-        logger.log('Step: readReport', this.state.scope);
+        this.logger.log('Step: readReport', this.state.scope);
 
-        const engine = this.factory.createEngineAdapter();
+        const engineAdapter = this.factory.createEngineAdapter();
 
-        const jsonReport = await engine.getReport( this.state.config.paths.json_report );
+        const jsonReport = await engineAdapter.getReport( this.state.config.paths.json_report );
         const reportAdapter = this.factory.createJsonReportAdapter(
             jsonReport,
             this.state.config.paths.json_report,
@@ -90,7 +74,7 @@ export class TestWorker {
 
     private async postProcessReport () {
 
-        logger.log('Step: postProcessReport', this.state.scope);
+        this.logger.log('Step: postProcessReport', this.state.scope);
 
         const report:IReport = this.state.execution.jsonReport;
 
@@ -108,7 +92,7 @@ export class TestWorker {
 
     private sendResultsToOutgoingQueue(): IOutgoingQueueMessage {
 
-        logger.log('Step: sendResultsToOutgoingQueue', this.state.scope);
+        this.logger.log('Step: sendResultsToOutgoingQueue', this.state.scope);
 
         return {
             tenantId: this.state.scope.tenantId,

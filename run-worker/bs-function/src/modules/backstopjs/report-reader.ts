@@ -1,5 +1,4 @@
-import { IReportFile, IReportReader, Report } from "../../domain/task-processor";
-import { IJsonReport, ILogger } from '../../domain/models';
+import { IReportReader, Report, IJsonReport, ILogger } from '../../domain/models';
 
 const fs = require('fs');
 const { promisify } = require('util');

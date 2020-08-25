@@ -1,4 +1,4 @@
-import { IQueueService, IStorageService } from '../../domain/task-processor';
+import { IQueueService, IStorageService } from '../../domain/models';
 import { ILogger } from '../../domain/models';
 import { StorageService } from './storage.service';
 import { QueueService } from './queue.service';

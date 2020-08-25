@@ -1,5 +1,5 @@
-import { IIncomingQueueMessage } from '../domain/models';
-import { Logger } from '../infrastructure/logger';
+import { IIncomingQueueMessage } from '../../domain/models';
+import { Logger } from '../infratructure/logger';
 
 const logger = new Logger('QueueMessageAdapter');
 

@@ -1,4 +1,4 @@
-import { IAppConfig } from '../domain/models';
+import { IAppConfig } from '../../domain/models';
 
 
 export class ConfigurationService {

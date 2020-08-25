@@ -1,33 +1,11 @@
-import { IIncomingQueueMessage, IEngine, IJsonReport, IConfig, ILogger, IAppConfig } from "./models";
-
-
-export interface IInputReader {
-    getTask(): Task;
-}
-export interface IQueueService {
-    sendMessage(queueUri:string, messageBody:string): Promise<boolean>;
-    deleteMessage(queueUri:string, messageHandler:string): Promise<boolean>;
-}
-export interface IStorageService {
-    getReferences(tenantId:string, userId:string, fileUris:string[], targetFolder:string): Promise<string[]>;
-    saveResults(tenantId:string, userId:string, files:IReportFile[], fromFolder: string): Promise<boolean>;
-}
-export interface IReportReader {
-    read(folder:string): Promise<Report>
-}
-export class Task {
-
-    handler: string;
-    message: IIncomingQueueMessage;
-}
-export interface IReportFile {
-    localPath: string;
-    keyPath: string;
-}
-export class Report {
-    jsonReport: IJsonReport;
-    files: IReportFile[];
-}
+import {
+    IEngine,
+    IConfig,
+    ILogger,
+    IAppConfig,
+    IStorageService,
+    IQueueService, IReportReader, Task
+} from './models';
 
 
 export class TaskProcessor {

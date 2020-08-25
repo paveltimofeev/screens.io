@@ -1,5 +1,3 @@
-import { bool } from 'aws-sdk/clients/signer';
-
 export interface IAppConfig {
 
     enableLogging: boolean,
@@ -27,13 +25,11 @@ export interface IAppConfig {
     }
 }
 
-
 export interface IResizeOption {
     width: number;
     height?: number;
     quality?: number;
 }
-
 
 export interface IViewport {
 
@@ -42,7 +38,6 @@ export interface IViewport {
     height: number,
     enabled: boolean
 }
-
 
 export interface IScenario {
 
@@ -63,7 +58,6 @@ export interface IScenario {
     meta_referenceMD?: string,
     meta_referenceSM?: string
 }
-
 
 export interface IConfig {
 
@@ -89,7 +83,6 @@ export interface IConfig {
     }
 }
 
-
 export interface IIncomingQueueMessage {
 
     tenantId: string;
@@ -103,7 +96,6 @@ export interface IIncomingQueueMessage {
     }
 }
 
-
 export interface IOutgoingQueueMessage {
 
     tenantId: string;
@@ -112,14 +104,12 @@ export interface IOutgoingQueueMessage {
     report: IReport;
 }
 
-
 export interface IJsonReport {
 
     id: string;
     testSuite: string;
     tests: IJsonReportTestCase[];
 }
-
 
 export interface IJsonReportTestCase {
 
@@ -166,52 +156,57 @@ export interface IJsonReportTestCase {
     };
 }
 
-
 export interface IReport extends IJsonReport {
     runId?: string;
     tests: IJsonReportTestCase[];
 }
-
-
-export interface IWorkerState {
-    config: IConfig;
-    scope: {
-        tenantId: string;
-        userId: string;
-        runId: string;
-    },
-    execution: {
-        failed: boolean;
-        error: any;
-        jsonReport: IReport;
-    }
-}
-
 
 export interface IEngine {
 
     test(config:IConfig): Promise<IEngineTestResult>;
 }
 
-
 export interface IEngineTestResult {
     success: boolean;
     error?: any;
 }
 
-
-export interface IFlow {
-
-    RunPreProcess(config:IConfig): Promise<any>;
-    RunPostProcess(images: {
-        diff: string;
-        test: string;
-    }): Promise<any>;
-}
-
-
 export interface ILogger {
 
     log (message:string, args?:any): void;
     error (message:string, args?:any): void;
+}
+
+export interface IInputReader {
+    getTask(): Task;
+}
+
+export interface IQueueService {
+    sendMessage(queueUri:string, messageBody:string): Promise<boolean>;
+    deleteMessage(queueUri:string, messageHandler:string): Promise<boolean>;
+}
+
+export interface IStorageService {
+    getReferences(tenantId:string, userId:string, fileUris:string[], targetFolder:string): Promise<string[]>;
+    saveResults(tenantId:string, userId:string, files:IReportFile[], fromFolder: string): Promise<boolean>;
+}
+
+export interface IReportReader {
+    read(folder:string): Promise<Report>
+}
+
+export interface IReportFile {
+    localPath: string;
+    keyPath: string;
+}
+
+export class Task {
+
+    handler: string;
+    message: IIncomingQueueMessage;
+}
+
+export class Report {
+    jsonReport: IJsonReport;
+    files: IReportFile[];
 }

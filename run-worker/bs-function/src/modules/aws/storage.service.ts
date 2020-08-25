@@ -1,5 +1,4 @@
-import { IReportFile, IStorageService } from "../../domain/task-processor";
-import { ILogger } from '../../domain/models';
+import { IReportFile, IStorageService, ILogger } from '../../domain/models';
 const path = require('path');
 const fs = require('fs');
 

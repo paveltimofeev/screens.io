@@ -1,19 +1,17 @@
-import { IConfig, IIncomingQueueMessage, IOutgoingQueueMessage } from '../domain/models';
-import { Logger } from '../infrastructure/logger';
-import { safeParse } from '../infrastructure/utils';
-import { ConfigurationService } from './configuration-service';
-import SQS = require('aws-sdk/clients/sqs');
+import { IIncomingQueueMessage, IOutgoingQueueMessage } from '../../domain/models';
+import { Logger } from '../infratructure/logger';
+import { safeParse } from '../infratructure/utils';
+import { ConfigurationService } from '../infratructure/configuration.service';
 
 const logger = new Logger('QueueAdapter');
 const config = ConfigurationService.getAppConfig();
 
+const AWS = require('aws-sdk');
+AWS.config.update({region: 'us-east-1'});
+var sqs = new AWS.SQS();
+
 export class QueueAdapter {
 
-    private sqs: SQS;
-
-    constructor (sqs: SQS) {
-        this.sqs = sqs;
-    }
 
     async sendMessage (message:IOutgoingQueueMessage) {
 
@@ -24,7 +22,7 @@ export class QueueAdapter {
             MessageBody: JSON.stringify( message )
         };
 
-        return await this.sqs.sendMessage(outgoingParams).promise();
+        return await sqs.sendMessage(outgoingParams).promise();
     }
 
     async receiveMessages () : Promise<{handle: string, body: IIncomingQueueMessage}[]> {
@@ -38,7 +36,7 @@ export class QueueAdapter {
             MessageAttributeNames: [ 'All' ]
         };
 
-        let messages = await this.sqs.receiveMessage( params ).promise();
+        let messages = await sqs.receiveMessage( params ).promise();
 
         if (!messages || !messages.Messages) {
             return [];
@@ -47,14 +45,14 @@ export class QueueAdapter {
         logger.log('receiveMessages', messages.Messages.length);
 
         return messages.Messages
-            .map( x => {
+            .map( (x:any) => {
 
                 return {
                     handle: x.ReceiptHandle,
                     body: safeParse<IIncomingQueueMessage>(x.Body, null)
                 };
             })
-            .filter(x => x.body !== null);
+            .filter((x:any) => x.body !== null);
     }
 
     async deleteMessage (handler:string) {
@@ -66,6 +64,6 @@ export class QueueAdapter {
             ReceiptHandle: handler
         };
 
-        return this.sqs.deleteMessage(params).promise();
+        return sqs.deleteMessage(params).promise();
     }
 }

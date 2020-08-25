@@ -1,19 +1,14 @@
 import { AppFactory } from './app/app-factory';
-import { Logger } from './infrastructure/logger';
-import { ConfigurationService } from './app/configuration-service';
-import { TestWorker } from './domain/worker';
-import { IIncomingQueueMessage } from './domain/models';
-import { Task, TaskProcessor } from './domain/task-processor';
-
-const logger = new Logger('Watcher');
-const config = ConfigurationService.getAppConfig();
+import { Task, IIncomingQueueMessage } from './domain/models';
+import { TaskProcessor } from './domain/task-processor';
 
 const factory = new AppFactory();
-const queue = factory.createQueueAdapter();
-const worker = new TestWorker(factory);
+const config = factory.getAppConfig();
+const logger = factory.createLogger('Watcher');
 
 logger.log('watch queue');
 
+const queue = factory.createQueueAdapter();
 const storageService = factory.createStorageService();
 const engine = factory.createEngine();
 const reportReader = factory.createReportReader();
@@ -49,13 +44,6 @@ const watch = async () => {
             task.handler = queueMessageHandle;
             task.message = incomingMessage;
             await processor.run(task);
-
-
-            // Start child process through semaphore
-            // const outgoingMessage = await worker.run(incomingMessage);
-            // await queue.deleteMessage(queueMessageHandle);
-            // const result = await queue.sendMessage(outgoingMessage);
-            // logger.log('done. runId', outgoingMessage.runId)
         }
     }
 };

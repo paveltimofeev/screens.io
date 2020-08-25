@@ -1,5 +1,4 @@
-import { IQueueService } from "../../domain/task-processor";
-import { ILogger } from '../../domain/models';
+import { IQueueService, ILogger } from '../../domain/models';
 
 
 const AWS = require('aws-sdk');

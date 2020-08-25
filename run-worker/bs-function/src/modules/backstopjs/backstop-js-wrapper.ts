@@ -1,4 +1,4 @@
-import { IConfig, IEngine, IEngineTestResult, ILogger } from '../domain/models';
+import { IConfig, IEngine, IEngineTestResult, ILogger } from '../../domain/models';
 const backstop = require('backstopjs');
 
 

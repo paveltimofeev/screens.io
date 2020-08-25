@@ -1,5 +1,5 @@
-import { IAppConfig, ILogger } from '../domain/models';
-import { ConfigurationService } from '../app/configuration-service';
+import { IAppConfig, ILogger } from '../../domain/models';
+import { ConfigurationService } from './configuration.service';
 
 const config: IAppConfig = ConfigurationService.getAppConfig();
 

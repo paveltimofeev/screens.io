@@ -1,6 +1,6 @@
-import { IReportReader } from '../../domain/task-processor';
+import { IReportReader, ILogger } from '../../domain/models';
 import { ReportReader } from './report-reader';
-import { ILogger } from '../../domain/models';
+
 
 export class EngineFactory {
 

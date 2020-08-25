@@ -1,5 +1,5 @@
-import { Logger } from '../infrastructure/logger';
-import { ConfigurationService } from './configuration-service';
+import { Logger } from '../modules/infratructure/logger';
+import { ConfigurationService } from '../modules/infratructure/configuration.service';
 import { IResizeOption } from '../domain/models';
 
 const logger = new Logger('ImageProcessor');

@@ -1,4 +1,4 @@
-import { IQueueService, IStorageService } from '../../domain/models';
+import { IAppConfig, IQueueService, IStorageService } from '../../domain/models';
 import { ILogger } from '../../domain/models';
 import { StorageService } from './storage.service';
 import { QueueService } from './queue.service';
@@ -13,9 +13,9 @@ export class AwsFactory {
         );
     }
 
-    static createQueueService (logger: ILogger) : IQueueService {
+    static createQueueService (logger: ILogger, config: IAppConfig) : IQueueService {
 
-        return new QueueService(logger);
+        return new QueueService(logger, config);
     }
 }
 

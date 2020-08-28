@@ -85,6 +85,8 @@ export interface IConfig {
 
 export interface IIncomingQueueMessage {
 
+    messageId: string;
+
     tenantId: string;
     userId: string;
     runId: string;
@@ -182,8 +184,9 @@ export interface IInputReader {
 }
 
 export interface IQueueService {
-    sendMessage(queueUri:string, messageBody:string): Promise<boolean>;
-    deleteMessage(queueUri:string, messageHandler:string): Promise<boolean>;
+    receiveMessages (queueUri: string): Promise<IIncomingQueueMessage[]>
+    sendMessage (queueUri:string, messageBody:string): Promise<boolean>;
+    deleteMessage (queueUri:string, messageHandler:string): Promise<boolean>;
 }
 
 export interface IStorageService {
@@ -202,7 +205,6 @@ export interface IReportFile {
 
 export class Task {
 
-    handler: string;
     message: IIncomingQueueMessage;
 }
 

@@ -87,7 +87,7 @@ export class TaskProcessor {
 
         const deleted = await this._queue.deleteMessage(
             this._appConfig.incomingQueue.queueUrl,
-            task.handler
+            task.message.messageId
         );
         if (!deleted) {
             this._logger.error('Cannot delete task message at', this._appConfig.incomingQueue.queueUrl);

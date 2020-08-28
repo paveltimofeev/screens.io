@@ -180,6 +180,7 @@
 -- Worker: read config from WORKER_CONFIG env variable
 
 - [Move to AWS: 5. Split services] Backend: Read report from SQS created by Worker and update MongoDb
+- [Move to AWS: 5. Split services] Worker: spawn separate process for every task
 
 
 TechDept

@@ -2,7 +2,6 @@ import { IAppConfig, IEngine, ILogger } from '../domain/models';
 import { IStorageService, IQueueService, IReportReader } from '../domain/models';
 
 import { AwsFactory } from '../modules/aws/aws-factory';
-import { QueueAdapter } from '../modules/aws/queue-adapter';
 
 import { EngineFactory } from '../modules/backstopjs/engine-factory';
 import { BackstopJsWrapper } from '../modules/backstopjs/backstop-js-wrapper';
@@ -29,14 +28,6 @@ export class AppFactory {
         return new Logger(label);
     }
 
-    /*
-    Will be deleted or moved to watcher later
-    */
-    createQueueAdapter () {
-
-        return new QueueAdapter();
-    }
-
     createStorageService(): IStorageService {
 
         return AwsFactory.createStorageService(
@@ -48,7 +39,8 @@ export class AppFactory {
     createQueueService(): IQueueService {
 
         return AwsFactory.createQueueService(
-            this.createLogger('AWS:QueueService')
+            this.createLogger('AWS:QueueService'),
+            this.getAppConfig()
         );
     }
 

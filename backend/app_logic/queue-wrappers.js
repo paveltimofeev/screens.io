@@ -103,7 +103,7 @@ const resultsProcessor = async (result) => {
 };
 
 const localApproveQueue = new QueueWrapper(approveProcessor);
-const localRunQueue = new QueueWrapper(taskProcessor);
+// const localRunQueue = new QueueWrapper(taskProcessor);
 const remoteRunQueue = new RemoteQueueWrapper(null, config.taskQueueUrl);
 const remoteResultsQueue = new RemoteQueueWrapper(resultsProcessor, config.resultsQueueUrl);
 
@@ -117,7 +117,7 @@ const sendToRunQueue = async (task) => {
     throw new Error('Wrong run task');
   }
 
-  await localRunQueue.push(task);
+  // await localRunQueue.push(task);
   await remoteRunQueue.push(task);
 };
 

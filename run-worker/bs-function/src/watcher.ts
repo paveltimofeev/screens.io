@@ -5,9 +5,6 @@ import { TaskProcessor } from './domain/task-processor';
 const factory = new AppFactory();
 const config = factory.getAppConfig();
 const logger = factory.createLogger('Watcher');
-
-logger.log('watch queue');
-
 const queue = factory.createQueueAdapter();
 const storageService = factory.createStorageService();
 const engine = factory.createEngine();
@@ -25,9 +22,23 @@ const processor = new TaskProcessor(
     taskProcessorLogger
 );
 
-const watch = async () => {
 
-    let messages = await queue.receiveMessages();
+logger.log('watch queue', config.incomingQueue.queueUrl);
+
+const watchLoop = async () => {
+
+    let messages;
+
+    try {
+        messages = await queue.receiveMessages();
+    }
+    catch (err) {
+
+        if (err.code === 'AWS.SimpleQueueService.NonExistentQueue') {
+            logger.error(err.message, err);
+        }
+        return;
+    }
 
     if (messages.length > 0) {
 
@@ -48,4 +59,4 @@ const watch = async () => {
     }
 };
 
-setInterval(watch, config.incomingQueue.pollingInterval);
+setInterval(watchLoop, config.incomingQueue.pollingInterval);

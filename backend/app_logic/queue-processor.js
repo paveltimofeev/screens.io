@@ -1,10 +1,10 @@
-const backstop = require('backstopjs');
+// const backstop = require('backstopjs');
 
 const storage = new (require('../storage/storage-adapter'));
 const appUtils = require('./app-utils');
 const { EngineAdapter, JsonReportAdapter } = require('./engine-adapter');
 const { FilePathsService } = require('./app-utils');
-const { BucketAdapter } = require('./bucket-adapter');
+// const { BucketAdapter } = require('./bucket-adapter');
 const imageProcessor = require('./image-processor');
 
 const path = require('path');
@@ -12,12 +12,12 @@ const fs = require('fs');
 const { promisify } = require('util');
 const exists = promisify(fs.exists);
 const copyFile = promisify(fs.copyFile);
-const writeFile = promisify(fs.writeFile);
+// const writeFile = promisify(fs.writeFile);
 
 const mkdir = promisify(fs.mkdir);
 
-const engine = new EngineAdapter();
-const bucketAdapter = new BucketAdapter('vrtdata', new FilePathsService());
+// const engine = new EngineAdapter();
+// const bucketAdapter = new BucketAdapter('vrtdata', new FilePathsService());
 const filePathsService = new FilePathsService();
 
 const config = require('./configuration');
@@ -42,16 +42,15 @@ class QueueProcessor {
       if (!ctx[name]) {
 
         console.error(`No ${name} in request context`, ctx)
-        var err = new Error('Bad request. Not valid context.')
+        var err = new Error(`Bad request. Not valid context. No ${name} in request context`)
         err.status = 400
         throw err;
       }
     }
 
-    validateParams('user');
+    // validateParams('user');
     validateParams('tenant');
     validateParams('userid');
-    validateParams('user');
 
     return new QueueProcessor(ctx, ctx.userid);
   }
@@ -75,110 +74,82 @@ class QueueProcessor {
       })
   }
 
-  async processRun (runId, config) {
-
-    console.log('[QueueProcessor] STARTED processRun. runId:', runId)
-
-    const record = await storage.createHistoryRecord(this._db, {
-      state: 'Running',
-      startedAt: new Date(),
-      startedBy: this._ctx.user,
-      viewports: config.viewports.map( x => x.label),
-      scenarios: config.scenarios.map( x => {
-        return {
-          id: x._id.toString(),
-          label: x.label
-        }
-      }),
-      runId
-    })
-
-    try {
-
-      await this._flow.RunPreProcess( config );
-
-      // [download ref images of every scenario in config and place them to corresponding directory] [with retries]
-      // for ( let i = 0; i < config.scenarios.length; i++ ) {
-
-      //   if (config.scenarios[i].meta_referenceImageUrl) {
-      //     await bucketAdapter.download(
-      //       path.join(
-      //         filePathsService.vrtDataFullPath(),
-      //         config.scenarios[ i ].meta_referenceImageUrl
-      //       )
-      //     );
-      //   }
-      // }
-
-      // await writeFile('./backstop-config.debug.json', JSON.stringify(config), 'utf-8')
-      console.log('[QueueProcessor] Starting backstop...');
-      let result = await backstop('test', { config: config } )
-      console.log('[QueueProcessor] RUN RESULT', result);
-
-      try {
-        console.log( '[QueueProcessor] `backstop test` command completed' )
-
-        const report = await engine.getReport( config.paths.json_report )
-
-        const data = await this.postProcessReport( runId, report, config.paths.json_report )
-        await storage.createReport( this._db, data )
-
-        record.state = 'Passed';
-        record.finishedAt = new Date();
-        record.scenarios = record.scenarios.map( s => {
-
-          let test = report.tests.find( t => t.pair.label === s.label )
-          if( test ) {
-            s.status = test.status;
-          } else {
-            console.warn( '[QueueProcessor] Cannot find test result for "' + s.label + '" in', report )
-          }
-          return s;
-        } );
-
-        await this.updateScenariosRunStatus( record.scenarios )
-        await storage.updateHistoryRecord( this._db, record._id, storage.convertToObject( record ) )
-      }
-      catch (err) {
-        console.error('[QueueProcessor] Success report processing failed', err)
-        throw err;
-      }
-
-      console.log('[QueueProcessor] COMPLETED, PASSED processRun. runId:', runId);
-      return runId
-    }
-    catch (err) {
-
-      console.error('[QueueProcessor] Error:', err)
-      const report = await engine.getReport(config.paths.json_report)
-
-      const data = await this.postProcessReport(runId, report, config.paths.json_report)
-      await storage.createReport(this._db, data)
-
-      record.state = 'Failed';
-      record.finishedAt = new Date();
-      record.scenarios = record.scenarios.map( s => {
-
-        let test = report.tests.find( t => t.pair.label === s.label)
-        if (test) {
-          s.status = test.status;
-        }
-        else {
-          console.warn('[QueueProcessor] Cannot find rest result for "'+s.label + '" in', report)
-        }
-        return s;
-      });
-
-      await this.updateScenariosRunStatus(record.scenarios)
-      await storage.updateHistoryRecord(
-        this._db,
-        record._id,
-        storage.convertToObject(record))
-
-      console.log('[QueueProcessor] COMPLETED, NOT PASSED processRun. runId:', runId);
-      return runId
-    }
-  }
+  // async processRun (runId, config) {
+  //
+  //   console.log('[QueueProcessor] STARTED processRun. runId:', runId)
+  //
+  //   const record = await this.createHistoryRecord(runId, config)
+  //
+  //   try {
+  //
+  //     await this._flow.RunPreProcess( config );
+  //
+  //     await backstop('test', { config: config } )
+  //
+  //     try {
+  //       console.log( '[QueueProcessor] `backstop test` command completed' )
+  //
+  //       const report = await engine.getReport( config.paths.json_report )
+  //
+  //       const data = await this.postProcessReport( runId, report, config.paths.json_report )
+  //       // await storage.createReport( this._db, data )
+  //       //
+  //       // record.state = 'Passed';
+  //       // record.finishedAt = new Date();
+  //       // record.scenarios = record.scenarios.map( s => {
+  //       //
+  //       //   let test = report.tests.find( t => t.pair.label === s.label )
+  //       //   if( test ) {
+  //       //     s.status = test.status;
+  //       //   } else {
+  //       //     console.warn( '[QueueProcessor] Cannot find test result for "' + s.label + '" in', report )
+  //       //   }
+  //       //   return s;
+  //       // } );
+  //       //
+  //       // await this.updateScenariosRunStatus( record.scenarios )
+  //       // await storage.updateHistoryRecord( this._db, record._id, storage.convertToObject( record ) )
+  //     }
+  //     catch (err) {
+  //       console.error('[QueueProcessor] Success report processing failed', err)
+  //       throw err;
+  //     }
+  //
+  //     console.log('[QueueProcessor] COMPLETED, PASSED processRun. runId:', runId);
+  //     return runId
+  //   }
+  //   catch (err) {
+  //
+  //     console.error('[QueueProcessor] Error:', err)
+  //     const report = await engine.getReport(config.paths.json_report)
+  //
+  //     const data = await this.postProcessReport(runId, report, config.paths.json_report)
+  //     await storage.createReport(this._db, data)
+  //
+  //     record.state = 'Failed';
+  //     record.finishedAt = new Date();
+  //     record.scenarios = record.scenarios.map( s => {
+  //
+  //       let test = report.tests.find( t => t.pair.label === s.label)
+  //       if (test) {
+  //         s.status = test.status;
+  //       }
+  //       else {
+  //         console.warn('[QueueProcessor] Cannot find rest result for "'+s.label + '" in', report)
+  //       }
+  //       return s;
+  //     });
+  //
+  //     await this.updateScenariosRunStatus(record.scenarios)
+  //     await storage.updateHistoryRecord(
+  //       this._db,
+  //       record._id,
+  //       storage.convertToObject(record))
+  //
+  //     console.log('[QueueProcessor] COMPLETED, NOT PASSED processRun. runId:', runId);
+  //     return runId
+  //   }
+  // }
 
   async processApproveCase (data) {
 
@@ -238,7 +209,8 @@ class QueueProcessor {
         state: 'Approved',
         startedAt: new Date(),
         finishedAt: new Date(),
-        startedBy: this._ctx.user,
+        startedBy: this._ctx.userid,
+        // startedBy: this._ctx.user,
         viewports: [ pair.viewportLabel ],
         scenarios: [{ id: scenario._id.toString(), label: scenario.label }]
       }),
@@ -252,6 +224,71 @@ class QueueProcessor {
     ]);
 
     console.log('[QueueProcessor] COMPLETED processApproveCase. reportId', data.reportId)
+  }
+
+  async createHistoryRecord (runId, config) {
+
+    return await storage.createHistoryRecord(this._db, {
+      state: 'Running',
+      startedAt: new Date(),
+      startedBy: this._ctx.userid,
+      // startedBy: this._ctx.user,
+      viewports: config.viewports.map( x => x.label),
+      scenarios: config.scenarios.map( x => {
+        return {
+          id: x._id.toString(),
+          label: x.label
+        }
+      }),
+      runId
+    });
+  }
+
+  async saveReport (runId, report) {
+
+    /*
+      "runId": "976e9810-4f68-4e29-bcd0-a4565fe058f3"
+
+      "report": {
+        "testSuite": "BackstopJS",
+        "tests": [
+          {
+            "pair": {
+              "reference": "..\\..\\bitmaps_reference\\test-tenant_rakutencojp_0_document_0_800__600.png",
+              "test": "..\\..\\bitmaps_test\\20200829-005505\\test-tenant_rakutencojp_0_document_0_800__600.png",
+              "selector": "document",
+              "fileName": "test-tenant_rakutencojp_0_document_0_800__600.png",
+              "label": "rakuten.co.jp",
+              "misMatchThreshold": 0.1,
+              "url": "https://www.rakuten.co.jp/",
+              "expect": 0,
+              "viewportLabel": "800 × 600",
+              "error": "Reference file not found C:\\Git\\screens.io\\backend\\vrt_data\\test-tenant\\5e9767c2a802d03004b160dc\\bitmaps_reference\\test-tenant_rakutencojp_0_document_0_800__600.png"
+            },
+            "status": "fail"
+          }
+        ]
+      }
+    */
+
+    await storage.createReport( this._db, report );
+
+    let record = await storage.getHistoryRecords(this._db, {runId});
+
+    record.state = 'Passed';
+    record.finishedAt = new Date();
+    record.scenarios = (record.scenarios||[]).map( s => {
+
+      let test = report.tests.find( t => t.pair.label === s.label )
+      if( test ) {
+        s.status = test.status;
+      } else {
+        console.warn( '[QueueProcessor] Cannot find test result for "' + s.label + '" in', report )
+      }
+      return s;
+    } );
+    await this.updateScenariosRunStatus( record.scenarios )
+    await storage.updateHistoryRecord( this._db, record._id, storage.convertToObject( record ) )
   }
 
   async postProcessReport (runId, jsonReport, reportLocation) {

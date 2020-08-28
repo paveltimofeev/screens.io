@@ -6,6 +6,7 @@ import {
     IStorageService,
     IQueueService, IReportReader, Task
 } from './models';
+import { IOutgoingQueueMessage, OutgoingQueueMessage } from './outgoing-queue-message.model';
 
 
 export class TaskProcessor {
@@ -76,10 +77,23 @@ export class TaskProcessor {
             return false;
         }
 
+        const outgoingMessage: IOutgoingQueueMessage = new OutgoingQueueMessage(
+            report.jsonReport,
+            task.message.runId,
+            task.message.ctx.tenant,
+            task.message.ctx.userid
+        );
+
+        if (!outgoingMessage.isValid()) {
+            this._logger.error('Invalid outgoing message', outgoingMessage);
+            return false;
+        }
+
         const sent = await this._queue.sendMessage(
             this._appConfig.outgoingQueue.queueUrl,
-            JSON.stringify(report.jsonReport)
+            JSON.stringify(outgoingMessage)
         );
+
         if (!sent) {
             this._logger.error('Cannot send report to', this._appConfig.outgoingQueue.queueUrl);
             return false;

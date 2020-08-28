@@ -1,6 +1,7 @@
 import { AppFactory } from './app/app-factory';
-import { Task, IIncomingQueueMessage } from './domain/models';
+import { Task } from './domain/models';
 import { TaskProcessor } from './domain/task-processor';
+import { IIncomingQueueMessage } from './domain/incoming-queue-message.model';
 
 const factory = new AppFactory();
 const config = factory.getAppConfig();
@@ -26,9 +27,6 @@ logger.log('watch queue', config.incomingQueue.queueUrl);
 
 const watchLoop = async () => {
 
-    if (x != 0) {
-        return
-    }
     let messages;
 
     try {
@@ -57,9 +55,7 @@ const watchLoop = async () => {
             await processor.run(task);
         }
     }
-    x = 1
 };
-let x = 0;
 
 logger.log('pollingInterval', config.incomingQueue.pollingInterval);
 if (!config.incomingQueue.pollingInterval) {

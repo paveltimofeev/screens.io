@@ -1,3 +1,5 @@
+import { IIncomingQueueMessage } from './incoming-queue-message.model';
+
 export interface IAppConfig {
 
     enableLogging: boolean,
@@ -81,29 +83,6 @@ export interface IConfig {
         ci_report: string,
         json_report: string
     }
-}
-
-export interface IIncomingQueueMessage {
-
-    messageId: string;
-
-    tenantId: string;
-    userId: string;
-    runId: string;
-    config: IConfig;
-
-    ctx?: {
-        tenant: string;
-        userid: string;
-    }
-}
-
-export interface IOutgoingQueueMessage {
-
-    tenantId: string;
-    userId: string;
-    runId: string;
-    report: IReport;
 }
 
 export interface IJsonReport {

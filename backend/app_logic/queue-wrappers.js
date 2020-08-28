@@ -60,15 +60,6 @@ class QueueWrapper {
   }
 }
 
-
-const taskProcessor = async (task) => {
-
-  const {runId, config, ctx} = task;
-
-  const QueueProcessor = require('./queue-processor');
-  await QueueProcessor.create(ctx).processRun(runId, config)
-};
-
 const approveProcessor = async (task) => {
 
   const {data, ctx} = task;
@@ -78,13 +69,44 @@ const approveProcessor = async (task) => {
 };
 
 const resultsProcessor = async (result) => {
-  console.log(`test results ${result.runId}`, result);
 
-  const {runId, config, ctx} = result;
+  /*
+  {
+    "report": {
+      "testSuite": "BackstopJS",
+      "tests": [
+        {
+          "pair": {
+            "reference": "..\\..\\bitmaps_reference\\test-tenant_rakutencojp_0_document_0_800__600.png",
+            "test": "..\\..\\bitmaps_test\\20200829-005505\\test-tenant_rakutencojp_0_document_0_800__600.png",
+            "selector": "document",
+            "fileName": "test-tenant_rakutencojp_0_document_0_800__600.png",
+            "label": "rakuten.co.jp",
+            "misMatchThreshold": 0.1,
+            "url": "https://www.rakuten.co.jp/",
+            "expect": 0,
+            "viewportLabel": "800 × 600",
+            "error": "Reference file not found C:\\Git\\screens.io\\backend\\vrt_data\\test-tenant\\5e9767c2a802d03004b160dc\\bitmaps_reference\\test-tenant_rakutencojp_0_document_0_800__600.png"
+          },
+          "status": "fail"
+        }
+      ]
+    },
+
+    "runId": "976e9810-4f68-4e29-bcd0-a4565fe058f3",
+
+    "ctx": {
+      "tenant": "test-tenant",
+      "userid": "5e9767c2a802d03004b160dc"
+    }
+  }
+  */
+
+  const {runId, report, ctx} = result;
 
   const validate = (param, errMessage) => {
     if( !param ) {
-      console.error( errMessage, result );
+      console.error( `[Results Processor] ERROR: Invalid result message. ${errMessage}`, result );
       return false;
     }
     return true;
@@ -92,18 +114,18 @@ const resultsProcessor = async (result) => {
 
   if (
     !validate(runId, 'No runId') ||
-    !validate(config, 'No runId') ||
+    !validate(report, 'No report') ||
     !validate(ctx, 'No ctx')
   ) {
     return;
   }
 
+  console.log(`[Results Processor] test results. runId="${result.runId}"`, result);
   const QueueProcessor = require('./queue-processor');
-  await QueueProcessor.create(ctx).postProcessReport(runId, config)
+  await QueueProcessor.create(ctx).saveReport(runId, report)
 };
 
 const localApproveQueue = new QueueWrapper(approveProcessor);
-// const localRunQueue = new QueueWrapper(taskProcessor);
 const remoteRunQueue = new RemoteQueueWrapper(null, config.taskQueueUrl);
 const remoteResultsQueue = new RemoteQueueWrapper(resultsProcessor, config.resultsQueueUrl);
 
@@ -117,7 +139,9 @@ const sendToRunQueue = async (task) => {
     throw new Error('Wrong run task');
   }
 
-  // await localRunQueue.push(task);
+  const QueueProcessor = require('./queue-processor');
+  await QueueProcessor.create(ctx).createHistoryRecord(runId, config)
+
   await remoteRunQueue.push(task);
 };
 

@@ -1,6 +1,7 @@
-import { IQueueService, ILogger, IIncomingQueueMessage, IAppConfig } from '../../domain/models';
+import { IQueueService, ILogger, IAppConfig } from '../../domain/models';
 import { safeParse } from '../infratructure/utils';
 import { Message } from 'aws-sdk/clients/sqs';
+import { IIncomingQueueMessage } from '../../domain/incoming-queue-message.model';
 
 
 const AWS = require('aws-sdk');

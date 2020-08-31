@@ -1,4 +1,4 @@
-var { FilePathsService } = require('../app-utils');
+var { FilePathsService } = require('../modules/infrastructure/app-utils');
 
 
 var files = new FilePathsService()

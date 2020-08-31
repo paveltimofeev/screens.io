@@ -5,14 +5,16 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const cors = require('./cors');
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const apiRouter = require('./routes/api');
-const resultsRouter = require('./routes/results');
+const indexRouter = require('./app_logic/modules/routes/index');
+const usersRouter = require('./app_logic/modules/routes/users');
+const apiRouter = require('./app_logic/modules/routes/api');
+const resultsRouter = require('./app_logic/modules/routes/results');
 const mongoose = require('mongoose');
 
-const config = require('./app_logic/configuration');
+// Run Results Queue Watcher
+require('./app_logic/domain/results-watcher');
 
+const config = require('./app_logic/modules/infrastructure/configuration');
 
 let connectToDbRetries = 0;
 let connectToDbRetriesMax = 5;

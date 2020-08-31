@@ -1,33 +1,12 @@
-import { IIncomingQueueMessage, IEngine, IJsonReport, IConfig, ILogger, IAppConfig } from "./models";
-
-
-export interface IInputReader {
-    getTask(): Task;
-}
-export interface IQueueService {
-    sendMessage(queueUri:string, messageBody:string): Promise<boolean>;
-    deleteMessage(queueUri:string, messageHandler:string): Promise<boolean>;
-}
-export interface IStorageService {
-    getReferences(tenantId:string, userId:string, fileUris:string[], targetFolder:string): Promise<string[]>;
-    saveResults(tenantId:string, userId:string, files:IReportFile[], fromFolder: string): Promise<boolean>;
-}
-export interface IReportReader {
-    read(folder:string): Promise<Report>
-}
-export class Task {
-
-    handler: string;
-    message: IIncomingQueueMessage;
-}
-export interface IReportFile {
-    localPath: string;
-    keyPath: string;
-}
-export class Report {
-    jsonReport: IJsonReport;
-    files: IReportFile[];
-}
+import {
+    IEngine,
+    IConfig,
+    ILogger,
+    IAppConfig,
+    IStorageService,
+    IQueueService, IReportReader, Task
+} from './models';
+import { IOutgoingQueueMessage, OutgoingQueueMessage } from './outgoing-queue-message.model';
 
 
 export class TaskProcessor {
@@ -98,10 +77,22 @@ export class TaskProcessor {
             return false;
         }
 
+        const outgoingMessage: IOutgoingQueueMessage = new OutgoingQueueMessage(
+            report.jsonReport,
+            task.message.runId,
+            task.message.ctx
+        );
+
+        if (!outgoingMessage.isValid()) {
+            this._logger.error('Invalid outgoing message', outgoingMessage);
+            return false;
+        }
+
         const sent = await this._queue.sendMessage(
             this._appConfig.outgoingQueue.queueUrl,
-            JSON.stringify(report.jsonReport)
+            JSON.stringify(outgoingMessage)
         );
+
         if (!sent) {
             this._logger.error('Cannot send report to', this._appConfig.outgoingQueue.queueUrl);
             return false;
@@ -109,7 +100,7 @@ export class TaskProcessor {
 
         const deleted = await this._queue.deleteMessage(
             this._appConfig.incomingQueue.queueUrl,
-            task.handler
+            task.message.messageId
         );
         if (!deleted) {
             this._logger.error('Cannot delete task message at', this._appConfig.incomingQueue.queueUrl);

@@ -175,16 +175,21 @@
 -- Proxy: Allow only requests from allowedOrigin (frontend), return 404 to any other as soon as possible to minimize impact.
 -- [Bug] Proxy: User cannot login back, if his session was finished (do not use `cookie.expires` in session opts, have to use maxAge instead of expires)
 -- Frontend: Display 'refresh' button for running job 
+-- [Move to AWS: 5. Split services] Run QueueProcessor as separate processes (Run Worker), `m.b. as separate process watching on SQS (not lambda because it's too large for it, > 200Mb)`
+-- Worker: AWS S3 mode - delete successfully uploaded images from local file system
+-- Worker: read config from WORKER_CONFIG env variable
+-- [Move to AWS: 5. Split services] Backend: Read report from SQS created by Worker and update MongoDb
+-- Fix images path for Comparer Page
 
 
-- [Move to AWS: 5. Lambda preparation - Split services] Run QueueProcessors as separate processes (Run, Approve), `m.b. as a Docker/Lambda?`
+- Fix Approve functionality
+- [Move to AWS: 5. Split services] Worker: spawn separate process for every task
 
 
 TechDept
 - [TechDept] Frontend: Fix filters at Jobs view
 
 BackLog
-- Backend: AWS S3 mode - delete successfully uploaded images from local file system
 - Backend: Use LG images instead of SM/MD just to save CPU, S3 storage, Traffic and speed (do not resize to sm/md, do not upload/download them, save LG ling into the SM/MD fields instead).
 - Backend/Beanstalk/PM2: need to limit max CPU usage for backend and proxy, to prevent not responding server - `m.b. run processing as a Docker could help to limit it?`.
 - Frontend: Stats & analytics: Recently failed Job

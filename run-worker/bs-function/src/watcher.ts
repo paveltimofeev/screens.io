@@ -1,19 +1,11 @@
 import { AppFactory } from './app/app-factory';
-import { Logger } from './infrastructure/logger';
-import { ConfigurationService } from './app/configuration-service';
-import { TestWorker } from './domain/worker';
-import { IIncomingQueueMessage } from './domain/models';
-import { Task, TaskProcessor } from './domain/task-processor';
-
-const logger = new Logger('Watcher');
-const config = ConfigurationService.getAppConfig();
+import { Task } from './domain/models';
+import { TaskProcessor } from './domain/task-processor';
+import { IIncomingQueueMessage } from './domain/incoming-queue-message.model';
 
 const factory = new AppFactory();
-const queue = factory.createQueueAdapter();
-const worker = new TestWorker(factory);
-
-logger.log('watch queue');
-
+const config = factory.getAppConfig();
+const logger = factory.createLogger('Watcher');
 const storageService = factory.createStorageService();
 const engine = factory.createEngine();
 const reportReader = factory.createReportReader();
@@ -30,9 +22,23 @@ const processor = new TaskProcessor(
     taskProcessorLogger
 );
 
-const watch = async () => {
 
-    let messages = await queue.receiveMessages();
+logger.log('watch queue', config.incomingQueue.queueUrl);
+
+const watchLoop = async () => {
+
+    let messages;
+
+    try {
+        messages = await queueService.receiveMessages(config.incomingQueue.queueUrl);
+    }
+    catch (err) {
+
+        if (err.code === 'AWS.SimpleQueueService.NonExistentQueue') {
+            logger.error(err.message, err);
+        }
+        return;
+    }
 
     if (messages.length > 0) {
 
@@ -40,24 +46,21 @@ const watch = async () => {
 
         for (let i = 0; i < messages.length; i++) {
 
-            const incomingMessage: IIncomingQueueMessage = messages[0].body;
-            const queueMessageHandle: string = messages[i].handle;
+            const incomingMessage: IIncomingQueueMessage = messages[0];
 
-            logger.log('message', incomingMessage.runId);
+            logger.log('Job runId', incomingMessage.runId);
 
             const task = new Task();
-            task.handler = queueMessageHandle;
             task.message = incomingMessage;
             await processor.run(task);
-
-
-            // Start child process through semaphore
-            // const outgoingMessage = await worker.run(incomingMessage);
-            // await queue.deleteMessage(queueMessageHandle);
-            // const result = await queue.sendMessage(outgoingMessage);
-            // logger.log('done. runId', outgoingMessage.runId)
         }
     }
 };
 
-setInterval(watch, config.incomingQueue.pollingInterval);
+logger.log('pollingInterval', config.incomingQueue.pollingInterval);
+if (!config.incomingQueue.pollingInterval) {
+    logger.error('incomingQueue.pollingInterval is undefined');
+    process.exit(1);
+}
+
+setInterval(watchLoop, config.incomingQueue.pollingInterval);

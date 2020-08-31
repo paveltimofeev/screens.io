@@ -25,15 +25,17 @@ export class ReportReader implements IReportReader {
         jsonReport.tests
             .forEach(x => {
 
+                // TODO: should we place tenant/user info into the path?
+                //  Or we can be tenant agnostic here?
+                resultFiles.push( path.resolve(path.join(folder, x.pair.test)) );
                 x.pair.test = path.relative(path.join(folder, '..', '..', '..', '..'), path.join(folder, x.pair.test) );
                 x.pair.meta_testLG = x.pair.test;
-                resultFiles.push( path.resolve(path.join(folder, x.pair.test)) );
 
                 if (x.pair.diffImage) {
 
+                    resultFiles.push( path.resolve(path.join(folder, x.pair.diffImage)) );
                     x.pair.diffImage = path.relative(path.join(folder, '..', '..', '..', '..'), path.join(folder, x.pair.diffImage) );
                     x.pair.meta_diffImageLG = x.pair.diffImage;
-                    resultFiles.push( path.resolve(path.join(folder, x.pair.diffImage)) );
                 }
             });
 

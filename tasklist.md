@@ -178,8 +178,10 @@
 -- [Move to AWS: 5. Split services] Run QueueProcessor as separate processes (Run Worker), `m.b. as separate process watching on SQS (not lambda because it's too large for it, > 200Mb)`
 -- Worker: AWS S3 mode - delete successfully uploaded images from local file system
 -- Worker: read config from WORKER_CONFIG env variable
+-- [Move to AWS: 5. Split services] Backend: Read report from SQS created by Worker and update MongoDb
+-- Fix images path for Comparer Page
 
-- [Move to AWS: 5. Split services] Backend: Read report from SQS created by Worker and update MongoDb
+
 - [Move to AWS: 5. Split services] Worker: spawn separate process for every task
 
 

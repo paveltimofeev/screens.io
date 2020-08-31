@@ -37,7 +37,7 @@ queueWatcher.watch(5000, async (result) => {
   console.log(`[QueueWatcher handler] test results. runId="${result.runId}"`, result);
 
   const vrt = VRT.create(ctx);
-  const reportItem = await vrt.createReport({...report, runId});
+  const reportItem = await vrt.createReport( {runId, ...report} );
   console.log(`[QueueWatcher handler] report has been recorded`, reportItem);
 
   const historyRecords = await vrt.getHistoryRecords({ runId: runId, state: 'Running' }, 1);

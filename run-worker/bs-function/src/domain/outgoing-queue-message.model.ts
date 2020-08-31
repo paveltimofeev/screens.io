@@ -7,6 +7,7 @@ export interface IOutgoingQueueMessage {
     ctx: {
         tenant: string;
         userid: string;
+        user: string;
     };
 
     isValid () : boolean;
@@ -16,16 +17,13 @@ export class OutgoingQueueMessage implements IOutgoingQueueMessage {
 
     readonly report: IReport;
     readonly runId: string;
-    readonly ctx: { tenant: string; userid: string };
+    readonly ctx: { tenant: string; userid: string; user: string };
 
-    constructor (_report: IReport, _runId: string, _tenant: string, _userid: string) {
+    constructor (_report: IReport, _runId: string, _ctx: { tenant: string; userid: string; user: string }) {
 
         this.report = _report;
         this.runId = _runId;
-        this.ctx = {
-            tenant: _tenant,
-            userid: _userid
-        }
+        this.ctx = _ctx;
     }
 
     isValid () : boolean {
@@ -38,6 +36,7 @@ export class OutgoingQueueMessage implements IOutgoingQueueMessage {
         return notEmptyString( this.runId) &&
             notEmptyString( this.ctx.tenant) &&
             notEmptyString( this.ctx.userid ) &&
+            notEmptyString( this.ctx.user ) &&
             this.report != null;
     }
 }

@@ -1,15 +1,18 @@
 var path = require('path');
-const storage = new (require('../modules/storage/storage-adapter'));
-const { EngineAdapter } = require('../modules/engine/engine-adapter');
-const queues = require('./queue-wrappers');
-const rules =  require('../modules/storage/query-rules');
+const config = require('../modules/infrastructure/configuration');
 const appUtils = require('../modules/infrastructure/app-utils');
 
+const storage = new (require('../modules/storage/storage-adapter'));
+const rules =  require('../modules/storage/query-rules');
+
+const { EngineAdapter } = require('../modules/engine/engine-adapter');
 const engine = new EngineAdapter();
 
-const config = require('../modules/infrastructure/configuration');
 const { QueueAdapter } = require('../modules/aws/queue-adapter');
 const tasksQueue = new QueueAdapter(config.taskQueueUrl);
+
+const queues = require('./queue-wrappers');
+
 
 class VRT {
 
@@ -46,7 +49,7 @@ class VRT {
             if (!ctx[name]) {
 
                 console.error(`No ${name} in request context`, ctx)
-                var err = new Error('Bad request. Not valid context.')
+                var err = new Error(`Bad request. Not valid context. No ${name} in request context`);
                 err.status = 400
                 throw err;
             }
@@ -55,7 +58,6 @@ class VRT {
         validateParams('user');
         validateParams('tenant');
         validateParams('userid');
-        validateParams('user');
 
         return new VRT(ctx.tenant, ctx.userid, ctx.userid, ctx.user)
     }
@@ -276,6 +278,10 @@ class VRT {
 
         await storage.createHistoryRecord(this._db, data);
     }
+    async updateHistoryRecord (id, data) {
+
+        await storage.updateHistoryRecord(this._db, id, data);
+    }
     async deleteHistoryRecord (id) {
         return await storage.deleteHistoryRecord(this._db, id)
     }
@@ -324,6 +330,22 @@ class VRT {
         appUtils.validateScenario(data);
         return await storage.updateScenario(this._db, id, data)
     }
+    async updateScenariosRunStatus (scenarios) {
+
+        await scenarios
+          .filter(appUtils.uniqueOnly)
+          .filter(appUtils.skipPassedIfHasFailed)
+          .forEach(async scenario => {
+
+              console.log('[VRT] updateScenariosRunStatus', scenario.label, scenario.status)
+
+              await storage.updateScenarioByLabel(
+                this._db,
+                scenario.label,
+                { meta_recentRunStatus: scenario.status }
+              )
+          })
+    }
     async deleteScenario (id) {
         return await storage.deleteScenario(this._db, id)
     }
@@ -361,6 +383,10 @@ class VRT {
     }
     async deleteViewport (id) {
         return await storage.deleteViewport(this._db, id)
+    }
+
+    async createReport(report) {
+        await storage.createReport(this._db, report);
     }
 }
 

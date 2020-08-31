@@ -80,8 +80,7 @@ export class TaskProcessor {
         const outgoingMessage: IOutgoingQueueMessage = new OutgoingQueueMessage(
             report.jsonReport,
             task.message.runId,
-            task.message.ctx.tenant,
-            task.message.ctx.userid
+            task.message.ctx
         );
 
         if (!outgoingMessage.isValid()) {

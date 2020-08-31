@@ -1,6 +1,7 @@
 const config = require('../modules/infrastructure/configuration');
 const { QueueAdapter } = require('../modules/aws/queue-adapter');
 const { QueueWatcher } = require('../modules/aws/queue-watcher');
+const VRT = require('./vrt');
 
 const resultsQueue = new QueueAdapter(config.resultsQueueUrl);
 const queueWatcher = new QueueWatcher(resultsQueue);
@@ -10,6 +11,7 @@ queueWatcher.watch(5000, async (result) => {
   // result.runId
   // result.ctx.tenant
   // result.ctx.userid
+  // result.ctx.user
 
   console.log(`[QueueWatcher handler] receive message`, result.runId);
   console.log(`[QueueWatcher handler] message ctx`, result.ctx);
@@ -18,7 +20,7 @@ queueWatcher.watch(5000, async (result) => {
 
   const validate = (param, errMessage) => {
     if( !param ) {
-      console.error( `[Results Processor] ERROR: Invalid result message. ${errMessage}`, result );
+      console.error( `[QueueWatcher handler] ERROR: Invalid result message. ${errMessage}`, result );
       return false;
     }
     return true;
@@ -32,10 +34,32 @@ queueWatcher.watch(5000, async (result) => {
     return;
   }
 
-  console.log(`[Results Processor] test results. runId="${result.runId}"`, result);
+  console.log(`[QueueWatcher handler] test results. runId="${result.runId}"`, result);
 
-  const QueueProcessor = require('./queue-processor');
-  await QueueProcessor.create(ctx).saveReport(runId, report)
+  const vrt = VRT.create(ctx);
+  const reportItem = await vrt.createReport(report);
+  console.log(`[QueueWatcher handler] report has been recorded`, reportItem);
+
+  const historyRecords = await vrt.getHistoryRecords({ runId: runId, state: 'Running' }, 1);
+  console.log(`[QueueWatcher handler] history record for update`, historyRecords);
+
+  const historyRecord = historyRecords[0];
+
+  historyRecord.state = 'Passed';
+  historyRecord.finishedAt = new Date();
+  historyRecord.scenarios = historyRecord.scenarios.map( s => {
+
+    let test = report.tests.find( t => t.pair.label === s.label );
+    if( test ) {
+      s.status = test.status;
+    }
+    else {
+      console.warn( '[QueueWatcher handler] Cannot find test result for "' + s.label + '" in', report )
+    }
+    return s;
+  } );
+
+  await vrt.updateHistoryRecord(historyRecord._id, historyRecord);
 
 
   /*

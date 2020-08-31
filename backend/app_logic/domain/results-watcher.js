@@ -45,7 +45,7 @@ queueWatcher.watch(5000, async (result) => {
 
   const historyRecord = historyRecords[0];
 
-  historyRecord.state = 'Passed';
+  historyRecord.state = report.tests.every(x => x === 'pass') ? 'Passed' : 'Failed';
   historyRecord.finishedAt = new Date();
   historyRecord.scenarios = historyRecord.scenarios.map( s => {
 

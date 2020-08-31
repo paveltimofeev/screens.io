@@ -1,6 +1,6 @@
 var assert = require('assert');
 
-const { JsonReportAdapter } = require('../app_logic/engine-adapter')
+const { JsonReportAdapter } = require('../app_logic/modules/engine/engine-adapter')
 
 
 describe('AppLogic', function () {

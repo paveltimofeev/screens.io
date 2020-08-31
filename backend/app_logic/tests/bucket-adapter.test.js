@@ -1,4 +1,4 @@
-const bucketAdaper = require('../bucket-adapter');
+const bucketAdaper = require('../modules/aws/bucket-adapter');
 
 const task = {
   file: '../vrt_data/test-tenant/5efdff882670d284bcde2a28/bitmaps_test/20200706-113121/test.jpg',

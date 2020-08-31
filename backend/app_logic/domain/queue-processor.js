@@ -1,28 +1,22 @@
-// const backstop = require('backstopjs');
-
-const storage = new (require('../storage/storage-adapter'));
-const appUtils = require('./app-utils');
-const { EngineAdapter, JsonReportAdapter } = require('./engine-adapter');
-const { FilePathsService } = require('./app-utils');
-// const { BucketAdapter } = require('./bucket-adapter');
-const imageProcessor = require('./image-processor');
+const storage = new (require('../modules/storage/storage-adapter'));
+const appUtils = require('../modules/infrastructure/app-utils');
+const { EngineAdapter, JsonReportAdapter } = require('../modules/engine/engine-adapter');
+const { FilePathsService } = require('../modules/infrastructure/app-utils');
+const imageProcessor = require('../image-processor');
 
 const path = require('path');
 const fs = require('fs');
 const { promisify } = require('util');
 const exists = promisify(fs.exists);
 const copyFile = promisify(fs.copyFile);
-// const writeFile = promisify(fs.writeFile);
 
 const mkdir = promisify(fs.mkdir);
 
-// const engine = new EngineAdapter();
-// const bucketAdapter = new BucketAdapter('vrtdata', new FilePathsService());
 const filePathsService = new FilePathsService();
 
-const config = require('./configuration');
-console.log('[QueueProcessor] Loading module', './media_storage_strategies/' + config.mediaStorageStrategy)
-const mediaStorageStrategy = require('./media_storage_strategies/' + config.mediaStorageStrategy);
+const config = require('../modules/infrastructure/configuration');
+console.log('[QueueProcessor] Loading module', '../modules/media_storage_strategies/' + config.mediaStorageStrategy);
+const mediaStorageStrategy = require('../modules/media_storage_strategies/' + config.mediaStorageStrategy);
 
 class QueueProcessor {
 
@@ -226,23 +220,6 @@ class QueueProcessor {
     console.log('[QueueProcessor] COMPLETED processApproveCase. reportId', data.reportId)
   }
 
-  async createHistoryRecord (runId, config) {
-
-    return await storage.createHistoryRecord(this._db, {
-      state: 'Running',
-      startedAt: new Date(),
-      startedBy: this._ctx.userid,
-      // startedBy: this._ctx.user,
-      viewports: config.viewports.map( x => x.label),
-      scenarios: config.scenarios.map( x => {
-        return {
-          id: x._id.toString(),
-          label: x.label
-        }
-      }),
-      runId
-    });
-  }
 
   async saveReport (runId, report) {
 

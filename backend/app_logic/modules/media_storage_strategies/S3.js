@@ -1,8 +1,8 @@
 console.log('[Media Storage] Init S3 Strategy');
 
 const path = require('path');
-const { FilePathsService } = require('../app-utils');
-const { BucketAdapter } = require('../bucket-adapter');
+const { FilePathsService } = require('../infrastructure/app-utils');
+const { BucketAdapter } = require('../aws/bucket-adapter');
 
 
 class S3Flow {

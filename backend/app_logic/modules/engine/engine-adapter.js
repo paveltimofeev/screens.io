@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { promisify } = require('util');
 const path = require('path');
-const appUtils = require('./app-utils');
+const appUtils = require('../infrastructure/app-utils');
 const readFile = promisify(fs.readFile);
 
 const filePathsService = new appUtils.FilePathsService();

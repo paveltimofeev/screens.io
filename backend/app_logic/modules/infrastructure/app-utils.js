@@ -1,6 +1,6 @@
 const path = require('path');
 const config = require('./configuration');
-const { UIError } = require('../ui-error');
+const { UIError } = require('./ui-error');
 
 
 const uuidv4 = () => {

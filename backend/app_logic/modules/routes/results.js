@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var vrt = require('../app_logic/vrt');
+var vrt = require('../../domain/vrt');
 
 router.get('/:jobId', function(req, res, next) {
 

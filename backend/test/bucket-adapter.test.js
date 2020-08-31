@@ -2,8 +2,8 @@ const assert = require('assert');
 const sinon = require('sinon');
 
 const sandbox = sinon.createSandbox();
-const { FilePathsService } = require('../app_logic/app-utils');
-const { BucketAdapter } = require('../app_logic/bucket-adapter');
+const { FilePathsService } = require('../app_logic/modules/infrastructure/app-utils');
+const { BucketAdapter } = require('../app_logic/modules/aws/bucket-adapter');
 
 
 describe('BucketAdapter', function () {

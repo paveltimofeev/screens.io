@@ -1,11 +1,15 @@
 var path = require('path');
-const storage = new (require('../storage/storage-adapter'));
-const { EngineAdapter } = require('./engine-adapter');
+const storage = new (require('../modules/storage/storage-adapter'));
+const { EngineAdapter } = require('../modules/engine/engine-adapter');
 const queues = require('./queue-wrappers');
-const rules =  require('../storage/query-rules');
-const appUtils = require('./app-utils');
+const rules =  require('../modules/storage/query-rules');
+const appUtils = require('../modules/infrastructure/app-utils');
 
 const engine = new EngineAdapter();
+
+const config = require('../modules/infrastructure/configuration');
+const { QueueAdapter } = require('../modules/aws/queue-adapter');
+const tasksQueue = new QueueAdapter(config.taskQueueUrl);
 
 class VRT {
 
@@ -56,7 +60,6 @@ class VRT {
         return new VRT(ctx.tenant, ctx.userid, ctx.userid, ctx.user)
     }
 
-    /// shared?
     async getConfig( scenariosQuery, viewportsQuery ) {
 
         const viewports = await storage.getViewports(this._db, viewportsQuery || { enabled:true })
@@ -70,8 +73,6 @@ class VRT {
         );
     }
 
-
-    /// API
 
     async initializeUser () {
 
@@ -117,9 +118,24 @@ class VRT {
         config.paths.json_report = path.join(
           config.paths.json_report,
           runId
-        )
+        );
 
-        await queues.sendToRunQueue({
+        const historyRecord = {
+            state: 'Running',
+            startedAt: new Date(),
+            startedBy: this._user,
+            viewports: config.viewports.map( x => x.label),
+            scenarios: config.scenarios.map( x => {
+                return {
+                    id: x._id.toString(),
+                    label: x.label
+                }
+            }),
+            runId
+        };
+        await this.createHistoryRecord(historyRecord);
+
+        const task = {
             runId,
             config,
             ctx: {
@@ -127,7 +143,8 @@ class VRT {
                 tenant: this._tenantId,
                 userid: this._userId
             }
-        });
+        };
+        await tasksQueue.push(task);
 
         return {
             enqueuedSuccessfully: true,
@@ -163,11 +180,7 @@ class VRT {
 
     async getReportByRunId (runId) {
 
-        const report = await storage.getReportByRunId(this._db, runId)
-        //? const config = await this.getConfig();
-        //? engine.convertReportPath(config.paths, runId, report)
-
-        return report
+        return await storage.getReportByRunId(this._db, runId)
     }
 
     /// filter: {state, startedBy, startedSince}
@@ -212,7 +225,7 @@ class VRT {
         return await storage.getHistoryRecords(this._db, query, limit)
     }
     async getRecentlyFailedJob() {
-        
+
         const records = await this.getHistoryRecords( {state: 'Failed'}, 1);
 
         if (!records || records.length < 1 || !records[0].scenarios) {
@@ -258,6 +271,10 @@ class VRT {
           )
 
         return history;
+    }
+    async createHistoryRecord (data) {
+
+        await storage.createHistoryRecord(this._db, data);
     }
     async deleteHistoryRecord (id) {
         return await storage.deleteHistoryRecord(this._db, id)

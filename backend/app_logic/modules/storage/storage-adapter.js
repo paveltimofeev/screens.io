@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
-const { recordSchema } = require('../models/history-record')
-const { scenarioSchema } = require('../models/scenario')
-const { viewportSchema } = require('../models/viewport')
-const { reportSchema } = require('../models/report')
-const { UIError } = require('../ui-error')
-const config = require('./../app_logic/configuration');
+const { recordSchema } = require('./models/history-record')
+const { scenarioSchema } = require('./models/scenario')
+const { viewportSchema } = require('./models/viewport')
+const { reportSchema } = require('./models/report')
+const { UIError } = require('../infrastructure/ui-error')
+const config = require('../infrastructure/configuration');
 
 class Storage {
 

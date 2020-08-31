@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const VRT = require('../app_logic/vrt');
+const VRT = require('../../domain/vrt');
 
 const tryWrapper = async (req, res, action) => {
 

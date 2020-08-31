@@ -182,6 +182,7 @@
 -- Fix images path for Comparer Page
 
 
+- Fix Approve functionality
 - [Move to AWS: 5. Split services] Worker: spawn separate process for every task
 
 

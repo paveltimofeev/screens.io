@@ -19,22 +19,27 @@ export class ReportReader implements IReportReader {
         const reportPath = path.join(folder, 'jsonReport.json');
 
         const jsonReport = await this.getReport(reportPath);
-        const resultFiles = jsonReport.tests
-            .map( x => {
 
-                return [
-                    path.resolve(path.join(folder, x.pair.test)),
-                    x.pair.diffImage ?
-                        path.resolve(path.join(folder, x.pair.diffImage)):
-                        undefined
-                ];
+        let resultFiles:string[] = [];
+
+        jsonReport.tests
+            .forEach(x => {
+
+                x.pair.test = path.relative(path.join(folder, '..', '..', '..', '..'), path.join(folder, x.pair.test) );
+                x.pair.meta_testLG = x.pair.test;
+                resultFiles.push( path.resolve(path.join(folder, x.pair.test)) );
+
+                if (x.pair.diffImage) {
+
+                    x.pair.diffImage = path.relative(path.join(folder, '..', '..', '..', '..'), path.join(folder, x.pair.diffImage) );
+                    x.pair.meta_diffImageLG = x.pair.diffImage;
+                    resultFiles.push( path.resolve(path.join(folder, x.pair.diffImage)) );
+                }
             });
 
         let report = new Report();
         report.jsonReport = jsonReport;
         report.files = resultFiles
-            .reduce( (a,b) => a.concat(b) ) // flat
-            .filter(Boolean)                // skip empty
             .map( x => {
                     return {
                         localPath: x,

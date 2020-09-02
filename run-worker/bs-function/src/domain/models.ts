@@ -1,5 +1,3 @@
-import { IIncomingQueueMessage } from './incoming-queue-message.model';
-
 export interface IAppConfig {
 
     enableLogging: boolean,
@@ -160,6 +158,19 @@ export interface ILogger {
 
 export interface IInputReader {
     getTask(): Task;
+}
+
+export interface IIncomingQueueMessage {
+
+    config: IConfig;
+
+    messageId: string;
+    runId: string;
+    ctx: {
+        tenant: string;
+        userid: string;
+        user: string;
+    }
 }
 
 export interface IQueueService {

@@ -1,7 +1,6 @@
 import { AppFactory } from './app/app-factory';
-import { Task } from './domain/models';
+import { IIncomingQueueMessage, Task } from './domain/models';
 import { TaskProcessor } from './domain/task-processor';
-import { IIncomingQueueMessage } from './domain/incoming-queue-message.model';
 
 const factory = new AppFactory();
 const config = factory.getAppConfig();

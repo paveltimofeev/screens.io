@@ -1,5 +1,5 @@
-import { IAppConfig, IQueueService, IStorageService } from '../../domain/models';
-import { ILogger } from '../../domain/models';
+import { IAppConfig, IQueueService, IStorageService, ILogger } from '../../domain/models';
+
 import { StorageService } from './storage.service';
 import { QueueService } from './queue.service';
 

@@ -1,5 +1,4 @@
-import { IAppConfig, IEngine, ILogger } from '../domain/models';
-import { IStorageService, IQueueService, IReportReader } from '../domain/models';
+import { IAppConfig, IEngine, ILogger, IStorageService, IQueueService, IReportReader } from '../domain/models';
 
 import { AwsFactory } from '../modules/aws/aws-factory';
 
